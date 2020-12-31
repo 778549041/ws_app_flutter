@@ -125,7 +125,9 @@ class LoginController extends BaseController {
   }
 
   //忘记密码
-  void forgetPwdAction() {}
+  void forgetPwdAction() {
+    Get.toNamed(AppPages.CHANGEPWD);
+  }
 
   //登录
   void loginAction() {
@@ -170,7 +172,7 @@ class LoginController extends BaseController {
           Get.find<UserController>().getUserInfo();
           if (obj.data.firstLogin) {
             //首次登录即注册,完善信息
-
+            Get.toNamed(AppPages.COMPLETEINFO);
           } else {
             Get.offNamed(AppPages.HOME);
           }
@@ -222,6 +224,7 @@ class LoginController extends BaseController {
                     }
                   } else {
                     //微信未被使用,绑定手机号
+                    Get.toNamed(AppPages.BINDPHONE);
                   }
                 } else {
                   //已绑定
@@ -264,7 +267,7 @@ class LoginController extends BaseController {
                 } else {
                   if (obj.code == 1001) {
                     //绑定手机号
-                    Fluttertoast.showToast(msg: obj.message);
+                    Get.toNamed(AppPages.BINDPHONE);
                   } else {
                     Fluttertoast.showToast(msg: obj.message);
                   }
