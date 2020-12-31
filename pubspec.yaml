@@ -1,0 +1,124 @@
+name: ws_app_flutter
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+
+  #Get 状态管理，路由，依赖管理，国际化以及主题变更
+  get: ^3.22.2
+  #网络请求
+  dio: ^3.0.10
+  #本地数据存储
+  shared_preferences: ^0.5.12+4
+  #权限申请
+  permission_handler: ^5.0.1+1
+  #包信息
+  package_info: ^0.4.3+2
+  #设备信息
+  device_info: ^1.0.0
+  #Dart 常用工具类库 https://github.com/Sky24n/common_utils
+  common_utils: ^1.2.1
+  #Flutter 常用工具类库 https://github.com/Sky24n/flustars
+  flustars: ^0.3.3
+  #网络监测
+  connectivity: ^2.0.2
+  #uuid
+  uuid: ^2.2.2
+
+  #官方webview插件
+  webview_flutter: ^1.0.7
+  #loading组件
+  flutter_spinkit: ^4.1.2+1
+  #toast提示
+  fluttertoast: ^7.1.4
+  #网络图片加载组件 类似SDWebImage
+  cached_network_image: ^2.3.3
+  #上下拉刷新
+  pull_to_refresh: ^1.6.3
+  #轮播图
+  flutter_swiper: ^1.1.6
+  # 类iOS侧滑菜单
+  flutter_slidable: ^0.5.7
+  # 谁用谁闪亮
+  shimmer: ^1.1.2
+  #城市选择器
+  city_pickers: ^0.2.0
+  #图片选择器
+  image_picker: ^0.6.7+14
+
+  #打开第三方应用
+  url_launcher: ^5.7.10
+  #分享
+  sharesdk_plugin: ^1.2.8
+  #扫码
+  flutter_qr_reader: ^1.0.3
+  #极光推送
+  jpush_flutter: ^0.6.1
+  #高德地图
+  amap_map_fluttify: ^0.30.1
+  amap_search_fluttify: ^0.16.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/images/login/
+    - assets/static/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

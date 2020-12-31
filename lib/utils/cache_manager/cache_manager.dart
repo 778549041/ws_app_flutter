@@ -1,0 +1,95 @@
+import 'dart:io';
+
+import 'package:common_utils/common_utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path_provider/path_provider.dart';
+class CacheManager {
+  ///加载缓存
+  Future<String> loadCache() async {
+    try {
+      Directory tempDir = await getTemporaryDirectory();
+      double value = await _getTotalSizeOfFilesInDir(tempDir);
+      /*tempDir.list(followLinks: false,recursive: true).listen((file){
+          //打印每个缓存文件的路径
+        print(file.path);
+      });*/
+      LogUtil.v('临时目录大小: ' + value.toString());
+      return _renderSize(value);
+    } catch (err) {
+      LogUtil.v(err);
+      return '0';
+    }
+  }
+  /// 递归方式 计算文件的大小
+  Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+    try {
+      if (file is File) {
+        int length = await file.length();
+        return double.parse(length.toString());
+      }
+      if (file is Directory) {
+        final List<FileSystemEntity> children = file.listSync();
+        double total = 0;
+        if (children != null)
+          for (final FileSystemEntity child in children)
+            total += await _getTotalSizeOfFilesInDir(child);
+        return total;
+      }
+      return 0;
+    } catch (e) {
+      LogUtil.v(e);
+      return 0;
+    }
+  }
+
+  /// 清理缓存
+  Future<bool> clearCache() async {
+    //此处展示加载loading
+    try {
+      Directory tempDir = await getTemporaryDirectory();
+      //删除缓存目录
+      await _delDir(tempDir);
+      Fluttertoast.showToast(msg: '清除缓存成功');
+      return true;
+    } catch (e) {
+      LogUtil.v(e);
+      Fluttertoast.showToast(msg: '清除缓存失败');
+      return false;
+    } finally {
+      //此处隐藏加载loading
+    }
+  }
+  ///递归方式删除目录
+  Future _delDir(FileSystemEntity file) async {
+    try {
+      if (file is Directory) {
+        final List<FileSystemEntity> children = file.listSync();
+        for (final FileSystemEntity child in children) {
+          await _delDir(child);
+        }
+      }
+      await file.delete();
+    } catch (e) {
+      LogUtil.v(e);
+    }
+  }
+
+  ///格式化文件大小
+  _renderSize(double value) {
+    if (null == value) {
+      return 0;
+    }
+    List<String> unitArr = List()
+      ..add('B')
+      ..add('K')
+      ..add('M')
+      ..add('G');
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    return size + unitArr[index];
+  }
+}
