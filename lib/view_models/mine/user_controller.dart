@@ -24,6 +24,10 @@ class UserController extends BaseController {
       success: (UserInfo user) {
         userInfo.value = user;
         isLogin.value = (user.member != null);
+        if (!isLogin.value) {
+          //没有查到用户信息跳转到登录页面
+          Get.offAllNamed(AppPages.LOGIN);
+        }
       },
     );
   }

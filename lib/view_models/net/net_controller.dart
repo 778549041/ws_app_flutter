@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
 
 class NetConnectController extends BaseController {
   var currentIndex = 0.obs;
@@ -112,6 +113,10 @@ class NetConnectController extends BaseController {
       currentIndex.value = 1;
     }
     _loadTitle();
+    //设置cookie
+    String cookie =
+        "document.cookie = '_SID=${CommonUtil.sid()}'";
+    webViewController.evaluateJavascript(cookie);
     // _evaluateJavascript();
   }
 

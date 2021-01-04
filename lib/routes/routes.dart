@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/view_models/login/login_controller.dart';
+import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
 import 'package:ws_app_flutter/views/login/complaint_page.dart';
@@ -22,34 +24,46 @@ class AppPages {
   static final pages = [
     GetPage(
       name: HOME,
+      transition: Transition.rightToLeft,
       page: () => MainTabBarPage(),
     ),
     GetPage(
-      name: WEBVIEW,
-      page: () => WebViewPage(),
-    ),
+        name: WEBVIEW,
+        transition: Transition.rightToLeft,
+        page: () => WebViewPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<NetConnectController>(() => NetConnectController());
+        })),
     GetPage(
-      name: LOGIN,
-      page: () => LoginPage(),
-    ),
+        name: LOGIN,
+        transition: Transition.rightToLeft,
+        page: () => LoginPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<LoginController>(() => LoginController());
+        })),
     GetPage(
       name: CHANGEPWD,
+      transition: Transition.rightToLeft,
       page: () => ChangePwdPage(),
     ),
     GetPage(
       name: BINDPHONE,
+      transition: Transition.rightToLeft,
       page: () => BindPhonePage(),
     ),
     GetPage(
       name: COMPLETEINFO,
+      transition: Transition.rightToLeft,
       page: () => CompleteInfoPage(),
     ),
     GetPage(
       name: CERTIFY,
+      transition: Transition.rightToLeft,
       page: () => CertifyPage(),
     ),
     GetPage(
       name: COMPLAINT,
+      transition: Transition.rightToLeft,
       page: () => ComplaintPage(),
     ),
   ];

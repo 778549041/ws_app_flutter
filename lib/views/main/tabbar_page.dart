@@ -24,18 +24,18 @@ class MainTabBarPageState extends State<MainTabBarPage> {
   ];
 
   List<String> _normalImageName = [
-    'assets/images/tab_wow_normal.png',
-    'assets/images/tab_circle_normal.png',
-    'assets/images/tab_car_normal.png',
-    'assets/images/tab_enjoy_normal.png',
-    'assets/images/tab_mine_normal.png'
+    'assets/images/tabbar/tab_wow_normal.png',
+    'assets/images/tabbar/tab_circle_normal.png',
+    'assets/images/tabbar/tab_car_normal.png',
+    'assets/images/tabbar/tab_enjoy_normal.png',
+    'assets/images/tabbar/tab_mine_normal.png'
   ];
   List<String> _selectedImageName = [
-    'assets/images/tab_wow_selected.png',
-    'assets/images/tab_circle_selected.png',
-    'assets/images/tab_car_selected.png',
-    'assets/images/tab_enjoy_selected.png',
-    'assets/images/tab_mine_selected.png'
+    'assets/images/tabbar/tab_wow_selected.png',
+    'assets/images/tabbar/tab_circle_selected.png',
+    'assets/images/tabbar/tab_car_selected.png',
+    'assets/images/tabbar/tab_enjoy_selected.png',
+    'assets/images/tabbar/tab_mine_selected.png'
   ];
 
   @override

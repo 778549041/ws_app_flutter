@@ -9,16 +9,16 @@ import 'package:ws_app_flutter/widgets/round_avatar.dart';
 
 class SplashPage extends StatelessWidget {
   final List<String> _guideImageList = [
-    'assets/images/wow_guide.jpg',
-    'assets/images/circle_guide.jpg',
-    'assets/images/car_guide.jpg',
-    'assets/images/enjoy_guide.jpg',
-    'assets/images/mine_guide.jpg',
+    'assets/images/guide/wow_guide.jpg',
+    'assets/images/guide/circle_guide.jpg',
+    'assets/images/guide/car_guide.jpg',
+    'assets/images/guide/enjoy_guide.jpg',
+    'assets/images/guide/mine_guide.jpg',
   ];
 
   Widget _buildSplashBg() {
     return Image.asset(
-      'assets/images/launch.png',
+      'assets/images/splash/launch.png',
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.contain,
@@ -125,7 +125,7 @@ class SplashPage extends StatelessWidget {
                                 bottom: 2.0,
                                 right: 2.0,
                                 child: Image.asset(
-                                  'assets/images/vip_tag.png',
+                                  'assets/images/mine/vip_tag.png',
                                   fit: BoxFit.fill,
                                 ),
                               )
@@ -145,7 +145,7 @@ class SplashPage extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               Image.asset(
-                                'assets/images/birth_bg.png',
+                                'assets/images/splash/birth_bg.png',
                                 fit: BoxFit.cover,
                               ),
                             ],

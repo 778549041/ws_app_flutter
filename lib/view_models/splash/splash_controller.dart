@@ -42,12 +42,6 @@ class SplashController extends BaseController {
     }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-    if (_timerUtil != null) _timerUtil.cancel();
-  }
-
   void doCountDown() {
     _timerUtil = TimerUtil(mTotalTime: 3 * 1000);
     _timerUtil.setOnTimerTickCallback((int tick) {

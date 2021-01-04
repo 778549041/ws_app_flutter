@@ -43,12 +43,6 @@ class LoginController extends BaseController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    if (_timerUtil != null) _timerUtil.cancel();
-    super.onClose();
-  }
-
   //切换登录方式
   void switchLoginType(int index) {
     Get.focusScope.unfocus();

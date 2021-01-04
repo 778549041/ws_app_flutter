@@ -13,7 +13,7 @@ class RoundAvatar extends StatelessWidget {
     this.height = 60.0,
     this.borderWidth = 2.0,
     this.borderColor = Colors.white,
-    this.placeHolder = 'assets/images/ic_people.png',
+    this.placeHolder = 'assets/images/mine/ic_people.png',
     @required this.imageUrl,
     this.onPressed,
   });
