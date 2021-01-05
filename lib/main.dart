@@ -5,6 +5,7 @@ import 'package:ws_app_flutter/global/global.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/routes.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';
 
 void main() => Global.globalInit().then((value) => runApp(MyApp()));
@@ -17,10 +18,16 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    Get.put<UserController>(UserController());
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
+        defaultTransition: Transition.rightToLeft,
+        initialBinding: BindingsBuilder(
+          () => {
+            Get.lazyPut<UserController>(() => UserController()),
+            Get.lazyPut<SplashController>(() => SplashController())
+          },
+        ),
         home: SplashPage(),
         getPages: AppPages.pages,
         builder: (context, child) {

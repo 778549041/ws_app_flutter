@@ -1,4 +1,5 @@
 import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/login_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
@@ -18,6 +19,10 @@ class EntityFactory {
      return LoginModel.fromJson(json) as T;
    } else if (T.toString() == 'ThirdLoginModel') {
      return ThirdLoginModel.fromJson(json) as T;
+   } else if (T.toString() == 'BindModel') {
+     return BindModel.fromJson(json) as T;
+   } else if (T.toString() == 'AppleBindModel') {
+     return AppleBindModel.fromJson(json) as T;
    }
    else {
       return json as T;

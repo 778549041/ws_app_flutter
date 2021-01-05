@@ -14,6 +14,8 @@ class Api {
 //绑定手机号
   static final bindPhoneUrl =
       "index.php/openapi/toauth/callback/wechat_toauth_pam/bind_mobile";
+//苹果登录绑定手机号
+  static final appleBindPhoneUrl = "index.php/m/ios-app_bind.html";
 //极光推送信息上传
   static final jPushInfoUploadUrl = "index.php/m/mileage-addregistration.html";
 //获取用户IM信息

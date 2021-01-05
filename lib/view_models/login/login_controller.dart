@@ -218,7 +218,12 @@ class LoginController extends BaseController {
                     }
                   } else {
                     //微信未被使用,绑定手机号
-                    Get.toNamed(AppPages.BINDPHONE);
+                    Get.toNamed(AppPages.BINDPHONE, arguments: {
+                      "appleLogin": false,
+                      "openid": user['rawData']['openid'],
+                      "memberId": obj.data.memberId,
+                      "unionid": user['rawData']['unionid']
+                    });
                   }
                 } else {
                   //已绑定
@@ -245,41 +250,44 @@ class LoginController extends BaseController {
       return;
     }
     SharesdkPlugin.auth(ShareSDKPlatforms.apple, null,
-            (SSDKResponseState state, Map user, SSDKError error) {
-          if (state == SSDKResponseState.Success) {
-            DioManager().request<CommonModel>(
-              DioManager.POST,
-              Api.appleLoginUrl,
-              params: {
-                'clientUser': user['credential']['uid'],
-                'identityToken': user['credential']['token']
-              },
-              success: (CommonModel obj) {
-                if (obj.result) {
-                  Get.find<UserController>().getUserInfo();
-                  Get.offNamed(AppPages.HOME);
-                } else {
-                  if (obj.code == 1001) {
-                    //绑定手机号
-                    Get.toNamed(AppPages.BINDPHONE);
-                  } else {
-                    Fluttertoast.showToast(msg: obj.message);
-                  }
-                }
-              },
-            );
-          } else {
-            LogUtil.v(error);
-          }
-        });
+        (SSDKResponseState state, Map user, SSDKError error) {
+      if (state == SSDKResponseState.Success) {
+        DioManager().request<CommonModel>(
+          DioManager.POST,
+          Api.appleLoginUrl,
+          params: {
+            'clientUser': user['credential']['uid'],
+            'identityToken': user['credential']['token']
+          },
+          success: (CommonModel obj) {
+            if (obj.result) {
+              Get.find<UserController>().getUserInfo();
+              Get.offNamed(AppPages.HOME);
+            } else {
+              if (obj.code == 1001) {
+                //绑定手机号
+                Get.toNamed(AppPages.BINDPHONE, arguments: {
+                  "appleLogin": true,
+                  "clientUser": user['credential']['uid'],
+                  "identityToken": user['credential']['token'],
+                });
+              } else {
+                Fluttertoast.showToast(msg: obj.message);
+              }
+            }
+          },
+        );
+      } else {
+        LogUtil.v(error);
+      }
+    });
   }
 
   @override
   void pushH5Page({Map<String, dynamic> args}) {
     Get.toNamed(AppPages.WEBVIEW, arguments: args);
-    super.pushH5Page(args:args);
+    super.pushH5Page(args: args);
   }
-  
 
   //倒计时
   void doCountDown() {
