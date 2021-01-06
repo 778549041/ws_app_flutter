@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:common_utils/common_utils.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as gg;
+import 'package:ws_app_flutter/utils/extension/get_extension.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/utils/net_utils/base_entity.dart';
 import 'package:ws_app_flutter/utils/net_utils/entity_factory.dart';
@@ -91,22 +93,28 @@ class DioManager {
   // 请求，返回参数为 T
   /// [method]：请求方法，NWMethod.POST等
   /// [path]：请求地址
+  /// [shouldLoading]：是否显示loading框,默认不显示
+  /// [loadingMessage]：loading信息
   /// [params]：请求参数
   /// [success]：请求成功回调
   /// [error]：请求失败回调
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future request<T>(String method, String path,
-      {Map<String, dynamic> params,
+      {bool shouldLoading = false,
+      String loadingMessage,
+      Map<String, dynamic> params,
       Function(T) success,
       Function(ErrorEntity) error,
       CancelToken cancelToken}) async {
-    
+    //根据外部传入值决定是否显示loading框
+    if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
     try {
       Response response = await dio.request(path,
           data: params,
           options: Options(method: method),
           cancelToken: cancelToken ?? _cancelToken);
-
+      //加载完成隐藏loading框
+      if (shouldLoading) gg.Get.dismiss();
       if (response != null) {
         Map respData;
         if (response.data is Map) {
@@ -120,6 +128,8 @@ class DioManager {
         error(ErrorEntity(code: -1, message: "未知错误"));
       }
     } on DioError catch (e) {
+      //加载失败隐藏loading框
+      if (shouldLoading) gg.Get.dismiss();
       error(createErrorEntity(e));
     }
   }
@@ -127,24 +137,30 @@ class DioManager {
   // 请求，返回参数为 List<T>
   /// [method]：请求方法，NWMethod.POST等
   /// [path]：请求地址
+  /// [shouldLoading]：是否显示loading框,默认不显示
+  /// [loadingMessage]：loading信息
   /// [params]：请求参数
   /// [success]：请求成功回调
   /// [error]：请求失败回调
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future requestList<T>(String method, String path,
-      {Map<String, dynamic> params,
+      {bool shouldLoading = false,
+      String loadingMessage,
+      Map<String, dynamic> params,
       Function(List<T>) success,
       Function(ErrorEntity) error,
       CancelToken cancelToken}) async {
-    
+    //根据外部传入值决定是否显示loading框
+    if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
     try {
       Response response = await dio.request(path,
           queryParameters: params,
           options: Options(method: method),
           cancelToken: cancelToken ?? _cancelToken);
-      
+      //加载完成隐藏loading框
+      if (shouldLoading) gg.Get.dismiss();
       if (response != null) {
-       Map respData;
+        Map respData;
         if (response.data is Map) {
           respData = response.data;
         } else {
@@ -156,6 +172,8 @@ class DioManager {
         error(ErrorEntity(code: -1, message: "未知错误"));
       }
     } on DioError catch (e) {
+      //加载失败隐藏loading框
+      if (shouldLoading) gg.Get.dismiss();
       error(createErrorEntity(e));
     }
   }

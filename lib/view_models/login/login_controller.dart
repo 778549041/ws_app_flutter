@@ -6,7 +6,7 @@ import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/login_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
-import 'package:ws_app_flutter/routes/routes.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
@@ -120,7 +120,7 @@ class LoginController extends BaseController {
 
   //忘记密码
   void forgetPwdAction() {
-    Get.toNamed(AppPages.CHANGEPWD);
+    Get.toNamed(Routes.CHANGEPWD);
   }
 
   //登录
@@ -161,14 +161,14 @@ class LoginController extends BaseController {
       DioManager.POST,
       Api.loginUrl,
       params: _params,
-      success: (LoginModel obj) {
+      success: (LoginModel obj) async {
         if (obj.success != null) {
-          Get.find<UserController>().getUserInfo();
+          await Get.find<UserController>().getUserInfo();
           if (obj.data.firstLogin) {
             //首次登录即注册,完善信息
-            Get.toNamed(AppPages.COMPLETEINFO);
+            Get.toNamed(Routes.COMPLETEINFO);
           } else {
-            Get.offNamed(AppPages.HOME);
+            Get.offNamed(Routes.HOME);
           }
         } else if (obj.error != null || obj.redirect == '1002') {
           Fluttertoast.showToast(msg: obj.error);
@@ -208,7 +208,7 @@ class LoginController extends BaseController {
                 'access_token': user['credential']['token'],
                 'openid': user['rawData']['openid']
               },
-              success: (ThirdLoginModel obj) {
+              success: (ThirdLoginModel obj) async {
                 if (obj.data.binding != 'true') {
                   //未绑定
                   if (obj.data.wxUsed) {
@@ -218,7 +218,7 @@ class LoginController extends BaseController {
                     }
                   } else {
                     //微信未被使用,绑定手机号
-                    Get.toNamed(AppPages.BINDPHONE, arguments: {
+                    Get.toNamed(Routes.BINDPHONE, arguments: {
                       "appleLogin": false,
                       "openid": user['rawData']['openid'],
                       "memberId": obj.data.memberId,
@@ -227,8 +227,8 @@ class LoginController extends BaseController {
                   }
                 } else {
                   //已绑定
-                  Get.find<UserController>().getUserInfo();
-                  Get.offNamed(AppPages.HOME);
+                  await Get.find<UserController>().getUserInfo();
+                  Get.offNamed(Routes.HOME);
                 }
               },
             );
@@ -259,14 +259,14 @@ class LoginController extends BaseController {
             'clientUser': user['credential']['uid'],
             'identityToken': user['credential']['token']
           },
-          success: (CommonModel obj) {
+          success: (CommonModel obj) async {
             if (obj.result) {
-              Get.find<UserController>().getUserInfo();
-              Get.offNamed(AppPages.HOME);
+              await Get.find<UserController>().getUserInfo();
+              Get.offNamed(Routes.HOME);
             } else {
               if (obj.code == 1001) {
                 //绑定手机号
-                Get.toNamed(AppPages.BINDPHONE, arguments: {
+                Get.toNamed(Routes.BINDPHONE, arguments: {
                   "appleLogin": true,
                   "clientUser": user['credential']['uid'],
                   "identityToken": user['credential']['token'],
@@ -285,7 +285,7 @@ class LoginController extends BaseController {
 
   @override
   void pushH5Page({Map<String, dynamic> args}) {
-    Get.toNamed(AppPages.WEBVIEW, arguments: args);
+    Get.toNamed(Routes.WEBVIEW, arguments: args);
     super.pushH5Page(args: args);
   }
 

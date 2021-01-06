@@ -3,7 +3,7 @@ import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/global.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/routes/routes.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';

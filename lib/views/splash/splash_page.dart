@@ -125,14 +125,11 @@ class SplashPage extends GetView<SplashController> {
                               () => RoundAvatar(
                                 height: 90,
                                 borderWidth: 3,
-                                imageUrl:
-                                    Get.find<UserController>().isLogin.value
-                                        ? Get.find<UserController>()
-                                            .userInfo
-                                            .value
-                                            .member
-                                            .headImg
-                                        : '',
+                                imageUrl: Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .member
+                                    .headImg ?? '',
                               ),
                             ),
                             Positioned(
@@ -150,13 +147,7 @@ class SplashPage extends GetView<SplashController> {
                       ),
                       Obx(
                         () => Text(
-                          Get.find<UserController>().isLogin.value
-                              ? Get.find<UserController>()
-                                  .userInfo
-                                  .value
-                                  .member
-                                  .name
-                              : '',
+                          Get.find<UserController>().userInfo.value.member.name ?? '',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

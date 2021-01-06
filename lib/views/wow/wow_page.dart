@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/routes/routes.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class WowPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class WowPageState extends State<WowPage> {
             CupertinoButton(
               child: Text('网页'),
               onPressed: () {
-                Get.toNamed(AppPages.WEBVIEW, arguments: {
+                Get.toNamed(Routes.WEBVIEW, arguments: {
                   'url': 'https://www.baidu.com',
                   'hasNav': true
                 });

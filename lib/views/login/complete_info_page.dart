@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/login/complete_info_controller.dart';
-import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/custom_button.dart';
 import 'package:ws_app_flutter/widgets/round_avatar.dart';
 
 class CompleteInfoPage extends GetView<CompleteInfoController> {
   //输入行
-  Widget _buildInputRow(
-      String prefix, String placeholder, TextEditingController controller) {
+  Widget _buildInputRow(String prefix, String placeholder, int index) {
     return Column(
       children: <Widget>[
         Row(
@@ -16,9 +15,14 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
             Text(prefix),
             Expanded(
               child: TextField(
-                controller: controller,
-                style: TextStyle(fontSize: 15, color: Colors.black),
+                controller: index == 0
+                    ? controller.nameController
+                    : controller.professionController,
+                style: TextStyle(fontSize: 15, color: Color(0xFFD6D6D6)),
                 textAlign: TextAlign.end,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(index == 0 ? 15 : 10)
+                ],
                 decoration: InputDecoration(
                   hintText: placeholder,
                   hintStyle: TextStyle(fontSize: 15, color: Color(0xFFD6D6D6)),
@@ -37,10 +41,16 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
   }
 
   //选择行
-  Widget _buildPickerRow(String prefix, String placeholder) {
+  Widget _buildPickerRow(String prefix, int index) {
     return GestureDetector(
       onTap: () {
-        print('-------------');
+        if (index == 1) {
+          controller.selectSex();
+        } else if (index == 2) {
+          controller.selectBirth();
+        } else if (index == 3) {
+          controller.selectAddress();
+        }
       },
       child: Column(
         children: <Widget>[
@@ -50,11 +60,18 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
               children: <Widget>[
                 Text(prefix),
                 Expanded(
-                  child: Text(
-                    placeholder,
-                    textAlign: TextAlign.end,
-                    style: TextStyle(color: Color(0xFFD6D6D6), fontSize: 15),
-                  ),
+                  child: Obx(() => Text(
+                        index == 0
+                            ? controller.phone.value
+                            : index == 1
+                                ? controller.sex.value
+                                : index == 2
+                                    ? controller.birthday.value
+                                    : controller.addr.value,
+                        textAlign: TextAlign.end,
+                        style:
+                            TextStyle(color: Color(0xFFD6D6D6), fontSize: 15),
+                      )),
                 )
               ],
             ),
@@ -96,7 +113,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                 image: 'assets/images/common/right_arrow_white.png',
                 imageH: 30,
                 imageW: 10,
-                onPressed: () {},
+                onPressed: () => controller.jumpToNext(),
               ),
             ),
             Container(
@@ -143,13 +160,8 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                                 height: 90,
                                 borderWidth: 3,
                                 imageUrl:
-                                    Get.find<UserController>().isLogin.value
-                                        ? Get.find<UserController>()
-                                            .userInfo
-                                            .value
-                                            .member
-                                            .headImg
-                                        : '',
+                                    controller.userInfo.value.member.headImg ??
+                                        '',
                               ),
                             ),
                             Positioned(
@@ -173,13 +185,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                         children: <Widget>[
                           Obx(
                             () => Text(
-                              Get.find<UserController>().isLogin.value
-                                  ? Get.find<UserController>()
-                                      .userInfo
-                                      .value
-                                      .member
-                                      .name
-                                  : '',
+                              controller.userInfo.value.member.name ?? '',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 15),
                             ),
@@ -194,13 +200,12 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                       SizedBox(
                         height: 30,
                       ),
-                      _buildInputRow('姓名', '请输入昵称', controller.nameController),
-                      _buildPickerRow('手机号', '188****3739'),
-                      _buildPickerRow('性别', '请选择性别'),
-                      _buildPickerRow('出生日期', '请选择出生日期'),
-                      _buildInputRow(
-                          '职业', '请输入职业', controller.professionController),
-                      _buildPickerRow('所在区域', '请选择现居地'),
+                      _buildInputRow('昵        称', '请输入昵称', 0),
+                      _buildPickerRow('手  机  号', 0),
+                      _buildPickerRow('性        别', 1),
+                      _buildPickerRow('出生日期', 2),
+                      _buildInputRow('职        业', '请输入职业', 1),
+                      _buildPickerRow('现  居  地', 3),
                       SizedBox(
                         height: 30,
                       ),
@@ -211,7 +216,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                         radius: 22,
                         title: '继续完善',
                         titleColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () => controller.nextStep(),
                         fontSize: 20,
                       ),
                       SizedBox(

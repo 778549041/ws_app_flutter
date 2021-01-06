@@ -2,7 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/models/splash/splash_model.dart';
-import 'package:ws_app_flutter/routes/routes.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
@@ -56,9 +56,9 @@ class SplashController extends BaseController {
 
   void goMain() {
     if (Get.find<UserController>().isLogin.value) {
-      Get.offNamed(AppPages.HOME);
+      Get.offNamed(Routes.HOME);
     } else {
-      Get.offNamed(AppPages.LOGIN);
+      Get.offNamed(Routes.LOGIN);
     }
   }
 }

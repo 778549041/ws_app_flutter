@@ -3,11 +3,12 @@ class UserInfo {
   Member member;
   bool memberVip;
 
-  UserInfo({this.huodongData, this.member, this.memberVip});
+  UserInfo({this.huodongData = 0, this.member, this.memberVip = false});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     huodongData = json['huodong_data'];
-    member = json['member'] != null ? Member.fromJson(json['member']) : null;
+    member =
+        json['member'] != null ? Member.fromJson(json['member']) : Member();
     memberVip = json['member_vip'];
   }
 }
@@ -60,51 +61,51 @@ class Member {
   MemberInfo memberInfo;
 
   Member(
-      {this.addr,
-      this.area,
-      this.avatar,
-      this.bDay,
-      this.bMonth,
-      this.bYear,
-      this.binding,
-      this.email,
-      this.experience,
-      this.fCarColor,
-      this.fLicPlate,
-      this.fName,
-      this.fPhoneNum,
-      this.fPurchaseDate,
-      this.fVIN,
-      this.fcreateDate,
-      this.headImg,
-      this.integral,
-      this.interest,
-      this.isDisplay,
-      this.isReceive,
-      this.isVehicle,
-      this.levelname,
-      this.localUname,
-      this.loginAccount,
-      this.lvChannelprice,
-      this.lvDiscount,
-      this.lvIngoreExperience,
-      this.memberCur,
-      this.memberId,
+      {this.addr = '',
+      this.area = '',
+      this.avatar = '',
+      this.bDay = '',
+      this.bMonth = '',
+      this.bYear = '',
+      this.binding = false,
+      this.email = '',
+      this.experience = '',
+      this.fCarColor = '',
+      this.fLicPlate = '',
+      this.fName = '',
+      this.fPhoneNum = '',
+      this.fPurchaseDate = '',
+      this.fVIN = '',
+      this.fcreateDate = '',
+      this.headImg = '',
+      this.integral = '',
+      this.interest = '',
+      this.isDisplay = '',
+      this.isReceive = '',
+      this.isVehicle = '',
+      this.levelname = '',
+      this.localUname = '',
+      this.loginAccount = '',
+      this.lvChannelprice = '',
+      this.lvDiscount = '',
+      this.lvIngoreExperience = '',
+      this.memberCur = '',
+      this.memberId = '',
       this.memberInfo,
-      this.memberLv,
-      this.memberQrcode,
-      this.memberReceive,
-      this.mobile,
-      this.name,
-      this.nextExperience,
-      this.nextLevelname,
-      this.nextLvDiscount,
-      this.openid,
-      this.profession,
-      this.regtime,
-      this.sex,
-      this.uname,
-      this.unionid});
+      this.memberLv = '',
+      this.memberQrcode = '',
+      this.memberReceive = '',
+      this.mobile = '',
+      this.name = '',
+      this.nextExperience = '',
+      this.nextLevelname = '',
+      this.nextLvDiscount = '',
+      this.openid = '',
+      this.profession = '',
+      this.regtime = '',
+      this.sex = '',
+      this.uname = '',
+      this.unionid = ''});
 
   Member.fromJson(Map<String, dynamic> json) {
     addr = json['addr'];
@@ -139,7 +140,7 @@ class Member {
     memberId = json['member_id'];
     memberInfo = json['member_nfo'] != null
         ? MemberInfo.fromJson(json['member_nfo'])
-        : null;
+        : MemberInfo();
     memberLv = json['member_lv'];
     memberQrcode = json['member_qrcode'];
     memberReceive = json['member_receive'];
@@ -171,18 +172,18 @@ class MemberInfo {
   String hrefUrl;
 
   MemberInfo(
-      {this.avatar,
-      this.hrefUrl,
-      this.isEnd,
-      this.isOfficial,
-      this.isSales,
-      this.isVehicle,
-      this.medal,
-      this.memberId,
-      this.memberLv,
-      this.nickname,
-      this.sex,
-      this.userType});
+      {this.avatar = '',
+      this.hrefUrl = '',
+      this.isEnd = '',
+      this.isOfficial = '',
+      this.isSales = '',
+      this.isVehicle = '',
+      this.medal = '',
+      this.memberId = '',
+      this.memberLv = '',
+      this.nickname = '',
+      this.sex = '',
+      this.userType = ''});
 
   MemberInfo.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];

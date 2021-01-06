@@ -70,6 +70,9 @@ dependencies:
   city_pickers: ^0.2.0
   #图片选择器
   image_picker: ^0.6.7+14
+  #选择器
+  flutter_cupertino_data_picker: ^0.8.6
+  flutter_cupertino_date_picker: ^1.0.26+2
 
   #打开第三方应用
   url_launcher: ^5.7.10

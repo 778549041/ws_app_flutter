@@ -1,13 +1,13 @@
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
-import 'package:ws_app_flutter/routes/routes.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:get/get.dart';
 
 class UserController extends BaseController {
-  var userInfo = UserInfo().obs; //用户信息
+  var userInfo = UserInfo(member: Member(memberInfo:MemberInfo())).obs; //用户信息
   var isLogin = false.obs; //是否登录
 
   @override
@@ -17,13 +17,13 @@ class UserController extends BaseController {
   }
 
   //获取用户信息
-  void getUserInfo() {
-    DioManager().request<UserInfo>(
+  Future getUserInfo() {
+    return DioManager().request<UserInfo>(
       DioManager.POST,
       Api.userInfoUrl,
       success: (UserInfo user) {
         userInfo.value = user;
-        isLogin.value = (user.member != null);
+        isLogin.value = (user.member.memberId.length != 0);
       },
     );
   }
@@ -35,9 +35,9 @@ class UserController extends BaseController {
       Api.logoutUrl,
       success: (CommonModel obj) {
         if (obj.success != null) {
-          userInfo.value = null;
+          userInfo.value = UserInfo(member: Member(memberInfo:MemberInfo()));
           isLogin.value = false;
-          Get.offAllNamed(AppPages.LOGIN);
+          Get.offAllNamed(Routes.LOGIN);
         }
       },
     );

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
-import 'package:ws_app_flutter/routes/routes.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class BindController extends BaseController {
   var pwdBtnTitle = '获取验证码'.obs; //密码框按钮文本
@@ -91,15 +92,16 @@ class BindController extends BaseController {
         DioManager.POST,
         Api.bindPhoneUrl,
         params: _params,
-        success: (BindModel obj) {
+        success: (BindModel obj) async {
           errorMsg.value = obj.data.msg;
           if (obj.result == 'success') {
+            await Get.find<UserController>().getUserInfo();
             if (obj.data.isMobile) {
               //首页
-              Get.toNamed(AppPages.HOME);
+              Get.toNamed(Routes.HOME);
             } else {
               //完善信息
-              Get.toNamed(AppPages.COMPLETEINFO);
+              Get.toNamed(Routes.COMPLETEINFO);
             }
           }
         },
@@ -112,15 +114,16 @@ class BindController extends BaseController {
         DioManager.POST,
         Api.appleBindPhoneUrl,
         params: _params,
-        success: (AppleBindModel obj) {
+        success: (AppleBindModel obj) async {
           errorMsg.value = obj.message;
           if (obj.result) {
+            await Get.find<UserController>().getUserInfo();
             if (!obj.firstLogin) {
               //首页
-              Get.toNamed(AppPages.HOME);
+              Get.toNamed(Routes.HOME);
             } else {
               //完善信息
-              Get.toNamed(AppPages.COMPLETEINFO);
+              Get.toNamed(Routes.COMPLETEINFO);
             }
           }
         },

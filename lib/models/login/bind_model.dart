@@ -36,6 +36,6 @@ class AppleBindModel {
     result = json['result'];
     message = json['message'];
     code = json['code'];
-    firstLogin = json['firs_login'];
+    firstLogin = json['first_login'];
   }
 }

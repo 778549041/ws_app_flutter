@@ -4,12 +4,12 @@ import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/widgets/custom_button.dart';
 
 class BindPhonePage extends GetView<BindController> {
-  final bool appleLogin = Get.arguments['appleLogin'];
-  final String openid = Get.arguments['openid'];
-  final String memberId = Get.arguments['memberId'];
-  final String unionid = Get.arguments['unionid'];
-  final String clientUser = Get.arguments['clientUser'];
-  final String identityToken = Get.arguments['identityToken'];
+  final bool appleLogin = Get.arguments['appleLogin'] ?? false;
+  final String openid = Get.arguments['openid'] ?? '';
+  final String memberId = Get.arguments['memberId'] ?? '';
+  final String unionid = Get.arguments['unionid'] ?? '';
+  final String clientUser = Get.arguments['clientUser'] ?? '';
+  final String identityToken = Get.arguments['identityToken'] ?? '';
 
   @override
   Widget build(BuildContext context) {
