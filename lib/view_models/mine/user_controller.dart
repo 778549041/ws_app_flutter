@@ -1,13 +1,19 @@
+import 'package:common_utils/common_utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/models/login/certify_model.dart';
+import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 
 class UserController extends BaseController {
-  var userInfo = UserInfo(member: Member(memberInfo:MemberInfo())).obs; //用户信息
+  var userInfo = UserInfo(member: Member(memberInfo: MemberInfo())).obs; //用户信息
   var isLogin = false.obs; //是否登录
 
   @override
@@ -28,6 +34,74 @@ class UserController extends BaseController {
     );
   }
 
+  //车主认证
+  Future certifyVechile() {
+    return DioManager().request<CertifyModel>(
+      DioManager.GET,
+      Api.certifyVechileUrl,
+      success: (CertifyModel obj) {
+        if (obj.code == 200) {
+          //认证成功
+          certifyResult();
+        } else if (obj.code == 201) {
+          //微信授权认证
+          SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
+              .then((result) {
+            if (result == true) {
+              SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, null,
+                  (SSDKResponseState state, Map user, SSDKError error) {
+                if (state == SSDKResponseState.Success) {
+                  DioManager().request<ThirdLoginModel>(
+                    DioManager.POST,
+                    Api.wechatAuthLoginOrCertifyUrl,
+                    shouldLoading: true,
+                    params: {
+                      'access_token': user['credential']['token'],
+                      'openid': user['rawData']['openid']
+                    },
+                    success: (ThirdLoginModel obj) {
+                      if (obj.data.binding == 'true') {
+                        //已绑定
+                        certifyResult();
+                      }
+                    },
+                  );
+                } else {
+                  LogUtil.v(error);
+                }
+              });
+            } else {
+              Fluttertoast.showToast(msg: '请先安装微信客户端');
+            }
+          });
+        } else if (obj.code == 202) {
+          //手动留资认证
+          Get.toNamed(Routes.COMPLAINT);
+        }
+      },
+      error: (error) {},
+    );
+  }
+
+  //认证结果
+  void certifyResult() async {
+    await Get.find<UserController>().getUserInfo();
+    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
+      //认证成功
+      if (Get.currentRoute == Routes.SELECTINTREST) {
+        //如果当前路由是选择兴趣爱好,则跳转首页
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        //否则返回顶层页面,并切换到第一个tab页
+        Get.until((route) => Get.currentRoute == Routes.HOME);
+        Get.find<MainController>().onItemTap(0);
+      }
+    } else {
+      //认证失败
+      Get.toNamed(Routes.COMPLAINT);
+    }
+  }
+
   //退出登录
   void logout() {
     DioManager().request<CommonModel>(
@@ -35,7 +109,7 @@ class UserController extends BaseController {
       Api.logoutUrl,
       success: (CommonModel obj) {
         if (obj.success != null) {
-          userInfo.value = UserInfo(member: Member(memberInfo:MemberInfo()));
+          userInfo.value = UserInfo(member: Member(memberInfo: MemberInfo()));
           isLogin.value = false;
           Get.offAllNamed(Routes.LOGIN);
         }

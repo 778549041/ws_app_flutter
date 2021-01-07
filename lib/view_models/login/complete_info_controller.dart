@@ -88,10 +88,10 @@ class CompleteInfoController extends BaseController {
       Api.changeUserInfoUrl,
       params: {
         "contact[name]": nameController.text,
-        "profile[gender]": sex.value == '男' ? 'male' : 'female',
-        "profile[birthday]": birthday.value,
+        "profile[gender]": sex.value == '男' ? 'male' : sex.value == '女' ? 'female' : '',
+        "profile[birthday]": birthday.value == '请选择出生日期' ? '' : birthday.value,
         "contact[profession]": professionController.text,
-        "contact[area]": addr.value,
+        "contact[area]": addr.value == '请选择现居地' ? '' : addr.value,
       },
       success: (CommonModel obj) {
         if (obj.success != null) {

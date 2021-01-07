@@ -117,114 +117,113 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: Get.statusBarHeight + 72),
-                width: Get.width,
-                height: Get.height - (Get.statusBarHeight + 72),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 30),
-                        child: RichText(
-                          text: TextSpan(
-                              text: '完善个人信息，即可获得',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 18),
-                              children: [
-                                TextSpan(
-                                  text: '500',
-                                  style: TextStyle(
-                                      color: Color(0xFFFCA807), fontSize: 20),
-                                ),
-                                TextSpan(
-                                  text: '积分',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 18),
-                                )
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: Stack(
-                          children: <Widget>[
-                            Obx(
-                              () => RoundAvatar(
-                                height: 90,
-                                borderWidth: 3,
-                                imageUrl:
-                                    controller.userInfo.value.member.headImg ??
-                                        '',
+              margin: EdgeInsets.only(top: Get.statusBarHeight + 72),
+              width: Get.width,
+              height: Get.height - (Get.statusBarHeight + 72),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: RichText(
+                        text: TextSpan(
+                            text: '完善个人信息，即可获得',
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                            children: [
+                              TextSpan(
+                                text: '500',
+                                style: TextStyle(
+                                    color: Color(0xFFFCA807), fontSize: 20),
                               ),
-                            ),
-                            Positioned(
-                              bottom: 5.0,
-                              right: 5.0,
-                              child: Image.asset(
-                                'assets/images/mine/vip_tag.png',
-                                width: 18,
-                                height: 18,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          ],
-                        ),
+                              TextSpan(
+                                text: '积分',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 18),
+                              )
+                            ]),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Stack(
                         children: <Widget>[
                           Obx(
-                            () => Text(
-                              controller.userInfo.value.member.name ?? '',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 15),
+                            () => RoundAvatar(
+                              height: 90,
+                              borderWidth: 3,
+                              imageUrl:
+                                  controller.userInfo.value.member.headImg ??
+                                      '',
                             ),
                           ),
-                          Image.asset(
-                            'assets/images/mine/man.png',
-                            width: 15,
-                            height: 15,
-                          ),
+                          Positioned(
+                            bottom: 5.0,
+                            right: 5.0,
+                            child: Image.asset(
+                              'assets/images/mine/vip_tag.png',
+                              width: 18,
+                              height: 18,
+                              fit: BoxFit.cover,
+                            ),
+                          )
                         ],
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      _buildInputRow('昵        称', '请输入昵称', 0),
-                      _buildPickerRow('手  机  号', 0),
-                      _buildPickerRow('性        别', 1),
-                      _buildPickerRow('出生日期', 2),
-                      _buildInputRow('职        业', '请输入职业', 1),
-                      _buildPickerRow('现  居  地', 3),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      CustomButton(
-                        backgroundColor: Color(0xFF4245E5),
-                        width: 200,
-                        height: 44,
-                        radius: 22,
-                        title: '继续完善',
-                        titleColor: Colors.white,
-                        onPressed: () => controller.nextStep(),
-                        fontSize: 20,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                ))
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Obx(
+                          () => Text(
+                            controller.userInfo.value.member.name ?? '',
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                          ),
+                        ),
+                        Image.asset(
+                          'assets/images/mine/man.png',
+                          width: 15,
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    _buildInputRow('昵        称', '请输入昵称', 0),
+                    _buildPickerRow('手  机  号', 0),
+                    _buildPickerRow('性        别', 1),
+                    _buildPickerRow('出生日期', 2),
+                    _buildInputRow('职        业', '请输入职业', 1),
+                    _buildPickerRow('现  居  地', 3),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    CustomButton(
+                      backgroundColor: Color(0xFF4245E5),
+                      width: 200,
+                      height: 44,
+                      radius: 22,
+                      title: '继续完善',
+                      titleColor: Colors.white,
+                      onPressed: () => controller.nextStep(),
+                      fontSize: 20,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
+import 'package:ws_app_flutter/models/login/certify_model.dart';
+import 'package:ws_app_flutter/models/login/intre_model.dart';
 import 'package:ws_app_flutter/models/login/login_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
@@ -23,7 +25,11 @@ class EntityFactory {
      return BindModel.fromJson(json) as T;
    } else if (T.toString() == 'AppleBindModel') {
      return AppleBindModel.fromJson(json) as T;
-   }
+   } else if (T.toString() == 'IntresModel') {
+     return IntresModel.fromJson(json) as T;
+   } else if (T.toString() == 'CertifyModel') {
+     return CertifyModel.fromJson(json) as T;
+   } 
    else {
       return json as T;
     }

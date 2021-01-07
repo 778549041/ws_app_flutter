@@ -56,9 +56,9 @@ class SplashController extends BaseController {
 
   void goMain() {
     if (Get.find<UserController>().isLogin.value) {
-      Get.offNamed(Routes.HOME);
+      Get.offAllNamed(Routes.HOME);
     } else {
-      Get.offNamed(Routes.LOGIN);
+      Get.offAllNamed(Routes.LOGIN);
     }
   }
 }

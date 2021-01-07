@@ -3,6 +3,7 @@ import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/complete_info_controller.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
 import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart';
+import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
@@ -21,6 +22,9 @@ abstract class AppPages {
     GetPage(
       name: Routes.HOME,
       page: () => MainTabBarPage(),
+      binding: BindingsBuilder((){
+        Get.lazyPut<MainController>(() => MainController());
+      })
     ),
     GetPage(
         name: Routes.WEBVIEW,

@@ -160,6 +160,7 @@ class LoginController extends BaseController {
     DioManager().request<LoginModel>(
       DioManager.POST,
       Api.loginUrl,
+      shouldLoading: true,
       params: _params,
       success: (LoginModel obj) async {
         if (obj.success != null) {
@@ -168,7 +169,7 @@ class LoginController extends BaseController {
             //首次登录即注册,完善信息
             Get.toNamed(Routes.COMPLETEINFO);
           } else {
-            Get.offNamed(Routes.HOME);
+            Get.offAllNamed(Routes.HOME);
           }
         } else if (obj.error != null || obj.redirect == '1002') {
           Fluttertoast.showToast(msg: obj.error);
@@ -204,6 +205,7 @@ class LoginController extends BaseController {
             DioManager().request<ThirdLoginModel>(
               DioManager.POST,
               Api.wechatAuthLoginOrCertifyUrl,
+              shouldLoading: true,
               params: {
                 'access_token': user['credential']['token'],
                 'openid': user['rawData']['openid']
@@ -228,7 +230,7 @@ class LoginController extends BaseController {
                 } else {
                   //已绑定
                   await Get.find<UserController>().getUserInfo();
-                  Get.offNamed(Routes.HOME);
+                  Get.offAllNamed(Routes.HOME);
                 }
               },
             );
@@ -255,6 +257,7 @@ class LoginController extends BaseController {
         DioManager().request<CommonModel>(
           DioManager.POST,
           Api.appleLoginUrl,
+          shouldLoading: true,
           params: {
             'clientUser': user['credential']['uid'],
             'identityToken': user['credential']['token']
@@ -262,7 +265,7 @@ class LoginController extends BaseController {
           success: (CommonModel obj) async {
             if (obj.result) {
               await Get.find<UserController>().getUserInfo();
-              Get.offNamed(Routes.HOME);
+              Get.offAllNamed(Routes.HOME);
             } else {
               if (obj.code == 1001) {
                 //绑定手机号
