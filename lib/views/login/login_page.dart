@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
-import 'package:ws_app_flutter/widgets/custom_button.dart';
-import 'package:ws_app_flutter/widgets/login_type_switch.dart';
+import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/login/login_type_switch.dart';
 
 class LoginPage extends GetView<LoginController> {
   @override

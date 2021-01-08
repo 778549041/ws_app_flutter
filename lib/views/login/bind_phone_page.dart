@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
-import 'package:ws_app_flutter/widgets/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class BindPhonePage extends GetView<BindController> {
   final bool appleLogin = Get.arguments['appleLogin'] ?? false;

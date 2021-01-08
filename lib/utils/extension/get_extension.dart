@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/widgets/loading_dialog.dart';
+import 'package:ws_app_flutter/widgets/global/loading_dialog.dart';
 
 extension GetExtension on GetInterface {
   showLoading({String message}) {

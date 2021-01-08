@@ -6,7 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
-import 'package:ws_app_flutter/widgets/round_avatar.dart';
+import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class SplashPage extends GetView<SplashController> {
   final List<String> _guideImageList = [

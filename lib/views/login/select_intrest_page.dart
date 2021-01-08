@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart';
-import 'package:ws_app_flutter/widgets/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class SelectIntrestPage extends StatelessWidget {
   @override
