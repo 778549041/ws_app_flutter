@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
@@ -27,9 +28,9 @@ class BindPhonePage extends GetView<BindController> {
               fit: BoxFit.cover,
             ),
             Container(
-                margin: EdgeInsets.only(top: Get.statusBarHeight + 72),
+                margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 72),
                 width: Get.width,
-                height: Get.height - (Get.statusBarHeight + 72),
+                height: Get.height - (ScreenUtil.getInstance().statusBarHeight + 72),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(

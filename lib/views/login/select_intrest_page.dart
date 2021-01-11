@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart';
@@ -18,7 +19,7 @@ class SelectIntrestPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             Positioned(
-              top: Get.statusBarHeight + 32,
+              top: ScreenUtil.getInstance().statusBarHeight + 32,
               right: 10,
               child: CustomButton(
                 width: 60,
@@ -36,9 +37,9 @@ class SelectIntrestPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: Get.statusBarHeight + 72),
+              margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 72),
               width: Get.width,
-              height: Get.height - (Get.statusBarHeight + 72),
+              height: Get.height - (ScreenUtil.getInstance().statusBarHeight + 72),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

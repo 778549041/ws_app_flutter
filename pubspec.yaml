@@ -70,9 +70,16 @@ dependencies:
   city_pickers: ^0.2.0
   #图片选择器
   image_picker: ^0.6.7+14
+  #图片浏览查看
+  photo_view: ^0.10.3
+  #图片保存到本地相册
+  image_gallery_saver: ^1.6.7
   #选择器
   flutter_cupertino_data_picker: ^0.8.6
   flutter_cupertino_date_picker: ^1.0.26+2
+  #字体大小自适应文本
+  flutterautotext:
+    git: https://github.com/LiuC520/flutterautotext.git
 
   #打开第三方应用
   url_launcher: ^5.7.10

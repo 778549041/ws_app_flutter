@@ -55,6 +55,7 @@ class SplashController extends BaseController {
   }
 
   void goMain() {
+    if (_timerUtil != null) _timerUtil.cancel();
     if (Get.find<UserController>().isLogin.value) {
       Get.offAllNamed(Routes.HOME);
     } else {

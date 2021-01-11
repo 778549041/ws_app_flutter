@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -101,7 +102,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
               fit: BoxFit.cover,
             ),
             Positioned(
-              top: Get.statusBarHeight + 32,
+              top: ScreenUtil.getInstance().statusBarHeight + 32,
               right: 10,
               child: CustomButton(
                 width: 60,
@@ -117,9 +118,9 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: Get.statusBarHeight + 72),
+              margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 72),
               width: Get.width,
-              height: Get.height - (Get.statusBarHeight + 72),
+              height: Get.height - (ScreenUtil.getInstance().statusBarHeight + 72),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

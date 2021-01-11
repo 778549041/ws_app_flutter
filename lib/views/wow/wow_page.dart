@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +42,7 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin {
             fit: BoxFit.cover,
           ),
           Container(
-            margin: EdgeInsets.only(top: Get.statusBarHeight),
+            margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight),
             width: Get.width,
             height: 40,
             child: TabBar(
@@ -51,7 +52,7 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top:Get.statusBarHeight + 40),
+            margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 40),
             child: TabBarView(
               controller: _tabController,
               children: _pages,

@@ -11,4 +11,5 @@ abstract class Routes {
   static const COMPLETEINFO = '/complete-info';
   static const CERTIFY = '/certify';
   static const SELECTINTREST = '/select-intrest';
+    static const GALLERYPHOTO = '/gallery-photo';
 }
