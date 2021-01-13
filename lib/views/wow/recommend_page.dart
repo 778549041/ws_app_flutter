@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
+import 'package:ws_app_flutter/widgets/circle/circle_list_item.dart';
 import 'package:ws_app_flutter/widgets/wow/recommend_banner.dart';
 import 'package:ws_app_flutter/widgets/wow/recommend_ele.dart';
 
@@ -12,7 +13,8 @@ class RecommendPage extends GetView<RecommendController> {
     return Container(
       child: SmartRefresher(
         controller: controller.refreshController,
-        onRefresh: () {},
+        header: WaterDropHeader(),
+        onRefresh: controller.refresh,
         child: CustomScrollView(
               slivers: <Widget>[
                 SliverToBoxAdapter(
@@ -23,8 +25,8 @@ class RecommendPage extends GetView<RecommendController> {
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                    return Text('$index');
-                  }, childCount: 5),
+                    return Container();
+                  }, childCount: 1),
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {

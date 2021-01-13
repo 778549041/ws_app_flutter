@@ -3,13 +3,13 @@ class UserInfo {
   Member member;
   bool memberVip;
 
-  UserInfo({this.huodongData = 0, this.member, this.memberVip = false});
+  UserInfo({this.huodongData = 0, this.memberVip = false}) : member = Member();
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    huodongData = json['huodong_data'];
+    huodongData = json['huodong_data'] ?? 0;
     member =
         json['member'] != null ? Member.fromJson(json['member']) : Member();
-    memberVip = json['member_vip'];
+    memberVip = json['member_vip'] ?? false;
   }
 }
 
@@ -91,7 +91,6 @@ class Member {
       this.lvIngoreExperience = '',
       this.memberCur = '',
       this.memberId = '',
-      this.memberInfo,
       this.memberLv = '',
       this.memberQrcode = '',
       this.memberReceive = '',
@@ -105,55 +104,56 @@ class Member {
       this.regtime = '',
       this.sex = '',
       this.uname = '',
-      this.unionid = ''});
+      this.unionid = ''})
+      : memberInfo = MemberInfo();
 
   Member.fromJson(Map<String, dynamic> json) {
-    addr = json['addr'];
-    area = json['area'];
-    avatar = json['avatar'];
-    bDay = json['b_day'];
-    bMonth = json['b_month'];
-    bYear = json['b_year'];
-    binding = json['binding'];
-    email = json['email'];
-    experience = json['experience'];
-    fCarColor = json['FCarColor'];
-    fLicPlate = json['FLicPlate'];
-    fName = json['FName'];
-    fPhoneNum = json['FPhoneNum'];
-    fPurchaseDate = json['FPurchaseDate'];
-    fVIN = json['FVIN'];
-    fcreateDate = json['fcreateDate'];
-    headImg = json['head_img'];
-    integral = json['integral'];
-    interest = json['interest'];
-    isDisplay = json['is_display'];
-    isReceive = json['is_receive'];
-    isVehicle = json['is_vehicle'];
-    levelname = json['levelname'];
-    localUname = json['local_uname'];
-    loginAccount = json['login_account'];
-    lvChannelprice = json['lv_channelprice'];
-    lvDiscount = json['lv_discount'];
-    lvIngoreExperience = json['lv_ingore_experience'];
-    memberCur = json['member_cur'];
-    memberId = json['member_id'];
+    addr = json['addr'] ?? '';
+    area = json['area'] ?? '';
+    avatar = json['avatar'] ?? '';
+    bDay = json['b_day'] ?? '';
+    bMonth = json['b_month'] ?? '';
+    bYear = json['b_year'] ?? '';
+    binding = json['binding'] ?? '';
+    email = json['email'] ?? '';
+    experience = json['experience'] ?? '';
+    fCarColor = json['FCarColor'] ?? '';
+    fLicPlate = json['FLicPlate'] ?? '';
+    fName = json['FName'] ?? '';
+    fPhoneNum = json['FPhoneNum'] ?? '';
+    fPurchaseDate = json['FPurchaseDate'] ?? '';
+    fVIN = json['FVIN'] ?? '';
+    fcreateDate = json['fcreateDate'] ?? '';
+    headImg = json['head_img'] ?? '';
+    integral = json['integral'] ?? '';
+    interest = json['interest'] ?? '';
+    isDisplay = json['is_display'] ?? '';
+    isReceive = json['is_receive'] ?? '';
+    isVehicle = json['is_vehicle'] ?? '';
+    levelname = json['levelname'] ?? '';
+    localUname = json['local_uname'] ?? '';
+    loginAccount = json['login_account'] ?? '';
+    lvChannelprice = json['lv_channelprice'] ?? '';
+    lvDiscount = json['lv_discount'] ?? '';
+    lvIngoreExperience = json['lv_ingore_experience'] ?? '';
+    memberCur = json['member_cur'] ?? '';
+    memberId = json['member_id'] ?? '';
     memberInfo = json['member_nfo'] != null
         ? MemberInfo.fromJson(json['member_nfo'])
         : MemberInfo();
-    memberLv = json['member_lv'];
-    memberQrcode = json['member_qrcode'];
-    memberReceive = json['member_receive'];
-    mobile = json['mobile'];
-    nextExperience = json['next_experience'];
-    nextLevelname = json['next_levelname'];
-    nextLvDiscount = json['next_lv_discount'];
-    openid = json['openid'];
-    profession = json['profession'];
-    regtime = json['regtime'];
-    sex = json['sex'];
-    uname = json['uname'];
-    unionid = json['unionid'];
+    memberLv = json['member_lv'] ?? '';
+    memberQrcode = json['member_qrcode'] ?? '';
+    memberReceive = json['member_receive'] ?? '';
+    mobile = json['mobile'] ?? '';
+    nextExperience = json['next_experience'] ?? '';
+    nextLevelname = json['next_levelname'] ?? '';
+    nextLvDiscount = json['next_lv_discount'] ?? '';
+    openid = json['openid'] ?? '';
+    profession = json['profession'] ?? '';
+    regtime = json['regtime'] ?? '';
+    sex = json['sex'] ?? '';
+    uname = json['uname'] ?? '';
+    unionid = json['unionid'] ?? '';
   }
 }
 

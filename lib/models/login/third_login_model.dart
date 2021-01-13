@@ -1,10 +1,11 @@
 class ThirdLoginModel {
   ThirdLoginData data;
-  ThirdLoginModel({this.data});
+  ThirdLoginModel() : data = ThirdLoginData();
 
   ThirdLoginModel.fromJson(Map<String, dynamic> json) {
-    data =
-        json['data'] != null ? new ThirdLoginData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new ThirdLoginData.fromJson(json['data'])
+        : ThirdLoginData();
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -23,14 +24,18 @@ class ThirdLoginData {
   String msg;
 
   ThirdLoginData(
-      {this.binding, this.wxUsed, this.isVehicle, this.memberId, this.msg});
+      {this.binding = '',
+      this.wxUsed = false,
+      this.isVehicle = false,
+      this.memberId = '',
+      this.msg = ''});
 
   ThirdLoginData.fromJson(Map<String, dynamic> json) {
-    binding = json['binding'];
-    wxUsed = json['wx_used'];
-    isVehicle = json['is_vehicle'];
-    memberId = json['member_id'];
-    msg = json['msg'];
+    binding = json['binding'] ?? '';
+    wxUsed = json['wx_used'] ?? false;
+    isVehicle = json['is_vehicle'] ?? false;
+    memberId = json['member_id'] ?? '';
+    msg = json['msg'] ?? '';
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

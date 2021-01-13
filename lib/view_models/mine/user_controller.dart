@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 
 class UserController extends BaseController {
-  var userInfo = UserInfo(member: Member(memberInfo: MemberInfo())).obs; //用户信息
+  var userInfo = UserInfo().obs; //用户信息
   var isLogin = false.obs; //是否登录
 
   @override
@@ -109,7 +109,7 @@ class UserController extends BaseController {
       Api.logoutUrl,
       success: (CommonModel obj) {
         if (obj.success != null) {
-          userInfo.value = UserInfo(member: Member(memberInfo: MemberInfo()));
+          userInfo.value = UserInfo();
           isLogin.value = false;
           Get.offAllNamed(Routes.LOGIN);
         }

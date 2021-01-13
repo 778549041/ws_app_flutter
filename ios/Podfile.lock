@@ -41,6 +41,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_qr_reader (0.0.1):
     - Flutter
+  - flutterautotext (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -48,6 +50,8 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - foundation_fluttify (0.0.1):
+    - Flutter
+  - image_gallery_saver (1.5.0):
     - Flutter
   - image_picker (0.0.1):
     - Flutter
@@ -119,8 +123,10 @@ DEPENDENCIES:
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
+  - flutterautotext (from `.symlinks/plugins/flutterautotext/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
+  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - jpush_flutter (from `.symlinks/plugins/jpush_flutter/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
@@ -167,10 +173,14 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_qr_reader:
     :path: ".symlinks/plugins/flutter_qr_reader/ios"
+  flutterautotext:
+    :path: ".symlinks/plugins/flutterautotext/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   foundation_fluttify:
     :path: ".symlinks/plugins/foundation_fluttify/ios"
+  image_gallery_saver:
+    :path: ".symlinks/plugins/image_gallery_saver/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   jpush_flutter:
@@ -207,9 +217,11 @@ SPEC CHECKSUMS:
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8
+  flutterautotext: 6cabd603e37497245aa25b816e4770d242198bef
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   foundation_fluttify: 0c45145e3fad1fb99188e4979daed5b24cd9b278
+  image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
   JPush: a401b946dcc76b37335422487201bc1ecc8dd296

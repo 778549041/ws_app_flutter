@@ -2,10 +2,12 @@ class SplashModel {
   String result;
   SplashData data;
 
-  SplashModel({this.result = '', this.data});
+  SplashModel({this.result = ''}) : data = SplashData();
   SplashModel.fromJson(Map<String, dynamic> json) {
-    result = json['result'];
-    data = (json['data'] != null) ? SplashData.fromJson(json['data']) : null;
+    result = json['result'] ?? '';
+    data = (json['data'] != null)
+        ? SplashData.fromJson(json['data'])
+        : SplashData();
   }
 }
 
@@ -38,17 +40,17 @@ class SplashData {
       this.status = ''});
 
   SplashData.fromJson(Map<String, dynamic> json) {
-    termsType = json['terms_type'];
-    showType = json['show_type'];
-    createtime = json['createtime'];
-    appType = json['app_type'];
-    lastModify = json['last_modify'];
-    size = json['size'];
-    logoId = json['logo_id'];
-    pOrder = json['p_order'];
-    imageId = json['image_id'];
-    url = json['url'];
-    desc = json['desc'];
-    status = json['status'];
+    termsType = json['terms_type'] ?? '';
+    showType = json['show_type'] ?? '';
+    createtime = json['createtime'] ?? '';
+    appType = json['app_type'] ?? '';
+    lastModify = json['last_modify'] ?? '';
+    size = json['size'] ?? '';
+    logoId = json['logo_id'] ?? '';
+    pOrder = json['p_order'] ?? '';
+    imageId = json['image_id'] ?? '';
+    url = json['url'] ?? '';
+    desc = json['desc'] ?? '';
+    status = json['status'] ?? '';
   }
 }

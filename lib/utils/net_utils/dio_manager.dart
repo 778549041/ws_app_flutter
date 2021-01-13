@@ -96,6 +96,7 @@ class DioManager {
   /// [shouldLoading]：是否显示loading框,默认不显示
   /// [loadingMessage]：loading信息
   /// [params]：请求参数
+  /// [queryParamters]：请求参数
   /// [success]：请求成功回调
   /// [error]：请求失败回调
   /// [cancelToken] 请求统一标识，用于取消网络请求
@@ -103,6 +104,7 @@ class DioManager {
       {bool shouldLoading = false,
       String loadingMessage,
       Map<String, dynamic> params,
+      Map<String, dynamic> queryParamters,
       Function(T) success,
       Function(ErrorEntity) error,
       CancelToken cancelToken}) async {
@@ -111,6 +113,7 @@ class DioManager {
     try {
       Response response = await dio.request(path,
           data: params,
+          queryParameters: queryParamters,
           options: Options(method: method),
           cancelToken: cancelToken ?? _cancelToken);
       //加载完成隐藏loading框
@@ -140,6 +143,7 @@ class DioManager {
   /// [shouldLoading]：是否显示loading框,默认不显示
   /// [loadingMessage]：loading信息
   /// [params]：请求参数
+  /// [queryParamters]：请求参数
   /// [success]：请求成功回调
   /// [error]：请求失败回调
   /// [cancelToken] 请求统一标识，用于取消网络请求
@@ -147,6 +151,7 @@ class DioManager {
       {bool shouldLoading = false,
       String loadingMessage,
       Map<String, dynamic> params,
+      Map<String, dynamic> queryParamters,
       Function(List<T>) success,
       Function(ErrorEntity) error,
       CancelToken cancelToken}) async {
@@ -154,7 +159,8 @@ class DioManager {
     if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
     try {
       Response response = await dio.request(path,
-          queryParameters: params,
+          queryParameters: queryParamters,
+          data: params,
           options: Options(method: method),
           cancelToken: cancelToken ?? _cancelToken);
       //加载完成隐藏loading框

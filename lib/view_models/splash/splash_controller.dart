@@ -11,7 +11,7 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 class SplashController extends BaseController {
   TimerUtil _timerUtil;
 
-  var splashModel = SplashModel(data: SplashData()).obs;
+  var splashModel = SplashModel().obs;
   var count = 3.obs;
   var firstLaunch = true.obs;
 

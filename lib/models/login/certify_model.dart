@@ -3,11 +3,11 @@ class CertifyModel {
   String message;
   int code;
 
-  CertifyModel({this.result,this.message,this.code});
+  CertifyModel({this.result = false, this.message = '', this.code = 0});
 
-  CertifyModel.fromJson(Map<String,dynamic> json) {
-    this.result = json['result'];
-    this.message = json['message'];
-    this.code = json['code'];
+  CertifyModel.fromJson(Map<String, dynamic> json) {
+    result = json['result'] ?? false;
+    message = json['message'] ?? '';
+    code = json['code'] ?? 0;
   }
 }

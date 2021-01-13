@@ -20,7 +20,7 @@ class CircleListItem extends GetView<RecommendController> {
           GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 5,
+              itemCount: 1,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 8,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class MainController extends BaseController {
   var selectedIndex = 0.obs;
@@ -30,7 +31,8 @@ class MainController extends BaseController {
   }
 
   //tabbaritem点击
-  void onItemTap(int index) {
+  void onItemTap(int index) async {
+    await Get.find<UserController>().getUserInfo();
     pageController.jumpToPage(index);
   }
 }
