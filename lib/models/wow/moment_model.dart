@@ -75,9 +75,9 @@ class MomentModel {
       this.isGood,
       this.classify,
       this.topicId,
-      this.topicTitle,
+      this.topicTitle = '',
       this.memberId,
-      this.content,
+      this.content = '',
       this.type,
       this.comment,
       this.examine,
@@ -112,9 +112,9 @@ class MomentModel {
         : CommonMemberModel();
     classify = json['classify'];
     topicId = json['topic_id'];
-    topicTitle = json['topic_title'];
+    topicTitle = json['topic_title'] ?? '';
     memberId = json['member_id'];
-    content = json['content'];
+    content = json['content'] ?? '';
     type = json['type'];
     comment = json['comment'];
     examine = json['examine'];
@@ -140,10 +140,10 @@ class MomentParams {
   String url;
   String detailId;
 
-  MomentParams({this.name, this.type, this.url, this.detailId});
+  MomentParams({this.name = '', this.type, this.url, this.detailId});
 
   MomentParams.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+    name = json['name'] ?? '';
     type = json['type'];
     url = json['url'];
     detailId = json['detail_id'];

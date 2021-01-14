@@ -1,4 +1,5 @@
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter/material.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -21,6 +22,9 @@ class RecommendController extends RefreshListController {
   var momentListModel = MomentListModel().obs;
   var newsListModel = NewsListModel().obs;
   var activityListModel = RecommendActivityListModel().obs;
+  var elePercent = 1.0.obs;
+  var colorList = [Color(0xFF2659FF), Color(0xFF01D4D7)].obs;
+  var chargeStatus = false.obs;
 
   @override
   Future<List> loadData({int pageNum}) async {
@@ -56,8 +60,24 @@ class RecommendController extends RefreshListController {
           queryParamters: {"member_id":userInfo.value.member.memberId},
           success: (CarDataModel obj) {
             eletricModel.value = obj;
+            if (obj.datas.rspBody.chargingStatus == 1 || obj.datas.rspBody.chargingStatus == 2) {
+              chargeStatus.value = true;
+              colorList.assignAll([Color(0xFF2659FF), Color(0xFF01D4D7)]);
+            } else {
+              elePercent.value = obj.datas.rspBody.soc/100;
+              chargeStatus.value = false;
+              if (elePercent.value <= 0.25) {
+                colorList.assignAll([Color(0xFFE80016), Color(0xFFE80016)]);
+              } else if (elePercent.value <= 0.50) {
+                colorList.assignAll([Color(0xFFF2AE2C), Color(0xFFF2AE2C)]);
+              } else {
+                colorList.assignAll([Color(0xFF1EE623), Color(0xFF1EE623)]);
+              }
+            }
           },
-          error: (e) {},
+          error: (e) {
+            
+          },
         );
       });
       _timerUtil.startTimer();

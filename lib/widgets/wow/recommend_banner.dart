@@ -11,14 +11,18 @@ class RecommendBanner extends GetView<RecommendController> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-          margin: const EdgeInsets.only(top: 112),
-          width: Get.width,
-          height: (Get.width - 30) * 295 / 345 - 50,
-          decoration: BoxDecoration(
-              color: Color(0xFFF3F3F3),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        Positioned(
+          top: 22,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Color(0xFFF3F3F3),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10))),
+          ),
         ),
         Column(
           children: <Widget>[
@@ -54,7 +58,8 @@ class RecommendBanner extends GetView<RecommendController> {
                   //两侧item的缩放比
                   onTap: (int index) {
                     //点击事件，返回下标
-                    print("index-----" + index.toString());
+                    BannerItem item = controller
+                        .bannerModel.value.carouselHead.banner.items[index];
                   },
                   itemCount: controller
                       .bannerModel.value.carouselHead.banner.items.length,
@@ -86,14 +91,18 @@ class RecommendBanner extends GetView<RecommendController> {
                         //是否自动播放
                         autoplay:
                             controller.textBannerModel.value.data.length > 1,
+                        loop: controller.textBannerModel.value.data.length > 1,
                         //自动播放延迟
                         autoplayDelay: 3000,
                         scrollDirection: Axis.vertical,
+                        //触发时是否停止播放
+                        autoplayDisableOnInteraction: false,
                         //动画时间
                         duration: 600,
                         onTap: (int index) {
                           //点击事件，返回下标
-                          print("index-----" + index.toString());
+                          TextBannerModel item =
+                              controller.textBannerModel.value.data[index];
                         },
                         itemCount: controller.textBannerModel.value.data.length,
                         itemBuilder: (context, index) {
@@ -124,6 +133,7 @@ class RecommendBanner extends GetView<RecommendController> {
                     )
                   ],
                 )),
+                SizedBox(height: 20,)
           ],
         ),
       ],

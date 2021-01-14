@@ -56,7 +56,7 @@ class Member {
   String nextLevelname;
   String isDisplay;
   String lvChannelprice;
-  String interest;
+  List<dynamic> interest;
   String regtime;
   MemberInfo memberInfo;
 
@@ -79,7 +79,6 @@ class Member {
       this.fcreateDate = '',
       this.headImg = '',
       this.integral = '',
-      this.interest = '',
       this.isDisplay = '',
       this.isReceive = '',
       this.isVehicle = '',
@@ -105,7 +104,8 @@ class Member {
       this.sex = '',
       this.uname = '',
       this.unionid = ''})
-      : memberInfo = MemberInfo();
+      : memberInfo = MemberInfo(),
+        interest = List<dynamic>();
 
   Member.fromJson(Map<String, dynamic> json) {
     addr = json['addr'] ?? '';
@@ -125,7 +125,7 @@ class Member {
     fVIN = json['FVIN'] ?? '';
     fcreateDate = json['fcreateDate'] ?? '';
     headImg = json['head_img'] ?? '';
-    integral = json['integral'] ?? '';
+    integral = json['integral'] ?? List<dynamic>();
     interest = json['interest'] ?? '';
     isDisplay = json['is_display'] ?? '';
     isReceive = json['is_receive'] ?? '';
