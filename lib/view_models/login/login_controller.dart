@@ -87,7 +87,7 @@ class LoginController extends BaseController {
   }
 
   //发送验证码
-  void sendCode() {
+  void sendCode() async {
     if (!enabled.value) {
       return;
     }
@@ -100,22 +100,15 @@ class LoginController extends BaseController {
       Fluttertoast.showToast(msg: '手机号格式错误');
       return;
     }
-    DioManager().request<CommonModel>(
-      DioManager.POST,
-      Api.loginSendCodeUrl,
-      params: {'mobile': _phoneNumber},
-      success: (CommonModel obj) {
-        doCountDown();
-        if (obj.success != null) {
-          Fluttertoast.showToast(msg: obj.success);
-        } else if (obj.error != null) {
-          Fluttertoast.showToast(msg: obj.error);
-        }
-      },
-      error: (error) {
-        LogUtil.v(error.message);
-      },
-    );
+    CommonModel obj = await DioManager().request<CommonModel>(
+        DioManager.POST, Api.loginSendCodeUrl,
+        params: {'mobile': _phoneNumber});
+    doCountDown();
+    if (obj.success != null) {
+      Fluttertoast.showToast(msg: obj.success);
+    } else if (obj.error != null) {
+      Fluttertoast.showToast(msg: obj.error);
+    }
   }
 
   //忘记密码
@@ -124,7 +117,7 @@ class LoginController extends BaseController {
   }
 
   //登录
-  void loginAction() {
+  void loginAction() async {
     String _phoneNumber = nameController.text;
     String _pwdStr = pwdController.text;
     var _params = Map<String, dynamic>();
@@ -157,25 +150,20 @@ class LoginController extends BaseController {
       Fluttertoast.showToast(msg: '请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》');
       return;
     }
-    DioManager().request<LoginModel>(
-      DioManager.POST,
-      Api.loginUrl,
-      shouldLoading: true,
-      params: _params,
-      success: (LoginModel obj) async {
-        if (obj.success != null) {
-          await Get.find<UserController>().getUserInfo();
-          if (obj.data.firstLogin) {
-            //首次登录即注册,完善信息
-            Get.toNamed(Routes.COMPLETEINFO);
-          } else {
-            Get.offAllNamed(Routes.HOME);
-          }
-        } else if (obj.error != null || obj.redirect == '1002') {
-          Fluttertoast.showToast(msg: obj.error);
-        }
-      },
-    );
+    LoginModel obj = await DioManager().request<LoginModel>(
+        DioManager.POST, Api.loginUrl,
+        shouldLoading: true, params: _params);
+    if (obj.success != null) {
+      await Get.find<UserController>().getUserInfo();
+      if (obj.data.firstLogin) {
+        //首次登录即注册,完善信息
+        Get.toNamed(Routes.COMPLETEINFO);
+      } else {
+        Get.offAllNamed(Routes.HOME);
+      }
+    } else if (obj.error != null || obj.redirect == '1002') {
+      Fluttertoast.showToast(msg: obj.error);
+    }
   }
 
   //是否同意协议
@@ -200,40 +188,36 @@ class LoginController extends BaseController {
         .then((result) {
       if (result == true) {
         SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, null,
-            (SSDKResponseState state, Map user, SSDKError error) {
+            (SSDKResponseState state, Map user, SSDKError error) async {
           if (state == SSDKResponseState.Success) {
-            DioManager().request<ThirdLoginModel>(
-              DioManager.POST,
-              Api.wechatAuthLoginOrCertifyUrl,
-              shouldLoading: true,
-              params: {
-                'access_token': user['credential']['token'],
-                'openid': user['rawData']['openid']
-              },
-              success: (ThirdLoginModel obj) async {
-                if (obj.data.binding != 'true') {
-                  //未绑定
-                  if (obj.data.wxUsed) {
-                    //微信已被使用
-                    if (obj.data.msg != null) {
-                      Fluttertoast.showToast(msg: obj.data.msg);
-                    }
-                  } else {
-                    //微信未被使用,绑定手机号
-                    Get.toNamed(Routes.BINDPHONE, arguments: {
-                      "appleLogin": false,
-                      "openid": user['rawData']['openid'],
-                      "memberId": obj.data.memberId,
-                      "unionid": user['rawData']['unionid']
-                    });
-                  }
-                } else {
-                  //已绑定
-                  await Get.find<UserController>().getUserInfo();
-                  Get.offAllNamed(Routes.HOME);
+            ThirdLoginModel obj = await DioManager().request<ThirdLoginModel>(
+                DioManager.POST, Api.wechatAuthLoginOrCertifyUrl,
+                shouldLoading: true,
+                params: {
+                  'access_token': user['credential']['token'],
+                  'openid': user['rawData']['openid']
+                });
+            if (obj.data.binding != 'true') {
+              //未绑定
+              if (obj.data.wxUsed) {
+                //微信已被使用
+                if (obj.data.msg != null) {
+                  Fluttertoast.showToast(msg: obj.data.msg);
                 }
-              },
-            );
+              } else {
+                //微信未被使用,绑定手机号
+                Get.toNamed(Routes.BINDPHONE, arguments: {
+                  "appleLogin": false,
+                  "openid": user['rawData']['openid'],
+                  "memberId": obj.data.memberId,
+                  "unionid": user['rawData']['unionid']
+                });
+              }
+            } else {
+              //已绑定
+              await Get.find<UserController>().getUserInfo();
+              Get.offAllNamed(Routes.HOME);
+            }
           } else {
             LogUtil.v(error);
           }
@@ -252,34 +236,30 @@ class LoginController extends BaseController {
       return;
     }
     SharesdkPlugin.auth(ShareSDKPlatforms.apple, null,
-        (SSDKResponseState state, Map user, SSDKError error) {
+        (SSDKResponseState state, Map user, SSDKError error) async {
       if (state == SSDKResponseState.Success) {
-        DioManager().request<CommonModel>(
-          DioManager.POST,
-          Api.appleLoginUrl,
-          shouldLoading: true,
-          params: {
-            'clientUser': user['credential']['uid'],
-            'identityToken': user['credential']['token']
-          },
-          success: (CommonModel obj) async {
-            if (obj.result) {
-              await Get.find<UserController>().getUserInfo();
-              Get.offAllNamed(Routes.HOME);
-            } else {
-              if (obj.code == 1001) {
-                //绑定手机号
-                Get.toNamed(Routes.BINDPHONE, arguments: {
-                  "appleLogin": true,
-                  "clientUser": user['credential']['uid'],
-                  "identityToken": user['credential']['token'],
-                });
-              } else {
-                Fluttertoast.showToast(msg: obj.message);
-              }
-            }
-          },
-        );
+        CommonModel obj = await DioManager().request<CommonModel>(
+            DioManager.POST, Api.appleLoginUrl,
+            shouldLoading: true,
+            params: {
+              'clientUser': user['credential']['uid'],
+              'identityToken': user['credential']['token']
+            });
+        if (obj.result) {
+          await Get.find<UserController>().getUserInfo();
+          Get.offAllNamed(Routes.HOME);
+        } else {
+          if (obj.code == 1001) {
+            //绑定手机号
+            Get.toNamed(Routes.BINDPHONE, arguments: {
+              "appleLogin": true,
+              "clientUser": user['credential']['uid'],
+              "identityToken": user['credential']['token'],
+            });
+          } else {
+            Fluttertoast.showToast(msg: obj.message);
+          }
+        }
       } else {
         LogUtil.v(error);
       }

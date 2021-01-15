@@ -23,64 +23,51 @@ class UserController extends BaseController {
   }
 
   //获取用户信息
-  Future getUserInfo() {
-    return DioManager().request<UserInfo>(
-      DioManager.POST,
-      Api.userInfoUrl,
-      success: (UserInfo user) {
-        userInfo.value = user;
-        isLogin.value = (user.member.memberId.length != 0);
-      },
-    );
+  Future getUserInfo() async {
+    UserInfo user =
+        await DioManager().request<UserInfo>(DioManager.POST, Api.userInfoUrl);
+    userInfo.value = user;
+    isLogin.value = (user.member.memberId.length != 0);
   }
 
   //车主认证
-  Future certifyVechile() {
-    return DioManager().request<CertifyModel>(
-      DioManager.GET,
-      Api.certifyVechileUrl,
-      success: (CertifyModel obj) {
-        if (obj.code == 200) {
-          //认证成功
-          certifyResult();
-        } else if (obj.code == 201) {
-          //微信授权认证
-          SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
-              .then((result) {
-            if (result == true) {
-              SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, null,
-                  (SSDKResponseState state, Map user, SSDKError error) {
-                if (state == SSDKResponseState.Success) {
-                  DioManager().request<ThirdLoginModel>(
-                    DioManager.POST,
-                    Api.wechatAuthLoginOrCertifyUrl,
-                    shouldLoading: true,
-                    params: {
-                      'access_token': user['credential']['token'],
-                      'openid': user['rawData']['openid']
-                    },
-                    success: (ThirdLoginModel obj) {
-                      if (obj.data.binding == 'true') {
-                        //已绑定
-                        certifyResult();
-                      }
-                    },
-                  );
-                } else {
-                  LogUtil.v(error);
-                }
-              });
+  Future certifyVechile() async {
+    CertifyModel obj = await DioManager()
+        .request<CertifyModel>(DioManager.GET, Api.certifyVechileUrl);
+    if (obj.code == 200) {
+      //认证成功
+      certifyResult();
+    } else if (obj.code == 201) {
+      //微信授权认证
+      SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
+          .then((result) {
+        if (result == true) {
+          SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, null,
+              (SSDKResponseState state, Map user, SSDKError error) async {
+            if (state == SSDKResponseState.Success) {
+              ThirdLoginModel obj = await DioManager().request<ThirdLoginModel>(
+                  DioManager.POST, Api.wechatAuthLoginOrCertifyUrl,
+                  shouldLoading: true,
+                  params: {
+                    'access_token': user['credential']['token'],
+                    'openid': user['rawData']['openid']
+                  });
+              if (obj.data.binding == 'true') {
+                //已绑定
+                certifyResult();
+              }
             } else {
-              Fluttertoast.showToast(msg: '请先安装微信客户端');
+              LogUtil.v(error);
             }
           });
-        } else if (obj.code == 202) {
-          //手动留资认证
-          Get.toNamed(Routes.COMPLAINT);
+        } else {
+          Fluttertoast.showToast(msg: '请先安装微信客户端');
         }
-      },
-      error: (error) {},
-    );
+      });
+    } else if (obj.code == 202) {
+      //手动留资认证
+      Get.toNamed(Routes.COMPLAINT);
+    }
   }
 
   //认证结果
@@ -103,17 +90,13 @@ class UserController extends BaseController {
   }
 
   //退出登录
-  void logout() {
-    DioManager().request<CommonModel>(
-      DioManager.POST,
-      Api.logoutUrl,
-      success: (CommonModel obj) {
-        if (obj.success != null) {
-          userInfo.value = UserInfo();
-          isLogin.value = false;
-          Get.offAllNamed(Routes.LOGIN);
-        }
-      },
-    );
+  void logout() async {
+    CommonModel obj =
+        await DioManager().request<CommonModel>(DioManager.POST, Api.logoutUrl);
+    if (obj.success != null) {
+      userInfo.value = UserInfo();
+      isLogin.value = false;
+      Get.offAllNamed(Routes.LOGIN);
+    }
   }
 }

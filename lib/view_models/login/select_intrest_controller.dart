@@ -17,16 +17,11 @@ class SelectIntreController extends BaseController {
   List<IntresData> allIntres = List<IntresData>(); //所有兴趣爱好
 
   @override
-  void onReady() {
-    DioManager().request<IntresModel>(
-      DioManager.GET,
-      Api.intrestListUrl,
-      success: (IntresModel obj) {
-        allIntres.addAll(obj.list);
-        update();
-      },
-      error: (error) {},
-    );
+  void onReady() async {
+    IntresModel obj = await DioManager()
+        .request<IntresModel>(DioManager.GET, Api.intrestListUrl);
+    allIntres.addAll(obj.list);
+    update();
     super.onReady();
   }
 
@@ -73,23 +68,18 @@ class SelectIntreController extends BaseController {
   }
 
   //保存
-  void saveIntres() {
+  void saveIntres() async {
     if (selectIntres.length < 2) {
       Fluttertoast.showToast(msg: '最少选择两个');
     } else {
-      DioManager().request<CommonModel>(
-        DioManager.POST,
-        Api.changedIntrestUrl,
-        params: {"interest": jsonEncode(selectIntres)},
-        success: (CommonModel obj) {
-          if (obj.success != null) {
-            Fluttertoast.showToast(msg: '提交成功！');
-          } else if (obj.error != null) {
-            Fluttertoast.showToast(msg: '提交失败！');
-          }
-        },
-        error: (error) {},
-      );
+      CommonModel obj = await DioManager().request<CommonModel>(
+          DioManager.POST, Api.changedIntrestUrl,
+          params: {"interest": jsonEncode(selectIntres)});
+      if (obj.success != null) {
+        Fluttertoast.showToast(msg: '提交成功！');
+      } else if (obj.error != null) {
+        Fluttertoast.showToast(msg: '提交失败！');
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:common_utils/common_utils.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' as gg;
 import 'package:ws_app_flutter/utils/extension/get_extension.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
@@ -61,7 +62,7 @@ class DioManager {
           LogUtil.v('请求参数: ${options.data}');
         },
         onResponse: (Response response) {
-          LogUtil.v('返回参数: ${response.data}');
+          // LogUtil.v('返回参数: ${response.data}');
         },
         onError: (DioError error) {
           LogUtil.v('错误信息: ${error.message}');
@@ -97,16 +98,12 @@ class DioManager {
   /// [loadingMessage]：loading信息
   /// [params]：请求参数
   /// [queryParamters]：请求参数
-  /// [success]：请求成功回调
-  /// [error]：请求失败回调
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future request<T>(String method, String path,
       {bool shouldLoading = false,
       String loadingMessage,
       Map<String, dynamic> params,
       Map<String, dynamic> queryParamters,
-      Function(T) success,
-      Function(ErrorEntity) error,
       CancelToken cancelToken}) async {
     //根据外部传入值决定是否显示loading框
     if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
@@ -126,14 +123,14 @@ class DioManager {
           respData = _decodeData(response);
         }
         // BaseEntity entity = BaseEntity<T>.fromJson(respData);
-        success(EntityFactory.generateOBJ<T>(respData));
+        return EntityFactory.generateOBJ<T>(respData);
       } else {
-        error(ErrorEntity(code: -1, message: "未知错误"));
+        Fluttertoast.showToast(msg: "未知错误");
       }
     } on DioError catch (e) {
       //加载失败隐藏loading框
       if (shouldLoading) gg.Get.dismiss();
-      error(createErrorEntity(e));
+      Fluttertoast.showToast(msg: createErrorEntity(e).message);
     }
   }
 
@@ -144,16 +141,12 @@ class DioManager {
   /// [loadingMessage]：loading信息
   /// [params]：请求参数
   /// [queryParamters]：请求参数
-  /// [success]：请求成功回调
-  /// [error]：请求失败回调
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future requestList<T>(String method, String path,
       {bool shouldLoading = false,
       String loadingMessage,
       Map<String, dynamic> params,
       Map<String, dynamic> queryParamters,
-      Function(List<T>) success,
-      Function(ErrorEntity) error,
       CancelToken cancelToken}) async {
     //根据外部传入值决定是否显示loading框
     if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
@@ -173,14 +166,14 @@ class DioManager {
           respData = _decodeData(response);
         }
         BaseEntity entity = BaseEntity<T>.fromJson(respData);
-        success(entity.data);
+        return entity.data;
       } else {
-        error(ErrorEntity(code: -1, message: "未知错误"));
+        Fluttertoast.showToast(msg: "未知错误");
       }
     } on DioError catch (e) {
       //加载失败隐藏loading框
       if (shouldLoading) gg.Get.dismiss();
-      error(createErrorEntity(e));
+      Fluttertoast.showToast(msg: createErrorEntity(e).message);
     }
   }
 

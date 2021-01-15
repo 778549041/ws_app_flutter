@@ -10,38 +10,37 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class CircleListItem extends GetView<RecommendController> {
-  final int index;
+  final MomentModel model;
 
-  CircleListItem({@required this.index});
+  CircleListItem({@required this.model});
 
   @override
   Widget build(BuildContext context) {
-    MomentModel _moment = controller.momentListModel.value.list[index];
-    String _nickName = _moment.nickname;
+    String _nickName = model.nickname;
     if (_nickName.length > 11) {
       _nickName = _nickName.substring(0, 11);
     }
 
     String _accountType = '';
-    if (_moment.classify == '1') {
-      if (_moment.memberInfo.isSales == 1) {
+    if (model.classify == '1') {
+      if (model.memberInfo.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else {
         _accountType = '官方账号';
       }
     } else {
-      if (_moment.memberInfo.isSales == 1) {
+      if (model.memberInfo.isSales == 1) {
         _accountType = '特约店销售顾问';
-      } else if (_moment.userType == 2) {
+      } else if (model.userType == 2) {
         _accountType = '认证车主';
-      } else if (_moment.userType == 3) {
+      } else if (model.userType == 3) {
         _accountType = '普通用户';
       }
     }
 
     return GestureDetector(
       onTap: () {
-        print('点击了推荐圈子的第$index个单元格');
+        print('点击了圈子');
       },
       child: Container(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -63,14 +62,14 @@ class CircleListItem extends GetView<RecommendController> {
                             child: Stack(
                               children: <Widget>[
                                 RoundAvatar(
-                                  imageUrl: _moment.avatar,
+                                  imageUrl: model.avatar,
                                   height: 40,
                                 ),
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
                                   child: Offstage(
-                                      offstage: _moment.userType != 2,
+                                      offstage: model.userType != 2,
                                       child: Image.asset(
                                         'assets/images/mine/vip_tag.png',
                                         width: 18,
@@ -100,23 +99,23 @@ class CircleListItem extends GetView<RecommendController> {
                           ),
                         ),
                         //销售员或者勋章标签
-                        if (_moment.memberInfo.showTag)
+                        if (model.memberInfo.showTag)
                           CustomButton(
                             backgroundColor: Colors.transparent,
                             width: 30,
                             height: 30,
-                            image: _moment.memberInfo.medalOrSaleImageName,
+                            image: model.memberInfo.medalOrSaleImageName,
                             onPressed: () {},
                           ),
                       ],
                     ),
                     //顶部按钮行
-                    if (_moment.classify != '1')
+                    if (model.classify != '1')
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          if (_moment.friendsRelation != 2 ||
-                              !_moment.isSelf) //加好友按钮
+                          if (model.friendsRelation != 2 ||
+                              !model.isSelf) //加好友按钮
                             CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 73,
@@ -129,7 +128,7 @@ class CircleListItem extends GetView<RecommendController> {
                               radius: 11.5,
                               onPressed: () {},
                             ),
-                          if (_moment.isSelf) //删除按钮
+                          if (model.isSelf) //删除按钮
                             CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 40,
@@ -142,7 +141,7 @@ class CircleListItem extends GetView<RecommendController> {
                               radius: 11.5,
                               onPressed: () {},
                             ),
-                          if (!_moment.isSelf && GetPlatform.isIOS) //举报按钮
+                          if (!model.isSelf && GetPlatform.isIOS) //举报按钮
                             CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 73,
@@ -160,16 +159,16 @@ class CircleListItem extends GetView<RecommendController> {
                   ],
                 ),
                 //圈子文本内容
-                if (_moment.topicTitle.length +
-                        _moment.content.length +
-                        _moment.params.name.length >
+                if (model.topicTitle.length +
+                        model.content.length +
+                        model.params.name.length >
                     0)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: RichText(
                       maxLines: 5,
                       text: TextSpan(
-                          text: _moment.topicTitle,
+                          text: model.topicTitle,
                           style: TextStyle(
                             color: Color(0xFF2673FB),
                             fontSize: 15,
@@ -180,14 +179,14 @@ class CircleListItem extends GetView<RecommendController> {
                             },
                           children: [
                             TextSpan(
-                              text: _moment.content,
+                              text: model.content,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
                               ),
                             ),
                             TextSpan(
-                                text: _moment.params.name,
+                                text: model.params.name,
                                 style: TextStyle(
                                   color: Color(0xFF2673FB),
                                   fontSize: 15,
@@ -201,13 +200,13 @@ class CircleListItem extends GetView<RecommendController> {
                     ),
                   ),
                 //图片宫格
-                if (_moment.type == '1')
+                if (model.type == '1')
                   GridView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: _moment.fileList.length,
+                      itemCount: model.fileList.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: (_moment.fileList.length > 1) ? 2 : 1,
+                        crossAxisCount: (model.fileList.length > 1) ? 2 : 1,
                         mainAxisSpacing: 8,
                         crossAxisSpacing: 8,
                       ),
@@ -216,7 +215,7 @@ class CircleListItem extends GetView<RecommendController> {
                           onTap: () {
                             Get.to(
                                 GalleryPhotoPage(
-                                  galleryItems: _moment.fileList,
+                                  galleryItems: model.fileList,
                                   initialIndex: index,
                                   backgroundDecoration:
                                       const BoxDecoration(color: Colors.black),
@@ -224,23 +223,23 @@ class CircleListItem extends GetView<RecommendController> {
                                 transition: Transition.fadeIn);
                           },
                           child: Hero(
-                            tag: _moment.fileList[index].savepath,
+                            tag: model.fileList[index].savepath,
                             child: CachedNetworkImage(
-                              imageUrl: _moment.fileList[index].savepath,
+                              imageUrl: model.fileList[index].savepath,
                               fit: BoxFit.cover,
                             ),
                           ),
                         );
                       }),
                 //视频
-                if (_moment.type == '2')
+                if (model.type == '2')
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: GestureDetector(
                       onTap: () {
                         Get.to(
                             VideoPalyPage(
-                              videoUrl: _moment.fileList[0].savepath,
+                              videoUrl: model.fileList[0].savepath,
                             ),
                             transition: Transition.fadeIn);
                       },
@@ -249,7 +248,7 @@ class CircleListItem extends GetView<RecommendController> {
                         children: <Widget>[
                           CachedNetworkImage(
                             imageUrl:
-                                '${_moment.fileList[0].savepath}?vframe/jpg/offset/0',
+                                '${model.fileList[0].savepath}?vframe/jpg/offset/0',
                             fit: BoxFit.cover,
                           ),
                           Image.asset('assets/images/circle/circle_play.png',
@@ -265,7 +264,7 @@ class CircleListItem extends GetView<RecommendController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        _moment.pubtime.substring(0, 10),
+                        model.pubtime.substring(0, 10),
                         style: TextStyle(
                           color: Color(0xFF666666),
                           fontSize: 12,
@@ -282,7 +281,7 @@ class CircleListItem extends GetView<RecommendController> {
                           Padding(
                             padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Text(
-                              _moment.visitsNum,
+                              model.visitsNum,
                               style: TextStyle(
                                   color: Color(0xFF666666), fontSize: 12),
                             ),
@@ -295,7 +294,7 @@ class CircleListItem extends GetView<RecommendController> {
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
-                              _moment.comment,
+                              model.comment,
                               style: TextStyle(
                                   color: Color(0xFF666666), fontSize: 12),
                             ),
@@ -311,7 +310,7 @@ class CircleListItem extends GetView<RecommendController> {
                               imageH: 12,
                               imagePosition:
                                   XJImagePosition.XJImagePositionLeft,
-                              title: _moment.praise,
+                              title: model.praise,
                               fontSize: 12,
                               titleColor: Color(0xFF666666),
                               onPressed: () {},
@@ -325,7 +324,7 @@ class CircleListItem extends GetView<RecommendController> {
               ],
             ),
             //优质圈子标签
-            if (_moment.isGood == 'true')
+            if (model.isGood == 'true')
               Positioned(
                 right: 10,
                 top: 50,

@@ -28,7 +28,7 @@ class BindController extends BaseController {
   }
 
   //发送验证码
-  void sendCode() {
+  void sendCode() async {
     if (!enabled.value) {
       return;
     }
@@ -41,22 +41,15 @@ class BindController extends BaseController {
       Fluttertoast.showToast(msg: '手机号格式错误');
       return;
     }
-    DioManager().request<CommonModel>(
-      DioManager.POST,
-      Api.bindPhoneSendCodeUrl,
-      params: {'mobile': _phoneNumber},
-      success: (CommonModel obj) {
-        doCountDown();
-        if (obj.success != null) {
-          Fluttertoast.showToast(msg: obj.success);
-        } else if (obj.error != null) {
-          Fluttertoast.showToast(msg: obj.error);
-        }
-      },
-      error: (error) {
-        LogUtil.v(error.message);
-      },
-    );
+    CommonModel obj = await DioManager().request<CommonModel>(
+        DioManager.POST, Api.bindPhoneSendCodeUrl,
+        params: {'mobile': _phoneNumber});
+    doCountDown();
+    if (obj.success != null) {
+      Fluttertoast.showToast(msg: obj.success);
+    } else if (obj.error != null) {
+      Fluttertoast.showToast(msg: obj.error);
+    }
   }
 
   //绑定
@@ -65,7 +58,7 @@ class BindController extends BaseController {
       String memberId,
       String unionid,
       String clientUser,
-      String identityToken}) {
+      String identityToken}) async {
     String _phoneNumber = nameController.text;
     String _pwdStr = pwdController.text;
     var _params = Map<String, dynamic>();
@@ -88,47 +81,37 @@ class BindController extends BaseController {
       _params['openid'] = openid;
       _params['member_id'] = memberId;
       _params['unionid'] = unionid;
-      DioManager().request<BindModel>(
-        DioManager.POST,
-        Api.bindPhoneUrl,
-        params: _params,
-        success: (BindModel obj) async {
-          errorMsg.value = obj.data.msg;
-          if (obj.result == 'success') {
-            await Get.find<UserController>().getUserInfo();
-            if (obj.data.isMobile) {
-              //首页
-              Get.toNamed(Routes.HOME);
-            } else {
-              //完善信息
-              Get.toNamed(Routes.COMPLETEINFO);
-            }
-          }
-        },
-        error: (error) {},
-      );
+      BindModel obj = await DioManager().request<BindModel>(
+          DioManager.POST, Api.bindPhoneUrl,
+          params: _params);
+      errorMsg.value = obj.data.msg;
+      if (obj.result == 'success') {
+        await Get.find<UserController>().getUserInfo();
+        if (obj.data.isMobile) {
+          //首页
+          Get.toNamed(Routes.HOME);
+        } else {
+          //完善信息
+          Get.toNamed(Routes.COMPLETEINFO);
+        }
+      }
     } else {
       _params['clientUser'] = clientUser;
       _params['identityToken'] = identityToken;
-      DioManager().request<AppleBindModel>(
-        DioManager.POST,
-        Api.appleBindPhoneUrl,
-        params: _params,
-        success: (AppleBindModel obj) async {
-          errorMsg.value = obj.message;
-          if (obj.result) {
-            await Get.find<UserController>().getUserInfo();
-            if (!obj.firstLogin) {
-              //首页
-              Get.toNamed(Routes.HOME);
-            } else {
-              //完善信息
-              Get.toNamed(Routes.COMPLETEINFO);
-            }
-          }
-        },
-        error: (error) {},
-      );
+      AppleBindModel obj = await DioManager().request<AppleBindModel>(
+          DioManager.POST, Api.appleBindPhoneUrl,
+          params: _params);
+      errorMsg.value = obj.message;
+      if (obj.result) {
+        await Get.find<UserController>().getUserInfo();
+        if (!obj.firstLogin) {
+          //首页
+          Get.toNamed(Routes.HOME);
+        } else {
+          //完善信息
+          Get.toNamed(Routes.COMPLETEINFO);
+        }
+      }
     }
   }
 

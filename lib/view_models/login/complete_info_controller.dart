@@ -26,7 +26,8 @@ class CompleteInfoController extends BaseController {
   @override
   void onInit() {
     userInfo.value = Get.find<UserController>().userInfo.value;
-    nameController = TextEditingController(text: userInfo.value.member.name ?? '');
+    nameController =
+        TextEditingController(text: userInfo.value.member.name ?? '');
     professionController = TextEditingController();
     phone.value =
         userInfo.value.member.mobile.replaceFirst(RegExp(r'\d{4}'), '****', 3);
@@ -55,9 +56,14 @@ class CompleteInfoController extends BaseController {
     DatePicker.showDatePicker(
       Get.context,
       pickerTheme: DateTimePickerTheme(
-        confirm: Text('确定',style: TextStyle(color: Colors.blue,fontSize: 14),),
-        cancel: Text('取消',style: TextStyle(color: Colors.grey,fontSize: 14),)
-      ),
+          confirm: Text(
+            '确定',
+            style: TextStyle(color: Colors.blue, fontSize: 14),
+          ),
+          cancel: Text(
+            '取消',
+            style: TextStyle(color: Colors.grey, fontSize: 14),
+          )),
       minDateTime: DateTime.parse('1997-01-01'),
       maxDateTime: DateTime.parse('2100-01-01'),
       initialDateTime: DateTime.now(),
@@ -82,26 +88,24 @@ class CompleteInfoController extends BaseController {
   }
 
   //继续完善
-  void nextStep() {
-    DioManager().request<CommonModel>(
-      DioManager.POST,
-      Api.changeUserInfoUrl,
-      params: {
-        "contact[name]": nameController.text,
-        "profile[gender]": sex.value == '男' ? 'male' : sex.value == '女' ? 'female' : '',
-        "profile[birthday]": birthday.value == '请选择出生日期' ? '' : birthday.value,
-        "contact[profession]": professionController.text,
-        "contact[area]": addr.value == '请选择现居地' ? '' : addr.value,
-      },
-      success: (CommonModel obj) {
-        if (obj.success != null) {
-          //跳转兴趣标签
-          Get.toNamed(Routes.SELECTINTREST);
-        } else if (obj.error != null) {
-          Fluttertoast.showToast(msg: obj.error);
-        }
-      },
-      error: (error) {},
-    );
+  void nextStep() async {
+    CommonModel obj = await DioManager()
+        .request<CommonModel>(DioManager.POST, Api.changeUserInfoUrl, params: {
+      "contact[name]": nameController.text,
+      "profile[gender]": sex.value == '男'
+          ? 'male'
+          : sex.value == '女'
+              ? 'female'
+              : '',
+      "profile[birthday]": birthday.value == '请选择出生日期' ? '' : birthday.value,
+      "contact[profession]": professionController.text,
+      "contact[area]": addr.value == '请选择现居地' ? '' : addr.value,
+    });
+    if (obj.success != null) {
+      //跳转兴趣标签
+      Get.toNamed(Routes.SELECTINTREST);
+    } else if (obj.error != null) {
+      Fluttertoast.showToast(msg: obj.error);
+    }
   }
 }

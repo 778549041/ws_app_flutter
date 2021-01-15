@@ -22,23 +22,16 @@ class SplashController extends BaseController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
     if (firstLaunch.value) {
       //首次安装应用,引导页
       SpUtil.putBool(CacheKey.FIRSTLAUNCH, false);
     } else {
-      DioManager().request<SplashModel>(
-        DioManager.POST,
-        Api.aDImageDataUrl,
-        success: (SplashModel obj) {
-          splashModel.value = obj;
-          doCountDown();
-        },
-        error: (error) {
-          showErrorMessage();
-        },
-      );
+      SplashModel obj = await DioManager()
+          .request<SplashModel>(DioManager.POST, Api.aDImageDataUrl);
+      splashModel.value = obj;
+      doCountDown();
     }
   }
 

@@ -9,6 +9,7 @@ import 'package:ws_app_flutter/models/splash/splash_model.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
 import 'package:ws_app_flutter/models/wow/car_data_model.dart';
+import 'package:ws_app_flutter/models/wow/category_model.dart';
 import 'package:ws_app_flutter/models/wow/moment_model.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
@@ -53,6 +54,8 @@ class EntityFactory {
      return ActivityListModel.fromJson(json) as T;
    } else if (T.toString() == 'RecommendActivityListModel') {
      return RecommendActivityListModel.fromJson(json) as T;
+   } else if (T.toString() == 'CategoryListModel') {
+     return CategoryListModel.fromJson(json) as T;
    } 
    else {
       return json as T;
