@@ -7,10 +7,42 @@ class ActivityController extends RefreshListController {
   var condition = 'all'.obs;
 
   @override
+  void onInit() {
+    pageSize = 10;
+    super.onInit();
+  }
+
+  @override
   Future<List> loadData({int pageNum}) async {
     ActivityListModel _model = await DioManager().request<ActivityListModel>(
         DioManager.GET,
         'index.php/m/huodong-$pageNum-10-${condition.value}.html?key=');
     return _model.list;
+  }
+
+  //条件筛选列表数据
+  Future requestData(int pageNum, String condition) async {
+    ActivityListModel _model = await DioManager().request<ActivityListModel>(
+        DioManager.GET,
+        'index.php/m/huodong-$pageNum-10-$condition.html?key=');
+    if (_model.list.isEmpty) {
+        refreshController.refreshCompleted(resetFooterState: true);
+        list.clear();
+        setEmpty();
+      } else {
+        onCompleted(_model.list);
+        list.clear();
+        list.addAll(_model.list);
+        refreshController.refreshCompleted();
+        // 小于分页的数量,禁止上拉加载更多
+        if (_model.list.length < pageSize) {
+          refreshController.loadNoData();
+        } else {
+          //防止上次上拉加载更多失败,需要重置状态
+          refreshController.loadComplete();
+        }
+        setIdle();
+      }
+      return _model.list;
   }
 }

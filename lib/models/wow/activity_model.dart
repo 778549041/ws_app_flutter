@@ -13,7 +13,7 @@ class ActivityListModel {
         list.add(ActivityModel.fromJson(element));
       });
     }
-    pager = json['pager'] != null ? Pager.fromJson(json['pager']) : Pager();
+    // pager = json['pager'] != null ? Pager.fromJson(json['pager']) : Pager();
   }
 }
 
@@ -119,8 +119,8 @@ class ActivityModel {
     name = json['name'] ?? '';
     ordernum = json['ordernum'] ?? '';
     isCustom = json['is_custom'] ?? '';
-    // store =
-    //     json['store'] != null ? ActivityAddress.fromJson(json['store']) : null;
+    store =
+        json['store'] != null ? ActivityAddress.fromJson(json['store']) : ActivityAddress();
     isBgClear = false;
   }
 }

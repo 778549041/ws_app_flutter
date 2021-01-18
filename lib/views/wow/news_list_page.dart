@@ -143,11 +143,16 @@ class NewsListPage extends GetView<NewsController> {
                   width: 15,
                   height: 15,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Text(
-                    '大家都在搜“VE-1新车发布”',
-                    style: TextStyle(color: Color(0xFF999999), fontSize: 12),
+                GestureDetector(
+                  onTap: () {
+                    print('资讯搜索');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      '大家都在搜“VE-1新车发布”',
+                      style: TextStyle(color: Color(0xFF999999), fontSize: 12),
+                    ),
                   ),
                 )
               ],

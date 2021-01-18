@@ -13,8 +13,7 @@ class NewsController extends RefreshListController {
     if (pageNum == 0) {
       await _requestCategoryData();
     }
-    var response = await _requestRecommendNewsList(pageNum);
-    return response;
+    return await _requestRecommendNewsList(pageNum);
   }
 
   //分类数据

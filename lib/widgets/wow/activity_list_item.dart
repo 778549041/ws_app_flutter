@@ -22,30 +22,32 @@ class ActivityListItem extends StatelessWidget {
       _mingE = '名额:${model.apply}/${model.limit}';
     }
 
-    DateTime _endTime = DateUtil.getDateTimeByMs(int.parse(model.toTime) * 1000);
-    DateTime _beginTime = DateUtil.getDateTimeByMs(int.parse(model.fromTime) * 1000);
+    DateTime _endTime =
+        DateUtil.getDateTimeByMs(int.parse(model.toTime) * 1000);
+    DateTime _beginTime =
+        DateUtil.getDateTimeByMs(int.parse(model.fromTime) * 1000);
     DateTime _nowTime = DateTime.now();
 
     if (_beginTime.difference(_nowTime).inDays > 0) {
       //未开始
       _timeColor = Color(0xFFBD1051);
-      _addrImage = 'active_addr_red';
+      _addrImage = 'assets/images/wow/active_addr_red.png';
       _time = '未开始';
     } else if (_nowTime.difference(_endTime).inDays > 0) {
       //已结束
-      _timeColor = Color(0xADADAD);
-      _addrImage = 'active_addr_grey';
+      _timeColor = Color(0xFFADADAD);
+      _addrImage = 'assets/images/wow/active_addr_grey.png';
       _time = '已结束';
     } else {
       //进行中
       _timeColor = Color(0xFF1C7AF4);
-      _addrImage = 'active_addr_blue';
+      _addrImage = 'assets/images/wow/active_addr_blue.png';
       _time = '进行中';
     }
 
     return GestureDetector(
       onTap: () {
-        print('点击了推荐资讯');
+        print('点击了活动');
       },
       child: Stack(
         children: <Widget>[
@@ -70,7 +72,8 @@ class ActivityListItem extends StatelessWidget {
               children: <Widget>[
                 Stack(
                   children: <Widget>[
-                    CachedNetworkImage(imageUrl: model.imageUrl),
+                    CachedNetworkImage(
+                        imageUrl: (model.imgUrl.split('?')).first),
                     Positioned(
                       left: 0,
                       bottom: 0,
@@ -84,17 +87,23 @@ class ActivityListItem extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            model.name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          Expanded(
+                            child: Text(
+                              model.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
                           ),
                           if (model.limit != '0')
-                            Text(
-                              _mingE,
-                              style: TextStyle(
-                                  color: Color(0xFFADADAD), fontSize: 12),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                _mingE,
+                                style: TextStyle(
+                                    color: Color(0xFFADADAD), fontSize: 12),
+                              ),
                             ),
                         ],
                       ),
@@ -103,11 +112,16 @@ class ActivityListItem extends StatelessWidget {
                       Positioned(
                         top: 0,
                         right: 0,
-                        child: Image.asset(''),
+                        child: Image.asset(
+                          'assets/images/wow/icon_car_owner.png',
+                          width: 62.5,
+                          height: 62.5,
+                        ),
                       ),
                   ],
                 ),
                 Container(
+                  padding: const EdgeInsets.only(top: 5, bottom: 10),
                   width: Get.width - 30,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -131,7 +145,11 @@ class ActivityListItem extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               child: Row(
                                 children: <Widget>[
-                                  Image.asset(_addrImage),
+                                  Image.asset(
+                                    _addrImage,
+                                    width: 11,
+                                    height: 13,
+                                  ),
                                   Text(
                                     model.store.address,
                                     maxLines: 1,
@@ -146,15 +164,18 @@ class ActivityListItem extends StatelessWidget {
                             ),
                         ],
                       ),
-                      CustomButton(
-                        backgroundColor: Color(0xFF4345E5),
-                        width: 55,
-                        height: 21,
-                        title: '查看详情',
-                        radius: 10.5,
-                        fontSize: 11,
-                        titleColor: Colors.white,
-                        onPressed: () {},
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: CustomButton(
+                          backgroundColor: Color(0xFF4345E5),
+                          width: 65,
+                          height: 21,
+                          title: '查看详情',
+                          radius: 10.5,
+                          fontSize: 11,
+                          titleColor: Colors.white,
+                          onPressed: () {},
+                        ),
                       )
                     ],
                   ),

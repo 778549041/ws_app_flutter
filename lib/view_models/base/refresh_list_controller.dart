@@ -4,10 +4,10 @@ import 'package:ws_app_flutter/view_models/base/list_controller.dart';
 
 abstract class RefreshListController<T> extends ListController<T> {
   /// 分页第一页页码
-  static const int pageNumFirst = 0;
+  static const int pageNumFirst = 1;
 
-  /// 分页条目数量
-  static const int pageSize = 20;
+  /// 分页条目数量,默认20条，可外部设置条数
+  int pageSize = 20;
 
   RefreshController _refreshController = RefreshController(initialRefresh: false);
 
@@ -85,7 +85,6 @@ abstract class RefreshListController<T> extends ListController<T> {
 
   @override
   void onClose() {
-    _refreshController.dispose();
     super.onClose();
   }
 }

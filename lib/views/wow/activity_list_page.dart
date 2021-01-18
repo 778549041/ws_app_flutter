@@ -4,6 +4,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/view_models/wow/activity_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/wow/activity_list_item.dart';
+import 'package:ws_app_flutter/widgets/wow/activity_side.dart';
 
 class ActivityListPage extends GetView<ActivityController> {
   @override
@@ -34,12 +35,16 @@ class ActivityListPage extends GetView<ActivityController> {
               onRefresh: () => controller.refresh(),
               enablePullUp: true,
               onLoading: () => controller.loadMore(),
-              child: Obx(
-                () => ListView.builder(
-                    itemCount: controller.list.length,
-                    itemBuilder: (context, index) {
-                      return ActivityListItem(model: controller.list[index]);
-                    }),
+              child: CustomScrollView(
+                slivers: [
+                  Obx(
+                    () => SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return ActivityListItem(model: controller.list[index]);
+                      }, childCount: controller.list.length),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -65,12 +70,17 @@ class ActivityListPage extends GetView<ActivityController> {
                       width: 15,
                       height: 15,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        '大家都在搜“VE-1新车发布”',
-                        style:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                    GestureDetector(
+                      onTap: () {
+                        print('活动搜索');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Text(
+                          '大家都在搜“VE-1新车发布”',
+                          style:
+                              TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        ),
                       ),
                     )
                   ],
@@ -85,7 +95,33 @@ class ActivityListPage extends GetView<ActivityController> {
                   image: 'assets/images/wow/active_menu.png',
                   imageW: 51,
                   imageH: 35,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.generalDialog(
+                      barrierLabel: '',
+                      barrierDismissible: true,
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return ActivitySideWidget();
+                      },
+                      transitionBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(1.0, 0.0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: Offset.zero,
+                                  end: const Offset(-1.0, 0.0),
+                                ).animate(secondaryAnimation),
+                                child: child),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],
