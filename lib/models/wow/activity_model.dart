@@ -13,7 +13,7 @@ class ActivityListModel {
         list.add(ActivityModel.fromJson(element));
       });
     }
-    // pager = json['pager'] != null ? Pager.fromJson(json['pager']) : Pager();
+    pager = json['pager'] != null ? Pager.fromJson(json['pager']) : Pager();
   }
 }
 
@@ -120,15 +120,15 @@ class ActivityModel {
     ordernum = json['ordernum'] ?? '';
     isCustom = json['is_custom'] ?? '';
     store =
-        json['store'] != null ? ActivityAddress.fromJson(json['store']) : ActivityAddress();
+        (json['store'] != null && json['store'] is Map) ? ActivityAddress.fromJson(json['store']) : ActivityAddress();
     isBgClear = false;
   }
 }
 
 class Pager {
   int total;
-  int current;
-  String token;
+  String current;
+  int token;
 
   Pager({this.current, this.token, this.total});
 

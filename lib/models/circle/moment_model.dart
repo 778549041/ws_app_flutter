@@ -46,7 +46,7 @@ class MomentModel {
   String content;
   String type;
   String comment;
-  int examine;
+  String examine;
   String praise;
   bool praiseStatus;
   String avatar;
@@ -83,7 +83,7 @@ class MomentModel {
       this.examine,
       this.praise,
       this.praiseStatus,
-      this.avatar,
+      this.avatar = '',
       this.nickname,
       this.isSelf,
       this.pubtime,
@@ -120,7 +120,7 @@ class MomentModel {
     examine = json['examine'];
     praise = json['praise'];
     praiseStatus = json['praise_status'];
-    avatar = json['avatar'];
+    avatar = json['avatar'] ?? '';
     nickname = json['nickname'];
     isSelf = json['is_self'];
     fileList = List<FileModel>();

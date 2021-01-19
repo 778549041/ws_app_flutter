@@ -105,7 +105,9 @@ class NewsListPage extends GetView<NewsController> {
                           child: Text(
                             '热门资讯',
                             style: TextStyle(
-                                color: Color(0xFF333333), fontSize: 15),
+                                color: Color(0xFF333333),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),

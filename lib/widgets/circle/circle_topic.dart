@@ -1,0 +1,78 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_topic_controller.dart';
+
+class CircleTopicItem extends GetView<CircleTopicController> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10))),
+      margin: const EdgeInsets.only(bottom: 15),
+      child: Container(
+        height: 140,
+        margin: const EdgeInsets.only(left: 15, bottom: 15),
+        child: SmartRefresher(
+          scrollDirection: Axis.horizontal,
+          controller: controller.refreshController,
+          header: WaterDropHeader(),
+          onRefresh: () => controller.refresh(),
+          enablePullUp: true,
+          onLoading: () => controller.loadMore(),
+          child: Obx(() => ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.list.length,
+              itemBuilder: (context, index) {
+                TopicModel _model = controller.list[index];
+                return Container(
+                  margin: EdgeInsets.only(right: 5),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        CachedNetworkImage(imageUrl: _model.imageUrl),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.4),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(5),
+                                    bottomRight: Radius.circular(5))),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  _model.title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                Text(
+                                  '${_model.totalNum.toString()}人参与',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              })),
+        ),
+      ),
+    );
+  }
+}

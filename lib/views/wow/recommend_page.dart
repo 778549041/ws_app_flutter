@@ -46,8 +46,12 @@ class RecommendPage extends GetView<RecommendController> {
                   Obx(
                     () => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        return CircleListItem(
-                          model: controller.momentListModel.value.list[index],
+                        return Container(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: CircleListItem(
+                            model: controller.momentListModel.value.list[index],
+                            pageName: 'recommendCircle',
+                          ),
                         );
                       },
                           childCount:
@@ -90,7 +94,9 @@ class RecommendPage extends GetView<RecommendController> {
                           child: Text(
                             'VE-1活动',
                             style: TextStyle(
-                                color: Color(0xFF333333), fontSize: 15),
+                                color: Color(0xFF333333),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/models/wow/moment_model.dart';
+import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/views/global/gallery_photo_browser.dart';
 import 'package:ws_app_flutter/views/global/video_play_page.dart';
@@ -11,8 +11,9 @@ import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class CircleListItem extends GetView<RecommendController> {
   final MomentModel model;
+  final String pageName;
 
-  CircleListItem({@required this.model});
+  CircleListItem({@required this.model, @required this.pageName});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,14 @@ class CircleListItem extends GetView<RecommendController> {
     }
 
     String _accountType = '';
+    // double _nameWidth = 0;
     if (model.classify == '1') {
       if (model.memberInfo.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else {
         _accountType = '官方账号';
       }
+      // _nameWidth = Get.width - 90;
     } else {
       if (model.memberInfo.isSales == 1) {
         _accountType = '特约店销售顾问';
@@ -44,10 +47,12 @@ class CircleListItem extends GetView<RecommendController> {
       },
       child: Container(
         padding: const EdgeInsets.only(left: 15, right: 15),
-        color: Color(0xFFF3F3F3),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Stack(
           children: <Widget>[
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //顶部行
                 Row(
@@ -58,37 +63,60 @@ class CircleListItem extends GetView<RecommendController> {
                       children: <Widget>[
                         //头像
                         GestureDetector(
-                            onTap: () {},
-                            child: Stack(
-                              children: <Widget>[
-                                RoundAvatar(
-                                  imageUrl: model.avatar,
-                                  height: 40,
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Offstage(
-                                      offstage: model.userType != 2,
-                                      child: Image.asset(
-                                        'assets/images/mine/vip_tag.png',
-                                        width: 18,
-                                        height: 18,
-                                        fit: BoxFit.cover,
-                                      )),
-                                )
-                              ],
-                            )),
+                          onTap: () {},
+                          child: Stack(
+                            children: <Widget>[
+                              RoundAvatar(
+                                imageUrl: model.avatar,
+                                height: 40,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Offstage(
+                                    offstage: model.userType != 2,
+                                    child: Image.asset(
+                                      'assets/images/mine/vip_tag.png',
+                                      width: 18,
+                                      height: 18,
+                                      fit: BoxFit.cover,
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
                         //昵称和账号类型
                         Container(
+                          width: Get.width - 240,
                           margin: const EdgeInsets.only(left: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                _nickName,
-                                style: TextStyle(
-                                    color: Color(0xFF2673FB), fontSize: 15),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      _nickName,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          color: Color(0xFF2673FB),
+                                          fontSize: 15),
+                                    ),
+                                  ),
+                                  //销售员或者勋章标签
+                                  if (model.memberInfo.showTag)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: CustomButton(
+                                        backgroundColor: Colors.transparent,
+                                        width: 30,
+                                        height: 30,
+                                        image: model
+                                            .memberInfo.medalOrSaleImageName,
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                ],
                               ),
                               Text(
                                 _accountType,
@@ -98,15 +126,6 @@ class CircleListItem extends GetView<RecommendController> {
                             ],
                           ),
                         ),
-                        //销售员或者勋章标签
-                        if (model.memberInfo.showTag)
-                          CustomButton(
-                            backgroundColor: Colors.transparent,
-                            width: 30,
-                            height: 30,
-                            image: model.memberInfo.medalOrSaleImageName,
-                            onPressed: () {},
-                          ),
                       ],
                     ),
                     //顶部按钮行
@@ -114,35 +133,47 @@ class CircleListItem extends GetView<RecommendController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          if (model.friendsRelation != 2 ||
-                              !model.isSelf) //加好友按钮
-                            CustomButton(
-                              backgroundColor: Colors.transparent,
-                              width: 73,
-                              height: 23,
-                              borderColor: Color(0xFF999999),
-                              title: '加好友',
-                              titleColor: Color(0xFF999999),
-                              fontSize: 11,
-                              borderWidth: 0.5,
-                              radius: 11.5,
-                              onPressed: () {},
+                          //加好友按钮
+                          Offstage(
+                            offstage:
+                                model.friendsRelation == 2 || model.isSelf,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: CustomButton(
+                                backgroundColor: Colors.transparent,
+                                width: 73,
+                                height: 23,
+                                borderColor: Color(0xFF999999),
+                                title: '加好友',
+                                titleColor: Color(0xFF999999),
+                                fontSize: 11,
+                                borderWidth: 0.5,
+                                radius: 11.5,
+                                onPressed: () {},
+                              ),
                             ),
-                          if (model.isSelf) //删除按钮
-                            CustomButton(
+                          ),
+                          //删除按钮
+                          Offstage(
+                            offstage: !model.isSelf,
+                            child: CustomButton(
                               backgroundColor: Colors.transparent,
-                              width: 40,
+                              width: 50,
                               height: 23,
-                              borderColor: Color(0xFF999999),
                               title: '删除',
                               titleColor: Color(0xFF999999),
+                              image:
+                                  'assets/images/wow/news_detail_delete_comment.png',
+                              imageH: 15,
+                              imageW: 20,
                               fontSize: 11,
-                              borderWidth: 0.5,
-                              radius: 11.5,
                               onPressed: () {},
                             ),
-                          if (!model.isSelf && GetPlatform.isIOS) //举报按钮
-                            CustomButton(
+                          ),
+                          //举报按钮
+                          Offstage(
+                            offstage: model.isSelf || !GetPlatform.isIOS,
+                            child: CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 73,
                               height: 23,
@@ -154,6 +185,7 @@ class CircleListItem extends GetView<RecommendController> {
                               radius: 11.5,
                               onPressed: () {},
                             ),
+                          ),
                         ],
                       ),
                   ],
@@ -215,6 +247,8 @@ class CircleListItem extends GetView<RecommendController> {
                           onTap: () {
                             Get.to(
                                 GalleryPhotoPage(
+                                  heroName: (model.fileList[index].savepath +
+                                      pageName),
                                   galleryItems: model.fileList,
                                   initialIndex: index,
                                   backgroundDecoration:
@@ -223,7 +257,7 @@ class CircleListItem extends GetView<RecommendController> {
                                 transition: Transition.fadeIn);
                           },
                           child: Hero(
-                            tag: model.fileList[index].savepath,
+                            tag: (model.fileList[index].savepath + pageName),
                             child: CachedNetworkImage(
                               imageUrl: model.fileList[index].savepath,
                               fit: BoxFit.cover,
@@ -259,7 +293,7 @@ class CircleListItem extends GetView<RecommendController> {
                   ),
                 //底部时间和浏览量等
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -327,9 +361,12 @@ class CircleListItem extends GetView<RecommendController> {
             if (model.isGood == 'true')
               Positioned(
                 right: 10,
-                top: 50,
-                child:
-                    Image.asset('assets/images/circle/icon_high_quality.png'),
+                top: 30,
+                child: Image.asset(
+                  'assets/images/circle/icon_high_quality.png',
+                  width: 43,
+                  height: 43,
+                ),
               ),
           ],
         ),

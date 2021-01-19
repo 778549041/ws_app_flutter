@@ -8,7 +8,7 @@ class ActivityController extends RefreshListController {
 
   @override
   void onInit() {
-    pageSize = 10;
+    pageSize = 9;
     super.onInit();
   }
 

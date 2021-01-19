@@ -1,3 +1,4 @@
+import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
@@ -10,7 +11,7 @@ import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
 import 'package:ws_app_flutter/models/wow/car_data_model.dart';
 import 'package:ws_app_flutter/models/wow/category_model.dart';
-import 'package:ws_app_flutter/models/wow/moment_model.dart';
+import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
 
@@ -56,6 +57,10 @@ class EntityFactory {
      return RecommendActivityListModel.fromJson(json) as T;
    } else if (T.toString() == 'CategoryListModel') {
      return CategoryListModel.fromJson(json) as T;
+   } else if (T.toString() == 'TopicListModel') {
+     return TopicListModel.fromJson(json) as T;
+   } else if (T.toString() == 'SingleTopicodel') {
+     return SingleTopicodel.fromJson(json) as T;
    } 
    else {
       return json as T;

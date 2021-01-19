@@ -35,7 +35,7 @@ class CommonMemberModel {
     isVehicle = json['is_vehicle'] ?? '';
     memberLv = json['member_lv'] ?? '';
     nickname = json['nickname'] ?? '';
-    medal = json['medal'] ?? 0;
+    medal = (json['medal'] is String ? int.parse(json['medal']) : json['medal']) ?? 0;
     userType = json['user_type'] ?? 0;
     hrefUrl = json['href_url'] ?? '';
     isEnd = json['is_end'] ?? false;

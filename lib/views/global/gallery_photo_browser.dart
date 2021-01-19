@@ -12,11 +12,12 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:ws_app_flutter/models/wow/moment_model.dart';
+import 'package:ws_app_flutter/models/circle/moment_model.dart';
 
 class GalleryPhotoPage extends StatefulWidget {
   final LoadingBuilder loadingBuilder;
   final Decoration backgroundDecoration;
+  final String heroName;
   final dynamic minScale;
   final dynamic maxScale;
   final int initialIndex;
@@ -30,6 +31,7 @@ class GalleryPhotoPage extends StatefulWidget {
       this.minScale,
       this.maxScale,
       this.initialIndex,
+      @required this.heroName,
       @required this.galleryItems,
       this.scrollDirection = Axis.horizontal})
       : pageController = PageController(initialPage: initialIndex);
@@ -124,7 +126,7 @@ class GalleryPhotoPageState extends State<GalleryPhotoPage> {
 //      minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),
 //      maxScale: PhotoViewComputedScale.covered * 1.1,
 
-      heroAttributes: PhotoViewHeroAttributes(tag: item.savepath),
+      heroAttributes: PhotoViewHeroAttributes(tag: widget.heroName),
     );
   }
 

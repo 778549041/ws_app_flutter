@@ -9,8 +9,14 @@ class NewsController extends RefreshListController {
   var categoryListModel = CategoryListModel().obs;
 
   @override
+  void onInit() {
+    pageSize = 5;
+    super.onInit();
+  }
+
+  @override
   Future<List> loadData({int pageNum}) async {
-    if (pageNum == 0) {
+    if (pageNum == 1) {
       await _requestCategoryData();
     }
     return await _requestRecommendNewsList(pageNum);

@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
-import 'package:ws_app_flutter/models/wow/moment_model.dart';
+import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
