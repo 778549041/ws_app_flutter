@@ -33,7 +33,7 @@ class NewsController extends RefreshListController {
   //热门资讯数据
   Future _requestRecommendNewsList(int pageNum) async {
      NewsListModel obj = await DioManager().request<NewsListModel>(
-      DioManager.GET,
+      DioManager.POST,
       Api.newsHotListUrl,
       queryParamters: {"page": pageNum}
     );

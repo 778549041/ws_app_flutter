@@ -8,7 +8,7 @@ class CommonMemberModel {
   int medal;
   int userType;
   String hrefUrl;
-  bool isEnd;
+  int isEnd;
   String medalOrSaleImageName; //销售员或者勋章标签图标
   String medalOrSaleDescImageName; //销售员或者勋章详情图片
   bool showTag; //是否展示标签
@@ -23,7 +23,7 @@ class CommonMemberModel {
       this.medal = 0,
       this.userType = 0,
       this.hrefUrl = '',
-      this.isEnd = false,
+      this.isEnd = 0,
       this.medalOrSaleImageName = 'assets/images/mine/sales_tag_small.png',
       this.medalOrSaleDescImageName = 'assets/images/mine/sales_tag_big.png',
       this.showTag = false});
@@ -38,7 +38,7 @@ class CommonMemberModel {
     medal = (json['medal'] is String ? int.parse(json['medal']) : json['medal']) ?? 0;
     userType = json['user_type'] ?? 0;
     hrefUrl = json['href_url'] ?? '';
-    isEnd = json['is_end'] ?? false;
+    isEnd = json['is_end'] ?? 0;
     medalOrSaleImageName = _getMedalOrSaleImageName();
     medalOrSaleDescImageName = _getMedalOrSaleDescImageName();
     showTag = _getShowTag();

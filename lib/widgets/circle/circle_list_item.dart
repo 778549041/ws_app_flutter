@@ -46,7 +46,7 @@ class CircleListItem extends GetView<RecommendController> {
         print('点击了圈子');
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 15, right: 15),
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Stack(
@@ -59,74 +59,76 @@ class CircleListItem extends GetView<RecommendController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        //头像
-                        GestureDetector(
-                          onTap: () {},
-                          child: Stack(
-                            children: <Widget>[
-                              RoundAvatar(
-                                imageUrl: model.avatar,
-                                height: 40,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Offstage(
-                                    offstage: model.userType != 2,
-                                    child: Image.asset(
-                                      'assets/images/mine/vip_tag.png',
-                                      width: 18,
-                                      height: 18,
-                                      fit: BoxFit.cover,
-                                    )),
-                              )
-                            ],
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          //头像
+                          GestureDetector(
+                            onTap: () {},
+                            child: Stack(
+                              children: <Widget>[
+                                RoundAvatar(
+                                  imageUrl: model.avatar,
+                                  height: 40,
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Offstage(
+                                      offstage: model.userType != 2,
+                                      child: Image.asset(
+                                        'assets/images/mine/vip_tag.png',
+                                        width: 18,
+                                        height: 18,
+                                        fit: BoxFit.cover,
+                                      )),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        //昵称和账号类型
-                        Container(
-                          width: Get.width - 240,
-                          margin: const EdgeInsets.only(left: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
+                          //昵称和账号类型
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Expanded(
-                                    child: Text(
-                                      _nickName,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Color(0xFF2673FB),
-                                          fontSize: 15),
-                                    ),
-                                  ),
-                                  //销售员或者勋章标签
-                                  if (model.memberInfo.showTag)
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: CustomButton(
-                                        backgroundColor: Colors.transparent,
-                                        width: 30,
-                                        height: 30,
-                                        image: model
-                                            .memberInfo.medalOrSaleImageName,
-                                        onPressed: () {},
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        _nickName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Color(0xFF2673FB),
+                                            fontSize: 15),
                                       ),
-                                    ),
+                                      //销售员或者勋章标签
+                                      if (model.memberInfo.showTag)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: CustomButton(
+                                            backgroundColor: Colors.transparent,
+                                            width: 30,
+                                            height: 30,
+                                            image: model.memberInfo
+                                                .medalOrSaleImageName,
+                                            onPressed: () {},
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                  Text(
+                                    _accountType,
+                                    style: TextStyle(
+                                        color: Color(0xFF999999), fontSize: 12),
+                                  ),
                                 ],
                               ),
-                              Text(
-                                _accountType,
-                                style: TextStyle(
-                                    color: Color(0xFF999999), fontSize: 12),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     //顶部按钮行
                     if (model.classify != '1')

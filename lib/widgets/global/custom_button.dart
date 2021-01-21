@@ -32,8 +32,8 @@ class CustomButton extends StatelessWidget {
   CustomButton(
       {Key key,
       this.disabled = false,
-      this.width = 170,
-      this.height = 40,
+      this.width,
+      this.height,
       this.backgroundColor = Colors.white,
       this.gradient,
       this.radius = 0,

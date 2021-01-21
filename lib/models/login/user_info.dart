@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/models/common/common_member.dart';
+
 class UserInfo {
   int huodongData;
   Member member;
@@ -58,7 +60,7 @@ class Member {
   String lvChannelprice;
   List<dynamic> interest;
   String regtime;
-  MemberInfo memberInfo;
+  CommonMemberModel memberInfo;
 
   Member(
       {this.addr = '',
@@ -104,7 +106,7 @@ class Member {
       this.sex = '',
       this.uname = '',
       this.unionid = ''})
-      : memberInfo = MemberInfo(),
+      : memberInfo = CommonMemberModel(),
         interest = List<dynamic>();
 
   Member.fromJson(Map<String, dynamic> json) {
@@ -138,9 +140,9 @@ class Member {
     lvIngoreExperience = json['lv_ingore_experience'] ?? '';
     memberCur = json['member_cur'] ?? '';
     memberId = json['member_id'] ?? '';
-    memberInfo = json['member_nfo'] != null
-        ? MemberInfo.fromJson(json['member_nfo'])
-        : MemberInfo();
+    memberInfo = json['member_info'] != null
+        ? CommonMemberModel.fromJson(json['member_info'])
+        : CommonMemberModel();
     memberLv = json['member_lv'] ?? '';
     memberQrcode = json['member_qrcode'] ?? '';
     memberReceive = json['member_receive'] ?? '';
@@ -154,49 +156,5 @@ class Member {
     sex = json['sex'] ?? '';
     uname = json['uname'] ?? '';
     unionid = json['unionid'] ?? '';
-  }
-}
-
-class MemberInfo {
-  String memberId;
-  String memberLv;
-  String sex;
-  String avatar;
-  String nickname;
-  String isVehicle;
-  String isSales;
-  String isOfficial;
-  String userType;
-  String medal;
-  String isEnd;
-  String hrefUrl;
-
-  MemberInfo(
-      {this.avatar = '',
-      this.hrefUrl = '',
-      this.isEnd = '',
-      this.isOfficial = '',
-      this.isSales = '',
-      this.isVehicle = '',
-      this.medal = '',
-      this.memberId = '',
-      this.memberLv = '',
-      this.nickname = '',
-      this.sex = '',
-      this.userType = ''});
-
-  MemberInfo.fromJson(Map<String, dynamic> json) {
-    avatar = json['avatar'];
-    hrefUrl = json['href_url'];
-    isEnd = json['is_end'];
-    isOfficial = json['is_official'];
-    isSales = json['is_sales'];
-    isVehicle = json['is_vehicle'];
-    medal = json['medal'];
-    memberId = json['member_id'];
-    memberLv = json['member_lv'];
-    nickname = json['nickname'];
-    sex = json['sex'];
-    userType = json['user_type'];
   }
 }

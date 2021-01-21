@@ -12,13 +12,13 @@ class CircleTopicItem extends GetView<CircleTopicController> {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10))),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10))),
       margin: const EdgeInsets.only(bottom: 15),
       child: Container(
         height: 140,
         margin: const EdgeInsets.only(left: 15, bottom: 15),
         child: SmartRefresher(
-          scrollDirection: Axis.horizontal,
           controller: controller.refreshController,
           header: WaterDropHeader(),
           onRefresh: () => controller.refresh(),
@@ -28,49 +28,53 @@ class CircleTopicItem extends GetView<CircleTopicController> {
               scrollDirection: Axis.horizontal,
               itemCount: controller.list.length,
               itemBuilder: (context, index) {
-                TopicModel _model = controller.list[index];
-                return Container(
-                  margin: EdgeInsets.only(right: 5),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Stack(
-                      children: <Widget>[
-                        CachedNetworkImage(imageUrl: _model.imageUrl),
-                        Positioned(
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.4),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(5),
-                                    bottomRight: Radius.circular(5))),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  _model.title,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                Text(
-                                  '${_model.totalNum.toString()}人参与',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                );
+                return _buildTopicItem(controller.list[index]);
               })),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopicItem(TopicModel model) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.only(right: 5),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: Stack(
+            children: <Widget>[
+              CachedNetworkImage(imageUrl: model.imageUrl),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.4),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(5))),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        model.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      Text(
+                        '${model.totalNum.toString()}人参与',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

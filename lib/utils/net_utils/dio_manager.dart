@@ -60,6 +60,7 @@ class DioManager {
         onRequest: (RequestOptions options) {
           LogUtil.v('请求地址: ${options.baseUrl + options.path}');
           LogUtil.v('请求参数: ${options.data}');
+          LogUtil.v('请求参数: ${options.queryParameters}');
         },
         onResponse: (Response response) {
           // LogUtil.v('返回参数: ${response.data}');

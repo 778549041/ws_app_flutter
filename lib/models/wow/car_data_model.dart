@@ -18,15 +18,15 @@ class CarData {
   String fcarColorURL;
   String carType;
 
-  CarData({this.fcarColor, this.fcarColorURL, this.carType})
+  CarData({this.fcarColor = '', this.fcarColorURL = '', this.carType})
       : rspBody = CarHeader();
 
   CarData.fromJson(Map<String, dynamic> json) {
     rspBody = json['rspBody'] != null
         ? CarHeader.fromJson(json['rspBody'])
         : CarHeader();
-    fcarColor = json['fcarColor'];
-    fcarColorURL = json['fcarColorURL'];
+    fcarColor = json['fcarColor'] ?? '';
+    fcarColorURL = json['fcarColorURL'] ?? '';
     carType = json['carType'];
   }
 }

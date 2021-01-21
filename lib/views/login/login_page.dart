@@ -262,6 +262,7 @@ class LoginPage extends GetView<LoginController> {
                       children: <Widget>[
                         CustomButton(
                           width: 70,
+                          height: 40,
                           backgroundColor: Colors.transparent,
                           title: '了解VE-1',
                           titleColor: Colors.white.withOpacity(0.6),
@@ -280,6 +281,7 @@ class LoginPage extends GetView<LoginController> {
                         ),
                         CustomButton(
                           width: 70,
+                          height: 40,
                           backgroundColor: Colors.transparent,
                           title: '爱车配件',
                           titleColor: Colors.white.withOpacity(0.6),
@@ -297,6 +299,7 @@ class LoginPage extends GetView<LoginController> {
                         ),
                         CustomButton(
                           width: 70,
+                          height: 40,
                           backgroundColor: Colors.transparent,
                           title: '预约试驾',
                           titleColor: Colors.white.withOpacity(0.6),
