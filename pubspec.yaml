@@ -89,7 +89,6 @@ dependencies:
   jpush_flutter: ^0.6.1
   #高德地图
   amap_map_fluttify: ^0.30.1
-  amap_search_fluttify: ^0.16.2
 
 dev_dependencies:
   flutter_test:

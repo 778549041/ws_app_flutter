@@ -13,6 +13,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
+import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 
 class GalleryPhotoPage extends StatefulWidget {
   final LoadingBuilder loadingBuilder;
@@ -97,10 +98,9 @@ class GalleryPhotoPageState extends State<GalleryPhotoPage> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onPressed: () {
-                  if (GetPlatform.isIOS) {
-                    return _saveNetworkImage();
-                  }
-                  requestPermission().then((value) {
+                  PermissionManager()
+                      .requestPermission(Permission.photos)
+                      .then((value) {
                     if (value) {
                       _saveNetworkImage();
                     }
@@ -130,39 +130,8 @@ class GalleryPhotoPageState extends State<GalleryPhotoPage> {
     );
   }
 
-  //动态申请权限，ios 要在info.plist 上面添加
-  Future<bool> requestPermission() async {
-    var status = await Permission.photos.status;
-    if (status.isUndetermined) {
-      Map<Permission, PermissionStatus> statuses =
-          await [Permission.photos].request();
-    }
-    return status.isGranted;
-  }
-
   //保存网络图片到本地
   _saveNetworkImage() async {
-    var status = await Permission.photos.status;
-    if (status.isDenied) {
-      LogUtil.v('暂无相册权限');
-      Get.dialog(CupertinoAlertDialog(
-        title: Text('提示'),
-        content: Text('您当前没有开启相册权限'),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('取消'),
-            onPressed: () => Get.back(),
-          ),
-          FlatButton(
-            child: Text('去开启'),
-            onPressed: () {
-              openAppSettings();
-            },
-          )
-        ],
-      ));
-      return;
-    }
     var response = await Dio().get(widget.galleryItems[currentIndex].savepath,
         options: Options(responseType: ResponseType.bytes));
     final result =

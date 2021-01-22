@@ -128,7 +128,7 @@ class Member {
     fcreateDate = json['fcreateDate'] ?? '';
     headImg = json['head_img'] ?? '';
     integral = json['integral'] ?? List<dynamic>();
-    interest = json['interest'] ?? '';
+    interest = json['interest'] ?? List<dynamic>();
     isDisplay = json['is_display'] ?? '';
     isReceive = json['is_receive'] ?? '';
     isVehicle = json['is_vehicle'] ?? '';

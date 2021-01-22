@@ -57,6 +57,8 @@
 		<string>sinaweibohd</string>
 		<string>sinaweibohdsso</string>
 		<string>wechat</string>
+		<string>iosamap</string>
+		<string>amapuri</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -64,6 +66,29 @@
 	<string>2bac74f13ef20</string>
 	<key>MOBAppSecret</key>
 	<string>cd91ff8208eb4a5dae47e8a2ed48de74</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>jpush.cn</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<string></string>
+				<key>NSIncludesSubdomains</key>
+				<string></string>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>APP需要您的同意，才能访问相机进行拍摄照片、视频及扫描二维码，如禁止将无法拍照拍摄图片无法扫描二维码</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>APP需要您的同意，才能访问定位位置获取周边充电站数据和导航功能，如禁止将无法获取周边充电站数据和导航功能</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App需要您的同意,才能访问麦克风进行语音识别转换/录制音频，如禁止将无法识别语音转换/录制音频发送</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>APP需要您的同意，才能访问相册进行选择照片上传/发布信息，如禁止将无法上传选择照片/发布信息</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -81,5 +106,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<string>YES</string>
 </dict>
 </plist>

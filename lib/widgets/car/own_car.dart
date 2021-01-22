@@ -20,6 +20,16 @@ class OwnCarWidgetState extends State<OwnCarWidget>
   TimerUtil _timerUtil;
   bool _charging = true;
   CarDataModel _carDataModel = CarDataModel();
+  final List<Map<String, dynamic>> _gridData = [
+    {'image': 'assets/images/car/car_cdz.png', 'title': '附近电桩'},
+    {'image': 'assets/images/car/car_map_nav.png', 'title': '实时导航'},
+    {'image': 'assets/images/car/car_part.png', 'title': '爱车配件'},
+    {'image': 'assets/images/car/car_360.png', 'title': '电池诊断'},
+    {'image': 'assets/images/car/car_miles.png', 'title': '里程信息'},
+    {'image': 'assets/images/car/car_illegal.png', 'title': '违章查询'},
+    {'image': 'assets/images/car/car_baoyang.png', 'title': '预约保养'},
+    {'image': 'assets/images/car/car_sos.png', 'title': '一键救援'},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +42,11 @@ class OwnCarWidgetState extends State<OwnCarWidget>
             Stack(
               alignment: Alignment.topCenter,
               children: [
-                AnimatedBuilder(
-                  animation: _animation,
-                  builder: (context, child) {
-                    return Positioned(
-                      top: _animation.value,
-                      left: 0,
-                      right: 0,
-                      child: Image.asset(
-                          'assets/images/car/car_charge_animate.png'),
-                    );
-                  },
-                ),
                 Image.asset(
                   'assets/images/car/car_flash.png',
                   width: ScreenUtil.getInstance().getWidth(250),
+                  height: ScreenUtil.getInstance().getWidth(250) * 766 / 502,
+                  fit: BoxFit.fitHeight,
                 ),
                 Column(
                   children: <Widget>[
@@ -118,7 +118,22 @@ class OwnCarWidgetState extends State<OwnCarWidget>
                       ),
                     )
                   ],
-                )
+                ),
+                AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    return Positioned(
+                      top: _animation.value,
+                      left: 0,
+                      right: 0,
+                      child: Offstage(
+                        offstage: !_charging,
+                        child: Image.asset(
+                            'assets/images/car/car_charge_animate.png'),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             Container(
@@ -129,11 +144,28 @@ class OwnCarWidgetState extends State<OwnCarWidget>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: GridView.builder(
+                    padding: const EdgeInsets.only(top: 0),
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _gridData.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                     ),
                     itemBuilder: (context, index) {
-                      return Container();
+                      Map<String, dynamic> _item = _gridData[index];
+                      return Container(
+                        decoration: BoxDecoration(border: Border.all(color: Color(0xFFF3F3F3),width: 0.5)),
+                        child: CustomButton(
+                          image: _item['image'],
+                          imageH: 28,
+                          imageW: 28,
+                          title: _item['title'],
+                          fontSize: 12,
+                          imagePosition: XJImagePosition.XJImagePositionTop,
+                          onPressed: () {
+                            
+                          },
+                        ),
+                      );
                     }),
               ),
             )
@@ -175,7 +207,10 @@ class OwnCarWidgetState extends State<OwnCarWidget>
     _timerUtil = TimerUtil(mInterval: 120 * 1000);
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 2));
-    _animation = Tween(begin: 0.0, end: 300.0).animate(_animationController);
+    _animation = Tween(
+            begin: 0.0,
+            end: (ScreenUtil.getInstance().getWidth(250) * 766 / 502 - 90))
+        .animate(_animationController);
     _requestElectricityData();
     super.initState();
   }

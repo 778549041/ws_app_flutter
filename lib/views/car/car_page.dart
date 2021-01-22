@@ -2,6 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/car/own_car.dart';
 import 'package:ws_app_flutter/widgets/car/unown_car.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
@@ -51,7 +52,7 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildHeader() {
-    if (controller.userInfo.value.member.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -64,7 +65,7 @@ class CarPage extends GetView<CarController> {
                   child: Stack(
                     children: <Widget>[
                       Obx(() => RoundAvatar(
-                            imageUrl: controller.userInfo.value.member.headImg,
+                            imageUrl: Get.find<UserController>().userInfo.value.member.headImg,
                             borderWidth: 0,
                             borderColor: Colors.transparent,
                             height: 40,
@@ -74,7 +75,7 @@ class CarPage extends GetView<CarController> {
                         right: 0,
                         child: Offstage(
                             offstage:
-                                !(controller.userInfo.value.member.isVehicle ==
+                                !(Get.find<UserController>().userInfo.value.member.isVehicle ==
                                     'true'),
                             child: Image.asset(
                               'assets/images/mine/vip_tag.png',
@@ -89,23 +90,23 @@ class CarPage extends GetView<CarController> {
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Obx(() => Text(
-                        (controller.userInfo.value.member.uname.length > 11)
-                            ? controller.userInfo.value.member.uname
+                        (Get.find<UserController>().userInfo.value.member.uname.length > 11)
+                            ? Get.find<UserController>().userInfo.value.member.uname
                                 .substring(0, 11)
-                            : controller.userInfo.value.member.uname,
+                            : Get.find<UserController>().userInfo.value.member.uname,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       )),
                 ),
                 //销售员或者勋章标签
-                if (controller.userInfo.value.member.memberInfo.showTag)
+                if (Get.find<UserController>().userInfo.value.member.memberInfo.showTag)
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Obx(() => CustomButton(
                           backgroundColor: Colors.transparent,
                           width: 30,
                           height: 30,
-                          image: controller.userInfo.value.member.memberInfo
+                          image: Get.find<UserController>().userInfo.value.member.memberInfo
                               .medalOrSaleImageName,
                           onPressed: () {},
                         )),
@@ -121,7 +122,7 @@ class CarPage extends GetView<CarController> {
                   imageH: 18,
                   imageW: 18,
                   title: TextUtil.formatComma3(
-                      controller.userInfo.value.member.integral),
+                      Get.find<UserController>().userInfo.value.member.integral),
                   titleColor: Colors.white,
                   fontSize: 12,
                   onPressed: () {},
@@ -130,12 +131,48 @@ class CarPage extends GetView<CarController> {
         ],
       );
     } else {
-      return Container();
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            '您还未认证车主信息',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              children: <Widget>[
+                CustomButton(
+                  backgroundColor: Colors.transparent,
+                  width: 80,
+                  height: 34,
+                  image: 'assets/images/car/car_icon_unstand_ve.png',
+                  imageW: 80,
+                  imageH: 34,
+                  onPressed: () {},
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: CustomButton(
+                    backgroundColor: Colors.transparent,
+                    width: 80,
+                    height: 34,
+                    image: 'assets/images/car/car_icon_certify_now.png',
+                    imageW: 80,
+                    imageH: 34,
+                    onPressed: () {},
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      );
     }
   }
 
   Widget _buildBody() {
-    if (controller.userInfo.value.member.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
       return OwnCarWidget();
     } else {
       return UnOwnCarWidget();

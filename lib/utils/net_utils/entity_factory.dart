@@ -1,3 +1,4 @@
+import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
@@ -61,6 +62,8 @@ class EntityFactory {
      return TopicListModel.fromJson(json) as T;
    } else if (T.toString() == 'SingleTopicodel') {
      return SingleTopicodel.fromJson(json) as T;
+   } else if (T.toString() == 'NearStoreListModel') {
+     return NearStoreListModel.fromJson(json) as T;
    } 
    else {
       return json as T;

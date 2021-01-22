@@ -27,6 +27,7 @@ class CustomButton extends StatelessWidget {
   final double fontSize; //标题字体大小
   final Color titleColor; //标题颜色
 
+  final int clickInterval;//点击时间间隔
   final VoidCallback onPressed; //点击事件
 
   CustomButton(
@@ -46,14 +47,25 @@ class CustomButton extends StatelessWidget {
       this.title,
       this.fontSize = 15,
       this.titleColor = Colors.black,
+      this.clickInterval = 3,
       this.onPressed})
       : super(key: key);
+  
+  var lastClickTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: disabled ? null : onPressed,
+      onTap: disabled ? null : () {
+        // 防重复提交
+          if(lastClickTime == null || DateTime.now().difference(lastClickTime) > Duration(seconds: clickInterval)){
+            lastClickTime = DateTime.now();
+            onPressed();
+          }else{
+            // lastPopTime = DateTime.now(); //如果不注释这行,则强制用户一定要间隔2s后才能成功点击. 而不是以上一次点击成功的时间开始计算.
+          }
+      },
       child: Container(
         width: width,
         height: height,

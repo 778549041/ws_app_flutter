@@ -23,7 +23,7 @@ packages:
     source: hosted
     version: "0.30.1"
   amap_search_fluttify:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: amap_search_fluttify
       url: "https://pub.flutter-io.cn"
