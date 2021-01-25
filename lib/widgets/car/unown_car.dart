@@ -36,18 +36,21 @@ class UnOwnCarWidget extends GetView<CarController> {
           child: Row(
             children: <Widget>[
               CustomButton(
+                clickInterval: 0,
                 backgroundColor: Colors.transparent,
                 width: 28,
                 height: (Get.width - 80) * 36 / 75,
                 image: 'assets/images/car/car_left_arrow.png',
                 imageW: 9,
                 imageH: 14,
-                onPressed: () {},
+                onPressed: () => controller.switchCarImageAction(false),
               ),
               Container(
                   width: Get.width - 80,
                   height: (Get.width - 80) * 36 / 75,
-                  child: Swiper(
+                  child: Obx(() => Swiper(
+                      key: UniqueKey(),
+                      controller: controller.swiperController,
                       // viewportFraction: 0.8,
                       //视图宽度，即显示的item的宽度屏占比
                       //scale: 0.9,
@@ -55,20 +58,25 @@ class UnOwnCarWidget extends GetView<CarController> {
                       onTap: (int index) {
                         //点击事件，返回下标
                       },
-                      itemCount: 7,
+                      loop: true,
+                      onIndexChanged: (value) {
+                        print(value);
+                        controller.currentIndex.value = value;
+                      },
+                      itemCount: controller.carImageList.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          color: Colors.red,
-                        );
-                      })),
+                        String _imageName = controller.carImageList[index];
+                        return Image.asset(_imageName);
+                      }))),
               CustomButton(
                 backgroundColor: Colors.transparent,
+                clickInterval: 0,
                 width: 28,
                 height: (Get.width - 80) * 36 / 75,
                 image: 'assets/images/car/car_right_arrow.png',
                 imageW: 9,
                 imageH: 14,
-                onPressed: () {},
+                onPressed: () => controller.switchCarImageAction(true),
               ),
             ],
           ),
@@ -92,20 +100,26 @@ class UnOwnCarWidget extends GetView<CarController> {
           margin: const EdgeInsets.only(top: 5),
           width: 205,
           height: 10,
-          child: Swiper(
+          child: Obx(() => Swiper(
+              key: UniqueKey(),
+              controller: controller.colorSwiperController,
               viewportFraction: 1 / 7,
               //视图宽度，即显示的item的宽度屏占比
-              scale: 0.9,
+              // scale: 0.8,
               //两侧item的缩放比
               onTap: (int index) {
                 //点击事件，返回下标
+                controller.currentIndex.value = index;
               },
-              itemCount: 7,
+              itemCount: controller.carColorList.length,
               itemBuilder: (context, index) {
+                var _item = controller.carColorList[index];
                 return Container(
-                  color: Colors.primaries[index],
+                  width: 25,
+                  height: 10,
+                  decoration: BoxDecoration(gradient: LinearGradient(colors: _item['colors'])),
                 );
-              }),
+              })),
         ),
         Container(
           margin: const EdgeInsets.only(top: 5),
@@ -127,7 +141,8 @@ class UnOwnCarWidget extends GetView<CarController> {
     return Column(
       children: <Widget>[
         GestureDetector(
-          onTap: () {},
+          behavior: HitTestBehavior.translucent,
+          onTap: () => controller.selectCarConfig(),
           child: Container(
             height: 40,
             margin: const EdgeInsets.only(left: 15, top: 10, right: 15),
@@ -138,22 +153,23 @@ class UnOwnCarWidget extends GetView<CarController> {
                   '车辆配置',
                   style: TextStyle(fontSize: 12),
                 ),
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/car/select_ve_plus_cx.png',
-                      scale: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Image.asset(
-                        'assets/images/mine/mine_right_arrow.png',
-                        width: 7.5,
-                        height: 11,
-                      ),
-                    ),
-                  ],
-                )
+                Obx(() => Row(
+                      children: <Widget>[
+                        if (controller.currentConfig.value.imageName != null)
+                          Image.asset(
+                            controller.currentConfig.value.imageName,
+                            scale: 2,
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Image.asset(
+                            'assets/images/mine/mine_right_arrow.png',
+                            width: 7.5,
+                            height: 11,
+                          ),
+                        ),
+                      ],
+                    ))
               ],
             ),
           ),
@@ -173,10 +189,10 @@ class UnOwnCarWidget extends GetView<CarController> {
                 '补贴后售价',
                 style: TextStyle(fontSize: 12),
               ),
-              Text(
-                '17.38万元',
-                style: TextStyle(fontSize: 12),
-              ),
+              Obx(() => Text(
+                    controller.currentConfig.value.price,
+                    style: TextStyle(fontSize: 12),
+                  )),
             ],
           ),
         ),
