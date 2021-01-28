@@ -65,7 +65,11 @@ class CarPage extends GetView<CarController> {
                   child: Stack(
                     children: <Widget>[
                       Obx(() => RoundAvatar(
-                            imageUrl: Get.find<UserController>().userInfo.value.member.headImg,
+                            imageUrl: Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .member
+                                .headImg,
                             borderWidth: 0,
                             borderColor: Colors.transparent,
                             height: 40,
@@ -74,9 +78,12 @@ class CarPage extends GetView<CarController> {
                         bottom: 0,
                         right: 0,
                         child: Offstage(
-                            offstage:
-                                !(Get.find<UserController>().userInfo.value.member.isVehicle ==
-                                    'true'),
+                            offstage: !(Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .member
+                                    .isVehicle ==
+                                'true'),
                             child: Image.asset(
                               'assets/images/mine/vip_tag.png',
                               width: 18,
@@ -87,26 +94,50 @@ class CarPage extends GetView<CarController> {
                     ],
                   ),
                 ),
-                Padding(
+                Flexible(
+                    child: Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Obx(() => Text(
-                        (Get.find<UserController>().userInfo.value.member.uname.length > 11)
-                            ? Get.find<UserController>().userInfo.value.member.uname
+                        (Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .member
+                                    .uname
+                                    .length >
+                                11)
+                            ? Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .member
+                                .uname
                                 .substring(0, 11)
-                            : Get.find<UserController>().userInfo.value.member.uname,
+                            : Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .member
+                                .uname,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       )),
-                ),
+                )),
                 //销售员或者勋章标签
-                if (Get.find<UserController>().userInfo.value.member.memberInfo.showTag)
+                if (Get.find<UserController>()
+                    .userInfo
+                    .value
+                    .member
+                    .memberInfo
+                    .showTag)
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Obx(() => CustomButton(
                           backgroundColor: Colors.transparent,
                           width: 30,
                           height: 30,
-                          image: Get.find<UserController>().userInfo.value.member.memberInfo
+                          image: Get.find<UserController>()
+                              .userInfo
+                              .value
+                              .member
+                              .memberInfo
                               .medalOrSaleImageName,
                           onPressed: () {},
                         )),
@@ -115,14 +146,17 @@ class CarPage extends GetView<CarController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 5),
+            padding: EdgeInsets.only(left: 5, right: 5),
             child: Obx(() => CustomButton(
                   backgroundColor: Colors.transparent,
                   image: 'assets/images/circle/enjoy_point.png',
                   imageH: 18,
                   imageW: 18,
-                  title: TextUtil.formatComma3(
-                      Get.find<UserController>().userInfo.value.member.integral),
+                  title: TextUtil.formatComma3(Get.find<UserController>()
+                      .userInfo
+                      .value
+                      .member
+                      .integral),
                   titleColor: Colors.white,
                   fontSize: 12,
                   onPressed: () {},

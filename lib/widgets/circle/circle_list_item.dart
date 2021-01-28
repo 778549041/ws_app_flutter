@@ -95,13 +95,14 @@ class CircleListItem extends GetView<RecommendController> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      Text(
+                                      Flexible(
+                                          child: Text(
                                         _nickName,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: Color(0xFF2673FB),
                                             fontSize: 15),
-                                      ),
+                                      )),
                                       //销售员或者勋章标签
                                       if (model.memberInfo.showTag)
                                         Padding(

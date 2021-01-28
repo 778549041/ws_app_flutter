@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
+import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class SplashPage extends GetView<SplashController> {
@@ -16,15 +16,6 @@ class SplashPage extends GetView<SplashController> {
     'assets/images/guide/enjoy_guide.jpg',
     'assets/images/guide/mine_guide.jpg',
   ];
-
-  Widget _buildSplashBg() {
-    return Image.asset(
-      'assets/images/splash/launch.png',
-      width: double.infinity,
-      height: double.infinity,
-      fit: BoxFit.cover,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +60,13 @@ class SplashPage extends GetView<SplashController> {
       return Scaffold(
         body: Stack(
           children: <Widget>[
-            Obx(
-              () => Container(
-                child: controller.splashModel.value.data.url.length > 0
-                    ? CachedNetworkImage(
-                        imageUrl: controller.splashModel.value.data.url,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                        placeholder: (context, url) => _buildSplashBg(),
-                      )
-                    : _buildSplashBg(),
-              ),
-            ),
+            Obx(() => NetImageWidget(
+                  width: double.infinity,
+                  height: double.infinity,
+                  imageUrl: controller.splashModel.value.data.url,
+                  fit: BoxFit.cover,
+                  placeholder: 'assets/images/splash/launch.png',
+                )),
             Positioned(
               top: 40,
               right: 20,
@@ -126,10 +111,11 @@ class SplashPage extends GetView<SplashController> {
                                 height: 90,
                                 borderWidth: 3,
                                 imageUrl: Get.find<UserController>()
-                                    .userInfo
-                                    .value
-                                    .member
-                                    .headImg ?? '',
+                                        .userInfo
+                                        .value
+                                        .member
+                                        .headImg ??
+                                    '',
                               ),
                             ),
                             Positioned(
@@ -147,7 +133,12 @@ class SplashPage extends GetView<SplashController> {
                       ),
                       Obx(
                         () => Text(
-                          Get.find<UserController>().userInfo.value.member.name ?? '',
+                          Get.find<UserController>()
+                                  .userInfo
+                                  .value
+                                  .member
+                                  .name ??
+                              '',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

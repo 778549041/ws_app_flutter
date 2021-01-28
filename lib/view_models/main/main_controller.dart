@@ -50,6 +50,9 @@ class MainController extends BaseController {
   //tabbaritem点击
   void onItemTap(int index) async {
     await Get.find<UserController>().getUserInfo();
+    if (index == 4) {
+      await Get.find<MineController>().requestFavorData();
+    }
     pageController.jumpToPage(index);
   }
 }

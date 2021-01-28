@@ -12,7 +12,7 @@ class NewsListPage extends GetView<NewsController> {
     return Stack(
       children: <Widget>[
         Positioned(
-          top: 22,
+          top: 20,
           left: 0,
           right: 0,
           bottom: 0,

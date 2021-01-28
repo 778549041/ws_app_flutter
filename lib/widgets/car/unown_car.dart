@@ -55,13 +55,11 @@ class UnOwnCarWidget extends GetView<CarController> {
                       //视图宽度，即显示的item的宽度屏占比
                       //scale: 0.9,
                       //两侧item的缩放比
-                      onTap: (int index) {
-                        //点击事件，返回下标
-                      },
+                      onTap: (int index) {},
                       loop: true,
-                      onIndexChanged: (value) {
-                        print(value);
-                        controller.currentIndex.value = value;
+                      onIndexChanged: (index) {
+                        controller.currentIndex.value = index;
+                        controller.colorSwiperController.move(index);
                       },
                       itemCount: controller.carImageList.length,
                       itemBuilder: (context, index) {
@@ -102,22 +100,25 @@ class UnOwnCarWidget extends GetView<CarController> {
           height: 10,
           child: Obx(() => Swiper(
               key: UniqueKey(),
+              physics: NeverScrollableScrollPhysics(),
               controller: controller.colorSwiperController,
               viewportFraction: 1 / 7,
               //视图宽度，即显示的item的宽度屏占比
-              // scale: 0.8,
+              scale: 0.5,
               //两侧item的缩放比
               onTap: (int index) {
-                //点击事件，返回下标
-                controller.currentIndex.value = index;
+                controller.swiperController.move(index);
               },
               itemCount: controller.carColorList.length,
               itemBuilder: (context, index) {
                 var _item = controller.carColorList[index];
                 return Container(
-                  width: 25,
-                  height: 10,
-                  decoration: BoxDecoration(gradient: LinearGradient(colors: _item['colors'])),
+                  margin: const EdgeInsets.only(right: 2),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: _item['colors']),
+                      border: index == 3
+                          ? Border.all(color: Colors.black, width: 0.5)
+                          : null),
                 );
               })),
         ),
@@ -129,10 +130,13 @@ class UnOwnCarWidget extends GetView<CarController> {
             height: 4,
           ),
         ),
-        Text(
-          'aaaaaaaaa',
-          style: TextStyle(fontSize: 10),
-        ),
+        Obx(() => Text(
+              controller.carColorList.length > 0
+                  ? controller.carColorList[controller.currentIndex.value]
+                      ['name']
+                  : '',
+              style: TextStyle(fontSize: 10),
+            )),
       ],
     );
   }

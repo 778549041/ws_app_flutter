@@ -2,12 +2,15 @@ import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/models/enjoy/futc.dart';
+import 'package:ws_app_flutter/models/enjoy/shop.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
 import 'package:ws_app_flutter/models/login/intre_model.dart';
 import 'package:ws_app_flutter/models/login/login_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
+import 'package:ws_app_flutter/models/mine/favor.dart';
 import 'package:ws_app_flutter/models/splash/splash_model.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -67,6 +70,12 @@ class EntityFactory {
      return NearStoreListModel.fromJson(json) as T;
    } else if (T.toString() == 'CarConfigListModel') {
      return CarConfigListModel.fromJson(json) as T;
+   } else if (T.toString() == 'FUTCModel') {
+     return FUTCModel.fromJson(json) as T;
+   } else if (T.toString() == 'ShopListModel') {
+     return ShopListModel.fromJson(json) as T;
+   } else if (T.toString() == 'FavorModel') {
+     return FavorModel.fromJson(json) as T;
    } 
    else {
       return json as T;

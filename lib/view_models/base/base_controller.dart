@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/base/view_state.dart';
 
 class BaseController extends GetxController {
@@ -68,7 +69,9 @@ class BaseController extends GetxController {
   }
 
   //跳转前端页面
-  void pushH5Page({Map<String, dynamic> args}) {}
+  void pushH5Page({Map<String, dynamic> args}) {
+    Get.toNamed(Routes.WEBVIEW, arguments: args);
+  }
 
   ///初始值设置可以放在这里
   @override

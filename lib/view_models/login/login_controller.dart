@@ -266,12 +266,6 @@ class LoginController extends BaseController {
     });
   }
 
-  @override
-  void pushH5Page({Map<String, dynamic> args}) {
-    Get.toNamed(Routes.WEBVIEW, arguments: args);
-    super.pushH5Page(args: args);
-  }
-
   //倒计时
   void doCountDown() {
     _timerUtil = TimerUtil(mTotalTime: 59 * 1000);

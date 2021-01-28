@@ -75,7 +75,7 @@ class CirclePage extends GetView<CircleController> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 62),
+          margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 60),
           decoration: BoxDecoration(
               color: Color(0xFFF3F3F3),
               borderRadius: BorderRadius.only(
