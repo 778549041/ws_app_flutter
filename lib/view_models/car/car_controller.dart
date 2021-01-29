@@ -1,8 +1,8 @@
 import 'package:amap_map_fluttify/amap_map_fluttify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ws_app_flutter/models/car/car_config.dart';
@@ -65,7 +65,7 @@ class CarController extends BaseController {
       "city": city
     });
     if (reloadLocation) {
-      Fluttertoast.showToast(msg: '刷新位置成功');
+      EasyLoading.showToast('刷新位置成功',toastPosition: EasyLoadingToastPosition.bottom);
     }
     return;
   }

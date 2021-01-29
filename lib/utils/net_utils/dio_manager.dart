@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:common_utils/common_utils.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart' as gg;
-import 'package:ws_app_flutter/utils/extension/get_extension.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/utils/net_utils/base_entity.dart';
 import 'package:ws_app_flutter/utils/net_utils/entity_factory.dart';
@@ -107,7 +105,7 @@ class DioManager {
       Map<String, dynamic> queryParamters,
       CancelToken cancelToken}) async {
     //根据外部传入值决定是否显示loading框
-    if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
+    if (shouldLoading) await EasyLoading.show(status: loadingMessage);
     try {
       Response response = await dio.request(path,
           data: params,
@@ -115,7 +113,7 @@ class DioManager {
           options: Options(method: method),
           cancelToken: cancelToken ?? _cancelToken);
       //加载完成隐藏loading框
-      if (shouldLoading) gg.Get.dismiss();
+      if (shouldLoading) await EasyLoading.dismiss();
       if (response != null) {
         Map respData;
         if (response.data is Map) {
@@ -126,12 +124,12 @@ class DioManager {
         // BaseEntity entity = BaseEntity<T>.fromJson(respData);
         return EntityFactory.generateOBJ<T>(respData);
       } else {
-        Fluttertoast.showToast(msg: "未知错误");
+        EasyLoading.showToast('未知错误',toastPosition: EasyLoadingToastPosition.bottom);
       }
     } on DioError catch (e) {
       //加载失败隐藏loading框
-      if (shouldLoading) gg.Get.dismiss();
-      Fluttertoast.showToast(msg: createErrorEntity(e).message);
+      if (shouldLoading) await EasyLoading.dismiss();
+      EasyLoading.showToast(createErrorEntity(e).message,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -150,7 +148,7 @@ class DioManager {
       Map<String, dynamic> queryParamters,
       CancelToken cancelToken}) async {
     //根据外部传入值决定是否显示loading框
-    if (shouldLoading) gg.Get.showLoading(message: loadingMessage);
+    if (shouldLoading) await EasyLoading.show(status: loadingMessage);
     try {
       Response response = await dio.request(path,
           queryParameters: queryParamters,
@@ -158,7 +156,7 @@ class DioManager {
           options: Options(method: method),
           cancelToken: cancelToken ?? _cancelToken);
       //加载完成隐藏loading框
-      if (shouldLoading) gg.Get.dismiss();
+      if (shouldLoading) await EasyLoading.dismiss();
       if (response != null) {
         Map respData;
         if (response.data is Map) {
@@ -169,12 +167,12 @@ class DioManager {
         BaseEntity entity = BaseEntity<T>.fromJson(respData);
         return entity.data;
       } else {
-        Fluttertoast.showToast(msg: "未知错误");
+        EasyLoading.showToast('未知错误',toastPosition: EasyLoadingToastPosition.bottom);
       }
     } on DioError catch (e) {
       //加载失败隐藏loading框
-      if (shouldLoading) gg.Get.dismiss();
-      Fluttertoast.showToast(msg: createErrorEntity(e).message);
+      if (shouldLoading) await EasyLoading.dismiss();
+      EasyLoading.showToast(createErrorEntity(e).message,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 

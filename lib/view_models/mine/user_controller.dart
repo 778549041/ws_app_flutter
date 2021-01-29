@@ -1,5 +1,5 @@
 import 'package:common_utils/common_utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
@@ -61,7 +61,7 @@ class UserController extends BaseController {
             }
           });
         } else {
-          Fluttertoast.showToast(msg: '请先安装微信客户端');
+          EasyLoading.showToast('请先安装微信客户端',toastPosition: EasyLoadingToastPosition.bottom);
         }
       });
     } else if (obj.code == 202) {

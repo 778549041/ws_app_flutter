@@ -217,8 +217,8 @@ class RecommendEleState extends State<RecommendEle>
 
   @override
   void dispose() {
-    if (_timerUtil != null) _timerUtil.cancel();
     _animationController.dispose();
+    if (_timerUtil != null) _timerUtil.cancel();
     super.dispose();
   }
 

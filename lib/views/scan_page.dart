@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_qr_reader/qrcode_reader_view.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 
@@ -31,7 +31,7 @@ class ScanPageState extends State<ScanPage> {
 
   Future onScan(String data) async {
     if (data == null) {
-      Fluttertoast.showToast(msg: '未扫描到结果');
+      EasyLoading.showToast('未扫描到结果',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
   }

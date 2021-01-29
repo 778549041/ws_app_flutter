@@ -1,4 +1,6 @@
+import 'package:flustars/flustars.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
@@ -33,5 +35,12 @@ class MineController extends BaseController {
 
   Future requestFavorData() async {
     favorModel.value = await DioManager().request<FavorModel>(DioManager.GET, Api.mineFavorActivityUrl);
+  }
+
+  void listItemClick(int index) {
+    LogUtil.v('点击了$index行');
+    if (index == 9) {
+      Get.toNamed(Routes.SETTING);
+    }
   }
 }

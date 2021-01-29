@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -139,15 +139,15 @@ class GalleryPhotoPageState extends State<GalleryPhotoPage> {
     LogUtil.v(result);
     if (GetPlatform.isIOS) {
       if (result['isSuccess']) {
-        Fluttertoast.showToast(msg: '保存成功');
+        EasyLoading.showToast('保存成功',toastPosition: EasyLoadingToastPosition.bottom);
       } else {
-        Fluttertoast.showToast(msg: '保存失败');
+        EasyLoading.showToast('保存失败',toastPosition: EasyLoadingToastPosition.bottom);
       }
     } else {
       if (result != null) {
-        Fluttertoast.showToast(msg: '保存成功');
+        EasyLoading.showToast('保存成功',toastPosition: EasyLoadingToastPosition.bottom);
       } else {
-        Fluttertoast.showToast(msg: '保存失败');
+        EasyLoading.showToast('保存失败',toastPosition: EasyLoadingToastPosition.bottom);
       }
     }
   }

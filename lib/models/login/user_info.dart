@@ -116,7 +116,7 @@ class Member {
     bDay = json['b_day'] ?? '';
     bMonth = json['b_month'] ?? '';
     bYear = json['b_year'] ?? '';
-    binding = json['binding'] ?? '';
+    binding = json['binding'] ?? false;
     email = json['email'] ?? '';
     experience = json['experience'] ?? '';
     fCarColor = json['FCarColor'] ?? '';
@@ -127,7 +127,7 @@ class Member {
     fVIN = json['FVIN'] ?? '';
     fcreateDate = json['fcreateDate'] ?? '';
     headImg = json['head_img'] ?? '';
-    integral = json['integral'] ?? List<dynamic>();
+    integral = json['integral'] ?? '';
     interest = json['interest'] ?? List<dynamic>();
     isDisplay = json['is_display'] ?? '';
     isReceive = json['is_receive'] ?? '';

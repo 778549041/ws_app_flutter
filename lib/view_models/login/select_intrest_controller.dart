@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/intre_model.dart';
@@ -37,7 +37,7 @@ class SelectIntreController extends BaseController {
         selectIntres.add(allIntres[index].name);
         update();
       } else {
-        Fluttertoast.showToast(msg: '最多选择五个');
+        EasyLoading.showToast('最多选择五个',toastPosition: EasyLoadingToastPosition.bottom);
       }
     }
   }
@@ -70,15 +70,15 @@ class SelectIntreController extends BaseController {
   //保存
   void saveIntres() async {
     if (selectIntres.length < 2) {
-      Fluttertoast.showToast(msg: '最少选择两个');
+      EasyLoading.showToast('最少选择两个',toastPosition: EasyLoadingToastPosition.bottom);
     } else {
       CommonModel obj = await DioManager().request<CommonModel>(
           DioManager.POST, Api.changedIntrestUrl,
           params: {"interest": jsonEncode(selectIntres)});
       if (obj.success != null) {
-        Fluttertoast.showToast(msg: '提交成功！');
+        EasyLoading.showToast('提交成功！',toastPosition: EasyLoadingToastPosition.bottom);
       } else if (obj.error != null) {
-        Fluttertoast.showToast(msg: '提交失败！');
+        EasyLoading.showToast('提交失败！',toastPosition: EasyLoadingToastPosition.bottom);
       }
     }
   }

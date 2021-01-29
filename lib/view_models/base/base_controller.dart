@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/base/view_state.dart';
@@ -63,7 +63,7 @@ class BaseController extends GetxController {
   showErrorMessage({String message}) {
     if (viewStateError != null || message != null) {
       Future.microtask(() {
-        Fluttertoast.showToast(msg: message);
+        EasyLoading.showToast(message,toastPosition: EasyLoadingToastPosition.bottom);
       });
     }
   }

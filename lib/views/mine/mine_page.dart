@@ -106,7 +106,7 @@ class MinePage extends GetView<MineController> {
                       height: 60,
                       color: Color(0xFFF3F3F3),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () => controller.listItemClick(index),
                         child: Container(
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           decoration: BoxDecoration(

@@ -1,6 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
@@ -93,11 +93,11 @@ class LoginController extends BaseController {
     }
     String _phoneNumber = nameController.text;
     if (_phoneNumber.length == 0) {
-      Fluttertoast.showToast(msg: '请输入手机号');
+      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      Fluttertoast.showToast(msg: '手机号格式错误');
+      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     CommonModel obj = await DioManager().request<CommonModel>(
@@ -105,9 +105,9 @@ class LoginController extends BaseController {
         params: {'mobile': _phoneNumber});
     doCountDown();
     if (obj.success != null) {
-      Fluttertoast.showToast(msg: obj.success);
+      EasyLoading.showToast(obj.success,toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      Fluttertoast.showToast(msg: obj.error);
+      EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -124,30 +124,30 @@ class LoginController extends BaseController {
     _params['uname'] = _phoneNumber;
     _params['password'] = _pwdStr;
     if (_phoneNumber.length == 0) {
-      Fluttertoast.showToast(msg: '请输入手机号');
+      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      Fluttertoast.showToast(msg: '手机号格式错误');
+      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (loginType.value == LoginType.AuthCodeType) {
       //验证码登录
       if (_pwdStr.length == 0) {
-        Fluttertoast.showToast(msg: '请输入验证码');
+        EasyLoading.showToast('请输入验证码',toastPosition: EasyLoadingToastPosition.bottom);
         return;
       }
       _params['type'] = 'authcode';
     } else if (loginType.value == LoginType.PwdType) {
       //密码登录
       if (_pwdStr.length == 0) {
-        Fluttertoast.showToast(msg: '请输入密码');
+        EasyLoading.showToast('请输入密码',toastPosition: EasyLoadingToastPosition.bottom);
         return;
       }
       _params['type'] = 'password';
     }
     if (!aggree.value) {
-      Fluttertoast.showToast(msg: '请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》');
+      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     LoginModel obj = await DioManager().request<LoginModel>(
@@ -162,7 +162,7 @@ class LoginController extends BaseController {
         Get.offAllNamed(Routes.HOME);
       }
     } else if (obj.error != null || obj.redirect == '1002') {
-      Fluttertoast.showToast(msg: obj.error);
+      EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -181,7 +181,7 @@ class LoginController extends BaseController {
   void wechatLogin() {
     LogUtil.v('微信登录');
     if (!aggree.value) {
-      Fluttertoast.showToast(msg: '请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》');
+      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
@@ -202,7 +202,7 @@ class LoginController extends BaseController {
               if (obj.data.wxUsed) {
                 //微信已被使用
                 if (obj.data.msg != null) {
-                  Fluttertoast.showToast(msg: obj.data.msg);
+                  EasyLoading.showToast(obj.data.msg,toastPosition: EasyLoadingToastPosition.bottom);
                 }
               } else {
                 //微信未被使用,绑定手机号
@@ -223,7 +223,7 @@ class LoginController extends BaseController {
           }
         });
       } else {
-        Fluttertoast.showToast(msg: '请先安装微信客户端');
+        EasyLoading.showToast('请先安装微信客户端',toastPosition: EasyLoadingToastPosition.bottom);
       }
     });
   }
@@ -232,7 +232,7 @@ class LoginController extends BaseController {
   void appleLogin() {
     LogUtil.v('苹果登录');
     if (!aggree.value) {
-      Fluttertoast.showToast(msg: '请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》');
+      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     SharesdkPlugin.auth(ShareSDKPlatforms.apple, null,
@@ -257,7 +257,7 @@ class LoginController extends BaseController {
               "identityToken": user['credential']['token'],
             });
           } else {
-            Fluttertoast.showToast(msg: obj.message);
+            EasyLoading.showToast(obj.message,toastPosition: EasyLoadingToastPosition.bottom);
           }
         }
       } else {

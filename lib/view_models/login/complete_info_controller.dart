@@ -3,7 +3,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -105,7 +105,7 @@ class CompleteInfoController extends BaseController {
       //跳转兴趣标签
       Get.toNamed(Routes.SELECTINTREST);
     } else if (obj.error != null) {
-      Fluttertoast.showToast(msg: obj.error);
+      EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 }

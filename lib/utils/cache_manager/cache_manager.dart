@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:common_utils/common_utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:path_provider/path_provider.dart';
 class CacheManager {
   ///加载缓存
@@ -49,11 +49,10 @@ class CacheManager {
       Directory tempDir = await getTemporaryDirectory();
       //删除缓存目录
       await _delDir(tempDir);
-      Fluttertoast.showToast(msg: '清除缓存成功');
+      EasyLoading.showToast('清除缓存成功',toastPosition: EasyLoadingToastPosition.bottom);
       return true;
     } catch (e) {
-      LogUtil.v(e);
-      Fluttertoast.showToast(msg: '清除缓存失败');
+      EasyLoading.showToast('清除缓存失败',toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     } finally {
       //此处隐藏加载loading

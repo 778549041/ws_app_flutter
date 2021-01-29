@@ -1,6 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -34,11 +34,11 @@ class BindController extends BaseController {
     }
     String _phoneNumber = nameController.text;
     if (_phoneNumber.length == 0) {
-      Fluttertoast.showToast(msg: '请输入手机号');
+      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      Fluttertoast.showToast(msg: '手机号格式错误');
+      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     CommonModel obj = await DioManager().request<CommonModel>(
@@ -46,9 +46,9 @@ class BindController extends BaseController {
         params: {'mobile': _phoneNumber});
     doCountDown();
     if (obj.success != null) {
-      Fluttertoast.showToast(msg: obj.success);
+      EasyLoading.showToast(obj.success,toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      Fluttertoast.showToast(msg: obj.error);
+      EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -66,15 +66,15 @@ class BindController extends BaseController {
     _params['vcode'] = _pwdStr;
 
     if (_phoneNumber.length == 0) {
-      Fluttertoast.showToast(msg: '请输入手机号');
+      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      Fluttertoast.showToast(msg: '手机号格式错误');
+      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (_pwdStr.length == 0) {
-      Fluttertoast.showToast(msg: '请输入验证码');
+      EasyLoading.showToast('请输入验证码',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!appleLogin) {

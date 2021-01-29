@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
@@ -56,7 +56,7 @@ class NetConnectController extends BaseController {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      Fluttertoast.showToast(msg: '未安装支付软件');
+      EasyLoading.showToast('未安装支付软件',toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -66,7 +66,7 @@ class NetConnectController extends BaseController {
     JavascriptChannel toastChannel = JavascriptChannel(
         name: 'Toaster',
         onMessageReceived: (JavascriptMessage message) {
-          Fluttertoast.showToast(msg: message.message);
+          EasyLoading.showToast(message.message,toastPosition: EasyLoadingToastPosition.bottom);
         });
     channels.add(toastChannel);
     return channels;

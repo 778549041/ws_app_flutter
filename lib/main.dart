@@ -1,6 +1,6 @@
 import 'package:amap_map_fluttify/amap_map_fluttify.dart';
-import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
@@ -13,11 +13,30 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';
 
-void main() => Global.globalInit().then((value) => runApp(MyApp()));
+void main() => Global.globalInit().then((value) {
+      runApp(MyApp());
+      configLoading();
+    });
 
 class MyApp extends StatefulWidget {
   @override
   MyAppState createState() => MyAppState();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
@@ -30,21 +49,23 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         initialBinding: BindingsBuilder(
           () => {
             Get.lazyPut<UserController>(() => UserController()),
-            Get.lazyPut<SplashController>(() => SplashController())
+            Get.lazyPut<SplashController>(() => SplashController()),
           },
         ),
         home: SplashPage(),
         getPages: AppPages.pages,
-        builder: (context, child) {
-          return Scaffold(
-            body: GestureDetector(
-              onTap: () {
-                Get.focusScope.unfocus();
-              },
-              child: child,
-            ),
-          );
-        });
+        builder: EasyLoading.init(
+          builder: (context, child) {
+            return Scaffold(
+              body: GestureDetector(
+                onTap: () {
+                  Get.focusScope.unfocus();
+                },
+                child: child,
+              ),
+            );
+          },
+        ));
   }
 
   void _initShareSDK() {

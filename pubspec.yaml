@@ -52,8 +52,6 @@ dependencies:
   webview_flutter: ^1.0.7
   #loading组件
   flutter_spinkit: ^4.1.2+1
-  #toast提示
-  fluttertoast: ^7.1.4
   #网络图片加载组件 类似SDWebImage
   cached_network_image: ^2.3.3
   #上下拉刷新
