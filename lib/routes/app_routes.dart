@@ -12,4 +12,9 @@ abstract class Routes {
   static const CERTIFY = '/certify';
   static const SELECTINTREST = '/select-intrest';
   static const SETTING = '/setting';
+  static const PWDMANAGE = '/pwd-manage';
+  static const FEEDBACK = '/feedback';
+  static const PAYAUTH = '/pay-pwd-auth';
+  static const PAYCHANGEPWD = '/pay-change-pwd';
+  static const PAYCONFIRMPWD = '/pay-confirm-pwd';
 }

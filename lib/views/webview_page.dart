@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/views/base_page.dart';
 
 class WebViewPage extends GetView<NetConnectController> {
   final String url = Get.arguments['url']; //前端页面地址
@@ -55,23 +56,15 @@ class WebViewPage extends GetView<NetConnectController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: hasNav
-          ? AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  controller.goBack();
-                },
-              ),
-              title: Obx(
-                () => Text(
-                  (title != null) ? title : controller.webTitle.value,
-                ),
-              ),
-            )
-          : null,
-      body: Obx(
+    return BasePage(
+      showAppBar: hasNav,
+      titleWidget: Obx(() => Text(
+            (title != null) ? title : controller.webTitle.value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.white, fontSize: 22),
+          )),
+      child: Obx(
         () => IndexedStack(
           index: controller.currentIndex.value,
           children: <Widget>[

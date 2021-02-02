@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
+import 'package:ws_app_flutter/widgets/global/count_down_btn.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/login/login_type_switch.dart';
 
@@ -146,15 +147,12 @@ class LoginPage extends GetView<LoginController> {
                               width: 10,
                             ),
                             Offstage(
-                              child: GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onTap: () => controller.sendCode(),
-                                child: Text(
-                                  controller.pwdBtnTitle.value,
-                                  style: TextStyle(
-                                      color: Colors.white.withOpacity(0.6),
-                                      fontSize: 15),
-                                ),
+                              child: CountDownBtn(
+                                getVCode: () => controller.sendCode(),
+                                textColor: Colors.white.withOpacity(0.6),
+                                disabledColor: Colors.transparent,
+                                disabledTextColor:
+                                    Colors.white.withOpacity(0.6),
                               ),
                               offstage: controller.showSecure.value,
                             ),

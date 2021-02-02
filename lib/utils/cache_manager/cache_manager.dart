@@ -9,10 +9,6 @@ class CacheManager {
     try {
       Directory tempDir = await getTemporaryDirectory();
       double value = await _getTotalSizeOfFilesInDir(tempDir);
-      /*tempDir.list(followLinks: false,recursive: true).listen((file){
-          //打印每个缓存文件的路径
-        print(file.path);
-      });*/
       LogUtil.v('临时目录大小: ' + value.toString());
       return _renderSize(value);
     } catch (err) {

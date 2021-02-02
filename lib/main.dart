@@ -2,6 +2,7 @@ import 'package:amap_map_fluttify/amap_map_fluttify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/global.dart';
@@ -42,30 +43,33 @@ void configLoading() {
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        defaultTransition: Transition.rightToLeft,
-        initialBinding: BindingsBuilder(
-          () => {
-            Get.lazyPut<UserController>(() => UserController()),
-            Get.lazyPut<SplashController>(() => SplashController()),
-          },
-        ),
-        home: SplashPage(),
-        getPages: AppPages.pages,
-        builder: EasyLoading.init(
-          builder: (context, child) {
-            return Scaffold(
-              body: GestureDetector(
-                onTap: () {
-                  Get.focusScope.unfocus();
-                },
-                child: child,
-              ),
-            );
-          },
-        ));
+    return RefreshConfiguration(
+        headerBuilder: () => WaterDropHeader(),
+        footerBuilder: () => ClassicFooter(),
+        child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: '/',
+            defaultTransition: Transition.rightToLeft,
+            initialBinding: BindingsBuilder(
+              () => {
+                Get.lazyPut<UserController>(() => UserController()),
+                Get.lazyPut<SplashController>(() => SplashController()),
+              },
+            ),
+            home: SplashPage(),
+            getPages: AppPages.pages,
+            builder: EasyLoading.init(
+              builder: (context, child) {
+                return Scaffold(
+                  body: GestureDetector(
+                    onTap: () {
+                      Get.focusScope.unfocus();
+                    },
+                    child: child,
+                  ),
+                );
+              },
+            )));
   }
 
   void _initShareSDK() {

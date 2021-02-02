@@ -25,12 +25,9 @@ class LoginController extends BaseController {
   var showSecure = false.obs; //是否显示眼睛
   var secureImageName = 'assets/images/login/login_eye_close.png'.obs; //眼睛图片名称
   var pwdKBType = TextInputType.number.obs; //密码键盘类型
-  var pwdBtnTitle = '获取验证码'.obs; //密码框按钮文本
-  var enabled = true.obs; //验证码按钮是否能点击
   var aggree = false.obs; //是否同意协议
   var aggreeImageName = 'assets/images/login/login_unselected.png'.obs; //协议图片名称
 
-  TimerUtil _timerUtil; //验证码倒计时
   TextEditingController nameController;
   TextEditingController pwdController;
   FocusNode pwdFocus;
@@ -87,28 +84,25 @@ class LoginController extends BaseController {
   }
 
   //发送验证码
-  void sendCode() async {
-    if (!enabled.value) {
-      return;
-    }
+  Future<bool> sendCode() async {
     String _phoneNumber = nameController.text;
     if (_phoneNumber.length == 0) {
       EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
-      return;
+      return false;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
       EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
-      return;
+      return false;
     }
     CommonModel obj = await DioManager().request<CommonModel>(
         DioManager.POST, Api.loginSendCodeUrl,
         params: {'mobile': _phoneNumber});
-    doCountDown();
     if (obj.success != null) {
       EasyLoading.showToast(obj.success,toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
       EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
     }
+    return true;
   }
 
   //忘记密码
@@ -264,21 +258,5 @@ class LoginController extends BaseController {
         LogUtil.v(error);
       }
     });
-  }
-
-  //倒计时
-  void doCountDown() {
-    _timerUtil = TimerUtil(mTotalTime: 59 * 1000);
-    _timerUtil.setOnTimerTickCallback((int tick) {
-      double _tick = tick / 1000;
-      int _count = _tick.toInt();
-      pwdBtnTitle.value = '$_count重新获取';
-      enabled.value = false;
-      if (_tick == 0) {
-        enabled.value = true;
-        pwdBtnTitle.value = '获取验证码';
-      }
-    });
-    _timerUtil.startCountDown();
   }
 }

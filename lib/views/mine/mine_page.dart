@@ -94,55 +94,55 @@ class MinePage extends GetView<MineController> {
             topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         child: CustomScrollView(
           slivers: <Widget>[
-            Obx(() => SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    Map _item = controller.data[index];
-                    if (index == 0) {
-                      return _buildHeadRow();
-                    }
-                    return Container(
-                      padding:
-                          const EdgeInsets.only(left: 25, right: 25, bottom: 7),
-                      height: 60,
-                      color: Color(0xFFF3F3F3),
-                      child: GestureDetector(
-                        onTap: () => controller.listItemClick(index),
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.white),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                Map _item = controller.data[index];
+                if (index == 0) {
+                  return _buildHeadRow();
+                }
+                return Container(
+                  padding:
+                      const EdgeInsets.only(left: 25, right: 25, bottom: 7),
+                  height: 60,
+                  color: Color(0xFFF3F3F3),
+                  child: GestureDetector(
+                    onTap: () => controller.listItemClick(index),
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
                             children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Image.asset(
-                                      _item['imageName'],
-                                      width: 24,
-                                      height: 24,
-                                    ),
-                                  ),
-                                  Text(
-                                    _item['title'],
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Image.asset(
+                                  _item['imageName'],
+                                  width: 24,
+                                  height: 24,
+                                ),
                               ),
-                              Image.asset(
-                                'assets/images/mine/mine_right_arrow.png',
-                                width: 7.5,
-                                height: 11,
+                              Text(
+                                _item['title'],
+                                style: TextStyle(fontSize: 15),
                               ),
                             ],
                           ),
-                        ),
+                          Image.asset(
+                            'assets/images/mine/mine_right_arrow.png',
+                            width: 7.5,
+                            height: 11,
+                          ),
+                        ],
                       ),
-                    );
-                  }, childCount: controller.data.length),
-                )),
+                    ),
+                  ),
+                );
+              }, childCount: controller.data.length),
+            ),
           ],
         ),
       ),

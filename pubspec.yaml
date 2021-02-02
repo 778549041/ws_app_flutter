@@ -80,6 +80,10 @@ dependencies:
     git: git://github.com/yangyxd/flutter_picker.git
   #loading
   flutter_easyloading: ^2.2.2
+  # 小红点 https://pub.flutter-io.cn/packages/badges
+  badges: ^1.1.6
+  # 处理键盘事件 https://pub.flutter-io.cn/packages/keyboard_actions
+  keyboard_actions: "^3.3.1+1"
 
   #打开第三方应用
   url_launcher: ^5.7.10

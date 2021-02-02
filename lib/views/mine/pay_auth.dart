@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ChangePwdManagePage extends StatelessWidget {
+class PayAuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
