@@ -32,7 +32,6 @@ class RecommendPage extends GetView<RecommendController> {
                 topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             child: SmartRefresher(
               controller: controller.refreshController,
-              header: WaterDropHeader(),
               onRefresh: controller.refresh,
               child: CustomScrollView(
                 slivers: <Widget>[

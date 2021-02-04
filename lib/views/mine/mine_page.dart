@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/views/mine/mine_info_page.dart';
 import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -176,6 +177,7 @@ class MinePage extends GetView<MineController> {
                   () => RoundAvatar(
                     onPressed: () {
                       LogUtil.v('点击了我的头像');
+                      Get.to(MineInfoPage());
                     },
                     height: 90,
                     borderWidth: 3,

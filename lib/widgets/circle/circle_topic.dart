@@ -18,19 +18,18 @@ class CircleTopicItem extends GetView<CircleTopicController> {
       child: Container(
         height: 140,
         margin: const EdgeInsets.only(left: 15, bottom: 15),
-        child: SmartRefresher(
-          controller: controller.refreshController,
-          header: WaterDropHeader(),
-          onRefresh: () => controller.refresh(),
-          enablePullUp: true,
-          onLoading: () => controller.loadMore(),
-          child: Obx(() => ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: controller.list.length,
-              itemBuilder: (context, index) {
-                return _buildTopicItem(controller.list[index]);
-              })),
-        ),
+        child: Obx(() => SmartRefresher(
+              controller: controller.refreshController,
+              onRefresh: () => controller.refresh(),
+              enablePullUp: true,
+              onLoading: () => controller.loadMore(),
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.list.length,
+                  itemBuilder: (context, index) {
+                    return _buildTopicItem(controller.list[index]);
+                  }),
+            )),
       ),
     );
   }
