@@ -4,7 +4,11 @@ import 'package:ws_app_flutter/view_models/login/complete_info_controller.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
 import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart';
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/feedback_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/pay_auth_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/pay_changepwd_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/pay_confirm_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pwd_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
@@ -46,9 +50,11 @@ abstract class AppPages {
           Get.lazyPut<LoginController>(() => LoginController());
         })),
     GetPage(
-      name: Routes.CHANGEPWD,
-      page: () => ChangePwdPage(),
-    ),
+        name: Routes.CHANGEPWD,
+        page: () => ChangePwdPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ChangePwdController>(() => ChangePwdController());
+        })),
     GetPage(
         name: Routes.BINDPHONE,
         page: () => BindPhonePage(),
@@ -87,9 +93,24 @@ abstract class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut<PwdManageController>(() => PwdManageController());
         })),
-    GetPage(name: Routes.PAYAUTH, page: () => PayAuthPage()),
-    GetPage(name: Routes.PAYCHANGEPWD, page: () => PayChangePwdPage()),
-    GetPage(name: Routes.PAYCONFIRMPWD, page: () => PayPwdConfirmPage()),
+    GetPage(
+        name: Routes.PAYAUTH,
+        page: () => PayAuthPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<PayAuthController>(() => PayAuthController());
+        })),
+    GetPage(
+        name: Routes.PAYCHANGEPWD,
+        page: () => PayChangePwdPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<PayChangePwdController>(() => PayChangePwdController());
+        })),
+    GetPage(
+        name: Routes.PAYCONFIRMPWD,
+        page: () => PayPwdConfirmPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<PayConfirmController>(() => PayConfirmController());
+        })),
     GetPage(
         name: Routes.FEEDBACK,
         page: () => FeedBackPage(),

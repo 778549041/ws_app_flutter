@@ -44,12 +44,12 @@ class CarController extends BaseController {
   }
 
   //刷新位置信息
-  void refreshLocation() async {
+  void refreshLocation({bool reloadLocation = false}) async {
     if (await PermissionManager().requestPermission(Permission.location)) {
       locationSuccess.value = true;
       final _location = await AmapLocation.instance.fetchLocation();
       await _requestNearStoreData(_location.latLng.longitude,
-          _location.latLng.latitude, _location.city);
+          _location.latLng.latitude, _location.city,reloadLocation: reloadLocation);
     } else {
       locationSuccess.value = false;
     }

@@ -107,7 +107,7 @@ class LoginController extends BaseController {
 
   //忘记密码
   void forgetPwdAction() {
-    Get.toNamed(Routes.CHANGEPWD);
+    Get.toNamed(Routes.CHANGEPWD,arguments: {'isForget':true});
   }
 
   //登录

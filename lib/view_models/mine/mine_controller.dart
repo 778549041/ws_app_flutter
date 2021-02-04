@@ -48,7 +48,7 @@ class MineController extends BaseController {
   }
 
   void listItemClick(int index) {
-    LogUtil.v('点击了$index行');
+    LogUtil.v('点击了我的第$index行');
     if (index == 9) {
       Get.toNamed(Routes.SETTING);
     }

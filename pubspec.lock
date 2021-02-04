@@ -522,6 +522,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.10.3"
+  pin_code_text_field:
+    dependency: "direct main"
+    description:
+      name: pin_code_text_field
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.7.1"
   platform:
     dependency: transitive
     description:

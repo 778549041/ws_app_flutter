@@ -76,6 +76,8 @@ dependencies:
   #选择器
   flutter_cupertino_data_picker: ^0.8.6
   flutter_cupertino_date_picker: ^1.0.26+2
+  # 验证码输入框
+  pin_code_text_field: ^1.7.1
   flutter_picker:
     git: git://github.com/yangyxd/flutter_picker.git
   #loading

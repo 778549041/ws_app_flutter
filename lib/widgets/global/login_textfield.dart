@@ -14,7 +14,8 @@ const TextStyle _hintTextStyle =
 
 typedef _InputCallBack = void Function(String value);
 
-class JhLoginTextField extends StatefulWidget {
+class LoginTextField extends StatefulWidget {
+  final bool enabled;
   final String text;
   final String hintText;
   final String labelText; //top提示文字
@@ -33,8 +34,9 @@ class JhLoginTextField extends StatefulWidget {
   final InputBorder border; //边框样式
   final bool isDense; //是否紧凑显示，默认false
 
-  const JhLoginTextField({
+  const LoginTextField({
     Key key,
+    this.enabled = true,
     this.text: '',
     this.keyboardType: TextInputType.text,
     this.hintText: '',
@@ -55,10 +57,10 @@ class JhLoginTextField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _JhLoginTextFieldState createState() => _JhLoginTextFieldState();
+  _LoginTextFieldState createState() => _LoginTextFieldState();
 }
 
-class _JhLoginTextFieldState extends State<JhLoginTextField> {
+class _LoginTextFieldState extends State<LoginTextField> {
   TextEditingController _textController;
   FocusNode _focusNode;
   bool _isShowDelete;
@@ -110,6 +112,7 @@ class _JhLoginTextFieldState extends State<JhLoginTextField> {
       alignment: Alignment.centerRight,
       children: <Widget>[
         TextField(
+          enabled: widget.enabled,
           focusNode: _focusNode,
           controller: _textController,
           keyboardType: widget.keyboardType,
@@ -129,12 +132,12 @@ class _JhLoginTextFieldState extends State<JhLoginTextField> {
             enabledBorder: widget.border != null
                 ? widget.border
                 : UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 0.8)),
+                    borderSide: BorderSide(color: Colors.grey, width: 0.5)),
             focusedBorder: widget.border != null
                 ? widget.border
                 : UnderlineInputBorder(
                     borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 0.8)),
+                        color: Theme.of(context).primaryColor, width: 0.5)),
 //          suffixIcon:
           ),
           obscureText: _pwdShow,

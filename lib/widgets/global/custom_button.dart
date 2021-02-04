@@ -51,7 +51,7 @@ class CustomButton extends StatelessWidget {
       this.onPressed})
       : super(key: key);
   
-  var lastClickTime = DateTime.now();
+  var lastClickTime;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class CustomButton extends StatelessWidget {
             lastClickTime = DateTime.now();
             onPressed();
           }else{
-            // lastPopTime = DateTime.now(); //如果不注释这行,则强制用户一定要间隔2s后才能成功点击. 而不是以上一次点击成功的时间开始计算.
+            // lastClickTime = DateTime.now(); //如果不注释这行,则强制用户一定要间隔2s后才能成功点击. 而不是以上一次点击成功的时间开始计算.
           }
       },
       child: Container(

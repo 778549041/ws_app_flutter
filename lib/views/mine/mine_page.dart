@@ -64,7 +64,9 @@ class MinePage extends GetView<MineController> {
               image: 'assets/images/mine/mine_customer_service.png',
               imageW: 25,
               imageH: 25,
-              onPressed: () {},
+              onPressed: () {
+                LogUtil.v('点击了我的客服');
+              },
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 22),
@@ -75,7 +77,7 @@ class MinePage extends GetView<MineController> {
                 image: 'assets/images/mine/mine_message.png',
                 imageW: 25,
                 imageH: 25,
-                onPressed: () {},
+                onPressed: () {LogUtil.v('点击了我的消息');},
               ),
             )
           ],
@@ -172,6 +174,9 @@ class MinePage extends GetView<MineController> {
               children: <Widget>[
                 Obx(
                   () => RoundAvatar(
+                    onPressed: () {
+                      LogUtil.v('点击了我的头像');
+                    },
                     height: 90,
                     borderWidth: 3,
                     imageUrl: Get.find<UserController>()
@@ -239,7 +244,7 @@ class MinePage extends GetView<MineController> {
                                 .member
                                 .memberInfo
                                 .medalOrSaleImageName,
-                            onPressed: () {},
+                            onPressed: () {LogUtil.v('点击了我的勋章');},
                           )),
                     ),
                   Obx(() => Offstage(
@@ -281,7 +286,7 @@ class MinePage extends GetView<MineController> {
                       title: '圈子',
                       image: 'assets/images/mine/mine_circle_moment.png'),
                   _buildFourBtn(
-                      0,
+                      1,
                       Obx(() => Text(
                             controller.favorModel.value.collectionNum
                                 .toString(),
@@ -290,7 +295,7 @@ class MinePage extends GetView<MineController> {
                       title: '收藏',
                       image: 'assets/images/mine/mine_favor.png'),
                   _buildFourBtn(
-                      0,
+                      2,
                       Obx(() => Text(
                             Get.find<UserController>()
                                 .userInfo
@@ -302,7 +307,7 @@ class MinePage extends GetView<MineController> {
                       title: '活动',
                       image: 'assets/images/mine/mine_activity.png'),
                   _buildFourBtn(
-                      0,
+                      3,
                       Obx(() => Text(
                             TextUtil.formatComma3(Get.find<UserController>()
                                 .userInfo
@@ -324,7 +329,9 @@ class MinePage extends GetView<MineController> {
 
   Widget _buildFourBtn(int index, Widget child, {String title, String image}) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        LogUtil.v('点击了我的头像下面的第$index个按钮');
+      },
       child: Container(
         width: (Get.width - 72.5) / 4,
         height: (Get.width - 72.5) * 2 / 5,

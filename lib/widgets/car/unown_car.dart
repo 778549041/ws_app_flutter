@@ -266,7 +266,7 @@ class UnOwnCarWidget extends GetView<CarController> {
                         : '定位失败，点击重新定位',
                     fontSize: 12,
                     titleColor: Color(0xFFA0A0A0),
-                    onPressed: () => controller.refreshLocation(),
+                    onPressed: () => controller.refreshLocation(reloadLocation: true),
                   )),
             ],
           ),
