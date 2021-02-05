@@ -17,4 +17,12 @@ abstract class Routes {
   static const PAYAUTH = '/pay-pwd-auth';
   static const PAYCHANGEPWD = '/pay-change-pwd';
   static const PAYCONFIRMPWD = '/pay-confirm-pwd';
+  static const MINEINFO = '/mine-info';
+  static const MINEQR = '/mine-qr';
+  static const MINECHANGENAME = '/mine-change-name';
+  static const MINECHANGEAREA = '/mine-change-area';
+  static const MINEPHONE = '/mine-phone';
+  static const MINECHANGEPHONE = '/mine-change-phone';
+  static const MINESHOPADDRLIST = '/mine-shop-addr-list';
+  static const MINEADDSHOP = '/mine-add-shop';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class PermissionManager {
 //动态申请权限，ios 要在info.plist 上面添加
@@ -53,22 +54,17 @@ class PermissionManager {
     }
 
     if (status.isDenied) {
-      Get.dialog(CupertinoAlertDialog(
-        title: Text('提示'),
-        content: Text('您当前没有开启$_permissionCHName权限'),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('取消'),
-            onPressed: () => Get.back(),
-          ),
-          FlatButton(
-            child: Text('去开启'),
-            onPressed: () {
-              Get.back();
+      Get.dialog(BaseDialog(
+        title: '提示',
+        content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Text('您当前没有开启$_permissionCHName权限',
+              style: TextStyle(fontSize: 16.0)),
+        ),
+        onConfirm: () {
+          Get.back();
               openAppSettings();
-            },
-          )
-        ],
+        },
       ));
     }
     return status.isGranted;

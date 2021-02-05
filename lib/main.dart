@@ -13,6 +13,7 @@ import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => Global.globalInit().then((value) {
       runApp(MyApp());
@@ -56,6 +57,22 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 Get.lazyPut<SplashController>(() => SplashController()),
               },
             ),
+            localizationsDelegates: [
+              RefreshLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('zh'),
+            ],
+            locale: const Locale('zh'),
+            localeResolutionCallback:
+                (Locale locale, Iterable<Locale> supportedLocales) {
+              //print("change language");
+              return locale;
+            },
             home: SplashPage(),
             getPages: AppPages.pages,
             builder: EasyLoading.init(

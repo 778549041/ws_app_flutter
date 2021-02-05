@@ -131,8 +131,11 @@ class _CustomCellState extends State<CustomCell> {
                   widget.rightWidget != null ? widget.rightWidget : Container(),
                   Offstage(
                     offstage: _hiddenArrow,
-                    child: Icon(Icons.arrow_forward_ios,
-                        size: 18, color: Color(0xFFC8C8C8)),
+                    child: Image.asset(
+                      'assets/images/mine/mine_right_arrow.png',
+                      width: 7.5,
+                      height: 11,
+                    ),
                   ),
                 ]),
           ),

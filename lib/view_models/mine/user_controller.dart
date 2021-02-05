@@ -30,6 +30,40 @@ class UserController extends BaseController {
     isLogin.value = (user.member.memberId.length != 0);
   }
 
+  //修改用户信息
+  Future changeUserInfo(
+      {String name,
+      String gender,
+      String birthday,
+      String profession,
+      String area}) async {
+    Map<String, String> _params = Map<String, String>();
+    if (name != null) {
+      _params['contact[name]'] = name;
+    }
+    if (gender != null) {
+      _params['profile[gender]'] = gender;
+    }
+    if (birthday != null) {
+      _params['profile[birthday]'] = birthday;
+    }
+    if (profession != null) {
+      _params['contact[profession]'] = profession;
+    }
+    if (area != null) {
+      _params['contact[area]'] = area;
+    }
+    CommonModel obj = await DioManager().request<CommonModel>(
+        DioManager.POST, Api.changeUserInfoUrl,
+        params: _params);
+    if (obj.success != null) {
+      await getUserInfo();
+    } else if (obj.error != null) {
+      EasyLoading.showToast(obj.error,
+          toastPosition: EasyLoadingToastPosition.bottom);
+    }
+  }
+
   //车主认证
   Future certifyVechile() async {
     CertifyModel obj = await DioManager()
@@ -61,7 +95,8 @@ class UserController extends BaseController {
             }
           });
         } else {
-          EasyLoading.showToast('请先安装微信客户端',toastPosition: EasyLoadingToastPosition.bottom);
+          EasyLoading.showToast('请先安装微信客户端',
+              toastPosition: EasyLoadingToastPosition.bottom);
         }
       });
     } else if (obj.code == 202) {

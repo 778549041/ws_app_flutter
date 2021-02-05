@@ -89,23 +89,19 @@ class CompleteInfoController extends BaseController {
 
   //继续完善
   void nextStep() async {
-    CommonModel obj = await DioManager()
-        .request<CommonModel>(DioManager.POST, Api.changeUserInfoUrl, params: {
-      "contact[name]": nameController.text,
-      "profile[gender]": sex.value == '男'
-          ? 'male'
-          : sex.value == '女'
-              ? 'female'
-              : '',
-      "profile[birthday]": birthday.value == '请选择出生日期' ? '' : birthday.value,
-      "contact[profession]": professionController.text,
-      "contact[area]": addr.value == '请选择现居地' ? '' : addr.value,
-    });
+    CommonModel obj = await Get.find<UserController>().changeUserInfo(
+        name: nameController.text,
+        gender: sex.value == '男'
+            ? 'male'
+            : sex.value == '女'
+                ? 'female'
+                : '',
+        birthday: birthday.value == '请选择出生日期' ? '' : birthday.value,
+        profession: professionController.text,
+        area: addr.value == '请选择现居地' ? '' : addr.value);
     if (obj.success != null) {
       //跳转兴趣标签
       Get.toNamed(Routes.SELECTINTREST);
-    } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 }

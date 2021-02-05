@@ -5,8 +5,9 @@ class CommonModel {
   bool result;
   int code;
   String message;
+  String imageId;
 
-  CommonModel({this.success,this.error,this.redirect,this.result = false,this.code = 0,this.message});
+  CommonModel({this.success,this.error,this.redirect,this.result = false,this.code = 0,this.message,this.imageId});
 
   CommonModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -15,5 +16,6 @@ class CommonModel {
     result = json['result'];
     code = json['code'];
     message = json['message'];
+    imageId = json['image_id'];
   }
 }

@@ -6,6 +6,7 @@ import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart'
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/feedback_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/mine_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pay_auth_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pay_changepwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pay_confirm_controller.dart';
@@ -19,13 +20,21 @@ import 'package:ws_app_flutter/views/login/complete_info_page.dart';
 import 'package:ws_app_flutter/views/login/login_page.dart';
 import 'package:ws_app_flutter/views/login/select_intrest_page.dart';
 import 'package:ws_app_flutter/views/main/tabbar_page.dart';
+import 'package:ws_app_flutter/views/mine/add_shop_page.dart';
+import 'package:ws_app_flutter/views/mine/change_area_page.dart';
+import 'package:ws_app_flutter/views/mine/change_name_page.dart';
+import 'package:ws_app_flutter/views/mine/change_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_pwd_page.dart';
 import 'package:ws_app_flutter/views/mine/feed_back_page.dart';
+import 'package:ws_app_flutter/views/mine/mine_info_page.dart';
+import 'package:ws_app_flutter/views/mine/mine_qr_page.dart';
 import 'package:ws_app_flutter/views/mine/pay_auth.dart';
 import 'package:ws_app_flutter/views/mine/pay_change_pwd.dart';
 import 'package:ws_app_flutter/views/mine/pay_confirm_pwd.dart';
+import 'package:ws_app_flutter/views/mine/phone_page.dart';
 import 'package:ws_app_flutter/views/mine/pwd_manage_page.dart';
 import 'package:ws_app_flutter/views/mine/setting_page.dart';
+import 'package:ws_app_flutter/views/mine/shop_address_list_page.dart';
 import 'package:ws_app_flutter/views/webview_page.dart';
 part './app_routes.dart';
 
@@ -117,5 +126,18 @@ abstract class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut<FeedBackController>(() => FeedBackController());
         })),
+    GetPage(
+        name: Routes.MINEINFO,
+        page: () => MineInfoPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<MineInfoController>(() => MineInfoController());
+        })),
+    GetPage(name: Routes.MINEQR, page: () => MineQRPage()),
+    GetPage(name: Routes.MINECHANGENAME, page: () => ChangeNamePage()),
+    GetPage(name: Routes.MINECHANGEAREA, page: () => ChangeAreaPage()),
+    GetPage(name: Routes.MINEPHONE, page: () => PhonePage()),
+    GetPage(name: Routes.MINECHANGEPHONE, page: () => ChangePhonePage()),
+    GetPage(name: Routes.MINESHOPADDRLIST, page: () => ShopAddressListPage()),
+    GetPage(name: Routes.MINEADDSHOP, page: () => AddShopPage()),
   ];
 }

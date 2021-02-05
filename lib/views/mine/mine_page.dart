@@ -1,11 +1,12 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
-import 'package:ws_app_flutter/views/mine/mine_info_page.dart';
 import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_cell.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class MinePage extends GetView<MineController> {
@@ -104,46 +105,18 @@ class MinePage extends GetView<MineController> {
                   return _buildHeadRow();
                 }
                 return Container(
-                  padding:
-                      const EdgeInsets.only(left: 25, right: 25, bottom: 7),
-                  height: 60,
-                  color: Color(0xFFF3F3F3),
-                  child: GestureDetector(
-                    onTap: () => controller.listItemClick(index),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Image.asset(
-                                  _item['imageName'],
-                                  width: 24,
-                                  height: 24,
-                                ),
-                              ),
-                              Text(
-                                _item['title'],
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          Image.asset(
-                            'assets/images/mine/mine_right_arrow.png',
-                            width: 7.5,
-                            height: 11,
-                          ),
-                        ],
-                      ),
-                    ),
+                padding: const EdgeInsets.only(left: 25, right: 25, bottom: 7),
+                color: Color(0xFFF3F3F3),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CustomCell(
+                    leftImgPath: _item['imageName'],
+                    title: _item['title'],
+                    hiddenLine: true,
+                    clickCallBack: () => controller.listItemClick(index),
                   ),
-                );
+                ),
+              );
               }, childCount: controller.data.length),
             ),
           ],
@@ -177,7 +150,7 @@ class MinePage extends GetView<MineController> {
                   () => RoundAvatar(
                     onPressed: () {
                       LogUtil.v('点击了我的头像');
-                      Get.to(MineInfoPage());
+                      Get.toNamed(Routes.MINEINFO);
                     },
                     height: 90,
                     borderWidth: 3,

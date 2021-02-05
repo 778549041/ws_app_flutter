@@ -18,18 +18,56 @@ class CircleTopicItem extends GetView<CircleTopicController> {
       child: Container(
         height: 140,
         margin: const EdgeInsets.only(left: 15, bottom: 15),
-        child: Obx(() => SmartRefresher(
+        child: Obx(() => RefreshConfiguration.copyAncestor(
+            context: context,
+            hideFooterWhenNotFull: false,
+            child: SmartRefresher(
               controller: controller.refreshController,
               onRefresh: () => controller.refresh(),
               enablePullUp: true,
               onLoading: () => controller.loadMore(),
+              footer: ClassicFooter(
+                iconPos: IconPosition.top,
+                idleText: '',
+                loadingText: '',
+                noDataText: '',
+                failedText: '',
+                canLoadingText: '',
+                spacing: 0,
+                outerBuilder: (child) {
+                  return Container(
+                    width: 80.0,
+                    child: Center(
+                      child: child,
+                    ),
+                  );
+                },
+              ),
+              header: ClassicHeader(
+                releaseText: '',
+                idleText: '',
+                refreshingText: '',
+                completeText: '',
+                failedText: '',
+                canTwoLevelText: '',
+                spacing: 0,
+                iconPos: IconPosition.top,
+                outerBuilder: (child) {
+                  return Container(
+                    width: 80.0,
+                    child: Center(
+                      child: child,
+                    ),
+                  );
+                },
+              ),
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: controller.list.length,
                   itemBuilder: (context, index) {
                     return _buildTopicItem(controller.list[index]);
                   }),
-            )),
+            ))),
       ),
     );
   }
