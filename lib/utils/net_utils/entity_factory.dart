@@ -11,6 +11,7 @@ import 'package:ws_app_flutter/models/login/login_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
+import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/models/splash/splash_model.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -76,6 +77,8 @@ class EntityFactory {
      return ShopListModel.fromJson(json) as T;
    } else if (T.toString() == 'FavorModel') {
      return FavorModel.fromJson(json) as T;
+   } else if (T.toString() == 'ShopAddressListModel') {
+     return ShopAddressListModel.fromJson(json) as T;
    } 
    else {
       return json as T;

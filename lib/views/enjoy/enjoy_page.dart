@@ -103,20 +103,20 @@ class EnjoyPage extends GetView<EnjoyController> {
                                   .userInfo
                                   .value
                                   .member
-                                  .uname
+                                  .showName
                                   .length >
                               11)
                           ? Get.find<UserController>()
                               .userInfo
                               .value
                               .member
-                              .uname
+                              .showName
                               .substring(0, 11)
                           : Get.find<UserController>()
                               .userInfo
                               .value
                               .member
-                              .uname,
+                              .showName,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     )),

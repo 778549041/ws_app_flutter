@@ -22,7 +22,8 @@ abstract class Routes {
   static const MINECHANGENAME = '/mine-change-name';
   static const MINECHANGEAREA = '/mine-change-area';
   static const MINEPHONE = '/mine-phone';
-  static const MINECHANGEPHONE = '/mine-change-phone';
+  static const MINEUNBINDPHONE = '/mine-unbind-phone';
+  static const MINEBINDNEWPHONE = '/mine-bind-new-phone';
   static const MINESHOPADDRLIST = '/mine-shop-addr-list';
   static const MINEADDSHOP = '/mine-add-shop';
 }

@@ -184,20 +184,20 @@ class MinePage extends GetView<MineController> {
                                     .userInfo
                                     .value
                                     .member
-                                    .uname
+                                    .showName
                                     .length >
                                 11)
                             ? Get.find<UserController>()
                                 .userInfo
                                 .value
                                 .member
-                                .uname
+                                .showName
                                 .substring(0, 11)
                             : Get.find<UserController>()
                                 .userInfo
                                 .value
                                 .member
-                                .uname,
+                                .showName,
                         style: TextStyle(fontSize: 15),
                       )),
                   // 销售员或者勋章标签

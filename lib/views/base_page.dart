@@ -79,18 +79,18 @@ class BasePage extends StatelessWidget {
               : null,
           body: Container(
             width: Get.width,
-            height: Get.height -
+            height: showAppBar ? (Get.height -
                 ScreenUtil.getInstance().appBarHeight -
-                ScreenUtil.getInstance().statusBarHeight,
+                ScreenUtil.getInstance().statusBarHeight) : Get.height,
             margin: EdgeInsets.only(top: 0, bottom: 0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
+                    topLeft: Radius.circular(showAppBar ? 10 : 0),
+                    topRight: Radius.circular(showAppBar ? 10 : 0)),
                 color: bgColor),
             child: ClipRRect(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                  topLeft: Radius.circular(showAppBar ? 10 : 0), topRight: Radius.circular(showAppBar ? 10 : 0)),
               child: child,
             ),
           ),

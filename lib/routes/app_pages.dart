@@ -4,6 +4,11 @@ import 'package:ws_app_flutter/view_models/login/complete_info_controller.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
 import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart';
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/add_shop_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/bind_new_phone_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
+import 'package:ws_app_flutter/view_models/mine/unbind_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/feedback_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_info_controller.dart';
@@ -12,6 +17,7 @@ import 'package:ws_app_flutter/view_models/mine/pay_changepwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pay_confirm_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pwd_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/shop_list_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
@@ -21,9 +27,10 @@ import 'package:ws_app_flutter/views/login/login_page.dart';
 import 'package:ws_app_flutter/views/login/select_intrest_page.dart';
 import 'package:ws_app_flutter/views/main/tabbar_page.dart';
 import 'package:ws_app_flutter/views/mine/add_shop_page.dart';
+import 'package:ws_app_flutter/views/mine/bind_new_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
-import 'package:ws_app_flutter/views/mine/change_phone_page.dart';
+import 'package:ws_app_flutter/views/mine/unbind_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_pwd_page.dart';
 import 'package:ws_app_flutter/views/mine/feed_back_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_info_page.dart';
@@ -133,11 +140,42 @@ abstract class AppPages {
           Get.lazyPut<MineInfoController>(() => MineInfoController());
         })),
     GetPage(name: Routes.MINEQR, page: () => MineQRPage()),
-    GetPage(name: Routes.MINECHANGENAME, page: () => ChangeNamePage()),
-    GetPage(name: Routes.MINECHANGEAREA, page: () => ChangeAreaPage()),
+    GetPage(
+        name: Routes.MINECHANGENAME,
+        page: () => ChangeNamePage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ChangeNameController>(() => ChangeNameController());
+        })),
+    GetPage(
+        name: Routes.MINECHANGEAREA,
+        page: () => ChangeAreaPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ChangeAreaController>(() => ChangeAreaController());
+        })),
     GetPage(name: Routes.MINEPHONE, page: () => PhonePage()),
-    GetPage(name: Routes.MINECHANGEPHONE, page: () => ChangePhonePage()),
-    GetPage(name: Routes.MINESHOPADDRLIST, page: () => ShopAddressListPage()),
-    GetPage(name: Routes.MINEADDSHOP, page: () => AddShopPage()),
+    GetPage(
+        name: Routes.MINEUNBINDPHONE,
+        page: () => UnbindPhonePage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<UnbindPhoneController>(() => UnbindPhoneController());
+        })),
+        GetPage(
+        name: Routes.MINEBINDNEWPHONE,
+        page: () => BindNewPhonePage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<BindNewPhoneController>(() => BindNewPhoneController());
+        })),
+    GetPage(
+        name: Routes.MINESHOPADDRLIST,
+        page: () => ShopAddressListPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ShopListController>(() => ShopListController());
+        })),
+    GetPage(
+        name: Routes.MINEADDSHOP,
+        page: () => AddShopPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<AddShopController>(() => AddShopController());
+        })),
   ];
 }

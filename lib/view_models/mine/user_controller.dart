@@ -31,27 +31,31 @@ class UserController extends BaseController {
   }
 
   //修改用户信息
-  Future changeUserInfo(
+  Future<CommonModel> changeUserInfo(
       {String name,
       String gender,
       String birthday,
       String profession,
-      String area}) async {
+      String area,
+      String addr}) async {
     Map<String, String> _params = Map<String, String>();
-    if (name != null) {
+    if (name != null && name.length > 0) {
       _params['contact[name]'] = name;
     }
-    if (gender != null) {
+    if (gender != null && gender.length > 0) {
       _params['profile[gender]'] = gender;
     }
-    if (birthday != null) {
+    if (birthday != null && birthday.length > 0) {
       _params['profile[birthday]'] = birthday;
     }
-    if (profession != null) {
+    if (profession != null && profession.length > 0) {
       _params['contact[profession]'] = profession;
     }
-    if (area != null) {
+    if (area != null && area.length > 0) {
       _params['contact[area]'] = area;
+    }
+    if (addr != null && addr.length > 0) {
+      _params['contact[addr]'] = addr;
     }
     CommonModel obj = await DioManager().request<CommonModel>(
         DioManager.POST, Api.changeUserInfoUrl,
@@ -62,6 +66,7 @@ class UserController extends BaseController {
       EasyLoading.showToast(obj.error,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
+    return obj;
   }
 
   //车主认证

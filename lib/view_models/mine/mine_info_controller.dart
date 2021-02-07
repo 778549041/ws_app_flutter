@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:city_pickers/city_pickers.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
@@ -32,7 +31,7 @@ class MineInfoController extends GetxController {
     }
     data.assignAll([
       {"title": "", "content": ''},
-      {"title": "昵    称", "content": _userInfo.member.uname},
+      {"title": "昵    称", "content": _userInfo.member.showName},
       {
         "title": "手 机 号",
         "content": _userInfo.member.mobile != null
@@ -173,15 +172,5 @@ class MineInfoController extends GetxController {
         initData();
       },
     );
-  }
-
-  //选择地址
-  void selectAddress() async {
-    Result result =
-        await CityPickers.showCityPicker(context: Get.context, height: 256);
-    if (result != null) {
-      var addr =
-          result.provinceName + '/' + result.cityName + '/' + result.areaName;
-    }
   }
 }

@@ -3,12 +3,9 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
-import 'package:ws_app_flutter/utils/net_utils/api.dart';
-import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
@@ -37,7 +34,7 @@ class CompleteInfoController extends BaseController {
   //直接跳过
   void jumpToNext() {
     //跳转兴趣标签
-    Get.toNamed(Routes.SELECTINTREST);
+    Get.toNamed(Routes.SELECTINTREST,arguments: {'fromComplete':true});
   }
 
   //选择性别
@@ -101,7 +98,7 @@ class CompleteInfoController extends BaseController {
         area: addr.value == '请选择现居地' ? '' : addr.value);
     if (obj.success != null) {
       //跳转兴趣标签
-      Get.toNamed(Routes.SELECTINTREST);
+      Get.toNamed(Routes.SELECTINTREST,arguments: {'fromComplete':true});
     }
   }
 }

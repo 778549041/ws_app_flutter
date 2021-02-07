@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:ws_app_flutter/models/common/common_member.dart';
 
 class UserInfo {
@@ -58,9 +59,10 @@ class Member {
   String nextLevelname;
   String isDisplay;
   String lvChannelprice;
-  List<dynamic> interest;
+  List<String> interest;
   String regtime;
   CommonMemberModel memberInfo;
+  String showName;
 
   Member(
       {this.addr = '',
@@ -105,9 +107,10 @@ class Member {
       this.regtime = '',
       this.sex = '',
       this.uname = '',
-      this.unionid = ''})
+      this.unionid = '',
+      this.showName = ''})
       : memberInfo = CommonMemberModel(),
-        interest = List<dynamic>();
+        interest = List<String>();
 
   Member.fromJson(Map<String, dynamic> json) {
     addr = json['addr'] ?? '';
@@ -128,7 +131,12 @@ class Member {
     fcreateDate = json['fcreateDate'] ?? '';
     headImg = json['head_img'] ?? '';
     integral = json['integral'] ?? '';
-    interest = json['interest'] ?? List<dynamic>();
+    interest = List<String>();
+    if (json['interest'] != null) {
+      (json['interest'] as List).forEach((element) {
+        interest.add(element);
+      });
+    }
     isDisplay = json['is_display'] ?? '';
     isReceive = json['is_receive'] ?? '';
     isVehicle = json['is_vehicle'] ?? '';
@@ -155,6 +163,16 @@ class Member {
     regtime = json['regtime'] ?? '';
     sex = json['sex'] ?? '';
     uname = json['uname'] ?? '';
+    name = json['name'] ?? '';
     unionid = json['unionid'] ?? '';
+    showName = _showName();
+  }
+
+  String _showName() {
+    String _showName = name.length > 0 ? name : mobile;
+    if (RegexUtil.isMobileExact(_showName)) {
+      _showName = _showName.replaceFirst(RegExp(r'\d{4}'), '****', 3);
+    }
+    return _showName;
   }
 }
