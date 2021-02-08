@@ -26,8 +26,8 @@ class MineInfoController extends GetxController {
   void initData() {
     UserInfo _userInfo = Get.find<UserController>().userInfo.value;
     var _address = _userInfo.member.area;
-    if (_userInfo.member.area.contains('mainland')) {
-      _address = _userInfo.member.area.split(':')[1];
+    if (_address.contains('mainland')) {
+      _address = _address.split(':')[1];
     }
     data.assignAll([
       {"title": "", "content": ''},

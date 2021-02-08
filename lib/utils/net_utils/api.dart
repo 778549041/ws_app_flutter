@@ -203,8 +203,6 @@ class Api {
   static final changedIntrestUrl = "m/home-dointerest.html";
 //我的收获地址列表
   static final mineTakeGoodsAddressListUrl = "m/my-receiver.html";
-//删除收货地址
-  static final mineDeleteTakeGoodsAddressUrl = "m/my-receiver-delete-%= .html";
 //修改、新增收货地址
   static final changedTakeGoodsAddressUrl = "m/my-receiver-save.html";
 //我的意见反馈

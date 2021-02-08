@@ -127,7 +127,9 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        Get.find<CarController>().refreshLocation();
+        if (Get.isRegistered<CarController>()) {
+          Get.find<CarController>().refreshLocation();
+        }
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
         break;

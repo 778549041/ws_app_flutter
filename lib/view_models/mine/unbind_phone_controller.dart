@@ -1,4 +1,3 @@
-import 'package:flustars/flustars.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';

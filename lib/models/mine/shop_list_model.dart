@@ -19,7 +19,7 @@ class ShopAddressModel {
   String area; //省市区
   String day; //
   String email;
-  String isDefault; //是否默认地址
+  bool isDefault; //是否默认地址
   String memberId;
   String mobile; //电话
   String name; //名字
@@ -29,33 +29,33 @@ class ShopAddressModel {
   String updatetime;
 
   ShopAddressModel(
-      {this.addr,
-      this.addrId,
-      this.area,
-      this.day,
-      this.email,
-      this.isDefault,
-      this.memberId,
-      this.mobile,
-      this.name,
-      this.province,
-      this.tel,
-      this.time,
-      this.updatetime});
+      {this.addr = '',
+      this.addrId = '',
+      this.area = '',
+      this.day = '',
+      this.email = '',
+      this.isDefault = false,
+      this.memberId = '',
+      this.mobile = '',
+      this.name = '',
+      this.province = '',
+      this.tel = '',
+      this.time = '',
+      this.updatetime = ''});
 
   ShopAddressModel.fromJson(Map<String, dynamic> json) {
-    addr = json['addr'];
-    addrId = json['addr_id'];
-    area = json['area'];
-    day = json['day'];
-    email = json['email'];
-    isDefault = json['is_default'];
-    memberId = json['member_id'];
-    mobile = json['mobile'];
-    name = json['name'];
-    province = json['province'];
-    tel = json['tel'];
-    time = json['time'];
-    updatetime = json['updatetime'];
+    addr = json['addr'] ?? '';
+    addrId = json['addr_id'] ?? '';
+    area = json['area'] ?? '';
+    day = json['day'] ?? '';
+    email = json['email'] ?? '';
+    isDefault = json['is_default'] == 'true';
+    memberId = json['member_id'] ?? '';
+    mobile = json['mobile'] ?? '';
+    name = json['name'] ?? '';
+    province = json['province'] ?? '';
+    tel = json['tel'] ?? '';
+    time = json['time'] ?? '';
+    updatetime = json['updatetime'] ?? '';
   }
 }

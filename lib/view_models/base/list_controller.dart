@@ -18,7 +18,7 @@ abstract class ListController<T> extends BaseController {
   }
 
   // 下拉刷新
-  refresh({bool init = false}) async {
+  Future refresh({bool init = false}) async {
     try {
       List<T> data = await loadData();
       if (data.isEmpty) {
