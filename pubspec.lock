@@ -29,6 +29,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.16.2"
+  argo_flutter_plugin:
+    dependency: "direct main"
+    description:
+      name: argo_flutter_plugin
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   async:
     dependency: transitive
     description:
@@ -237,6 +244,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.5.0"
+  flutter_bugly:
+    dependency: "direct main"
+    description:
+      name: flutter_bugly
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.0+2"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -300,6 +314,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.11"
+  flutter_qiniu:
+    dependency: "direct main"
+    description:
+      path: "plugins/flutter_qiniu"
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter_qr_reader:
     dependency: "direct main"
     description:
@@ -422,6 +443,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.2"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.1"
   keyboard_actions:
     dependency: "direct main"
     description:
@@ -700,6 +728,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.0+2"
+  tencent_im_sdk_plugin:
+    dependency: "direct main"
+    description:
+      name: tencent_im_sdk_plugin
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.9"
   term_glyph:
     dependency: transitive
     description:
@@ -836,9 +871,9 @@ packages:
   webview_flutter:
     dependency: "direct main"
     description:
-      name: webview_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "plugins/webview_flutter"
+      relative: true
+    source: path
     version: "1.0.7"
   win32:
     dependency: transitive

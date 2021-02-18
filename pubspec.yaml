@@ -49,7 +49,8 @@ dependencies:
   uuid: ^2.2.2
 
   #官方webview插件
-  webview_flutter: ^1.0.7
+  webview_flutter: 
+    path: plugins/webview_flutter
   #loading组件
   flutter_spinkit: ^4.1.2+1
   #网络图片加载组件 类似SDWebImage
@@ -99,6 +100,15 @@ dependencies:
   jpush_flutter: ^0.6.1
   #高德地图
   amap_map_fluttify: ^0.30.1
+  #腾讯云IM
+  tencent_im_sdk_plugin: ^1.0.9
+  #bugly
+  flutter_bugly: ^0.3.0+2
+  #易观方舟flutter插件
+  argo_flutter_plugin: ^1.0.0
+  #七牛云插件
+  flutter_qiniu:
+    path: plugins/flutter_qiniu
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
@@ -74,6 +75,7 @@ class WebViewPage extends GetView<NetConnectController> {
               ),
             ),
             WebView(
+              sid: CommonUtil.sid(),
               //是否允许js交互事件
               javascriptMode: JavascriptMode.unrestricted,
               //webview初始化
