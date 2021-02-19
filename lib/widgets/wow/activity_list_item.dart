@@ -73,7 +73,10 @@ class ActivityListItem extends StatelessWidget {
                 Stack(
                   children: <Widget>[
                     CachedNetworkImage(
-                        imageUrl: (model.imgUrl.split('?')).first),
+                      imageUrl: (model.imgUrl.split('?')).first,
+                      width: Get.width - 30,
+                      height: (Get.width - 30) * 200 / 345,
+                    ),
                     Positioned(
                       left: 0,
                       bottom: 0,

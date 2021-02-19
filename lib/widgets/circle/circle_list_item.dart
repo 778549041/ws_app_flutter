@@ -23,14 +23,12 @@ class CircleListItem extends GetView<RecommendController> {
     }
 
     String _accountType = '';
-    // double _nameWidth = 0;
     if (model.classify == '1') {
       if (model.memberInfo.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else {
         _accountType = '官方账号';
       }
-      // _nameWidth = Get.width - 90;
     } else {
       if (model.memberInfo.isSales == 1) {
         _accountType = '特约店销售顾问';

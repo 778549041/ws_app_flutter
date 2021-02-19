@@ -23,7 +23,7 @@ class NewModel {
   String title;
   String pubtime;
   String imageUrl;
-  int commentCount;
+  String commentCount;
   bool collectStatus;
   String collection;
   String read;

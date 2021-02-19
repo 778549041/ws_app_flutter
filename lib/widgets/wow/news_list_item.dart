@@ -38,7 +38,11 @@ class NewsListItem extends StatelessWidget {
               children: <Widget>[
                 Stack(
                   children: <Widget>[
-                    CachedNetworkImage(imageUrl: model.imageUrl),
+                    CachedNetworkImage(
+                      imageUrl: model.imageUrl,
+                      width: Get.width - 30,
+                      height: (Get.width - 30) * 200 / 345,
+                    ),
                     Positioned(
                       left: 0,
                       bottom: 0,

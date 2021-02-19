@@ -62,6 +62,7 @@ class SelectIntreController extends BaseController {
         rightText: '马上认证',
         onCancel: () {
           Get.offAllNamed(Routes.HOME);
+          Get.find<UserController>().requestIMInfoAndLogin();
         },
         onConfirm: () {
           Get.find<UserController>().certifyVechile();
@@ -69,6 +70,7 @@ class SelectIntreController extends BaseController {
       ));
     } else {
       Get.offAllNamed(Routes.HOME);
+      Get.find<UserController>().requestIMInfoAndLogin();
     }
   }
 

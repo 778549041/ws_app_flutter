@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/complete_info_controller.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
@@ -8,6 +9,7 @@ import 'package:ws_app_flutter/view_models/mine/add_shop_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/bind_new_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
+import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/unbind_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/feedback_controller.dart';
@@ -19,6 +21,7 @@ import 'package:ws_app_flutter/view_models/mine/pwd_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/shop_list_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
+import 'package:ws_app_flutter/views/circle/single_user_circle_page.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
 import 'package:ws_app_flutter/views/login/complaint_page.dart';
@@ -30,6 +33,7 @@ import 'package:ws_app_flutter/views/mine/add_shop_page.dart';
 import 'package:ws_app_flutter/views/mine/bind_new_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
+import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
 import 'package:ws_app_flutter/views/mine/unbind_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_pwd_page.dart';
 import 'package:ws_app_flutter/views/mine/feed_back_page.dart';
@@ -42,6 +46,7 @@ import 'package:ws_app_flutter/views/mine/phone_page.dart';
 import 'package:ws_app_flutter/views/mine/pwd_manage_page.dart';
 import 'package:ws_app_flutter/views/mine/setting_page.dart';
 import 'package:ws_app_flutter/views/mine/shop_address_list_page.dart';
+import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/views/webview_page.dart';
 part './app_routes.dart';
 
@@ -159,7 +164,7 @@ abstract class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut<UnbindPhoneController>(() => UnbindPhoneController());
         })),
-        GetPage(
+    GetPage(
         name: Routes.MINEBINDNEWPHONE,
         page: () => BindNewPhonePage(),
         binding: BindingsBuilder(() {
@@ -176,6 +181,23 @@ abstract class AppPages {
         page: () => AddShopPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<AddShopController>(() => AddShopController());
+        })),
+    GetPage(
+        name: Routes.MSGCENTER,
+        page: () => MsgCenterPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<MsgCenterController>(() => MsgCenterController());
+        })),
+    GetPage(
+      name: Routes.SCAN,
+      page: () => ScanPage(),
+    ),
+    GetPage(
+        name: Routes.SINGLECIRCLELIST,
+        page: () => SingleUserCircleListPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<SingleUserCircleController>(
+              () => SingleUserCircleController());
         })),
   ];
 }

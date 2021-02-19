@@ -1,10 +1,8 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
-import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_cell.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -52,9 +50,7 @@ class MinePage extends GetView<MineController> {
             image: 'assets/images/mine/mine_scan.png',
             imageW: 25,
             imageH: 25,
-            onPressed: () {
-              Get.to(ScanPage());
-            },
+            onPressed: () => controller.pushAction(1000),
           ),
         ),
         Row(
@@ -66,9 +62,7 @@ class MinePage extends GetView<MineController> {
               image: 'assets/images/mine/mine_customer_service.png',
               imageW: 25,
               imageH: 25,
-              onPressed: () {
-                LogUtil.v('点击了我的客服');
-              },
+              onPressed: () => controller.pushAction(1001),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 22),
@@ -79,7 +73,7 @@ class MinePage extends GetView<MineController> {
                 image: 'assets/images/mine/mine_message.png',
                 imageW: 25,
                 imageH: 25,
-                onPressed: () {LogUtil.v('点击了我的消息');},
+                onPressed: () => controller.pushAction(1002),
               ),
             )
           ],
@@ -105,18 +99,19 @@ class MinePage extends GetView<MineController> {
                   return _buildHeadRow();
                 }
                 return Container(
-                padding: const EdgeInsets.only(left: 25, right: 25, bottom: 7),
-                color: Color(0xFFF3F3F3),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CustomCell(
-                    leftImgPath: _item['imageName'],
-                    title: _item['title'],
-                    hiddenLine: true,
-                    clickCallBack: () => controller.listItemClick(index),
+                  padding:
+                      const EdgeInsets.only(left: 25, right: 25, bottom: 7),
+                  color: Color(0xFFF3F3F3),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CustomCell(
+                      leftImgPath: _item['imageName'],
+                      title: _item['title'],
+                      hiddenLine: true,
+                      clickCallBack: () => controller.pushAction(index),
+                    ),
                   ),
-                ),
-              );
+                );
               }, childCount: controller.data.length),
             ),
           ],
@@ -148,10 +143,7 @@ class MinePage extends GetView<MineController> {
               children: <Widget>[
                 Obx(
                   () => RoundAvatar(
-                    onPressed: () {
-                      LogUtil.v('点击了我的头像');
-                      Get.toNamed(Routes.MINEINFO);
-                    },
+                    onPressed: () => controller.pushAction(1003),
                     height: 90,
                     borderWidth: 3,
                     imageUrl: Get.find<UserController>()
@@ -219,7 +211,7 @@ class MinePage extends GetView<MineController> {
                                 .member
                                 .memberInfo
                                 .medalOrSaleImageName,
-                            onPressed: () {LogUtil.v('点击了我的勋章');},
+                            onPressed: () => controller.pushAction(1004),
                           )),
                     ),
                   Obx(() => Offstage(
@@ -253,7 +245,7 @@ class MinePage extends GetView<MineController> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   _buildFourBtn(
-                      0,
+                      1005,
                       Obx(() => Text(
                             controller.favorModel.value.circleNum.toString(),
                             style: TextStyle(fontSize: 12),
@@ -261,7 +253,7 @@ class MinePage extends GetView<MineController> {
                       title: '圈子',
                       image: 'assets/images/mine/mine_circle_moment.png'),
                   _buildFourBtn(
-                      1,
+                      1006,
                       Obx(() => Text(
                             controller.favorModel.value.collectionNum
                                 .toString(),
@@ -270,7 +262,7 @@ class MinePage extends GetView<MineController> {
                       title: '收藏',
                       image: 'assets/images/mine/mine_favor.png'),
                   _buildFourBtn(
-                      2,
+                      1007,
                       Obx(() => Text(
                             Get.find<UserController>()
                                 .userInfo
@@ -282,7 +274,7 @@ class MinePage extends GetView<MineController> {
                       title: '活动',
                       image: 'assets/images/mine/mine_activity.png'),
                   _buildFourBtn(
-                      3,
+                      1008,
                       Obx(() => Text(
                             TextUtil.formatComma3(Get.find<UserController>()
                                 .userInfo
@@ -304,9 +296,7 @@ class MinePage extends GetView<MineController> {
 
   Widget _buildFourBtn(int index, Widget child, {String title, String image}) {
     return GestureDetector(
-      onTap: () {
-        LogUtil.v('点击了我的头像下面的第$index个按钮');
-      },
+      onTap: () => controller.pushAction(index),
       child: Container(
         width: (Get.width - 72.5) / 4,
         height: (Get.width - 72.5) * 2 / 5,

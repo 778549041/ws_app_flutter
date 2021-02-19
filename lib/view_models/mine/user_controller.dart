@@ -1,8 +1,12 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
+import 'package:tencent_im_sdk_plugin/models/v2_tim_callback.dart';
+import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
+import 'package:ws_app_flutter/models/login/im_info_model.dart';
+import 'package:ws_app_flutter/models/login/msg_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -15,6 +19,7 @@ import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 class UserController extends BaseController {
   var userInfo = UserInfo().obs; //用户信息
   var isLogin = false.obs; //是否登录
+  var msgModel = MsgModel().obs;//消息数据
 
   @override
   void onReady() {
@@ -138,5 +143,22 @@ class UserController extends BaseController {
       isLogin.value = false;
       Get.offAllNamed(Routes.LOGIN);
     }
+  }
+
+  //请求IM用户信息并登陆IM
+  Future<bool> requestIMInfoAndLogin() async {
+    IMInfoModel _model = await DioManager()
+        .request<IMInfoModel>(DioManager.GET, Api.userIMInfoUrl);
+    if (_model.error != null) {
+      return false;
+    }
+    V2TimCallback _imLoginRes = await TencentImSDKPlugin.v2TIMManager
+        .login(userID: _model.data.user, userSig: _model.data.sig);
+    return _imLoginRes.code == 0;
+  }
+
+  //新消息数据
+  Future requestNewMessage() async {
+    msgModel.value = await DioManager().request<MsgModel>(DioManager.GET, Api.mineNewMessageUrl);
   }
 }

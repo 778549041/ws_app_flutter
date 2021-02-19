@@ -154,6 +154,7 @@ class LoginController extends BaseController {
         Get.toNamed(Routes.COMPLETEINFO);
       } else {
         Get.offAllNamed(Routes.HOME);
+        Get.find<UserController>().requestIMInfoAndLogin();
       }
     } else if (obj.error != null || obj.redirect == '1002') {
       EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
@@ -211,6 +212,7 @@ class LoginController extends BaseController {
               //已绑定
               await Get.find<UserController>().getUserInfo();
               Get.offAllNamed(Routes.HOME);
+              Get.find<UserController>().requestIMInfoAndLogin();
             }
           } else {
             LogUtil.v(error);
@@ -242,6 +244,7 @@ class LoginController extends BaseController {
         if (obj.result) {
           await Get.find<UserController>().getUserInfo();
           Get.offAllNamed(Routes.HOME);
+          Get.find<UserController>().requestIMInfoAndLogin();
         } else {
           if (obj.code == 1001) {
             //绑定手机号

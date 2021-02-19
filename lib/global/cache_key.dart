@@ -56,7 +56,7 @@ class CacheKey {
       "SpteNnMWI2CXuL9TJFPmycxnn_BeTF5B8TgDYyi8";
 
   //IM 腾讯云
-  static const String TIMSDK_APPID = "1400221226"; //替换成您在控制台生成的 sdkAppid
+  static const int TIMSDK_APPID = 1400221226; //替换成您在控制台生成的 sdkAppid
   static const String TIMSDK_CERID = "12742"; //证书id
 
   //bugly key

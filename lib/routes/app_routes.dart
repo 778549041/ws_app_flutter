@@ -26,4 +26,7 @@ abstract class Routes {
   static const MINEBINDNEWPHONE = '/mine-bind-new-phone';
   static const MINESHOPADDRLIST = '/mine-shop-addr-list';
   static const MINEADDSHOP = '/mine-add-shop';
+  static const MSGCENTER = '/mine-msg-center';
+  static const SCAN = '/mine-scan';
+  static const SINGLECIRCLELIST = '/single-circle-list';
 }

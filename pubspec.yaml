@@ -89,6 +89,8 @@ dependencies:
   keyboard_actions: "^3.3.1+1"
   # gif图片
   flutter_gifimage: ^1.0.1
+  # 吸顶头部
+  flutter_sticky_header: ^0.5.0
 
   #打开第三方应用
   url_launcher: ^5.7.10

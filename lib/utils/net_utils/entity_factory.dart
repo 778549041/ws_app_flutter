@@ -6,8 +6,10 @@ import 'package:ws_app_flutter/models/enjoy/futc.dart';
 import 'package:ws_app_flutter/models/enjoy/shop.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
+import 'package:ws_app_flutter/models/login/im_info_model.dart';
 import 'package:ws_app_flutter/models/login/intre_model.dart';
 import 'package:ws_app_flutter/models/login/login_model.dart';
+import 'package:ws_app_flutter/models/login/msg_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
@@ -79,6 +81,10 @@ class EntityFactory {
      return FavorModel.fromJson(json) as T;
    } else if (T.toString() == 'ShopAddressListModel') {
      return ShopAddressListModel.fromJson(json) as T;
+   } else if (T.toString() == 'IMInfoModel') {
+     return IMInfoModel.fromJson(json) as T;
+   } else if (T.toString() == 'MsgModel') {
+     return MsgModel.fromJson(json) as T;
    } 
    else {
       return json as T;

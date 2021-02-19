@@ -17,7 +17,7 @@ class MainController extends BaseController {
   PageController pageController;
 
   @override
-  void onInit() {
+  void onInit() async {
     Get.lazyPut<WowController>(() => WowController());
     Get.lazyPut<RecommendController>(() => RecommendController());
     Get.lazyPut<NewsController>(() => NewsController());
@@ -28,6 +28,7 @@ class MainController extends BaseController {
     Get.lazyPut<MineController>(() => MineController());
 
     pageController = PageController(initialPage: selectedIndex.value);
+    await Get.find<UserController>().requestNewMessage();
     super.onInit();
   }
 
@@ -52,6 +53,9 @@ class MainController extends BaseController {
     await Get.find<UserController>().getUserInfo();
     if (index == 4) {
       await Get.find<MineController>().requestFavorData();
+      await Get.find<UserController>().requestNewMessage();
+    } else if (index == 1) {
+      await Get.find<UserController>().requestNewMessage();
     }
     pageController.jumpToPage(index);
   }
