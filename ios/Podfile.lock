@@ -43,9 +43,45 @@ PODS:
     - foundation_fluttify
   - device_info (0.0.1):
     - Flutter
+  - DKImagePickerController/Core (4.3.2):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.2)
+  - DKImagePickerController/PhotoGallery (4.3.2):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.2)
+  - DKPhotoGallery (0.0.17):
+    - DKPhotoGallery/Core (= 0.0.17)
+    - DKPhotoGallery/Model (= 0.0.17)
+    - DKPhotoGallery/Preview (= 0.0.17)
+    - DKPhotoGallery/Resource (= 0.0.17)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
+    - Flutter
   - Flutter (1.0.0)
   - flutter_bugly (0.0.1):
     - Bugly
+    - Flutter
+  - flutter_plugin_record (0.0.1):
     - Flutter
   - flutter_qiniu (0.0.1):
     - Flutter
@@ -103,6 +139,9 @@ PODS:
   - Qiniu (7.4.4):
     - HappyDNS (~> 0.3.17)
   - Reachability (3.2)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
   - shared_preferences (0.0.1):
     - Flutter
   - sharesdk_plugin (1.1.2):
@@ -117,6 +156,7 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
+  - SwiftyGif (5.4.0)
   - tencent_im_sdk_plugin (1.0.5):
     - Flutter
     - HydraAsync
@@ -142,8 +182,10 @@ DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - core_location_fluttify (from `.symlinks/plugins/core_location_fluttify/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
+  - flutter_plugin_record (from `.symlinks/plugins/flutter_plugin_record/ios`)
   - flutter_qiniu (from `.symlinks/plugins/flutter_qiniu/ios`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
   - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
@@ -170,6 +212,8 @@ SPEC REPOS:
     - AMapSearch-NO-IDFA
     - AnalysysAgent
     - Bugly
+    - DKImagePickerController
+    - DKPhotoGallery
     - FMDB
     - GGWkCookie
     - HappyDNS
@@ -180,6 +224,8 @@ SPEC REPOS:
     - MOBFoundation
     - Qiniu
     - Reachability
+    - SDWebImage
+    - SwiftyGif
     - TXIMSDK_Smart_iOS
 
 EXTERNAL SOURCES:
@@ -201,10 +247,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/core_location_fluttify/ios"
   device_info:
     :path: ".symlinks/plugins/device_info/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
   flutter_bugly:
     :path: ".symlinks/plugins/flutter_bugly/ios"
+  flutter_plugin_record:
+    :path: ".symlinks/plugins/flutter_plugin_record/ios"
   flutter_qiniu:
     :path: ".symlinks/plugins/flutter_qiniu/ios"
   flutter_qr_reader:
@@ -256,8 +306,12 @@ SPEC CHECKSUMS:
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   core_location_fluttify: 9466a411ea7d22c6349c7e6a767ae4623f01eb1d
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
+  DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
+  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
+  file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
+  flutter_plugin_record: 562ded56f3a109d769e72c3ef52ef20d835493d4
   flutter_qiniu: 150b2007d3b4c654777d46711e1ac8736215aaba
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -277,9 +331,11 @@ SPEC CHECKSUMS:
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   Qiniu: 529d25de615c6ad1cb587f9d165a160d98e9fac9
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sharesdk_plugin: c09798e3e1669d1047e674a14923c28faf5b8c43
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   tencent_im_sdk_plugin: 65e2091606c7cf827d04da8dabc452edb67e64b4
   TXIMSDK_Smart_iOS: 6923d8f1d341ff12f0211afe8c62b98c6f140617
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef

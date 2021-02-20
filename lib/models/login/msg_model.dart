@@ -7,9 +7,9 @@ class MsgModel {
   CommonMemberModel memberInfo;
 
   MsgModel(
-      {this.interactionCount,
-      this.msgCount,
-      this.circleCount,
+      {this.interactionCount = '',
+      this.msgCount = '',
+      this.circleCount = '',
       this.memberInfo});
 
   MsgModel.fromJson(Map<String, dynamic> json) {

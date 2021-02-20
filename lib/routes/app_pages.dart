@@ -9,6 +9,7 @@ import 'package:ws_app_flutter/view_models/mine/add_shop_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/bind_new_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
+import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/unbind_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
@@ -33,6 +34,7 @@ import 'package:ws_app_flutter/views/mine/add_shop_page.dart';
 import 'package:ws_app_flutter/views/mine/bind_new_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
+import 'package:ws_app_flutter/views/mine/chat_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
 import 'package:ws_app_flutter/views/mine/unbind_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_pwd_page.dart';
@@ -198,6 +200,12 @@ abstract class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut<SingleUserCircleController>(
               () => SingleUserCircleController());
+        })),
+    GetPage(
+        name: Routes.CHAT,
+        page: () => ChatPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ChatController>(() => ChatController());
         })),
   ];
 }

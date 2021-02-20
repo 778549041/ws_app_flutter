@@ -69,8 +69,8 @@ class BaseController extends GetxController {
   }
 
   //跳转前端页面
-  void pushH5Page({Map<String, dynamic> args}) {
-    Get.toNamed(Routes.WEBVIEW, arguments: args);
+  Future pushH5Page({Map<String, dynamic> args}) {
+    return Get.toNamed(Routes.WEBVIEW, arguments: args);
   }
 
   ///初始值设置可以放在这里

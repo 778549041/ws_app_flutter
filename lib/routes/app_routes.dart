@@ -29,4 +29,5 @@ abstract class Routes {
   static const MSGCENTER = '/mine-msg-center';
   static const SCAN = '/mine-scan';
   static const SINGLECIRCLELIST = '/single-circle-list';
+  static const CHAT = '/chat';
 }

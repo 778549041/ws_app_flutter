@@ -13,8 +13,6 @@ import 'package:tencent_im_sdk_plugin/models/v2_tim_conversation.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message_progress.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message_receipt.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_user_full_info.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_value_callback.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/global.dart';
@@ -22,6 +20,7 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';
@@ -36,6 +35,7 @@ class MyApp extends StatefulWidget {
   @override
   MyAppState createState() => MyAppState();
 }
+
 //全局设置loading样式
 void configLoading() {
   EasyLoading.instance
@@ -166,17 +166,26 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     await timManager.initSDK(
       sdkAppID: CacheKey.TIMSDK_APPID,
       loglevel: LogLevel.V2TIM_LOG_DEBUG,
-      listener: advancedMsgListener,
+      listener: listener,
     );
+    //高级消息监听
+    timManager.getMessageManager().addAdvancedMsgListener(
+          listener: advancedMsgListener,
+        );
     //会话监听
     timManager.getConversationManager().setConversationListener(
           listener: conversationListener,
         );
   }
 
+  listener(data) async {
+    if (data.type == 'onKickedOffline') {
+      // 被踢下线
+      print("被踢下线了");
+    }
+  }
+
   advancedMsgListener(data) {
-    print("advancedMsgListener emit");
-    print(data.type);
     if (data.type == 'onRecvNewMessage') {
       try {
         List<V2TimMessage> messageList = new List<V2TimMessage>();
@@ -236,28 +245,14 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
-  Map<String, V2TimConversation> _conversationlistToMap(
-      List<V2TimConversation> list) {
-    Map<int, V2TimConversation> convsersationMap = list.asMap();
-    Map<String, V2TimConversation> newConversation = new Map();
-    convsersationMap.forEach((key, value) {
-      newConversation[value.conversationID] = value;
-    });
-    return newConversation;
-  }
-
   conversationListener(data) {
     String type = data.type;
-
     if (type == 'onNewConversation' || type == 'onConversationChanged') {
-      print("$type emit");
       try {
-        List<V2TimConversation> list = data.data;
-
-        // Provider.of<ConversionModel>(context, listen: false)
-        //     .setConversionList(list);
         //如果当前会话在使用中，也更新一下
-
+        if (Get.isRegistered<MsgCenterController>()) {
+          Get.find<MsgCenterController>().getConversionList();
+        }
       } catch (e) {}
     } else {
       print("$type emit but no nerver use");
