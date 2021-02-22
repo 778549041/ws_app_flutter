@@ -113,7 +113,6 @@ class TextMsgState extends State<TextMsg> {
                           voiceIco,
                           width: 100,
                           height: 100,
-                          package: 'flutter_plugin_record',
                         ),
                       ),
                       Container(
@@ -164,97 +163,97 @@ class TextMsgState extends State<TextMsg> {
 
   @override
   Widget build(BuildContext context) {
-    bool isKeyboradshow = Get.find<ChatController>().show.value;
-    return Expanded(
-      child: isKeyboradshow
-          ? PhysicalModel(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(4),
-              clipBehavior: Clip.antiAlias,
-              child: Container(
-                height: 34,
-                decoration: BoxDecoration(
+    return GetX<ChatController>(
+      builder: (controller) {
+        return Expanded(
+          child: controller.show.value
+              ? PhysicalModel(
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(4),
-                  color: Colors.white,
-                ),
-                child: TextField(
-                  controller: inputController,
-                  onSubmitted: (s) {
-                    onSubmitted(s, context);
-                  },
-                  autocorrect: false,
-                  textAlign: TextAlign.left,
-                  keyboardType: TextInputType.multiline,
-                  textInputAction: TextInputAction.send,
-                  cursorColor: Color(0xff006fff),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isCollapsed: true,
-                    isDense: true,
-                    contentPadding: EdgeInsets.only(
-                      top: 9,
-                      bottom: 0,
+                  clipBehavior: Clip.antiAlias,
+                  child: Container(
+                    // height: 34,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.white,
                     ),
-                  ),
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  minLines: 1,
-                ),
-              ),
-            )
-          : GestureDetector(
-              onLongPressStart: (e) async {
-                setState(() {
-                  isRecording = true;
-                  isSend = true;
-                });
-                buildOverLayView(context);
-                await recordPlugin.start();
-              },
-              onLongPressEnd: (e) async {
-                bool isSendLocal = true;
-                EasyLoading.showToast(
-                    '${e.localPosition.dx} ${e.localPosition.dy}',
-                    toastPosition: EasyLoadingToastPosition.bottom);
-                if (e.localPosition.dx < 0 ||
-                    e.localPosition.dy < 0 ||
-                    e.localPosition.dy > 40) {
-                  // 取消了发送
-                  isSendLocal = false;
-                  print("取消了");
-                }
-                try {
-                  if (overlayEntry != null) {
-                    overlayEntry.remove();
-                    overlayEntry = null;
-                  }
-                } catch (err) {}
-                setState(() {
-                  isRecording = false;
-                  isSend = isSendLocal;
-                });
-                await recordPlugin.stop();
-              },
-              child: Container(
-                height: 34,
-                color: isRecording ? Color(0xffededed) : Colors.white,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '按住说话',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                    child: TextField(
+                      controller: inputController,
+                      onSubmitted: (s) {
+                        onSubmitted(s, context);
+                      },
+                      autocorrect: false,
+                      textAlign: TextAlign.left,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.send,
+                      cursorColor: Color(0xff006fff),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        isCollapsed: true,
+                        isDense: true,
+                        contentPadding: EdgeInsets.only(
+                          top: 9,
+                          bottom: 0,
                         ),
                       ),
-                    )
-                  ],
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      minLines: 1,
+                    ),
+                  ),
+                )
+              : GestureDetector(
+                  onLongPressStart: (e) async {
+                    setState(() {
+                      isRecording = true;
+                      isSend = true;
+                    });
+                    buildOverLayView(context);
+                    await recordPlugin.start();
+                  },
+                  onLongPressEnd: (e) async {
+                    bool isSendLocal = true;
+                    if (e.localPosition.dx < 0 ||
+                        e.localPosition.dy < 0 ||
+                        e.localPosition.dy > 40) {
+                      // 取消了发送
+                      isSendLocal = false;
+                      print("取消了");
+                    }
+                    try {
+                      if (overlayEntry != null) {
+                        overlayEntry.remove();
+                        overlayEntry = null;
+                      }
+                    } catch (err) {}
+                    setState(() {
+                      isRecording = false;
+                      isSend = isSendLocal;
+                    });
+                    await recordPlugin.stop();
+                  },
+                  child: Container(
+                    height: 34,
+                    color: isRecording ? Color(0xffededed) : Colors.white,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '按住说话',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
+        );
+      },
     );
   }
 }

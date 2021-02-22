@@ -52,6 +52,7 @@ class MineController extends BaseController {
   void pushAction(int actionTag) {
     if (actionTag == 1) {
       //我的好友
+      Get.toNamed(Routes.MINEFRIENDS);
     } else if (actionTag == 2) {
       //每日签到
       pushH5Page(args: {

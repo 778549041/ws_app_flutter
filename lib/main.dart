@@ -9,7 +9,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:tencent_im_sdk_plugin/enum/log_level.dart';
 import 'package:tencent_im_sdk_plugin/manager/v2_tim_manager.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_conversation.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message_progress.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message_receipt.dart';
@@ -20,7 +19,8 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
-import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';
@@ -40,7 +40,7 @@ class MyApp extends StatefulWidget {
 void configLoading() {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..indicatorType = EasyLoadingIndicatorType.circle
     ..loadingStyle = EasyLoadingStyle.dark
     ..indicatorSize = 45.0
     ..radius = 10.0
@@ -59,6 +59,10 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return RefreshConfiguration(
         headerBuilder: () => WaterDropHeader(),
         footerBuilder: () => ClassicFooter(),
+        hideFooterWhenNotFull: true,
+        shouldFooterFollowWhenNotFull: (status) {
+          return false;
+        },
         child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
@@ -188,21 +192,11 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   advancedMsgListener(data) {
     if (data.type == 'onRecvNewMessage') {
       try {
-        List<V2TimMessage> messageList = new List<V2TimMessage>();
         V2TimMessage message;
         message = data.data;
-        messageList.add(message);
-
-        print("c2c_${message.sender}");
-        String key;
-        if (message.groupID == null) {
-          key = "c2c_${message.sender}";
-        } else {
-          key = "group_${message.groupID}";
+        if (Get.isRegistered<ChatController>()) {
+          Get.find<ChatController>().addMessageIfNotExits(message);
         }
-        print("conterkey_$key");
-        // Provider.of<CurrentMessageListModel>(context, listen: false)
-        //     .addMessage(key, messageList);
       } catch (err) {
         print(err);
       }
@@ -212,8 +206,9 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       List<V2TimMessageReceipt> list = data.data;
       list.forEach((element) {
         print("已读回执${element.userID} ${element.timestamp}");
-        // Provider.of<CurrentMessageListModel>(context, listen: false)
-        //     .updateC2CMessageByUserId(element.userID);
+        if (Get.isRegistered<ChatController>()) {
+          Get.find<ChatController>().updateC2CMessageByUserId(element.userID);
+        }
       });
     }
     if (data.type == 'onRecvMessageRevoked') {
@@ -223,20 +218,10 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       //消息进度
       MessageProgress msgPro = data.data;
       V2TimMessage message = msgPro.message;
-      String key;
-      if (message.groupID == null) {
-        key = "c2c_${message.userID}";
-      } else {
-        key = "group_${message.groupID}";
-      }
       try {
-        // Provider.of<CurrentMessageListModel>(
-        //   context,
-        //   listen: false,
-        // ).addOneMessageIfNotExits(
-        //   key,
-        //   message,
-        // );
+        if (Get.isRegistered<ChatController>()) {
+          Get.find<ChatController>().addMessageIfNotExits(message);
+        }
       } catch (err) {
         print("error $err");
       }
@@ -250,8 +235,8 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (type == 'onNewConversation' || type == 'onConversationChanged') {
       try {
         //如果当前会话在使用中，也更新一下
-        if (Get.isRegistered<MsgCenterController>()) {
-          Get.find<MsgCenterController>().getConversionList();
+        if (Get.isRegistered<ConversationController>()) {
+          Get.find<ConversationController>().refresh();
         }
       } catch (e) {}
     } else {

@@ -5,7 +5,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
-class EnjoyController extends RefreshListController {
+class EnjoyController extends RefreshListController<ShopModel> {
   var futcModel = FUTCModel().obs;
 
   @override
@@ -15,7 +15,7 @@ class EnjoyController extends RefreshListController {
   }
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List<ShopModel>> loadData({int pageNum}) async {
     if (pageNum == 1) {
       await _requestKVData();
     }

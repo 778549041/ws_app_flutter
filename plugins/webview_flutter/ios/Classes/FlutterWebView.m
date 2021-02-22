@@ -5,6 +5,7 @@
 #import "FlutterWebView.h"
 #import "FLTWKNavigationDelegate.h"
 #import "JavaScriptChannelHandler.h"
+#import "GGWkCookie.h"
 
 @implementation FLTWebViewFactory {
   NSObject<FlutterBinaryMessenger>* _messenger;
@@ -53,6 +54,10 @@
                                                     -insetToAdjust.bottom, -insetToAdjust.right);
   }
 }
+
+@end
+
+@interface FLTWebViewController ()<GGWkWebViewDelegate>
 
 @end
 

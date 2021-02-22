@@ -5,7 +5,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
-class NewsController extends RefreshListController {
+class NewsController extends RefreshListController<NewModel> {
   var categoryListModel = CategoryListModel().obs;
 
   @override
@@ -15,7 +15,7 @@ class NewsController extends RefreshListController {
   }
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List<NewModel>> loadData({int pageNum}) async {
     if (pageNum == 1) {
       await _requestCategoryData();
     }

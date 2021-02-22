@@ -3,7 +3,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
-class ActivityController extends RefreshListController {
+class ActivityController extends RefreshListController<ActivityModel> {
   var condition = 'all'.obs;
 
   @override
@@ -13,7 +13,7 @@ class ActivityController extends RefreshListController {
   }
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List<ActivityModel>> loadData({int pageNum}) async {
     ActivityListModel _model = await DioManager().request<ActivityListModel>(
         DioManager.GET,
         'index.php/m/huodong-$pageNum-10-${condition.value}.html?key=');

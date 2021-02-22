@@ -4,11 +4,10 @@
 
 #import <Flutter/Flutter.h>
 #import <WebKit/WebKit.h>
-#import "GGWkCookie.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FLTWebViewController : NSObject <FlutterPlatformView, WKUIDelegate,GGWkWebViewDelegate, WKNavigationDelegate>
+@interface FLTWebViewController : NSObject <FlutterPlatformView, WKUIDelegate, WKNavigationDelegate>
 
 - (instancetype)initWithFrame:(CGRect)frame
                viewIdentifier:(int64_t)viewId

@@ -3,7 +3,7 @@ import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 
-class CircleTopicController extends RefreshListController {
+class CircleTopicController extends RefreshListController<TopicModel> {
   @override
   void onInit() {
     pageSize = 10;
@@ -11,7 +11,7 @@ class CircleTopicController extends RefreshListController {
   }
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List<TopicModel>> loadData({int pageNum}) async {
     TopicListModel _model = await DioManager().request<TopicListModel>(
         DioManager.POST, Api.circleTopicListUrl,
         queryParamters: {"page": pageNum});

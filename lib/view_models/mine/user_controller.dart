@@ -111,7 +111,7 @@ class UserController extends BaseController {
       });
     } else if (obj.code == 202) {
       //手动留资认证
-      Get.toNamed(Routes.COMPLAINT);
+      Get.toNamed(Routes.CERTIFY);
     }
   }
 
@@ -130,7 +130,7 @@ class UserController extends BaseController {
       }
     } else {
       //认证失败
-      Get.toNamed(Routes.COMPLAINT);
+      Get.toNamed(Routes.CERTIFY);
     }
   }
 

@@ -65,7 +65,7 @@ class CirclePage extends GetView<CircleController> {
                   backgroundColor: Colors.transparent,
                   width: 40,
                   height: 40,
-                  image: 'assets/images/circle/mine_add_friend.png',
+                  image: 'assets/images/mine/mine_add_friend.png',
                   imageW: 23,
                   imageH: 22,
                   onPressed: () {},

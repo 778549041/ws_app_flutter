@@ -88,6 +88,9 @@ PODS:
     - Qiniu (~> 7.4)
   - flutter_qr_reader (0.0.1):
     - Flutter
+  - flutter_video_compress (0.3.0):
+    - Flutter
+    - Regift
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -101,32 +104,32 @@ PODS:
   - image_picker (0.0.1):
     - Flutter
   - JCore (2.4.0)
-  - JPush (3.3.6):
+  - JPush (3.4.0):
     - JCore (< 3.0.0, >= 2.0.0)
   - jpush_flutter (0.0.2):
     - Flutter
     - JPush
-  - mob_sharesdk (4.3.15):
-    - mob_sharesdk/ShareSDK (= 4.3.15)
+  - mob_sharesdk (4.3.16):
+    - mob_sharesdk/ShareSDK (= 4.3.16)
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDK (4.3.15):
+  - mob_sharesdk/ShareSDK (4.3.16):
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKExtension (4.3.15):
+  - mob_sharesdk/ShareSDKExtension (4.3.16):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Apple (4.3.15):
+  - mob_sharesdk/ShareSDKPlatforms/Apple (4.3.16):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/QQ (4.3.15):
+  - mob_sharesdk/ShareSDKPlatforms/QQ (4.3.16):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/SinaWeibo (4.3.15):
+  - mob_sharesdk/ShareSDKPlatforms/SinaWeibo (4.3.16):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.3.15):
+  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.3.16):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKUI (4.3.15):
+  - mob_sharesdk/ShareSDKUI (4.3.16):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
   - MOBFoundation (3.2.24)
@@ -139,6 +142,7 @@ PODS:
   - Qiniu (7.4.4):
     - HappyDNS (~> 0.3.17)
   - Reachability (3.2)
+  - Regift (1.5.0)
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
@@ -188,6 +192,7 @@ DEPENDENCIES:
   - flutter_plugin_record (from `.symlinks/plugins/flutter_plugin_record/ios`)
   - flutter_qiniu (from `.symlinks/plugins/flutter_qiniu/ios`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
+  - flutter_video_compress (from `.symlinks/plugins/flutter_video_compress/ios`)
   - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
@@ -224,6 +229,7 @@ SPEC REPOS:
     - MOBFoundation
     - Qiniu
     - Reachability
+    - Regift
     - SDWebImage
     - SwiftyGif
     - TXIMSDK_Smart_iOS
@@ -259,6 +265,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_qiniu/ios"
   flutter_qr_reader:
     :path: ".symlinks/plugins/flutter_qr_reader/ios"
+  flutter_video_compress:
+    :path: ".symlinks/plugins/flutter_video_compress/ios"
   foundation_fluttify:
     :path: ".symlinks/plugins/foundation_fluttify/ios"
   image_gallery_saver:
@@ -300,7 +308,7 @@ SPEC CHECKSUMS:
   AMapLocation-NO-IDFA: 2a3edfee336b38481b892e1ecc85df0f6b365851
   AMapSearch-NO-IDFA: 061479dd567486fb59bf3d01b1076c81d910f1b6
   AnalysysAgent: 0538c696e379544d65bf411dbba31cca1a40f7eb
-  argo_flutter_plugin: 22d4d473bb228762822ffda270b14a55ad3f1ee8
+  argo_flutter_plugin: 346b50deb10771feea6451422964828fb4e53246
   Bugly: fd066c75c4a0eca1440f9b6a84bd37d51bfc85ac
   city_pickers: b0370f4c35c201723b5b7fcce10ec29b59d5bc35
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
@@ -314,6 +322,7 @@ SPEC CHECKSUMS:
   flutter_plugin_record: 562ded56f3a109d769e72c3ef52ef20d835493d4
   flutter_qiniu: 150b2007d3b4c654777d46711e1ac8736215aaba
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8
+  flutter_video_compress: 641fd3e03d970d79176a59d91d7a4392923710b0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   foundation_fluttify: 0c45145e3fad1fb99188e4979daed5b24cd9b278
   GGWkCookie: 6b62f0463fb04b7ba779c8bfdcc01867c9ac9fcb
@@ -322,15 +331,16 @@ SPEC CHECKSUMS:
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
-  JPush: a401b946dcc76b37335422487201bc1ecc8dd296
+  JPush: defaa108c38806f6efdcfaf4c416854d25fca8e5
   jpush_flutter: 69133df35eaf9135e540549b154d992c44f8ee44
-  mob_sharesdk: c0b0fb2d37b0b4a408fddd32109f9ef5a51361b9
+  mob_sharesdk: 0e4039a6a6be6fb5f107f1803e4d90ab7fbe92c3
   MOBFoundation: 934ee1a43aed452d51942b416bc3dc4d0813ac82
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   Qiniu: 529d25de615c6ad1cb587f9d165a160d98e9fac9
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  Regift: d097afd401021f4f42b102ee125ceeb125a38caf
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sharesdk_plugin: c09798e3e1669d1047e674a14923c28faf5b8c43
@@ -343,6 +353,6 @@ SPEC CHECKSUMS:
   wakelock: bfc7955c418d0db797614075aabbc58a39ab5107
   webview_flutter: 70e76bed844cc0f9575be75349b6d8a890035f2a
 
-PODFILE CHECKSUM: dc085884ed4e421ef16c4866e980d8c2c0d89db1
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.10.1

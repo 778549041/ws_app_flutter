@@ -58,10 +58,6 @@ class MomentModel {
 
   bool showAll;
   bool showAllComment;
-  // double rowHeight;
-  // double detailRowHeight;
-  // double contentHeight;
-  // double imageVHeight;
   bool onlyBottomRadius;
   String source;
   bool isInTopicPage;
@@ -116,7 +112,7 @@ class MomentModel {
     memberId = json['member_id'];
     content = json['content'] ?? '';
     type = json['type'];
-    comment = json['comment'];
+    comment = json['comment'].toString();
     examine = json['examine'];
     praise = json['praise'];
     praiseStatus = json['praise_status'];

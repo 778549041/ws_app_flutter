@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
+import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
+import 'package:ws_app_flutter/view_models/login/complaint_controller.dart';
 import 'package:ws_app_flutter/view_models/login/complete_info_controller.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
 import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart';
@@ -10,6 +12,7 @@ import 'package:ws_app_flutter/view_models/mine/bind_new_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/unbind_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
@@ -35,6 +38,7 @@ import 'package:ws_app_flutter/views/mine/bind_new_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
 import 'package:ws_app_flutter/views/mine/chat_page.dart';
+import 'package:ws_app_flutter/views/mine/mine_friends_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
 import 'package:ws_app_flutter/views/mine/unbind_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_pwd_page.dart';
@@ -97,13 +101,17 @@ abstract class AppPages {
           Get.lazyPut<SelectIntreController>(() => SelectIntreController());
         })),
     GetPage(
-      name: Routes.CERTIFY,
-      page: () => CertifyPage(),
-    ),
+        name: Routes.CERTIFY,
+        page: () => CertifyPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<CertifyController>(() => CertifyController());
+        })),
     GetPage(
-      name: Routes.COMPLAINT,
-      page: () => ComplaintPage(),
-    ),
+        name: Routes.COMPLAINT,
+        page: () => ComplaintPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ComplaintController>(() => ComplaintController());
+        })),
     GetPage(
         name: Routes.SETTING,
         page: () => SettingPage(),
@@ -206,6 +214,12 @@ abstract class AppPages {
         page: () => ChatPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<ChatController>(() => ChatController());
+        })),
+    GetPage(
+        name: Routes.MINEFRIENDS,
+        page: () => MineFriendsPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ConversationController>(() => ConversationController());
         })),
   ];
 }

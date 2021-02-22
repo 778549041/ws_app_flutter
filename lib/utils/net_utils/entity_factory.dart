@@ -4,12 +4,14 @@ import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
 import 'package:ws_app_flutter/models/enjoy/shop.dart';
+import 'package:ws_app_flutter/models/login/address_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
 import 'package:ws_app_flutter/models/login/im_info_model.dart';
 import 'package:ws_app_flutter/models/login/intre_model.dart';
 import 'package:ws_app_flutter/models/login/login_model.dart';
 import 'package:ws_app_flutter/models/login/msg_model.dart';
+import 'package:ws_app_flutter/models/login/store_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
@@ -85,6 +87,10 @@ class EntityFactory {
      return IMInfoModel.fromJson(json) as T;
    } else if (T.toString() == 'MsgModel') {
      return MsgModel.fromJson(json) as T;
+   } else if (T.toString() == 'AddressListModel') {
+     return AddressListModel.fromJson(json) as T;
+   } else if (T.toString() == 'StoreListModel') {
+     return StoreListModel.fromJson(json) as T;
    } 
    else {
       return json as T;

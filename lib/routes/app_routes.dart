@@ -30,4 +30,5 @@ abstract class Routes {
   static const SCAN = '/mine-scan';
   static const SINGLECIRCLELIST = '/single-circle-list';
   static const CHAT = '/chat';
+  static const MINEFRIENDS = '/mine-friends';
 }

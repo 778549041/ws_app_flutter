@@ -5,7 +5,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_topic_controller.dart';
 
-class CircleController extends RefreshListController {
+class CircleController extends RefreshListController<MomentModel> {
   @override
   void onInit() {
     Get.lazyPut<CircleTopicController>(() => CircleTopicController());
@@ -14,7 +14,7 @@ class CircleController extends RefreshListController {
   }
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List<MomentModel>> loadData({int pageNum}) async {
     return await requestCircleListData(pageNum);
   }
 

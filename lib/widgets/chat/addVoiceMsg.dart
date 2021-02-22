@@ -31,15 +31,18 @@ class VoiceMsgState extends State<VoiceMsg> {
 
   @override
   Widget build(BuildContext context) {
-    bool show = Get.find<ChatController>().show.value;
     return Container(
       width: 56,
       height: 56,
       child: InkWell(
-        child: Icon(
-          show ? Icons.keyboard_voice : Icons.keyboard,
-          size: 28,
-          color: Colors.black,
+        child: GetX<ChatController>(
+          builder: (controller) {
+            return Icon(
+              controller.show.value ? Icons.keyboard_voice : Icons.keyboard,
+              size: 28,
+              color: Colors.black,
+            );
+          },
         ),
         onTap: () {
           toggleKeyBord();
