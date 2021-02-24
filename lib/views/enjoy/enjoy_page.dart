@@ -62,7 +62,9 @@ class EnjoyPage extends GetView<EnjoyController> {
             children: <Widget>[
               //头像
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  //TODO
+                },
                 child: Stack(
                   children: <Widget>[
                     Obx(() => RoundAvatar(
@@ -140,7 +142,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                             .member
                             .memberInfo
                             .medalOrSaleImageName,
-                        onPressed: () {},
+                        onPressed: () {
+                          //TODO
+                        },
                       )),
                 ),
             ],
@@ -162,7 +166,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                         .integral),
                     titleColor: Colors.white,
                     fontSize: 12,
-                    onPressed: () {},
+                    onPressed: () {
+                      //TODO
+                    },
                   )),
               SizedBox(
                 width: 5,
@@ -177,7 +183,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                 title: '积分规则',
                 titleColor: Colors.white,
                 fontSize: 13,
-                onPressed: () {},
+                onPressed: () {
+                  //TODO
+                },
               ),
             ],
           ),
@@ -230,7 +238,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                           image: 'assets/images/enjoy/enjoy_switch_by.png',
                           imageW: (Get.width - 60) / 3,
                           imageH: 40,
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO
+                          },
                         ),
                         CustomButton(
                           width: (Get.width - 60) / 3,
@@ -238,7 +248,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                           image: 'assets/images/enjoy/enjoy_big_awards.png',
                           imageW: (Get.width - 60) / 3,
                           imageH: 40,
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO
+                          },
                         ),
                         CustomButton(
                           width: (Get.width - 60) / 3,
@@ -246,7 +258,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                           image: 'assets/images/enjoy/enjoy_wish.png',
                           imageW: (Get.width - 60) / 3,
                           imageH: 40,
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO
+                          },
                         ),
                       ],
                     ),
@@ -285,7 +299,9 @@ class EnjoyPage extends GetView<EnjoyController> {
                           imageW: 9,
                           imageH: 15,
                           imagePosition: XJImagePosition.XJImagePositionRight,
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO
+                          },
                         )
                       ],
                     ),
@@ -313,7 +329,9 @@ class EnjoyPage extends GetView<EnjoyController> {
 
   Widget _buildGridItem(ShopModel model) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          //TODO
+        },
         child: Column(
           children: <Widget>[
             ClipRRect(

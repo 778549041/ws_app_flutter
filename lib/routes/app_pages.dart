@@ -25,6 +25,7 @@ import 'package:ws_app_flutter/view_models/mine/pwd_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/shop_list_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/near_dz_map_controller.dart';
 import 'package:ws_app_flutter/views/circle/single_user_circle_page.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
@@ -54,6 +55,7 @@ import 'package:ws_app_flutter/views/mine/setting_page.dart';
 import 'package:ws_app_flutter/views/mine/shop_address_list_page.dart';
 import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/views/webview_page.dart';
+import 'package:ws_app_flutter/views/wow/near_dz_map_page.dart';
 part './app_routes.dart';
 
 abstract class AppPages {
@@ -220,6 +222,12 @@ abstract class AppPages {
         page: () => MineFriendsPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<ConversationController>(() => ConversationController());
+        })),
+    GetPage(
+        name: Routes.NEARDZMAP,
+        page: () => NearDZMapPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<NearDZMapController>(() => NearDZMapController());
         })),
   ];
 }

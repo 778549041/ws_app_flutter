@@ -59,20 +59,28 @@ class WebViewPage extends GetView<NetConnectController> {
   Widget build(BuildContext context) {
     return BasePage(
       showAppBar: hasNav,
-      titleWidget: Obx(() => Text(
-            (title != null) ? title : controller.webTitle.value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontSize: 22),
-          )),
+      titleWidget: title != null
+          ? Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.white, fontSize: 22),
+            )
+          : Obx(() => Text(
+                controller.webTitle.value,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white, fontSize: 22),
+              )),
       child: Obx(
         () => IndexedStack(
           index: controller.currentIndex.value,
           children: <Widget>[
-            const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4C60FF)),
-              ),
+            Image.asset(
+              'assets/images/common/web_loading.gif',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
             WebView(
               sid: CommonUtil.sid(),

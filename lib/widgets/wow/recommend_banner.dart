@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 
 class RecommendBanner extends GetView<RecommendController> {
@@ -60,6 +61,11 @@ class RecommendBanner extends GetView<RecommendController> {
                     //点击事件，返回下标
                     BannerItem item = controller
                         .bannerModel.value.carouselHead.banner.items[index];
+                    CommonUtil.serviceControlPushPage(
+                        type: item.params.type,
+                        detailId: item.params.detailId,
+                        url: item.params.url,
+                        hasNav: item.isHeader == 'true');
                   },
                   itemCount: controller
                       .bannerModel.value.carouselHead.banner.items.length,
@@ -103,6 +109,11 @@ class RecommendBanner extends GetView<RecommendController> {
                           //点击事件，返回下标
                           TextBannerModel item =
                               controller.textBannerModel.value.data[index];
+                          CommonUtil.serviceControlPushPage(
+                              type: item.params.type,
+                              detailId: item.params.detailId,
+                              url: item.url,
+                              hasNav: item.isHeader == 'true');
                         },
                         itemCount: controller.textBannerModel.value.data.length,
                         itemBuilder: (context, index) {
@@ -133,7 +144,9 @@ class RecommendBanner extends GetView<RecommendController> {
                     )
                   ],
                 )),
-                SizedBox(height: 20,)
+            SizedBox(
+              height: 20,
+            )
           ],
         ),
       ],

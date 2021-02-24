@@ -44,6 +44,7 @@ class NewsListPage extends GetView<NewsController> {
                         return GestureDetector(
                           onTap: () {
                             print('点击了资讯分类${_model.nodeName}');
+                            //TODO
                           },
                           child: Container(
                             margin: (index % 2 == 0)
@@ -147,6 +148,7 @@ class NewsListPage extends GetView<NewsController> {
                 GestureDetector(
                   onTap: () {
                     print('资讯搜索');
+                    //TODO
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15),

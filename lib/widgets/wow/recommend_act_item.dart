@@ -3,6 +3,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 
 class RecommendActItem extends GetView<RecommendController> {
@@ -13,7 +14,8 @@ class RecommendActItem extends GetView<RecommendController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('点击了推荐活动');
+        Get.toNamed(Routes.WEBVIEW,
+            arguments: {'url': model.url, 'hasNav': model.isHeader == 'true'});
       },
       child: Container(
         margin: const EdgeInsets.only(top: 10, left: 15, right: 15),

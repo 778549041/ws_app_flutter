@@ -40,4 +40,16 @@ class NearStoreModel {
     block = json['block'];
     slow = json['slow'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['FSalesPhone'] = this.fSalesPhone;
+    data['FShopAddr'] = this.fShopAddr;
+    data['FShopName'] = this.fShopName;
+    data['FShopLat'] = this.fShopLat;
+    data['FShopLng'] = this.fShopLng;
+    data['block'] = this.block;
+    data['slow'] = this.slow;
+    return data;
+  }
 }

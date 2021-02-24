@@ -1,7 +1,13 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/html_urls.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/wow/car_data_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
@@ -136,7 +142,7 @@ class RecommendEleState extends State<RecommendEle>
                 _buildToolBtn(0, 'assets/images/wow/neardz.png'),
                 _buildToolBtn(1, 'assets/images/wow/eluwy.png'),
                 _buildToolBtn(2, 'assets/images/wow/yyby.png'),
-                _buildToolBtn(3, 'assets/images/wow/yjjy.png'),
+                _buildToolBtn(3, 'assets/images/wow/dczd.png'),
               ],
             ),
           ),
@@ -160,9 +166,63 @@ class RecommendEleState extends State<RecommendEle>
         image: imageName,
         imageW: _width,
         imageH: _height,
-        onPressed: () {},
+        onPressed: () => buttonAction(index),
       ),
     );
+  }
+
+  Future buttonAction(int index) async {
+    if (index == 0) {
+      //附近电桩
+      Get.toNamed(Routes.NEARDZMAP);
+    } else if (index == 1) {
+      //e路无忧
+      CommonModel _model = await DioManager()
+          .request<CommonModel>(DioManager.GET, Api.ePushJudgeUrl);
+      if (_model.status) {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ServicePackageIntroduction
+        });
+      } else {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ServicePackage
+        });
+      }
+    } else if (index == 2) {
+      //预约保养
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        CommonModel _model = await DioManager().request<CommonModel>(
+            DioManager.POST, Api.reservationMaintainUrl,
+            params: {
+              'unionId':
+                  Get.find<UserController>().userInfo.value.member.unionid,
+              'vin': Get.find<UserController>().userInfo.value.member.fVIN
+            });
+        if (_model.datas != null && _model.datas.length > 0) {
+          Get.toNamed(Routes.WEBVIEW, arguments: {
+            'url': _model.datas,
+            'title': '预约保养',
+            'hasNav': true,
+          });
+        } else {
+          EasyLoading.showToast(_model.message,
+              toastPosition: EasyLoadingToastPosition.bottom);
+        }
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    } else if (index == 3) {
+      //电池诊断
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage
+        });
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    }
   }
 
   @override

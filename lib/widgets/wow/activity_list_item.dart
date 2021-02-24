@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class ActivityListItem extends StatelessWidget {
@@ -47,7 +50,16 @@ class ActivityListItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print('点击了活动');
+        String _url = '';
+        if (model.isCustom == 'true') {
+          _url = model.url;
+        } else {
+          _url = CacheKey.SERVICE_URL_HOST +
+              HtmlUrls.ActivityDetailsPage +
+              '?is_online=${model.isOnline}&is_vote=${model.isVote}&activity_id=${model.huodongId}';
+        }
+        Get.toNamed(Routes.WEBVIEW,
+            arguments: {'url': _url, 'hasNav': model.isHeader == 'true'});
       },
       child: Stack(
         children: <Widget>[
@@ -177,7 +189,9 @@ class ActivityListItem extends StatelessWidget {
                           radius: 10.5,
                           fontSize: 11,
                           titleColor: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO
+                          },
                         ),
                       )
                     ],

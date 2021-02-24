@@ -1,11 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/address_model.dart';
 import 'package:ws_app_flutter/models/login/store_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
+import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class CertifyController extends GetxController {
   var data = List().obs;
@@ -112,18 +115,19 @@ class CertifyController extends GetxController {
               await getStoreData(citydata.first.fItemId);
             }
             store = '请选择特约店';
+            storeid = '';
             initData();
           }
         }
       } else if (index == 1) {
         //选择城市
         city = value;
-
-        initData();
         for (var address in citydata) {
           if (address.fName == value) {
             await getStoreData(address.fItemId);
             store = '请选择特约店';
+            storeid = '';
+            initData();
           }
         }
       } else if (index == 2) {
@@ -179,33 +183,54 @@ class CertifyController extends GetxController {
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
-    CommonModel _model = await DioManager().request(
+    CommonModel _model = await DioManager().request<CommonModel>(
         DioManager.POST, Api.certifyFillFormSubmitUrl,
         params: {'appid': storeid, 'vin': vincode, 'username': name});
-    // if (_model.success != null) {
-    //   DMPTJManager().uploadManualCertifyData({});
-    // } else if (_model.error != null) {
-    //   if (_model.redirect == '1001') {
-    //     CommonUtil.showAlert(context, AlertStyle.AlertStyleAlert, '取消',
-    //         othertitles: ['申诉'],
-    //         content: _model.message, othercallback: (index) {
-    //       Routes.router.navigateTo(context,
-    //           '${Routes.complaintPage}?province=${Uri.encodeComponent(province)}&city=${Uri.encodeComponent(city)}&store=${Uri.encodeComponent(store)}&name=${Uri.encodeComponent(name)}&vincode=${Uri.encodeComponent(vincode)}',
-    //           transition: TransitionType.cupertino);
-    //     });
-    //   } else if (_model.error.contains('href')) {
-    //     CommonUtil.showAlert(context, AlertStyle.AlertStyleAlert, '取消',
-    //         othertitles: ['确定'],
-    //         title: '认证失败',
-    //         content: _model.message, othercallback: (index) {
-    //       Routes.router.navigateTo(context,
-    //           '${Routes.webViewPage}?url=${Uri.encodeComponent('https://www.ghac.cn/upload')}',
-    //           transition: TransitionType.cupertino);
-    //     });
-    //   } else {
-    //     CommonUtil.showAlert(context, AlertStyle.AlertStyleAlert, '确定',
-    //         title: '认证失败', content: _model.error);
-    //   }
-    // }
+    if (_model.success != null) {
+      // DMPTJManager().uploadManualCertifyData({});
+    } else if (_model.error != null) {
+      if (_model.redirect == '1001') {
+        Get.dialog(BaseDialog(
+          title: '提示',
+          rightText: '申诉',
+          content: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+          ),
+          onConfirm: () {
+            Get.toNamed(Routes.COMPLAINT, arguments: {
+              'province': province,
+              'city': city,
+              'store': store,
+              'name': name,
+              'vincode': vincode
+            });
+          },
+        ));
+      } else if (_model.error.contains('href')) {
+        Get.dialog(BaseDialog(
+          title: '认证失败',
+          rightText: '确定',
+          content: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+          ),
+          onConfirm: () {
+            Get.toNamed(Routes.WEBVIEW,
+                arguments: {'url': 'https://www.ghac.cn/upload'});
+          },
+        ));
+      } else {
+        Get.dialog(BaseDialog(
+          title: '认证失败',
+          hiddenCancel: true,
+          leftText: '确定',
+          content: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(_model.error, style: TextStyle(fontSize: 16.0)),
+          ),
+        ));
+      }
+    }
   }
 }

@@ -14,6 +14,7 @@ class NewsListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('点击了推荐资讯');
+        //TODO
       },
       child: Stack(
         children: <Widget>[
@@ -123,7 +124,9 @@ class NewsListItem extends StatelessWidget {
                               title: model.articlePraise.toString(),
                               fontSize: 12,
                               titleColor: Color(0xFF666666),
-                              onPressed: () {},
+                              onPressed: () {
+                                //TODO
+                              },
                             ),
                           )
                         ],

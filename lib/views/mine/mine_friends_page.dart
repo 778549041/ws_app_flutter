@@ -19,7 +19,9 @@ class MineFriendsPage extends GetView<ConversationController> {
           image: 'assets/images/mine/mine_friend_list.png',
           imageW: 25.5,
           imageH: 19.5,
-          onPressed: () {},
+          onPressed: () {
+            //TODO
+          },
         ),
         CustomButton(
           backgroundColor: Colors.transparent,
@@ -28,22 +30,26 @@ class MineFriendsPage extends GetView<ConversationController> {
           image: 'assets/images/mine/mine_add_friend.png',
           imageW: 20,
           imageH: 20,
-          onPressed: () {},
+          onPressed: () {
+            //TODO
+          },
         )
       ],
       child: CustomScrollView(
         slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                V2TimConversation _item = controller.list[index];
-                return ConversationRow(
-                  conversation: _item,
-                );
-              },
-              childCount: controller.list.length,
+          Obx(
+            () => SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  V2TimConversation _item = controller.list[index];
+                  return ConversationRow(
+                    conversation: _item,
+                  );
+                },
+                childCount: controller.list.length,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

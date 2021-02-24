@@ -17,9 +17,12 @@ class UnOwnCarWidget extends GetView<CarController> {
             _buildCarIVItem(),
             _buildConfigItem(),
             _buildBtnItem(),
-            Container(
-              margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-              child: Image.asset('assets/images/car/car_uncertify_dz_kv.png'),
+            GestureDetector(
+              onTap: () => controller.buttonAction(1000),
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                child: Image.asset('assets/images/car/car_uncertify_dz_kv.png'),
+              ),
             ),
             _buildNearStoreItem(),
           ],
@@ -55,7 +58,7 @@ class UnOwnCarWidget extends GetView<CarController> {
                       //视图宽度，即显示的item的宽度屏占比
                       //scale: 0.9,
                       //两侧item的缩放比
-                      onTap: (int index) {},
+                      onTap: (int index) => controller.buttonAction(1001),
                       loop: true,
                       onIndexChanged: (index) {
                         controller.currentIndex.value = index;
@@ -91,7 +94,7 @@ class UnOwnCarWidget extends GetView<CarController> {
             imagePosition: XJImagePosition.XJImagePositionRight,
             title: '了解配置详情',
             fontSize: 12,
-            onPressed: () {},
+            onPressed: () => controller.buttonAction(1001),
           ),
         ),
         Container(
@@ -222,7 +225,7 @@ class UnOwnCarWidget extends GetView<CarController> {
             borderWidth: 1.0,
             title: '预约试驾',
             titleColor: Color(0xFF1C7AF4),
-            onPressed: () {},
+            onPressed: () => controller.buttonAction(1002),
           ),
           Container(
             margin: const EdgeInsets.only(left: 15),
@@ -233,7 +236,7 @@ class UnOwnCarWidget extends GetView<CarController> {
               radius: 17,
               title: '商城下订',
               titleColor: Colors.white,
-              onPressed: () {},
+              onPressed: () => controller.buttonAction(1003),
             ),
           ),
         ],
@@ -266,7 +269,8 @@ class UnOwnCarWidget extends GetView<CarController> {
                         : '定位失败，点击重新定位',
                     fontSize: 12,
                     titleColor: Color(0xFFA0A0A0),
-                    onPressed: () => controller.refreshLocation(reloadLocation: true),
+                    onPressed: () =>
+                        controller.refreshLocation(reloadLocation: true),
                   )),
             ],
           ),

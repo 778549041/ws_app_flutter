@@ -5,8 +5,11 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
@@ -48,8 +51,9 @@ class CarController extends BaseController {
     if (await PermissionManager().requestPermission(Permission.location)) {
       locationSuccess.value = true;
       final _location = await AmapLocation.instance.fetchLocation();
-      await _requestNearStoreData(_location.latLng.longitude,
-          _location.latLng.latitude, _location.city,reloadLocation: reloadLocation);
+      await _requestNearStoreData(
+          _location.latLng.longitude, _location.latLng.latitude, _location.city,
+          reloadLocation: reloadLocation);
     } else {
       locationSuccess.value = false;
     }
@@ -65,7 +69,8 @@ class CarController extends BaseController {
       "city": city
     });
     if (reloadLocation) {
-      EasyLoading.showToast('刷新位置成功',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('刷新位置成功',
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
     return;
   }
@@ -278,6 +283,48 @@ class CarController extends BaseController {
   void callPhoneNumber(String phone) async {
     if (await canLaunch('tel:$phone')) {
       launch('tel:$phone');
+    }
+  }
+
+  Future buttonAction(int index) async {
+    if (index == 1000) {
+      //电桩介绍页
+      //TODO
+    } else if (index == 1001) {
+      //车辆配置
+    String _typeStr;
+    if (currentConfig.value.conf == "出行版") {
+      _typeStr = "0";
+    } else if (currentConfig.value.conf == "舒适版") {
+      _typeStr = "1";
+    } else if (currentConfig.value.conf == "豪华版") {
+      _typeStr = "2";
+    } else if (currentConfig.value.conf == "湃锐版") {
+      _typeStr = "3";
+    } else if (currentConfig.value.conf == "湃锐豪华版") {
+      _typeStr = "4";
+    }
+      pushH5Page(args: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CarConfigDetailPage + '?type=$_typeStr',
+        });
+    } else if (index == 1002) {
+      //预约试驾
+      pushH5Page(args: {
+        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.TestDrivePage + '?source=2',
+      });
+    } else if (index == 1003) {
+      //商城下订
+      CommonModel _model = await DioManager()
+          .request<CommonModel>(DioManager.POST, Api.mallReservationOrderUrl);
+      if (_model.redirect != null && _model.redirect.length > 0) {
+        pushH5Page(args: {
+          'url': _model.redirect,
+          'hasNav': true,
+        });
+      } else if (_model.message != null) {
+        EasyLoading.showToast(_model.message,
+            toastPosition: EasyLoadingToastPosition.bottom);
+      }
     }
   }
 }

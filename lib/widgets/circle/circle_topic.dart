@@ -74,7 +74,9 @@ class CircleTopicItem extends GetView<CircleTopicController> {
 
   Widget _buildTopicItem(TopicModel model) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        //TODO
+      },
       child: Container(
         margin: EdgeInsets.only(right: 5),
         child: ClipRRect(

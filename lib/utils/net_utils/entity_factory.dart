@@ -22,6 +22,7 @@ import 'package:ws_app_flutter/models/wow/banner_model.dart';
 import 'package:ws_app_flutter/models/wow/car_data_model.dart';
 import 'package:ws_app_flutter/models/wow/category_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
+import 'package:ws_app_flutter/models/wow/cdz_info_model.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
 
@@ -91,6 +92,10 @@ class EntityFactory {
      return AddressListModel.fromJson(json) as T;
    } else if (T.toString() == 'StoreListModel') {
      return StoreListModel.fromJson(json) as T;
+   } else if (T.toString() == 'SingleCDZInfoModel') {
+     return SingleCDZInfoModel.fromJson(json) as T;
+   } else if (T.toString() == 'CDZListModel') {
+     return CDZListModel.fromJson(json) as T;
    } 
    else {
       return json as T;

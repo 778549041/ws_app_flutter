@@ -42,6 +42,7 @@ class CircleListItem extends GetView<RecommendController> {
     return GestureDetector(
       onTap: () {
         print('点击了圈子');
+        //TODO
       },
       child: Container(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
@@ -62,7 +63,9 @@ class CircleListItem extends GetView<RecommendController> {
                         children: <Widget>[
                           //头像
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              //TODO
+                            },
                             child: Stack(
                               children: <Widget>[
                                 RoundAvatar(
@@ -112,7 +115,9 @@ class CircleListItem extends GetView<RecommendController> {
                                             height: 30,
                                             image: model.memberInfo
                                                 .medalOrSaleImageName,
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              //TODO
+                                            },
                                           ),
                                         ),
                                     ],
@@ -150,7 +155,9 @@ class CircleListItem extends GetView<RecommendController> {
                                 fontSize: 11,
                                 borderWidth: 0.5,
                                 radius: 11.5,
-                                onPressed: () {},
+                                onPressed: () {
+                                  //TODO
+                                },
                               ),
                             ),
                           ),
@@ -168,7 +175,9 @@ class CircleListItem extends GetView<RecommendController> {
                               imageH: 15,
                               imageW: 20,
                               fontSize: 11,
-                              onPressed: () {},
+                              onPressed: () {
+                                //TODO
+                              },
                             ),
                           ),
                           //举报按钮
@@ -184,7 +193,9 @@ class CircleListItem extends GetView<RecommendController> {
                               fontSize: 11,
                               borderWidth: 0.5,
                               radius: 11.5,
-                              onPressed: () {},
+                              onPressed: () {
+                                //TODO
+                              },
                             ),
                           ),
                         ],
@@ -209,6 +220,7 @@ class CircleListItem extends GetView<RecommendController> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               print('点击话题');
+                              //TODO
                             },
                           children: [
                             TextSpan(
@@ -228,6 +240,7 @@ class CircleListItem extends GetView<RecommendController> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     print('点击跳转链接');
+                                    //TODO
                                   }),
                           ]),
                     ),
@@ -348,7 +361,9 @@ class CircleListItem extends GetView<RecommendController> {
                               title: model.praise,
                               fontSize: 12,
                               titleColor: Color(0xFF666666),
-                              onPressed: () {},
+                              onPressed: () {
+                                //TODO
+                              },
                             ),
                           )
                         ],
