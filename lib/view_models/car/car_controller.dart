@@ -10,6 +10,7 @@ import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
@@ -289,24 +290,26 @@ class CarController extends BaseController {
   Future buttonAction(int index) async {
     if (index == 1000) {
       //电桩介绍页
-      //TODO
+      Get.toNamed(Routes.DZINTRODUCE);
     } else if (index == 1001) {
       //车辆配置
-    String _typeStr;
-    if (currentConfig.value.conf == "出行版") {
-      _typeStr = "0";
-    } else if (currentConfig.value.conf == "舒适版") {
-      _typeStr = "1";
-    } else if (currentConfig.value.conf == "豪华版") {
-      _typeStr = "2";
-    } else if (currentConfig.value.conf == "湃锐版") {
-      _typeStr = "3";
-    } else if (currentConfig.value.conf == "湃锐豪华版") {
-      _typeStr = "4";
-    }
+      String _typeStr;
+      if (currentConfig.value.conf == "出行版") {
+        _typeStr = "0";
+      } else if (currentConfig.value.conf == "舒适版") {
+        _typeStr = "1";
+      } else if (currentConfig.value.conf == "豪华版") {
+        _typeStr = "2";
+      } else if (currentConfig.value.conf == "湃锐版") {
+        _typeStr = "3";
+      } else if (currentConfig.value.conf == "湃锐豪华版") {
+        _typeStr = "4";
+      }
       pushH5Page(args: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CarConfigDetailPage + '?type=$_typeStr',
-        });
+        'url': CacheKey.SERVICE_URL_HOST +
+            HtmlUrls.CarConfigDetailPage +
+            '?type=$_typeStr',
+      });
     } else if (index == 1002) {
       //预约试驾
       pushH5Page(args: {
@@ -325,6 +328,26 @@ class CarController extends BaseController {
         EasyLoading.showToast(_model.message,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
+    } else if (index == 1004) {
+      //点击头像
+      Get.toNamed(Routes.MINEINFO);
+    } else if (index == 1005) {
+      //点击勋章
+      //TODO
+    } else if (index == 1006) {
+      //点击积分
+      pushH5Page(args: {
+        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.IntegralDetailPage,
+      });
+    } else if (index == 1007) {
+      //点击了解VE-1
+      pushH5Page(args: {
+        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.UnderstandVEPage,
+        'hasNav': true,
+      });
+    } else if (index == 1008) {
+      //点击车主认证
+      Get.find<UserController>().certifyVechile();
     }
   }
 }

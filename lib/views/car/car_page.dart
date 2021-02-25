@@ -61,9 +61,7 @@ class CarPage extends GetView<CarController> {
               children: <Widget>[
                 //头像
                 GestureDetector(
-                  onTap: () {
-                    //TODO
-                  },
+                  onTap: () => controller.buttonAction(1004),
                   child: Stack(
                     children: <Widget>[
                       Obx(() => RoundAvatar(
@@ -141,9 +139,7 @@ class CarPage extends GetView<CarController> {
                               .member
                               .memberInfo
                               .medalOrSaleImageName,
-                          onPressed: () {
-                            //TODO
-                          },
+                          onPressed: () => controller.buttonAction(1005),
                         )),
                   ),
               ],
@@ -163,9 +159,7 @@ class CarPage extends GetView<CarController> {
                       .integral),
                   titleColor: Colors.white,
                   fontSize: 12,
-                  onPressed: () {
-                    //TODO
-                  },
+                  onPressed: () => controller.buttonAction(1006),
                 )),
           ),
         ],
@@ -189,9 +183,7 @@ class CarPage extends GetView<CarController> {
                   image: 'assets/images/car/car_icon_unstand_ve.png',
                   imageW: 80,
                   imageH: 34,
-                  onPressed: () {
-                    //TODO
-                  },
+                  onPressed: () => controller.buttonAction(1007),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
@@ -202,9 +194,7 @@ class CarPage extends GetView<CarController> {
                     image: 'assets/images/car/car_icon_certify_now.png',
                     imageW: 80,
                     imageH: 34,
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () => controller.buttonAction(1008),
                   ),
                 )
               ],

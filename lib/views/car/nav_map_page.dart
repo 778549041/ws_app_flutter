@@ -2,11 +2,12 @@ import 'package:amap_map_fluttify/amap_map_fluttify.dart' hide controller;
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/view_models/wow/near_dz_map_controller.dart';
+import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
 
-class NearDZMapPage extends GetView<NearDZMapController> {
+class NavMapPage extends GetView<NavMapController> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -22,7 +23,7 @@ class NearDZMapPage extends GetView<NearDZMapController> {
             'assets/images/wow/map_search.png',
             scale: 2.0,
           ),
-          hintText: '定位不准？试试输入搜索',
+          hintText: '搜索你要去的地方',
           submitCallBack: (value) => controller.inputSearch(value),
         ),
       ),
@@ -36,21 +37,24 @@ class NearDZMapPage extends GetView<NearDZMapController> {
                 showCompass: false,
                 // 缩放级别 (可选)
                 zoomLevel: 14,
-                // 标识点击回调 (可选)
-                onMarkerClicked: (IMarker marker) =>
-                    controller.onMarkerClicked(marker),
-                // 地图点击回调 (可选)
-                onMapClicked: (LatLng coord) => controller.onMapClicked(coord),
-                // 地图拖动开始 (可选)
-                onMapMoveStart: (MapMove move) =>
-                    controller.onMapMoveStart(move),
-                // 地图拖动结束 (可选)
-                onMapMoveEnd: (MapMove move) => controller.onMapMoveEnd(move),
                 // 地图创建完成回调 (可选)
                 onMapCreated: (mapController) =>
                     controller.onMapCreated(mapController),
               );
             },
+          ),
+          Positioned(
+            left: (ScreenUtil.getInstance().screenWidth - 80) / 2,
+            bottom: 60,
+            child: CustomButton(
+              title: '导航',
+              width: 80,
+              height: 40,
+              backgroundColor: Color(0xFF0045D0),
+              titleColor: Colors.white,
+              radius: 20,
+              onPressed: () => controller.callThirdMap(),
+            ),
           ),
           Positioned(
             top: 0,

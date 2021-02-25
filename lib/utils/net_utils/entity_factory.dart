@@ -2,6 +2,7 @@ import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
 import 'package:ws_app_flutter/models/enjoy/shop.dart';
 import 'package:ws_app_flutter/models/login/address_model.dart';
@@ -23,6 +24,7 @@ import 'package:ws_app_flutter/models/wow/car_data_model.dart';
 import 'package:ws_app_flutter/models/wow/category_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/models/wow/cdz_info_model.dart';
+import 'package:ws_app_flutter/models/wow/charge_pile_model.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
 
@@ -96,6 +98,10 @@ class EntityFactory {
      return SingleCDZInfoModel.fromJson(json) as T;
    } else if (T.toString() == 'CDZListModel') {
      return CDZListModel.fromJson(json) as T;
+   } else if (T.toString() == 'ChargePileListModel') {
+     return ChargePileListModel.fromJson(json) as T;
+   } else if (T.toString() == 'CJUrlModel') {
+     return CJUrlModel.fromJson(json) as T;
    } 
    else {
       return json as T;

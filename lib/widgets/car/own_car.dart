@@ -1,8 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/html_urls.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/wow/car_data_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
@@ -153,7 +160,9 @@ class OwnCarWidgetState extends State<OwnCarWidget>
                     itemBuilder: (context, index) {
                       Map<String, dynamic> _item = _gridData[index];
                       return Container(
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xFFF3F3F3),width: 0.5)),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color(0xFFF3F3F3), width: 0.5)),
                         child: CustomButton(
                           image: _item['image'],
                           imageH: 28,
@@ -161,9 +170,7 @@ class OwnCarWidgetState extends State<OwnCarWidget>
                           title: _item['title'],
                           fontSize: 12,
                           imagePosition: XJImagePosition.XJImagePositionTop,
-                          onPressed: () {
-                            //TODO
-                          },
+                          onPressed: () => buttonAction(index),
                         ),
                       );
                     }),
@@ -173,6 +180,86 @@ class OwnCarWidgetState extends State<OwnCarWidget>
         ),
       ),
     );
+  }
+
+  Future buttonAction(int index) async {
+    if (index == 0) {
+      //附近电桩
+      Get.toNamed(Routes.NEARDZMAP);
+    } else if (index == 1) {
+      //实时导航
+      Get.toNamed(Routes.NAVMAP);
+    } else if (index == 2) {
+      //爱车配件
+      Get.toNamed(Routes.WEBVIEW, arguments: {
+        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CarPartsPage
+      });
+    } else if (index == 3) {
+      //电池诊断
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage
+        });
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    } else if (index == 4) {
+      //里程信息
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MilesInfoPage
+        });
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    } else if (index == 5) {
+      //违章查询
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ViolationPage
+        });
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    } else if (index == 6) {
+      //预约保养
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        CommonModel _model = await DioManager().request<CommonModel>(
+            DioManager.POST, Api.reservationMaintainUrl,
+            params: {
+              'unionId':
+                  Get.find<UserController>().userInfo.value.member.unionid,
+              'vin': Get.find<UserController>().userInfo.value.member.fVIN
+            });
+        if (_model.datas != null && _model.datas.length > 0) {
+          Get.toNamed(Routes.WEBVIEW, arguments: {
+            'url': _model.datas,
+            'title': '预约保养',
+            'hasNav': true,
+          });
+        } else {
+          EasyLoading.showToast(_model.message,
+              toastPosition: EasyLoadingToastPosition.bottom);
+        }
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    } else if (index == 7) {
+      //一键救援
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        //拨号
+        if (await canLaunch('tel:400-830-8999')) {
+          launch('tel:400-830-8999');
+        }
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    }
   }
 
   //请求电量信息数据

@@ -32,4 +32,7 @@ abstract class Routes {
   static const CHAT = '/chat';
   static const MINEFRIENDS = '/mine-friends';
   static const NEARDZMAP = '/near-dz-map';
+  static const NEARDZLIST = '/near-dz-list';
+  static const DZINTRODUCE = '/dz-introduce';
+  static const NAVMAP = '/nav-map';
 }

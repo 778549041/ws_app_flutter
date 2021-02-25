@@ -62,9 +62,7 @@ class EnjoyPage extends GetView<EnjoyController> {
             children: <Widget>[
               //头像
               GestureDetector(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () => controller.buttonAction(1000),
                 child: Stack(
                   children: <Widget>[
                     Obx(() => RoundAvatar(
@@ -142,16 +140,14 @@ class EnjoyPage extends GetView<EnjoyController> {
                             .member
                             .memberInfo
                             .medalOrSaleImageName,
-                        onPressed: () {
-                          //TODO
-                        },
+                        onPressed: () => controller.buttonAction(1001),
                       )),
                 ),
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 5,right: 5),
+          padding: EdgeInsets.only(left: 5, right: 5),
           child: Row(
             children: <Widget>[
               Obx(() => CustomButton(
@@ -166,9 +162,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                         .integral),
                     titleColor: Colors.white,
                     fontSize: 12,
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () => controller.buttonAction(1002),
                   )),
               SizedBox(
                 width: 5,
@@ -183,9 +177,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                 title: '积分规则',
                 titleColor: Colors.white,
                 fontSize: 13,
-                onPressed: () {
-                  //TODO
-                },
+                onPressed: () => controller.buttonAction(1003),
               ),
             ],
           ),
@@ -238,9 +230,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                           image: 'assets/images/enjoy/enjoy_switch_by.png',
                           imageW: (Get.width - 60) / 3,
                           imageH: 40,
-                          onPressed: () {
-                            //TODO
-                          },
+                          onPressed: () => controller.buttonAction(1004),
                         ),
                         CustomButton(
                           width: (Get.width - 60) / 3,
@@ -248,9 +238,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                           image: 'assets/images/enjoy/enjoy_big_awards.png',
                           imageW: (Get.width - 60) / 3,
                           imageH: 40,
-                          onPressed: () {
-                            //TODO
-                          },
+                          onPressed: () => controller.buttonAction(1005),
                         ),
                         CustomButton(
                           width: (Get.width - 60) / 3,
@@ -258,9 +246,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                           image: 'assets/images/enjoy/enjoy_wish.png',
                           imageW: (Get.width - 60) / 3,
                           imageH: 40,
-                          onPressed: () {
-                            //TODO
-                          },
+                          onPressed: () => controller.buttonAction(1006),
                         ),
                       ],
                     ),
@@ -299,9 +285,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                           imageW: 9,
                           imageH: 15,
                           imagePosition: XJImagePosition.XJImagePositionRight,
-                          onPressed: () {
-                            //TODO
-                          },
+                          onPressed: () => controller.buttonAction(1007),
                         )
                       ],
                     ),
@@ -329,9 +313,7 @@ class EnjoyPage extends GetView<EnjoyController> {
 
   Widget _buildGridItem(ShopModel model) {
     return GestureDetector(
-        onTap: () {
-          //TODO
-        },
+        onTap: () => controller.pushDetailH5(model),
         child: Column(
           children: <Widget>[
             ClipRRect(

@@ -26,7 +26,8 @@ class SettingController extends BaseController {
       {"title": "清除缓存", "content": cache},
       {"title": "意见反馈", "content": ""},
       {"title": "版本信息", "content": version},
-      {"title": "隐私政策", "content": ''}
+      {"title": "隐私政策", "content": ''},
+      {"title": "", "content": ''}
     ]);
   }
 

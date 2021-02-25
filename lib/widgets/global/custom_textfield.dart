@@ -30,6 +30,7 @@ class CustomTextField extends StatefulWidget {
   final bool enabled; //是否可编辑，默认true
   final List<TextInputFormatter> inputFormatters;
   final _InputCallBack inputCallBack;
+  final _InputCallBack submitCallBack;
   final TextStyle textStyle;
   final TextStyle hintTextStyle;
   final TextAlign textAlign; //对齐方式，默认左对齐
@@ -49,6 +50,7 @@ class CustomTextField extends StatefulWidget {
     this.enabled: true,
     this.inputFormatters,
     this.inputCallBack,
+    this.submitCallBack,
     this.textStyle = _textStyle,
     this.hintTextStyle = _hintTextStyle,
     this.textAlign = TextAlign.left,
@@ -105,6 +107,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
       onChanged: (value) {
         if (widget.inputCallBack != null) {
           widget.inputCallBack(_textController.text);
+        }
+      },
+      onSubmitted: (value) {
+        if (widget.submitCallBack != null) {
+          widget.submitCallBack(_textController.text);
         }
       },
     );
