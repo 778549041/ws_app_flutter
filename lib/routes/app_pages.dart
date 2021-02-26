@@ -26,8 +26,12 @@ import 'package:ws_app_flutter/view_models/mine/pwd_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/shop_list_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/activity_search_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/cate_news_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/ele_list_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/near_dz_map_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/news_search_controller.dart';
 import 'package:ws_app_flutter/views/car/dz_introduce_page.dart';
 import 'package:ws_app_flutter/views/car/nav_map_page.dart';
 import 'package:ws_app_flutter/views/circle/single_user_circle_page.dart';
@@ -59,8 +63,12 @@ import 'package:ws_app_flutter/views/mine/setting_page.dart';
 import 'package:ws_app_flutter/views/mine/shop_address_list_page.dart';
 import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/views/webview_page.dart';
+import 'package:ws_app_flutter/views/wow/activity_search_page.dart';
+import 'package:ws_app_flutter/views/wow/cate_news_list_page.dart';
 import 'package:ws_app_flutter/views/wow/ele_list_page.dart';
 import 'package:ws_app_flutter/views/wow/near_dz_map_page.dart';
+import 'package:ws_app_flutter/views/wow/news_detail_page.dart';
+import 'package:ws_app_flutter/views/wow/news_search_page.dart';
 part './app_routes.dart';
 
 abstract class AppPages {
@@ -251,6 +259,31 @@ abstract class AppPages {
         page: () => NavMapPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<NavMapController>(() => NavMapController());
+        })),
+    GetPage(
+        name: Routes.CATENEWSLIST,
+        page: () => CateNewsListPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<CateNewsController>(() => CateNewsController());
+        })),
+    GetPage(
+        name: Routes.NEWSSEARCH,
+        page: () => NewsSearchPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<NewsSearchController>(() => NewsSearchController());
+        })),
+    GetPage(
+        name: Routes.ACTIVITYSEARCH,
+        page: () => ActivitySearchPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<ActivitySearchController>(
+              () => ActivitySearchController());
+        })),
+    GetPage(
+        name: Routes.NEWSDETAIL,
+        page: () => NewsDetailPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<NewsDetailController>(() => NewsDetailController());
         })),
   ];
 }

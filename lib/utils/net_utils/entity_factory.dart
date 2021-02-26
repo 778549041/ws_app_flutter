@@ -25,7 +25,9 @@ import 'package:ws_app_flutter/models/wow/category_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/models/wow/cdz_info_model.dart';
 import 'package:ws_app_flutter/models/wow/charge_pile_model.dart';
+import 'package:ws_app_flutter/models/wow/news_comment_model.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
+import 'package:ws_app_flutter/models/wow/news_tag_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
 
 class EntityFactory {
@@ -102,6 +104,10 @@ class EntityFactory {
      return ChargePileListModel.fromJson(json) as T;
    } else if (T.toString() == 'CJUrlModel') {
      return CJUrlModel.fromJson(json) as T;
+   } else if (T.toString() == 'NewsTagListModel') {
+     return NewsTagListModel.fromJson(json) as T;
+   } else if (T.toString() == 'NewsCommentListModel') {
+     return NewsCommentListModel.fromJson(json) as T;
    } 
    else {
       return json as T;

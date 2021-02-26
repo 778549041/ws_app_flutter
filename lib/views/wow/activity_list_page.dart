@@ -70,10 +70,7 @@ class ActivityListPage extends GetView<ActivityController> {
                       height: 15,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        print('活动搜索');
-                        //TODO
-                      },
+                      onTap: () => controller.clickSearch(),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(

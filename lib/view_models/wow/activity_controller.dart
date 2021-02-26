@@ -1,4 +1,5 @@
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
@@ -44,5 +45,10 @@ class ActivityController extends RefreshListController<ActivityModel> {
         setIdle();
       }
       return _model.list;
+  }
+
+  //活动搜索
+  void clickSearch() {
+    Get.toNamed(Routes.ACTIVITYSEARCH);
   }
 }

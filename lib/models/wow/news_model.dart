@@ -35,18 +35,18 @@ class NewModel {
 
   NewModel(
       {this.articleId,
-      this.articlePraise,
-      this.title,
-      this.pubtime,
-      this.imageUrl,
-      this.commentCount,
-      this.collectStatus,
-      this.collection,
-      this.read,
+      this.articlePraise = 0,
+      this.title = '',
+      this.pubtime = '0',
+      this.imageUrl = '',
+      this.commentCount = '',
+      this.collectStatus = false,
+      this.collection = '',
+      this.read = '',
       this.isBgClear = false,
       this.isLogin,
       this.praiseStatus,
-      this.uptime})
+      this.uptime = ''})
       : bodys = HtmlBody();
 
   NewModel.fromJson(Map<String, dynamic> json) {
@@ -57,7 +57,7 @@ class NewModel {
     imageUrl = json['image_url'];
     commentCount = json['comment_count'];
     collectStatus = json['collect_status'];
-    collection = json['collection'];
+    collection = json['collection'].toString();
     read = json['read'];
     isBgClear = false;
     bodys =
@@ -85,7 +85,7 @@ class HtmlBody {
   String seoDescription;
   String seotitle;
 
-  HtmlBody({this.content, this.seoDescription, this.seotitle});
+  HtmlBody({this.content = '', this.seoDescription = '', this.seotitle = ''});
 
   HtmlBody.fromJson(Map<String, dynamic> json) {
     content = json['content'];

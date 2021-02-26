@@ -35,4 +35,8 @@ abstract class Routes {
   static const NEARDZLIST = '/near-dz-list';
   static const DZINTRODUCE = '/dz-introduce';
   static const NAVMAP = '/nav-map';
+  static const CATENEWSLIST = '/cate-news-list';
+  static const NEWSSEARCH = '/news-search';
+  static const ACTIVITYSEARCH = '/activity-search';
+  static const NEWSDETAIL = '/news-detail';
 }

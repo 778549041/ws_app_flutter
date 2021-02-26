@@ -3,6 +3,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/wow/news_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class NewsListItem extends StatelessWidget {
@@ -13,25 +14,24 @@ class NewsListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('点击了推荐资讯');
-        //TODO
+        Get.toNamed(Routes.NEWSDETAIL,arguments: {'article_id':model.articleId});
       },
       child: Stack(
         children: <Widget>[
-          if (model.isBgClear)
-            Positioned(
-              top: 22,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Color(0xFFF3F3F3),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
-              ),
-            ),
+          // if (model.isBgClear)
+          //   Positioned(
+          //     top: 22,
+          //     left: 0,
+          //     right: 0,
+          //     bottom: 0,
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //           color: Color(0xFFF3F3F3),
+          //           borderRadius: BorderRadius.only(
+          //               topLeft: Radius.circular(10),
+          //               topRight: Radius.circular(10))),
+          //     ),
+          //   ),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
             color: model.isBgClear ? Colors.transparent : Color(0xFFF3F3F3),

@@ -42,10 +42,7 @@ class NewsListPage extends GetView<NewsController> {
                         CategoryModel _model =
                             controller.categoryListModel.value.list[index];
                         return GestureDetector(
-                          onTap: () {
-                            print('点击了资讯分类${_model.nodeName}');
-                            //TODO
-                          },
+                          onTap: () => controller.clickCategory(_model),
                           child: Container(
                             margin: (index % 2 == 0)
                                 ? EdgeInsets.only(left: 15)
@@ -146,10 +143,7 @@ class NewsListPage extends GetView<NewsController> {
                   height: 15,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    print('资讯搜索');
-                    //TODO
-                  },
+                  onTap: () => controller.clickSearch(),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(

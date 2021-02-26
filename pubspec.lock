@@ -85,6 +85,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.12.1+1"
+  chewie_audio:
+    dependency: transitive
+    description:
+      name: chewie_audio
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.2"
   city_pickers:
     dependency: "direct main"
     description:
@@ -162,6 +169,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.5"
+  css_colors:
+    dependency: transitive
+    description:
+      name: css_colors
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
   csslib:
     dependency: transitive
     description:
@@ -293,6 +307,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  flutter_html:
+    dependency: "direct main"
+    description:
+      path: "plugins/flutter_html"
+      relative: true
+    source: path
+    version: "1.2.0"
+  flutter_layout_grid:
+    dependency: transitive
+    description:
+      name: flutter_layout_grid
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.10.5"
   flutter_localizations:
     dependency: "direct dev"
     description: flutter
@@ -363,6 +391,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.5.0"
+  flutter_svg:
+    dependency: transitive
+    description:
+      name: flutter_svg
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.19.1"
   flutter_swiper:
     dependency: "direct main"
     description:
@@ -534,6 +569,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.0-nullsafety.1"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.1+1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.4"
   path_provider:
     dependency: transitive
     description:
@@ -590,6 +639,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.0"
   photo_view:
     dependency: "direct main"
     description:
@@ -632,6 +688,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.6.3"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.5"
   rational:
     dependency: transitive
     description:
@@ -911,9 +974,9 @@ packages:
     source: hosted
     version: "0.1.0+3"
   webview_flutter:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: "plugins/webview_flutter"
+      path: "plugins/flutter_html/webview_flutter"
       relative: true
     source: path
     version: "1.0.7"
@@ -931,6 +994,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.2"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.5.1"
 sdks:
   dart: ">=2.10.2 <2.11.0"
   flutter: ">=1.22.2 <2.0.0"
