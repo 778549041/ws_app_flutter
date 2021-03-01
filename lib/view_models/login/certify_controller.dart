@@ -190,46 +190,52 @@ class CertifyController extends GetxController {
       // DMPTJManager().uploadManualCertifyData({});
     } else if (_model.error != null) {
       if (_model.redirect == '1001') {
-        Get.dialog(BaseDialog(
-          title: '提示',
-          rightText: '申诉',
-          content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
-          ),
-          onConfirm: () {
-            Get.toNamed(Routes.COMPLAINT, arguments: {
-              'province': province,
-              'city': city,
-              'store': store,
-              'name': name,
-              'vincode': vincode
-            });
-          },
-        ));
+        Get.dialog(
+            BaseDialog(
+              title: '提示',
+              rightText: '申诉',
+              content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+              ),
+              onConfirm: () {
+                Get.toNamed(Routes.COMPLAINT, arguments: {
+                  'province': province,
+                  'city': city,
+                  'store': store,
+                  'name': name,
+                  'vincode': vincode
+                });
+              },
+            ),
+            barrierDismissible: false);
       } else if (_model.error.contains('href')) {
-        Get.dialog(BaseDialog(
-          title: '认证失败',
-          rightText: '确定',
-          content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
-          ),
-          onConfirm: () {
-            Get.toNamed(Routes.WEBVIEW,
-                arguments: {'url': 'https://www.ghac.cn/upload'});
-          },
-        ));
+        Get.dialog(
+            BaseDialog(
+              title: '认证失败',
+              rightText: '确定',
+              content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+              ),
+              onConfirm: () {
+                Get.toNamed(Routes.WEBVIEW,
+                    arguments: {'url': 'https://www.ghac.cn/upload'});
+              },
+            ),
+            barrierDismissible: false);
       } else {
-        Get.dialog(BaseDialog(
-          title: '认证失败',
-          hiddenCancel: true,
-          leftText: '确定',
-          content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(_model.error, style: TextStyle(fontSize: 16.0)),
-          ),
-        ));
+        Get.dialog(
+            BaseDialog(
+              title: '认证失败',
+              hiddenCancel: true,
+              leftText: '确定',
+              content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Text(_model.error, style: TextStyle(fontSize: 16.0)),
+              ),
+            ),
+            barrierDismissible: false);
       }
     }
   }

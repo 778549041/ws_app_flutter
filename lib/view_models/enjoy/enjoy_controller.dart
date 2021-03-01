@@ -100,14 +100,16 @@ class EnjoyController extends RefreshListController<ShopModel> {
       } else if (_model.code == 1004) {
         CommonUtil.userNotVechileToast('认证车主才可以参与此活动哦，先去认证成为车主吧！');
       } else {
-        Get.dialog(BaseDialog(
-          title: '提示',
-          rightText: '好的',
-          content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
-          ),
-        ));
+        Get.dialog(
+            BaseDialog(
+              title: '提示',
+              rightText: '好的',
+              content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+              ),
+            ),
+            barrierDismissible: false);
       }
     } else if (index == 1006) {
       //许心愿
@@ -120,14 +122,16 @@ class EnjoyController extends RefreshListController<ShopModel> {
       } else if (_model.code == '1001') {
         CommonUtil.userNotVechileToast('认证车主才可以参与此活动哦，先去认证成为车主吧！');
       } else {
-        Get.dialog(BaseDialog(
-          title: '提示',
-          rightText: '好的',
-          content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
-          ),
-        ));
+        Get.dialog(
+            BaseDialog(
+              title: '提示',
+              rightText: '好的',
+              content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+              ),
+            ),
+            barrierDismissible: false);
       }
     } else if (index == 1007) {
       //更多

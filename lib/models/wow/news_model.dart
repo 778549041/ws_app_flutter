@@ -39,13 +39,13 @@ class NewModel {
       this.title = '',
       this.pubtime = '0',
       this.imageUrl = '',
-      this.commentCount = '',
+      this.commentCount = '0',
       this.collectStatus = false,
-      this.collection = '',
-      this.read = '',
+      this.collection = '0',
+      this.read = '0',
       this.isBgClear = false,
       this.isLogin,
-      this.praiseStatus,
+      this.praiseStatus = false,
       this.uptime = ''})
       : bodys = HtmlBody();
 
@@ -58,7 +58,7 @@ class NewModel {
     commentCount = json['comment_count'];
     collectStatus = json['collect_status'];
     collection = json['collection'].toString();
-    read = json['read'];
+    read = json['read'].toString();
     isBgClear = false;
     bodys =
         json['bodys'] != null ? HtmlBody.fromJson(json['bodys']) : HtmlBody();

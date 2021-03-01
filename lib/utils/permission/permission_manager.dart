@@ -54,18 +54,20 @@ class PermissionManager {
     }
 
     if (status.isDenied) {
-      Get.dialog(BaseDialog(
-        title: '提示',
-        content: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text('您当前没有开启$_permissionCHName权限',
-              style: TextStyle(fontSize: 16.0)),
-        ),
-        onConfirm: () {
-          Get.back();
+      Get.dialog(
+          BaseDialog(
+            title: '提示',
+            content: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text('您当前没有开启$_permissionCHName权限',
+                  style: TextStyle(fontSize: 16.0)),
+            ),
+            onConfirm: () {
+              Get.back();
               openAppSettings();
-        },
-      ));
+            },
+          ),
+          barrierDismissible: false);
     }
     return status.isGranted;
   }

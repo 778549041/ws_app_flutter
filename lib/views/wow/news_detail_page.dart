@@ -1,13 +1,17 @@
 import 'package:flustars/flustars.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/wow/news_comment_model.dart';
 import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
+import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class NewsDetailPage extends GetView<NewsDetailController> {
@@ -21,6 +25,18 @@ class NewsDetailPage extends GetView<NewsDetailController> {
     controller.articleId.value = articleId;
     return BasePage(
       title: '资讯',
+      rightActions: <Widget>[
+        CustomButton(
+          backgroundColor: Colors.transparent,
+          image: 'assets/images/wow/icon_share.png',
+          imageW: 30,
+          imageH: 30,
+          onPressed: () => controller.share(),
+        ),
+        SizedBox(
+          width: 10,
+        )
+      ],
       child: Column(
         children: [
           Expanded(
@@ -104,7 +120,121 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               ),
             ),
           ),
-          // MsgInput(conversition.userID,1),
+          Container(
+            height: 55,
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            color: Color(0xFFECECEC),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    height: 40,
+                    child: Obx(
+                      () => CustomTextField(
+                        focusNode: controller.focusNode,
+                        inputAction: TextInputAction.send,
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                            borderSide: BorderSide(
+                                color: Color(0xFF999999), width: 0.5)),
+                        hintText: controller.placeholder.value,
+                        submitCallBack: (value) =>
+                            controller.sendComment(value),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Obx(
+                  () => LikeButton(
+                    isLiked:
+                        controller.newsDetailModel.value.article.praiseStatus,
+                    size: 15,
+                    countPostion: CountPostion.bottom,
+                    circleColor: CircleColor(
+                        start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                    bubblesColor: BubblesColor(
+                      dotPrimaryColor: Color(0xff33b5e5),
+                      dotSecondaryColor: Color(0xff0099cc),
+                    ),
+                    likeBuilder: (bool isLiked) {
+                      return Image.asset(
+                        isLiked
+                            ? 'assets/images/wow/news_detail_praise_yes.png'
+                            : 'assets/images/wow/news_detail_praise.png',
+                      );
+                    },
+                    likeCount:
+                        controller.newsDetailModel.value.article.articlePraise,
+                    countBuilder: (int count, bool isLiked, String text) {
+                      return Text(
+                        text,
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      );
+                    },
+                    onTap: (isLiked) =>
+                        controller.praiseForArticleOrNot(isLiked),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Obx(
+                  () => CustomButton(
+                    backgroundColor: Colors.transparent,
+                    height: 32,
+                    image: 'assets/images/wow/news_detail_comment.png',
+                    imageH: 15,
+                    imageW: 17,
+                    imagePosition: XJImagePosition.XJImagePositionTop,
+                    title:
+                        controller.newsDetailModel.value.article.commentCount,
+                    fontSize: 12,
+                    onPressed: () => controller.clickArticlePraiseBtn(),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Obx(
+                  () => LikeButton(
+                    isLiked:
+                        controller.newsDetailModel.value.article.collectStatus,
+                    size: 15,
+                    countPostion: CountPostion.bottom,
+                    circleColor: CircleColor(
+                        start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                    bubblesColor: BubblesColor(
+                      dotPrimaryColor: Color(0xff33b5e5),
+                      dotSecondaryColor: Color(0xff0099cc),
+                    ),
+                    likeBuilder: (bool isLiked) {
+                      return Image.asset(
+                        isLiked
+                            ? 'assets/images/wow/news_detail_favor_yes.png'
+                            : 'assets/images/wow/news_detail_favor.png',
+                      );
+                    },
+                    likeCount: int.parse(
+                        controller.newsDetailModel.value.article.collection),
+                    countBuilder: (int count, bool isLiked, String text) {
+                      return Text(
+                        text,
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      );
+                    },
+                    onTap: (isLiked) =>
+                        controller.collectForArticleOrNot(isLiked),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -143,9 +273,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                   children: <Widget>[
                     //头像
                     GestureDetector(
-                      onTap: () {
-                        //TODO
-                      },
+                      onTap: () => controller.clickAvatar(model),
                       child: Stack(
                         children: <Widget>[
                           RoundAvatar(
@@ -196,9 +324,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                       height: 30,
                                       image:
                                           model.memberInfo.medalOrSaleImageName,
-                                      onPressed: () {
-                                        //TODO
-                                      },
+                                      onPressed: () => controller.clickMedal(),
                                     ),
                                   ),
                               ],
@@ -238,7 +364,17 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                       imageW: 20,
                       fontSize: 11,
                       onPressed: () {
-                        //TODO
+                        Get.dialog(
+                            BaseDialog(
+                              content: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 8.0),
+                                child: Text('是否确认删除评论',
+                                    style: TextStyle(fontSize: 16.0)),
+                              ),
+                              onConfirm: () => controller.deleteComment(model),
+                            ),
+                            barrierDismissible: false);
                       },
                     ),
                   ),
@@ -254,29 +390,105 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               crossAxisAlignment: CrossAxisAlignment.baseline,
               children: <Widget>[
                 Expanded(
-                  child: Text(
-                    model.content,
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
+                    child: RichText(
+                  text: TextSpan(
+                      text: model.content,
+                      style: TextStyle(fontSize: 15, color: Colors.black),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => controller.clickComment(model)),
+                )),
+                LikeButton(
+                  isLiked: false,
+                  size: 15,
+                  countPostion: CountPostion.bottom,
+                  circleColor: CircleColor(
+                      start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                  bubblesColor: BubblesColor(
+                    dotPrimaryColor: Color(0xff33b5e5),
+                    dotSecondaryColor: Color(0xff0099cc),
                   ),
-                ),
-                CustomButton(
-                  backgroundColor: Colors.transparent,
-                  width: 50,
-                  height: 30,
-                  titleColor: Color(0xFF999999),
-                  image: 'assets/images/wow/new_list_praise.png',
-                  imageH: 15,
-                  imageW: 20,
-                  fontSize: 11,
-                  onPressed: () {
-                    //TODO
+                  likeBuilder: (bool isLiked) {
+                    return Image.asset(
+                      isLiked
+                          ? 'assets/images/wow/news_detail_praise_yes.png'
+                          : 'assets/images/wow/news_detail_praise.png',
+                    );
                   },
-                )
+                  likeCount: 1005,
+                  countBuilder: (int count, bool isLiked, String text) {
+                    return Text(
+                      text,
+                      style: TextStyle(color: Colors.black, fontSize: 12),
+                    );
+                  },
+                  onTap: (isLiked) =>
+                      controller.praiseForCommentOrNot(isLiked, model),
+                ),
               ],
             ),
           ),
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 50),
+            color: Color(0xFFECECEC),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                ReplyModel replyModel = model.replyData[index];
+                return GestureDetector(
+                  onTap: () => controller.clickReplyComment(replyModel),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: RichText(
+                      text: TextSpan(children: <InlineSpan>[
+                        if (replyModel.isOfficial)
+                          WidgetSpan(
+                            child: Image.asset(
+                                'assets/images/wow/ve_offical_tag.png'),
+                          ),
+                        TextSpan(
+                          text: replyModel.plName,
+                          style: TextStyle(
+                              color: MainAppColor.mainBlueBgColor,
+                              fontSize: 11),
+                        ),
+                        TextSpan(
+                          text: '回复',
+                          style: TextStyle(color: Colors.black, fontSize: 11),
+                        ),
+                        TextSpan(
+                          text: replyModel.replyName,
+                          style: TextStyle(
+                              color: MainAppColor.mainBlueBgColor,
+                              fontSize: 11),
+                        ),
+                        TextSpan(
+                          text: '：${replyModel.content}',
+                          style: TextStyle(color: Colors.black, fontSize: 11),
+                        ),
+                      ]),
+                    ),
+                  ),
+                );
+              },
+              itemCount: model.replyData.length,
+            ),
+          ),
+          // Offstage(
+          //   offstage: model.replyData.length <= 2,
+          //   child: Container(
+          //     margin: const EdgeInsets.only(top: 10, left: 50),
+          //     child: CustomButton(
+          //       backgroundColor: Colors.transparent,
+          //       width: 40,
+          //       title: '全文',
+          //       titleColor: MainAppColor.mainBlueBgColor,
+          //       onPressed: () {
+          //         //TODO
+          //       },
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

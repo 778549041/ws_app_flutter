@@ -102,6 +102,8 @@ dependencies:
   # 加载html文本
   flutter_html: 
     path: plugins/flutter_html
+  # 点赞按钮
+  like_button: ^1.0.4
 
   #打开第三方应用
   url_launcher: ^5.7.10

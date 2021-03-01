@@ -21,6 +21,7 @@ class CustomTextField extends StatefulWidget {
   final String text;
   final String hintText;
   final TextInputType keyboardType; //键盘类型，默认文字
+  final TextInputAction inputAction;//提交按钮类型
   final FocusNode focusNode;
   final Widget leftWidget; //左侧widget ，默认隐藏
   final Widget rightWidget; //右侧widget ，默认隐藏
@@ -40,6 +41,7 @@ class CustomTextField extends StatefulWidget {
     Key key,
     this.text: '',
     this.keyboardType: TextInputType.text,
+    this.inputAction: TextInputAction.done,
     this.hintText: '请输入',
     this.focusNode,
     this.leftWidget,
@@ -88,6 +90,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       style: widget.textStyle,
       textAlign: widget.textAlign,
+      textInputAction: widget.inputAction,
       minLines: widget.maxLines != null ? widget.maxLines : 1,
       maxLines: widget.maxLines != null ? widget.maxLines : _maxLines,
       maxLength: widget.showMaxLength == true ? widget.maxLength : null,

@@ -8,6 +8,7 @@ class CommonModel {
   String imageId;
   bool status;
   String datas;
+  bool res;
 
   CommonModel(
       {this.success,
@@ -18,7 +19,7 @@ class CommonModel {
       this.message,
       this.imageId,
       this.status,
-      this.datas});
+      this.datas,this.res});
 
   CommonModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -30,5 +31,6 @@ class CommonModel {
     imageId = json['image_id'];
     status = json['status'];
     datas = json['datas'];
+    res = json['res'];
   }
 }

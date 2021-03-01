@@ -22,7 +22,8 @@ class SelectIntreController extends BaseController {
     IntresModel obj = await DioManager()
         .request<IntresModel>(DioManager.GET, Api.intrestListUrl);
     allIntres.addAll(obj.list);
-    selectIntres.addAll(Get.find<UserController>().userInfo.value.member.interest);
+    selectIntres
+        .addAll(Get.find<UserController>().userInfo.value.member.interest);
     for (var select in selectIntres) {
       for (var item in allIntres) {
         if (item.name == select) {
@@ -56,18 +57,20 @@ class SelectIntreController extends BaseController {
   void jumpToNext() {
     print('object');
     if (Get.find<UserController>().userInfo.value.member.isVehicle == 'false') {
-      Get.dialog(BaseDialog(
-        title: '提示',
-        content: Text('您还不是车主，请先认证'),
-        rightText: '马上认证',
-        onCancel: () {
-          Get.offAllNamed(Routes.HOME);
-          Get.find<UserController>().requestIMInfoAndLogin();
-        },
-        onConfirm: () {
-          Get.find<UserController>().certifyVechile();
-        },
-      ));
+      Get.dialog(
+          BaseDialog(
+            title: '提示',
+            content: Text('您还不是车主，请先认证'),
+            rightText: '马上认证',
+            onCancel: () {
+              Get.offAllNamed(Routes.HOME);
+              Get.find<UserController>().requestIMInfoAndLogin();
+            },
+            onConfirm: () {
+              Get.find<UserController>().certifyVechile();
+            },
+          ),
+          barrierDismissible: false);
     } else {
       Get.offAllNamed(Routes.HOME);
       Get.find<UserController>().requestIMInfoAndLogin();

@@ -33,23 +33,28 @@ class CommonUtil {
 
   //非车主用户操作车主功能弹框提示
   static void userNotVechileToast(String message) {
-    Get.dialog(BaseDialog(
-      title: '提示',
-      rightText: '马上认证',
-      content: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Text(message, style: TextStyle(fontSize: 16.0)),
-      ),
-      onConfirm: () {
-        Get.find<UserController>().certifyVechile();
-      },
-    ));
+    Get.dialog(
+        BaseDialog(
+          title: '提示',
+          rightText: '马上认证',
+          content: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(message, style: TextStyle(fontSize: 16.0)),
+          ),
+          onConfirm: () {
+            Get.find<UserController>().certifyVechile();
+          },
+        ),
+        barrierDismissible: false);
   }
 
   //服务端接口控制跳转页面
   static void serviceControlPushPage(
-    //TODO
-      {String type, String detailId, String url, bool hasNav}) {
+      //TODO
+      {String type,
+      String detailId,
+      String url,
+      bool hasNav}) {
     if (type == 'H5' && url.length > 0) {
       Get.toNamed(Routes.WEBVIEW, arguments: {
         'url': url,
