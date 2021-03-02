@@ -93,6 +93,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
             builder: EasyLoading.init(
               builder: (context, child) {
                 return Scaffold(
+                  resizeToAvoidBottomInset: false,
                   body: GestureDetector(
                     onTap: () {
                       Get.focusScope.unfocus();

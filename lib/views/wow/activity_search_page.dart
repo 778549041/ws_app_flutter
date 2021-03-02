@@ -19,6 +19,7 @@ class ActivitySearchPage extends GetView<ActivitySearchController> {
         alignment: Alignment.center,
         height: 40,
         child: CustomTextField(
+          inputAction: TextInputAction.search,
           leftWidget: Image.asset(
             'assets/images/wow/map_search.png',
             scale: 2.0,

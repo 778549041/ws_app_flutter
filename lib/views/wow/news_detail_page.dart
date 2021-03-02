@@ -11,18 +11,24 @@ import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
-import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class NewsDetailPage extends GetView<NewsDetailController> {
+class NewsDetailPage extends StatefulWidget {
+  @override
+  NewsDetailPageState createState() => NewsDetailPageState();
+}
+
+class NewsDetailPageState extends State<NewsDetailPage>
+    with WidgetsBindingObserver {
   final String articleId =
       Get.arguments == null ? null : Get.arguments['article_id'];
   final String cateStr =
       Get.arguments == null ? null : Get.arguments['cateStr'];
+  final NewsDetailController controller =
+      Get.put<NewsDetailController>(NewsDetailController());
 
   @override
   Widget build(BuildContext context) {
-    controller.articleId.value = articleId;
     return BasePage(
       title: '资讯',
       rightActions: <Widget>[
@@ -50,6 +56,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                 slivers: [
                   SliverToBoxAdapter(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15, 25, 15, 5),
@@ -132,16 +139,20 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                     alignment: Alignment.center,
                     height: 40,
                     child: Obx(
-                      () => CustomTextField(
+                      () => TextField(
+                        controller: controller.textEditingController,
                         focusNode: controller.focusNode,
-                        inputAction: TextInputAction.send,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(
-                                color: Color(0xFF999999), width: 0.5)),
-                        hintText: controller.placeholder.value,
-                        submitCallBack: (value) =>
+                        textInputAction: TextInputAction.send,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFF999999), width: 0.5)),
+                          hintText: controller.placeholder.value,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 8)
+                        ),
+                        onSubmitted: (value) =>
                             controller.sendComment(value),
                       ),
                     ),
@@ -436,7 +447,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               itemBuilder: (context, index) {
                 ReplyModel replyModel = model.replyData[index];
                 return GestureDetector(
-                  onTap: () => controller.clickReplyComment(replyModel),
+                  onTap: () => controller.clickReplyComment(model, replyModel),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: RichText(
@@ -492,5 +503,35 @@ class NewsDetailPage extends GetView<NewsDetailController> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    controller.articleId.value = articleId;
+    //初始化
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    //销毁
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (MediaQuery.of(context).viewInsets.bottom == 0) {
+        //关闭键盘
+        print('关闭键盘');
+        controller.placeholder.value = '我来说下~';
+      } else {
+        //显示键盘
+        print('显示键盘');
+      }
+    });
   }
 }

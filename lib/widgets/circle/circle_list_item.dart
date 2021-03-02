@@ -1,15 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
+import 'package:ws_app_flutter/utils/net_utils/api.dart';
+import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_topic_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/views/global/gallery_photo_browser.dart';
 import 'package:ws_app_flutter/views/global/video_play_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class CircleListItem extends GetView<RecommendController> {
+class CircleListItem extends StatelessWidget {
   final MomentModel model;
   final String pageName;
 
@@ -42,7 +53,8 @@ class CircleListItem extends GetView<RecommendController> {
     return GestureDetector(
       onTap: () {
         print('点击了圈子');
-        //TODO
+        Get.toNamed(Routes.CIRCLEDETAIL,
+            arguments: {'circle_id': model.circleId});
       },
       child: Container(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
@@ -64,7 +76,8 @@ class CircleListItem extends GetView<RecommendController> {
                           //头像
                           GestureDetector(
                             onTap: () {
-                              //TODO
+                              Get.toNamed(Routes.USERPROFILE,
+                                  arguments: {'user_id': model.memberId});
                             },
                             child: Stack(
                               children: <Widget>[
@@ -115,9 +128,7 @@ class CircleListItem extends GetView<RecommendController> {
                                             height: 30,
                                             image: model.memberInfo
                                                 .medalOrSaleImageName,
-                                            onPressed: () {
-                                              //TODO
-                                            },
+                                            onPressed: _clickMedal,
                                           ),
                                         ),
                                     ],
@@ -155,9 +166,7 @@ class CircleListItem extends GetView<RecommendController> {
                                 fontSize: 11,
                                 borderWidth: 0.5,
                                 radius: 11.5,
-                                onPressed: () {
-                                  //TODO
-                                },
+                                onPressed: _addFriend,
                               ),
                             ),
                           ),
@@ -176,7 +185,17 @@ class CircleListItem extends GetView<RecommendController> {
                               imageW: 20,
                               fontSize: 11,
                               onPressed: () {
-                                //TODO
+                                Get.dialog(
+                                    BaseDialog(
+                                      content: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.0, vertical: 8.0),
+                                        child: Text('是否确认删除动态',
+                                            style: TextStyle(fontSize: 16.0)),
+                                      ),
+                                      onConfirm: _deleteMoment,
+                                    ),
+                                    barrierDismissible: false);
                               },
                             ),
                           ),
@@ -194,7 +213,7 @@ class CircleListItem extends GetView<RecommendController> {
                               borderWidth: 0.5,
                               radius: 11.5,
                               onPressed: () {
-                                //TODO
+                                Get.toNamed(Routes.REPORT);
                               },
                             ),
                           ),
@@ -220,7 +239,8 @@ class CircleListItem extends GetView<RecommendController> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               print('点击话题');
-                              //TODO
+                              Get.toNamed(Routes.CIRCLTOPICLIST,
+                                  arguments: {'topcid': model.topicId});
                             },
                           children: [
                             TextSpan(
@@ -240,7 +260,7 @@ class CircleListItem extends GetView<RecommendController> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     print('点击跳转链接');
-                                    //TODO
+                                    CommonUtil.serviceControlPushPage();
                                   }),
                           ]),
                     ),
@@ -340,32 +360,41 @@ class CircleListItem extends GetView<RecommendController> {
                             height: 12,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 5),
+                            padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Text(
                               model.comment,
                               style: TextStyle(
                                   color: Color(0xFF666666), fontSize: 12),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: CustomButton(
-                              backgroundColor: Colors.transparent,
-                              width: 50,
-                              height: 30,
-                              image: 'assets/images/wow/new_list_praise.png',
-                              imageW: 13.5,
-                              imageH: 12,
-                              imagePosition:
-                                  XJImagePosition.XJImagePositionLeft,
-                              title: model.praise,
-                              fontSize: 12,
-                              titleColor: Color(0xFF666666),
-                              onPressed: () {
-                                //TODO
-                              },
+                          LikeButton(
+                            isLiked: model.praiseStatus,
+                            size: 15,
+                            circleColor: CircleColor(
+                                start: Color(0xff00ddff),
+                                end: Color(0xff0099cc)),
+                            bubblesColor: BubblesColor(
+                              dotPrimaryColor: Color(0xff33b5e5),
+                              dotSecondaryColor: Color(0xff0099cc),
                             ),
-                          )
+                            likeBuilder: (bool isLiked) {
+                              return Image.asset(
+                                isLiked
+                                    ? 'assets/images/wow/news_detail_praise_yes.png'
+                                    : 'assets/images/wow/new_list_praise.png',
+                              );
+                            },
+                            likeCount: int.parse(model.praise),
+                            countBuilder:
+                                (int count, bool isLiked, String text) {
+                              return Text(
+                                text,
+                                style: TextStyle(
+                                    color: Color(0xFF666666), fontSize: 12),
+                              );
+                            },
+                            onTap: (isLiked) => _clickLikeButton(isLiked),
+                          ),
                         ],
                       )
                     ],
@@ -388,5 +417,230 @@ class CircleListItem extends GetView<RecommendController> {
         ),
       ),
     );
+  }
+
+  void _clickMedal() {
+    //TODO
+  }
+
+  Future _addFriend() async {
+    CommonModel res = await DioManager().request<CommonModel>(
+        DioManager.POST, Api.circleAddFriendUrl,
+        params: {'member_id': model.memberId});
+    if (res.success != null) {
+      EasyLoading.showToast('已向该好友发送邀请，等待对方确认',
+          toastPosition: EasyLoadingToastPosition.bottom);
+    } else {
+      EasyLoading.showToast(res.error,
+          toastPosition: EasyLoadingToastPosition.bottom);
+    }
+  }
+
+  Future _deleteMoment() async {
+    CommonModel res = await DioManager().request<CommonModel>(
+        DioManager.POST, Api.circleDeleteMomentUrl,
+        params: {'cid': model.circleId});
+    if (res.list == 'true') {
+      //本地同步数据状态到上级资讯列表页面
+      //wow推荐圈子
+      if (Get.find<RecommendController>()
+          .momentListModel
+          .value
+          .list
+          .contains(model)) {
+        Get.find<RecommendController>()
+            .momentListModel
+            .value
+            .list
+            .remove(model);
+      }
+      //圈子列表
+      if (Get.find<CircleController>().list.contains(model)) {
+        Get.find<CircleController>().list.remove(model);
+      }
+      //话题圈子列表
+      if (Get.isRegistered<CircleTopicListController>() &&
+          Get.find<CircleTopicListController>().list.contains(model)) {
+        Get.find<CircleTopicListController>().list.remove(model);
+      }
+      //个人圈子列表
+      if (Get.isRegistered<SingleUserCircleController>() &&
+          Get.find<SingleUserCircleController>().list.contains(model)) {
+        Get.find<SingleUserCircleController>().list.remove(model);
+      }
+    } else {
+      EasyLoading.showToast(res.error,
+          toastPosition: EasyLoadingToastPosition.bottom);
+    }
+  }
+
+  Future<bool> _clickLikeButton(bool isLiked) async {
+    if (isLiked) {
+      //已点赞，再次点击取消点赞
+      CommonModel result = await DioManager().request<CommonModel>(
+          DioManager.POST, Api.circleMomentUnPraiseUrl,
+          params: {'cid': model.circleId});
+      if (result.res) {
+        //本地同步数据状态到上级资讯列表页面
+        //wow推荐圈子
+        for (var i = 0;
+            i <
+                Get.find<RecommendController>()
+                    .momentListModel
+                    .value
+                    .list
+                    .length;
+            i++) {
+          MomentModel momentModel =
+              Get.find<RecommendController>().momentListModel.value.list[i];
+          if (momentModel.circleId == model.circleId) {
+            Get.find<RecommendController>()
+                .momentListModel
+                .value
+                .list
+                .remove(momentModel);
+            momentModel.praiseStatus = false;
+            momentModel.praise = (int.parse(momentModel.praise) - 1).toString();
+            Get.find<RecommendController>()
+                .momentListModel
+                .value
+                .list
+                .insert(i, momentModel);
+          }
+        }
+        //圈子列表
+        for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+          MomentModel momentModel = Get.find<CircleController>().list[i];
+          if (momentModel.circleId == model.circleId) {
+            Get.find<CircleController>().list.remove(momentModel);
+            momentModel.praiseStatus = false;
+            momentModel.praise = (int.parse(momentModel.praise) - 1).toString();
+            Get.find<CircleController>().list.insert(i, momentModel);
+          }
+        }
+        //话题圈子列表
+        if (Get.isRegistered<CircleTopicListController>()) {
+          for (var i = 0;
+              i < Get.find<CircleTopicListController>().list.length;
+              i++) {
+            MomentModel momentModel =
+                Get.find<CircleTopicListController>().list[i];
+            if (momentModel.circleId == model.circleId) {
+              Get.find<CircleTopicListController>().list.remove(momentModel);
+              momentModel.praiseStatus = false;
+              momentModel.praise =
+                  (int.parse(momentModel.praise) - 1).toString();
+              Get.find<CircleTopicListController>().list.insert(i, momentModel);
+            }
+          }
+        }
+        //个人圈子列表
+        if (Get.isRegistered<SingleUserCircleController>()) {
+          for (var i = 0;
+              i < Get.find<SingleUserCircleController>().list.length;
+              i++) {
+            MomentModel momentModel =
+                Get.find<SingleUserCircleController>().list[i];
+            if (momentModel.circleId == model.circleId) {
+              Get.find<SingleUserCircleController>().list.remove(momentModel);
+              momentModel.praiseStatus = false;
+              momentModel.praise =
+                  (int.parse(momentModel.praise) - 1).toString();
+              Get.find<SingleUserCircleController>()
+                  .list
+                  .insert(i, momentModel);
+            }
+          }
+        }
+        return !isLiked;
+      } else {
+        EasyLoading.showToast(result.error,
+            toastPosition: EasyLoadingToastPosition.bottom);
+        return true;
+      }
+    } else {
+      //未点赞，点击点赞
+      CommonModel result = await DioManager().request<CommonModel>(
+          DioManager.POST, Api.circleMomentPraiseUrl,
+          params: {'cid': model.circleId});
+      if (result.res) {
+        //本地同步数据状态到上级资讯列表页面
+        //wow推荐圈子
+        for (var i = 0;
+            i <
+                Get.find<RecommendController>()
+                    .momentListModel
+                    .value
+                    .list
+                    .length;
+            i++) {
+          MomentModel momentModel =
+              Get.find<RecommendController>().momentListModel.value.list[i];
+          if (momentModel.circleId == model.circleId) {
+            Get.find<RecommendController>()
+                .momentListModel
+                .value
+                .list
+                .remove(momentModel);
+            momentModel.praiseStatus = true;
+            momentModel.praise = (int.parse(momentModel.praise) + 1).toString();
+            Get.find<RecommendController>()
+                .momentListModel
+                .value
+                .list
+                .insert(i, momentModel);
+          }
+        }
+        //圈子列表
+        for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+          MomentModel momentModel = Get.find<CircleController>().list[i];
+          if (momentModel.circleId == model.circleId) {
+            Get.find<CircleController>().list.remove(momentModel);
+            momentModel.praiseStatus = true;
+            momentModel.praise = (int.parse(momentModel.praise) + 1).toString();
+            Get.find<CircleController>().list.insert(i, momentModel);
+          }
+        }
+        //话题圈子列表
+        if (Get.isRegistered<CircleTopicListController>()) {
+          for (var i = 0;
+              i < Get.find<CircleTopicListController>().list.length;
+              i++) {
+            MomentModel momentModel =
+                Get.find<CircleTopicListController>().list[i];
+            if (momentModel.circleId == model.circleId) {
+              Get.find<CircleTopicListController>().list.remove(momentModel);
+              momentModel.praiseStatus = true;
+              momentModel.praise =
+                  (int.parse(momentModel.praise) + 1).toString();
+              Get.find<CircleTopicListController>().list.insert(i, momentModel);
+            }
+          }
+        }
+        //个人圈子列表
+        if (Get.isRegistered<SingleUserCircleController>()) {
+          for (var i = 0;
+              i < Get.find<SingleUserCircleController>().list.length;
+              i++) {
+            MomentModel momentModel =
+                Get.find<SingleUserCircleController>().list[i];
+            if (momentModel.circleId == model.circleId) {
+              Get.find<SingleUserCircleController>().list.remove(momentModel);
+              momentModel.praiseStatus = true;
+              momentModel.praise =
+                  (int.parse(momentModel.praise) + 1).toString();
+              Get.find<SingleUserCircleController>()
+                  .list
+                  .insert(i, momentModel);
+            }
+          }
+        }
+        return !isLiked;
+      } else {
+        EasyLoading.showToast(result.error,
+            toastPosition: EasyLoadingToastPosition.bottom);
+        return false;
+      }
+    }
   }
 }

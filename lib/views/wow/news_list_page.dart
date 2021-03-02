@@ -54,6 +54,8 @@ class NewsListPage extends GetView<NewsController> {
                                   CachedNetworkImage(
                                     imageUrl: _model.image,
                                     fit: BoxFit.cover,
+                                    width: (Get.width - 35)/2,
+                                    height: (Get.width - 35)*6/17,
                                   ),
                                   Positioned(
                                     left: 0,
@@ -86,6 +88,7 @@ class NewsListPage extends GetView<NewsController> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 5,
+                        mainAxisSpacing: 0,
                         childAspectRatio: 17 / 12,
                       ),
                     ),

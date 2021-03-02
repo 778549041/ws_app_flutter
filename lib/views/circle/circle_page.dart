@@ -44,10 +44,7 @@ class CirclePage extends GetView<CircleController> {
                       height: 15,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        print('圈子搜索');
-                        //TODO
-                      },
+                      onTap: () => controller.buttonAction(1000),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
@@ -69,9 +66,7 @@ class CirclePage extends GetView<CircleController> {
                   image: 'assets/images/mine/mine_add_friend.png',
                   imageW: 23,
                   imageH: 22,
-                  onPressed: () {
-                    //TODO
-                  },
+                  onPressed: () => controller.buttonAction(1001),
                 ),
               ),
             ],

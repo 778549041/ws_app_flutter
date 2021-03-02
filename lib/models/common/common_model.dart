@@ -9,6 +9,7 @@ class CommonModel {
   bool status;
   String datas;
   bool res;
+  String list;
 
   CommonModel(
       {this.success,
@@ -19,7 +20,9 @@ class CommonModel {
       this.message,
       this.imageId,
       this.status,
-      this.datas,this.res});
+      this.datas,
+      this.res,
+      this.list});
 
   CommonModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -32,5 +35,6 @@ class CommonModel {
     status = json['status'];
     datas = json['datas'];
     res = json['res'];
+    list = json['list'].toString();
   }
 }

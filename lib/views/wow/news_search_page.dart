@@ -20,6 +20,7 @@ class NewsSearchPage extends GetView<NewsSearchController> {
         alignment: Alignment.center,
         height: 40,
         child: CustomTextField(
+          inputAction: TextInputAction.search,
           leftWidget: Image.asset(
             'assets/images/wow/map_search.png',
             scale: 2.0,

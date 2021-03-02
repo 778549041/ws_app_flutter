@@ -31,6 +31,22 @@ class CommonUtil {
     return new RegExp("([0-9])\1{1}").hasMatch(input);
   }
 
+  //检查字符串是否包含url地址
+  static bool containsLink(String source) {
+    if (source == null || source.isEmpty) return false;
+    return new RegExp(
+            r"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)")
+        .hasMatch(source);
+  }
+
+  //检查字符串是否为空或全为空格
+  static bool isBlank(String source) {
+    if (source == null || source.isEmpty) return true;
+    source = source.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
+    if (source.length == 0) return true;
+    return false;
+  }
+
   //非车主用户操作车主功能弹框提示
   static void userNotVechileToast(String message) {
     Get.dialog(
