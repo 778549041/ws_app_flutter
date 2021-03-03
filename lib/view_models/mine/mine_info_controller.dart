@@ -7,10 +7,12 @@ import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
+import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
 
@@ -66,11 +68,17 @@ class MineInfoController extends GetxController {
       CustomSheet(
         title: '图片选择',
         dataArr: ['去拍照', '从相册选择'],
-        clickCallback: (selectIndex, selectText) {
+        clickCallback: (selectIndex, selectText) async {
           if (selectIndex == 1) {
-            uploadAvatar(ImageSource.camera);
+            if (await PermissionManager()
+                .requestPermission(Permission.camera)) {
+              uploadAvatar(ImageSource.camera);
+            }
           } else if (selectIndex == 2) {
-            uploadAvatar(ImageSource.gallery);
+            if (await PermissionManager()
+                .requestPermission(Permission.photos)) {
+              uploadAvatar(ImageSource.gallery);
+            }
           }
         },
       ), //设置圆角

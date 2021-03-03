@@ -206,7 +206,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                     title:
                         controller.newsDetailModel.value.article.commentCount,
                     fontSize: 12,
-                    onPressed: () => controller.clickArticlePraiseBtn(),
+                    onPressed: () => controller.clickArticleCommentBtn(),
                   ),
                 ),
                 SizedBox(
@@ -425,7 +425,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                           : 'assets/images/wow/news_detail_praise.png',
                     );
                   },
-                  likeCount: 1005,
+                  likeCount: int.parse(model.praiseNum),
                   countBuilder: (int count, bool isLiked, String text) {
                     return Text(
                       text,

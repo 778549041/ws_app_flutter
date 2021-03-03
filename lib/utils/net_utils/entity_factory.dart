@@ -1,6 +1,7 @@
 import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
+import 'package:ws_app_flutter/models/circle/moment_comment_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
@@ -108,6 +109,8 @@ class EntityFactory {
      return NewsTagListModel.fromJson(json) as T;
    } else if (T.toString() == 'NewsCommentListModel') {
      return NewsCommentListModel.fromJson(json) as T;
+   } else if (T.toString() == 'MomentCommentListModel') {
+     return MomentCommentListModel.fromJson(json) as T;
    } 
    else {
       return json as T;

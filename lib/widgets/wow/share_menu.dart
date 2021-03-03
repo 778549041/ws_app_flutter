@@ -8,11 +8,13 @@ import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 class ShareMenuWidget extends StatelessWidget {
   final bool isCircle; //是否是分享圈子
   final bool showWeibo; //是否隐藏微博
+  final String shareType;//分享类型
   final Map<String, dynamic> shareData; //待分享的数据
   final Map<String, dynamic> extraData; //易观统计所需数据
   ShareMenuWidget(
       {this.isCircle = false,
       this.showWeibo = true,
+      this.shareType,
       this.shareData,
       this.extraData});
 

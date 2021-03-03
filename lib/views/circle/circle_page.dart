@@ -1,3 +1,4 @@
+import 'package:draggable_floating_button/draggable_floating_button.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,33 +29,33 @@ class CirclePage extends GetView<CircleController> {
           height: 40,
           child: Row(
             children: <Widget>[
-              Container(
-                width: Get.width - 85,
-                height: 35,
-                padding: const EdgeInsets.only(left: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/wow/icon_search_grey.png',
-                      width: 15,
-                      height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () => controller.buttonAction(1000),
-                      child: Padding(
+              GestureDetector(
+                onTap: () => controller.buttonAction(1000),
+                child: Container(
+                  width: Get.width - 85,
+                  height: 35,
+                  padding: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/wow/icon_search_grey.png',
+                        width: 15,
+                        height: 15,
+                      ),
+                      Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
                           '大家都在搜“VE-1新车发布”',
                           style:
                               TextStyle(color: Color(0xFF999999), fontSize: 12),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               Padding(
@@ -73,7 +74,8 @@ class CirclePage extends GetView<CircleController> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 60),
+          margin: EdgeInsets.only(
+              top: ScreenUtil.getInstance().statusBarHeight + 60),
           decoration: BoxDecoration(
               color: Color(0xFFF3F3F3),
               borderRadius: BorderRadius.only(
@@ -151,7 +153,17 @@ class CirclePage extends GetView<CircleController> {
               ),
             ),
           ),
-        )
+        ),
+        DraggableFloatingActionButton(
+            data: 'dfab_demo',
+            offset: new Offset(100, 100),
+            backgroundColor: Theme.of(context).accentColor,
+            child: new Icon(
+              Icons.wb_incandescent,
+              color: Colors.yellow,
+            ),
+            onPressed: () => controller.buttonAction(1002),
+            appContext: context),
       ],
     );
   }

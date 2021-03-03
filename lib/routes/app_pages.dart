@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/add_friend_controller.dart';
-import 'package:ws_app_flutter/view_models/circle/circle_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_publish_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_search_controller.dart';
@@ -357,12 +356,7 @@ abstract class AppPages {
           Get.lazyPut<FriendsController>(() => FriendsController());
         })),
     //圈子详情
-    GetPage(
-        name: Routes.CIRCLEDETAIL,
-        page: () => CircleDetailPage(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut<CircleDetailController>(() => CircleDetailController());
-        })),
+    GetPage(name: Routes.CIRCLEDETAIL, page: () => CircleDetailPage()),
     //圈子消息中心
     GetPage(
         name: Routes.CIRCLMSG,
@@ -374,6 +368,7 @@ abstract class AppPages {
     GetPage(
         name: Routes.CIRCLPUBLISH,
         page: () => CirclePublishPage(),
+        transition: Transition.downToUp,
         binding: BindingsBuilder(() {
           Get.lazyPut<CirclePublishController>(() => CirclePublishController());
         })),

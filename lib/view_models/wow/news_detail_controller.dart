@@ -367,8 +367,8 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
     }
   }
 
-  //点击输入栏旁边的点赞按钮
-  void clickArticlePraiseBtn() {
+  //点击输入栏旁边的评论按钮
+  void clickArticleCommentBtn() {
     Get.focusScope.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
       Get.focusScope.requestFocus(focusNode);
@@ -457,6 +457,8 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
         commentModel.userId =
             Get.find<UserController>().userInfo.value.member.memberId;
         commentModel.isOfficial = false;
+        commentModel.praiseNum = '0';
+        commentModel.praiseStatus = false;
         commentModel.replyData = [];
         list.insert(0, commentModel);
       } else {

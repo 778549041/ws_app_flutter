@@ -34,6 +34,8 @@ class CircleController extends RefreshListController<MomentModel> {
     } else if (index == 1001) {
       //添加好友
       Get.toNamed(Routes.ADDFRIEND);
+    } else if (index == 1002) {
+      Get.toNamed(Routes.CIRCLPUBLISH);
     }
   }
 }

@@ -54,8 +54,8 @@ class NewsListPage extends GetView<NewsController> {
                                   CachedNetworkImage(
                                     imageUrl: _model.image,
                                     fit: BoxFit.cover,
-                                    width: (Get.width - 35)/2,
-                                    height: (Get.width - 35)*6/17,
+                                    width: (Get.width - 35) / 2,
+                                    height: (Get.width - 35) * 6 / 17,
                                   ),
                                   Positioned(
                                     left: 0,
@@ -131,31 +131,31 @@ class NewsListPage extends GetView<NewsController> {
           top: 0,
           left: 30,
           right: 30,
-          child: Container(
-            height: 35,
-            padding: const EdgeInsets.only(left: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Row(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/wow/icon_search_grey.png',
-                  width: 15,
-                  height: 15,
-                ),
-                GestureDetector(
-                  onTap: () => controller.clickSearch(),
-                  child: Padding(
+          child: GestureDetector(
+            onTap: () => controller.clickSearch(),
+            child: Container(
+              height: 35,
+              padding: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/wow/icon_search_grey.png',
+                    width: 15,
+                    height: 15,
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(
                       '大家都在搜“VE-1新车发布”',
                       style: TextStyle(color: Color(0xFF999999), fontSize: 12),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         )
