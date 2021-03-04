@@ -13,22 +13,15 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class NewsDetailPage extends StatefulWidget {
-  @override
-  NewsDetailPageState createState() => NewsDetailPageState();
-}
-
-class NewsDetailPageState extends State<NewsDetailPage>
-    with WidgetsBindingObserver {
+class NewsDetailPage extends GetView<NewsDetailController> {
   final String articleId =
       Get.arguments == null ? null : Get.arguments['article_id'];
   final String cateStr =
       Get.arguments == null ? null : Get.arguments['cateStr'];
-  final NewsDetailController controller =
-      Get.put<NewsDetailController>(NewsDetailController());
 
   @override
   Widget build(BuildContext context) {
+    controller.articleId.value = articleId;
     return BasePage(
       title: '资讯',
       rightActions: <Widget>[
@@ -503,35 +496,5 @@ class NewsDetailPageState extends State<NewsDetailPage>
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    controller.articleId.value = articleId;
-    //初始化
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    //销毁
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (MediaQuery.of(context).viewInsets.bottom == 0) {
-        //关闭键盘
-        print('关闭键盘');
-        controller.placeholder.value = '我来说下~';
-      } else {
-        //显示键盘
-        print('显示键盘');
-      }
-    });
   }
 }

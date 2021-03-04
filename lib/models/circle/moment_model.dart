@@ -114,7 +114,7 @@ class MomentModel {
     type = json['type'];
     comment = json['comment'].toString();
     examine = json['examine'];
-    praise = json['praise'];
+    praise = json['praise'] ?? '0';
     praiseStatus = json['praise_status'];
     avatar = json['avatar'] ?? '';
     nickname = json['nickname'];

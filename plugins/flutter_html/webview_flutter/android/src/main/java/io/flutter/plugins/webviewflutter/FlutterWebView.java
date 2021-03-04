@@ -121,8 +121,8 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     }
     if (params.containsKey("initialUrl")) {
       String url = (String) params.get("initialUrl");
-      if (params.containsKey("s_id")) {
-                String sid = (String) params.get("s_id");
+      if (params.containsKey("sid")) {
+                String sid = (String) params.get("sid");
 //                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 //                    CookieSyncManager.createInstance(context);
 //                }

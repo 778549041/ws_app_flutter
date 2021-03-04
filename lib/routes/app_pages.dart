@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/add_friend_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_publish_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_search_controller.dart';
@@ -38,6 +39,7 @@ import 'package:ws_app_flutter/view_models/wow/activity_search_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/cate_news_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/ele_list_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/near_dz_map_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/news_search_controller.dart';
 import 'package:ws_app_flutter/views/car/dz_introduce_page.dart';
 import 'package:ws_app_flutter/views/car/nav_map_page.dart';
@@ -326,7 +328,12 @@ abstract class AppPages {
               () => ActivitySearchController());
         })),
     //资讯详情
-    GetPage(name: Routes.NEWSDETAIL, page: () => NewsDetailPage()),
+    GetPage(
+        name: Routes.NEWSDETAIL,
+        page: () => NewsDetailPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<NewsDetailController>(() => NewsDetailController());
+        })),
     //好友详情
     GetPage(
         name: Routes.USERPROFILE,
@@ -356,7 +363,12 @@ abstract class AppPages {
           Get.lazyPut<FriendsController>(() => FriendsController());
         })),
     //圈子详情
-    GetPage(name: Routes.CIRCLEDETAIL, page: () => CircleDetailPage()),
+    GetPage(
+        name: Routes.CIRCLEDETAIL,
+        page: () => CircleDetailPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<CircleDetailController>(() => CircleDetailController());
+        })),
     //圈子消息中心
     GetPage(
         name: Routes.CIRCLMSG,

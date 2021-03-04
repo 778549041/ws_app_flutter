@@ -5,7 +5,9 @@ import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
-class UnOwnCarWidget extends GetView<CarController> {
+class UnOwnCarWidget extends StatelessWidget {
+  final CarController controller = Get.put<CarController>(CarController());
+  
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

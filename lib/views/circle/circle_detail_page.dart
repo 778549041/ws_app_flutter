@@ -18,23 +18,17 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class CircleDetailPage extends StatefulWidget {
-  @override
-  CircleDetailPageState createState() => CircleDetailPageState();
-}
-
-class CircleDetailPageState extends State<CircleDetailPage>
-    with WidgetsBindingObserver {
+class CircleDetailPage extends GetView<CircleDetailController> {
   final String circleId =
       Get.arguments == null ? null : Get.arguments['circle_id']; //圈子id
   final String commentId = Get.arguments == null
       ? null
       : Get.arguments['commentId'] ?? ''; //需要置顶的评论id
-  final CircleDetailController controller =
-      Get.put<CircleDetailController>(CircleDetailController());
 
   @override
   Widget build(BuildContext context) {
+    controller.circleId.value = circleId;
+    controller.commentId.value = commentId;
     return BasePage(
       title: '圈子正文',
       rightActions: <Widget>[
@@ -701,36 +695,5 @@ class CircleDetailPageState extends State<CircleDetailPage>
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    controller.circleId.value = circleId;
-    controller.commentId.value = commentId;
-    //初始化
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    //销毁
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (MediaQuery.of(context).viewInsets.bottom == 0) {
-        //关闭键盘
-        print('关闭键盘');
-        controller.placeholder.value = '我来说下~';
-      } else {
-        //显示键盘
-        print('显示键盘');
-      }
-    });
   }
 }

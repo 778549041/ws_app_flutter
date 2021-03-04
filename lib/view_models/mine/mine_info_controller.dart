@@ -101,6 +101,9 @@ class MineInfoController extends GetxController {
   //上传头像
   Future uploadAvatar(ImageSource source) async {
     var _image = await ImagePicker().getImage(source: source);
+    if (_image == null) {
+      return;
+    }
     List bytes = await _image.readAsBytes();
     String bs64 = base64Encode(bytes);
     String bs64Image = "data:image/png;base64," + bs64;

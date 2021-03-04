@@ -117,7 +117,12 @@ class NearDZMapController extends GetxController {
   // 地图创建完成回调
   Future onMapCreated(AmapController controller) async {
     mapController = controller;
-    // requestPermission是权限请求方法, 需要你自己实现
+    await initData();
+  }
+
+  //初始化数据
+  Future initData() async {
+// requestPermission是权限请求方法, 需要你自己实现
     // 如果不知道怎么处理, 可以参考example工程的实现, example工程依赖了`permission_handler`插件.
     if (await PermissionManager().requestPermission(Permission.location)) {
       await mapController?.showMyLocation(MyLocationOption(
@@ -174,8 +179,10 @@ class NearDZMapController extends GetxController {
           info: _model.list,
           jumpListCallback: () {
             Get.back();
-            Get.toNamed(Routes.NEARDZLIST,
-                arguments: {'stationID': stationID,'serviceType':serviceType});
+            Get.toNamed(Routes.NEARDZLIST, arguments: {
+              'stationID': stationID,
+              'serviceType': serviceType
+            });
           },
           mapNavCallback: () => callThirdMap(currenSelecttLatLng.longitude,
               currenSelecttLatLng.latitude, currentSelectTitle),
