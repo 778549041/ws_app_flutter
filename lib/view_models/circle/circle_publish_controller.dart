@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
 
 class CirclePublishController extends GetxController {
   TextEditingController textEditingController;
@@ -23,7 +25,9 @@ class CirclePublishController extends GetxController {
   }
 
   //点击发布按钮
-  Future publishMoment() async {}
+  Future publishMoment() async {
+    //TODO
+  }
 
   //输入内容变化
   void onInputChange(String input) {
@@ -37,15 +41,20 @@ class CirclePublishController extends GetxController {
       currentIndex: index,
       assets: selectedAssets,
       themeData: AssetPicker.themeData(Colors.black),
-      // previewThumbSize: previewThumbSize,
       specialPickerType: assetEntity.type == AssetType.video
           ? SpecialPickerType.wechatMoment
           : null,
     );
   }
 
+  void deleteAsset(int index) {
+    selectedAssets.removeAt(index);
+  }
+
   //删除当前话题
-  void deleteCurrentTopic() {}
+  void deleteCurrentTopic() {
+    topicModel.value = TopicModel();
+  }
 
   //选择图片或者视频
   Future clickPickAsset() async {
@@ -55,14 +64,52 @@ class CirclePublishController extends GetxController {
         customItemBuilder: (context) {
       return CustomButton(
         backgroundColor: Colors.red,
-        onPressed: () {},
+        onPressed: () {
+          Get.bottomSheet(
+            CustomSheet(
+              dataArr: ['拍摄照片', '拍摄视频'],
+              clickCallback: (selectIndex, selectText) async {
+                if (selectIndex == 0) {
+                  return;
+                }
+                if (selectIndex == 1) {
+                  var _image =
+                      await ImagePicker().getImage(source: ImageSource.camera);
+                  if (_image == null) {
+                    return;
+                  }
+                } else if (selectIndex == 2) {
+                  var _image = await ImagePicker().getVideo(
+                      source: ImageSource.camera,
+                      maxDuration: Duration(seconds: 15));
+                  if (_image == null) {
+                    return;
+                  }
+                }
+              },
+            ), //设置圆角
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
+            // 抗锯齿
+            clipBehavior: Clip.antiAlias,
+          );
+        },
       );
     }, customItemPosition: CustomItemPosition.append);
+    if (result == null) {
+      return;
+    }
     selectedAssets.addAll(result);
   }
 
   //选择话题
   void clickSelectTopic() {
-    Get.toNamed(Routes.TOPICLIST);
+    Get.toNamed(Routes.TOPICLIST).then((value) {
+      topicModel.value = value;
+    });
   }
 }

@@ -34,8 +34,7 @@ class ConversationController extends ListController<V2TimConversation> {
       if (value.code == 0) {
         EasyLoading.showToast('删除成功',
             toastPosition: EasyLoadingToastPosition.bottom);
-        list
-            .removeWhere((element) => element.conversationID == conversitionId);
+        list.removeWhere((element) => element.conversationID == conversitionId);
       } else {
         EasyLoading.showToast('删除失败 ${value.code} ${value.desc}',
             toastPosition: EasyLoadingToastPosition.bottom);
@@ -45,6 +44,9 @@ class ConversationController extends ListController<V2TimConversation> {
 
   //点击某个会话跳转聊天界面
   void clickConversation(V2TimConversation conversition) {
-    Get.toNamed(Routes.CHAT,arguments: {'conversition':conversition});
+    Get.toNamed(Routes.CHAT, arguments: {
+      'userId': conversition.userID,
+      'showName': conversition.showName,
+    });
   }
 }

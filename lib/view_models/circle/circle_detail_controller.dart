@@ -142,6 +142,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
         HtmlUrls.CircleMomentDetailPage +
         '?cid=${momentDetailModel.value.list.circleId}';
     Get.bottomSheet(ShareMenuWidget(
+      isCircle: true,
       shareData: shareParams,
     ));
   }

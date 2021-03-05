@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
@@ -72,6 +73,10 @@ class ShareMenuWidget extends StatelessWidget {
 
   Future shareWithData(int index) async {
     Get.back();
+    if (index == 3) {
+      Get.toNamed(Routes.REPORT);
+      return;
+    }
     ShareSDKPlatform platform;
     String share_method;
     SSDKMap params;

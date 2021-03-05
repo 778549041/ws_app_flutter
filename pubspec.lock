@@ -218,13 +218,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.10"
-  draggable_floating_button:
-    dependency: "direct main"
-    description:
-      name: draggable_floating_button
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.1"
   expandable_text:
     dependency: "direct main"
     description:

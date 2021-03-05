@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_conversation.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
@@ -9,13 +8,14 @@ import 'package:ws_app_flutter/widgets/chat/msgInput.dart';
 import 'package:ws_app_flutter/widgets/chat/sendMsg.dart';
 
 class ChatPage extends GetView<ChatController> {
-  final V2TimConversation conversition = Get.arguments['conversition']; //用户聊天信息
+  final String userId = Get.arguments['userId'];//用户聊天信息
+  final String showName = Get.arguments['showName'];
 
   @override
   Widget build(BuildContext context) {
-    controller.userID = conversition.userID;
+    controller.userID = userId;
     return BasePage(
-      title: conversition.showName,
+      title: showName,
       child: Column(
         children: [
           Expanded(
@@ -40,7 +40,7 @@ class ChatPage extends GetView<ChatController> {
               ),
             ),
           ),
-          MsgInput(conversition.userID,1),
+          MsgInput(userId,1),
         ],
       ),
     );

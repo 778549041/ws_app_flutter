@@ -1,4 +1,3 @@
-import 'package:draggable_floating_button/draggable_floating_button.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:ws_app_flutter/view_models/circle/circle_controller.dart';
 import 'package:ws_app_flutter/widgets/circle/circle_list_item.dart';
 import 'package:ws_app_flutter/widgets/circle/circle_topic.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/draggable_button.dart';
 
 class CirclePage extends GetView<CircleController> {
   @override
@@ -154,15 +154,13 @@ class CirclePage extends GetView<CircleController> {
             ),
           ),
         ),
-        DraggableFloatingActionButton(
+        DraggableButton(
             data: 'dfab_demo',
-            offset: new Offset(100, 100),
-            backgroundColor: Theme.of(context).accentColor,
-            child: new Icon(
-              Icons.wb_incandescent,
-              color: Colors.yellow,
-            ),
+            offset: Offset(Get.width - 56,
+                Get.height - Get.bottomBarHeight - 154),
+            child: Image.asset('assets/images/circle/circle_publish.png'),
             onPressed: () => controller.buttonAction(1002),
+            bottomBarHeight: 54,
             appContext: context),
       ],
     );

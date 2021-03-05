@@ -56,7 +56,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                       child: TextField(
                         controller: TextEditingController(),
                         focusNode: FocusNode(),
-                        maxLength: 3000,
+                        maxLength: 5000,
                         maxLines: 10,
                         style: TextStyle(fontSize: 15),
                         textInputAction: TextInputAction.send,
@@ -79,8 +79,8 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        mainAxisSpacing: 0,
-                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
                       ),
                       itemCount: controller.selectedAssets.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -88,37 +88,33 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                         final AssetEntityImageProvider imageProvider =
                             AssetEntityImageProvider(item, isOriginal: false);
                         return GestureDetector(
-                          onTap: () => controller.clickItem(index,item),
-                          child: Container(
-                            width: (Get.width - 50) / 3,
-                            height: (Get.width - 50) / 3,
-                            color: Colors.red,
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 8.5, right: 8.5, left: 0, bottom: 0),
-                                  child: Image(
-                                    image: imageProvider,
-                                    width: (Get.width - 50) / 3 - 8.5,
-                                    height: (Get.width - 50) / 3 - 8.5,
-                                    fit: BoxFit.cover,
-                                  ),
+                          onTap: () => controller.clickItem(index, item),
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    top: 8.5, right: 8.5, left: 0, bottom: 0),
+                                child: Image(
+                                  image: imageProvider,
+                                  width: (Get.width - 40) / 3 - 8.5,
+                                  height: (Get.width - 40) / 3 - 8.5,
+                                  fit: BoxFit.fill,
                                 ),
-                                Positioned(
-                                  top: -10,
-                                  right: 0,
-                                  child: IconButton(
-                                    color: Colors.grey,
-                                    icon: Icon(
-                                      Icons.close,
-                                      size: 17,
-                                    ),
-                                    onPressed: () {},
-                                  ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: CustomButton(
+                                  backgroundColor: Colors.transparent,
+                                  image:
+                                      'assets/images/circle/circle_delete_image.png',
+                                  imageH: 17,
+                                  imageW: 17,
+                                  onPressed: () =>
+                                      controller.deleteAsset(index),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         );
                       },

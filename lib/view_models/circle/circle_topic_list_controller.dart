@@ -1,5 +1,6 @@
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
@@ -37,5 +38,10 @@ class CircleTopicListController extends RefreshListController<MomentModel> {
     topicDetailModel.value = await DioManager().request<SingleTopicodel>(
         DioManager.GET, Api.circleTopicDetailUrl,
         queryParamters: {'cid': topicId.value});
+  }
+
+  void pushToPublish() {
+    Get.toNamed(Routes.CIRCLPUBLISH,
+        arguments: {'model': topicDetailModel.value.list});
   }
 }

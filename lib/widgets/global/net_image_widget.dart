@@ -9,7 +9,11 @@ class NetImageWidget extends StatelessWidget {
   final BoxFit fit;
 
   NetImageWidget(
-      {this.width, this.height, this.imageUrl, this.placeholder, this.fit})
+      {this.width,
+      this.height,
+      this.imageUrl,
+      this.placeholder,
+      this.fit = BoxFit.cover})
       : assert(imageUrl != null);
 
   Widget _buildPlaceholder() {

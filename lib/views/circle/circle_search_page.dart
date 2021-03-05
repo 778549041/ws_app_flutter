@@ -11,7 +11,7 @@ class CircleSearchPage extends GetView<CircleSearchController> {
   Widget build(BuildContext context) {
     return BasePage(
       titleWidget: Container(
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
         ),

@@ -10,6 +10,7 @@ import 'package:ws_app_flutter/view_models/circle/friends_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/report_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
 import 'package:ws_app_flutter/view_models/login/complaint_controller.dart';
@@ -410,6 +411,12 @@ abstract class AppPages {
           Get.lazyPut<ReportController>(() => ReportController());
         })),
     //话题列表
-    GetPage(name: Routes.TOPICLIST, page: () => TopicListPage()),
+    GetPage(
+        name: Routes.TOPICLIST,
+        page: () => TopicListPage(),
+        transition: Transition.downToUp,
+        binding: BindingsBuilder(() {
+          Get.lazyPut<TopicController>(() => TopicController());
+        })),
   ];
 }
