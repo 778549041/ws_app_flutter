@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:azlistview/azlistview.dart';
 import 'package:ws_app_flutter/models/common/common_member.dart';
 
 class FriendModel {
@@ -14,7 +17,37 @@ class FriendModel {
   }
 }
 
-class FriendMember {
+class AddFriendListModel {
+  List<FriendMember> list;
+
+  AddFriendListModel() : list = List<FriendMember>();
+
+  AddFriendListModel.fromJson(Map<String, dynamic> json) {
+    list = List<FriendMember>();
+    if (json['list'] != null) {
+      (json['list'] as List).forEach((element) {
+        list.add(FriendMember.fromJson(element));
+      });
+    }
+  }
+}
+
+class FriendListModel {
+  List<FriendMember> memberList;
+
+  FriendListModel() : memberList = List<FriendMember>();
+
+  FriendListModel.fromJson(Map<String, dynamic> json) {
+    memberList = List<FriendMember>();
+    if (json['memberList'] != null) {
+      (json['memberList'] as List).forEach((element) {
+        memberList.add(FriendMember.fromJson(element));
+      });
+    }
+  }
+}
+
+class FriendMember extends ISuspensionBean {
   String addr;
   String avatar;
   List<String> interest;
@@ -23,6 +56,10 @@ class FriendMember {
   String sex;
   String memberId;
   CommonMemberModel memberInfo;
+  int friendsRelation;
+  String mobile;
+  String nickname;
+  String groupName;
 
   FriendMember(
       {this.addr = '',
@@ -30,13 +67,17 @@ class FriendMember {
       this.isFriend = false,
       this.name = '',
       this.sex = '',
-      this.memberId = ''})
+      this.memberId = '',
+      this.friendsRelation = 0,
+      this.mobile = '',
+      this.nickname = '',
+      this.groupName = ''})
       : interest = List<String>(),
         memberInfo = CommonMemberModel();
 
   FriendMember.fromJson(Map<String, dynamic> json) {
     addr = json['addr'];
-    avatar = json['avatar'];
+    avatar = json['avatar'] ?? '';
     interest = List<String>();
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
@@ -50,5 +91,17 @@ class FriendMember {
     memberInfo = json['member_info'] != null
         ? CommonMemberModel.fromJson(json['member_info'])
         : CommonMemberModel();
+    friendsRelation = json['friends_relation'];
+    mobile = json['mobile'];
+    nickname = json['nickname'];
+    groupName = json['init'];
+  }
+
+  @override
+  String getSuspensionTag() => groupName;
+
+  @override
+  String toString() {
+    return json.encode(this);
   }
 }

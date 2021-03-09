@@ -45,6 +45,7 @@ class ReportController extends GetxController {
     );
   }
 
+  //删除某个已选中的资源
   void deleteAsset(int index) {
     selectedAssets.removeAt(index);
   }

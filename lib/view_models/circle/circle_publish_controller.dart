@@ -6,6 +6,8 @@ import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
+// ignore: implementation_imports
+import 'package:photo_manager/src/plugin.dart';
 
 class CirclePublishController extends GetxController {
   TextEditingController textEditingController;
@@ -47,6 +49,7 @@ class CirclePublishController extends GetxController {
     );
   }
 
+  //删除某个已选中的资源
   void deleteAsset(int index) {
     selectedAssets.removeAt(index);
   }
@@ -78,6 +81,9 @@ class CirclePublishController extends GetxController {
                   if (_image == null) {
                     return;
                   }
+                  Plugin _plugin = Plugin();
+                  AssetEntity entity = await _plugin.saveImageWithPath(_image.path);
+                  print(entity);
                 } else if (selectIndex == 2) {
                   var _image = await ImagePicker().getVideo(
                       source: ImageSource.camera,
@@ -85,6 +91,9 @@ class CirclePublishController extends GetxController {
                   if (_image == null) {
                     return;
                   }
+                  Plugin _plugin = Plugin();
+                  AssetEntity entity = await _plugin.saveImageWithPath(_image.path);
+                  print(entity);
                 }
               },
             ), //设置圆角
@@ -99,11 +108,28 @@ class CirclePublishController extends GetxController {
           );
         },
       );
-    }, customItemPosition: CustomItemPosition.append);
+    }, customItemPosition: CustomItemPosition.prepend);
     if (result == null) {
       return;
     }
+    if (await containsVideo(result) || await containsVideo(selectedAssets)) {
+      //如果当前或者之前选择了视频
+      selectedAssets.assignAll(result);
+      return;
+    }
     selectedAssets.addAll(result);
+  }
+
+  //判断是否选择了视频
+  Future<bool> containsVideo(List<AssetEntity> result) async {
+    if (result.length == 1) {
+      AssetEntity entity = result.first;
+      if (entity.type == AssetType.video) {
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 
   //选择话题

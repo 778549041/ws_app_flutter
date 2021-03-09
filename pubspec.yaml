@@ -63,6 +63,8 @@ dependencies:
   flutter_slidable: ^0.5.7
   # 谁用谁闪亮
   shimmer: ^1.1.2
+  # 通讯录列表
+  azlistview: ^1.1.1
   #城市选择器
   city_pickers: ^0.2.0
   #图片选择器

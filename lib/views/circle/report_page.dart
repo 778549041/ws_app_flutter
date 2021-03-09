@@ -98,7 +98,7 @@ class ReportPage extends GetView<ReportController> {
                                   image: imageProvider,
                                   width: (Get.width - 40) / 3 - 8.5,
                                   height: (Get.width - 40) / 3 - 8.5,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               Positioned(

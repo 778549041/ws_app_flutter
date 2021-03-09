@@ -81,6 +81,8 @@ PODS:
   - flutter_bugly (0.0.1):
     - Bugly
     - Flutter
+  - flutter_custom_camera_pugin (0.0.1):
+    - Flutter
   - flutter_plugin_record (0.0.1):
     - Flutter
   - flutter_qiniu (0.0.1):
@@ -191,6 +193,7 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
+  - flutter_custom_camera_pugin (from `.symlinks/plugins/flutter_custom_camera_pugin/ios`)
   - flutter_plugin_record (from `.symlinks/plugins/flutter_plugin_record/ios`)
   - flutter_qiniu (from `.symlinks/plugins/flutter_qiniu/ios`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
@@ -262,6 +265,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_bugly:
     :path: ".symlinks/plugins/flutter_bugly/ios"
+  flutter_custom_camera_pugin:
+    :path: ".symlinks/plugins/flutter_custom_camera_pugin/ios"
   flutter_plugin_record:
     :path: ".symlinks/plugins/flutter_plugin_record/ios"
   flutter_qiniu:
@@ -324,6 +329,7 @@ SPEC CHECKSUMS:
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
+  flutter_custom_camera_pugin: 7566d6050ecc4e2b01ef892a0b1a36ee7a2da5d7
   flutter_plugin_record: 562ded56f3a109d769e72c3ef52ef20d835493d4
   flutter_qiniu: 150b2007d3b4c654777d46711e1ac8736215aaba
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8

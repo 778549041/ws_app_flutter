@@ -5,7 +5,7 @@ class FriendCircleImgListModel {
 
   FriendCircleImgListModel.fromJson(Map<String, dynamic> json) {
     list = List<FriendCircleImgModel>();
-    if (json['list'] != null) {
+    if (json['list'] != null && json['list'] != false) {
       (json['list'] as List).forEach((element) {
         list.add(FriendCircleImgModel.fromJson(element));
       });

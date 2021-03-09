@@ -102,7 +102,7 @@ class ProfilePage extends GetView<ProfileController> {
                   width: 10,
                 ),
                 Obx(
-                  () => Wrap(
+                  () => Expanded(child: Wrap(
                     alignment: WrapAlignment.start,
                     spacing: 10,
                     runSpacing: 10,
@@ -126,7 +126,7 @@ class ProfilePage extends GetView<ProfileController> {
                         ),
                       );
                     }),
-                  ),
+                  )),
                 ),
               ],
             ),

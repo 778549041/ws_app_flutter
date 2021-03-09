@@ -117,6 +117,10 @@ class EntityFactory {
      return FriendModel.fromJson(json) as T;
    } else if (T.toString() == 'FriendCircleImgListModel') {
      return FriendCircleImgListModel.fromJson(json) as T;
+   } else if (T.toString() == 'AddFriendListModel') {
+     return AddFriendListModel.fromJson(json) as T;
+   } else if (T.toString() == 'FriendListModel') {
+     return FriendListModel.fromJson(json) as T;
    } 
    else {
       return json as T;
