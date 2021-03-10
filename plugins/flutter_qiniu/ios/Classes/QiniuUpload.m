@@ -8,6 +8,8 @@
 
 #import "QiniuUpload.h"
 #import "QiniuSDK.h"
+#include <CommonCrypto/CommonCrypto.h>
+#import "QN_GTM_Base64.h"
 
 @interface QiniuUpload()
 @property (nonatomic,strong) QNUploadManager *upManager;
@@ -44,12 +46,12 @@
 
 - (void)uploadConfig:(QiniuUploadConfig *)conf option:(QiniuUploadOption *)opt complete:(QiniuCompletionHandler)completionHandler;
 {
-    //检查token 格式 否则会 崩溃
-    BOOL success = [self tokenCheck:conf.token];
-    if(success == NO){
-        completionHandler(@{@"success":@(NO),@"statusCode":@(-10001),@"error":@"token Invalid format"});
-        return;
-    }
+//    //检查token 格式 否则会 崩溃
+//    BOOL success = [self tokenCheck:conf.token];
+//    if(success == NO){
+//        completionHandler(@{@"success":@(NO),@"statusCode":@(-10001),@"error":@"token Invalid format"});
+//        return;
+//    }
     
     QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
         builder.useHttps = YES;
@@ -71,11 +73,12 @@
     }
     
     
-    [_upManager putFile:conf.filePath key:nil token:conf.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+    [_upManager putFile:conf.filePath key:nil token:[self makeToken:conf.accessKey secretKey:conf.secretKey scope:conf.scope] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if(info.ok)
         {
             NSMutableDictionary *res = [resp mutableCopy];
             res[@"success"] = @(YES);
+            res[@"key"] = resp[@"key"];
             completionHandler(res);
             
         }
@@ -88,6 +91,59 @@
     
 }
 
+//获取token
+
+- (NSString *)makeToken:(NSString *)accessKey secretKey:(NSString *)secretKey scope:(NSString *)scope{
+    
+    const char *secretKeyStr = [secretKey UTF8String];
+    NSString *policy = [self marshal:scope];
+    NSData *policyData = [policy dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedPolicy = [QN_GTM_Base64 stringByWebSafeEncodingData:policyData padded:TRUE];
+    const char *encodedPolicyStr = [encodedPolicy cStringUsingEncoding:NSUTF8StringEncoding];
+    char digestStr[CC_SHA1_DIGEST_LENGTH];
+    bzero(digestStr, 0);
+    CCHmac(kCCHmacAlgSHA1, secretKeyStr, strlen(secretKeyStr), encodedPolicyStr, strlen(encodedPolicyStr), digestStr);
+    NSString *encodedDigest = [QN_GTM_Base64 stringByWebSafeEncodingBytes:digestStr length:CC_SHA1_DIGEST_LENGTH padded:TRUE];
+    NSString *token = [NSString stringWithFormat:@"%@:%@:%@",  accessKey, encodedDigest, encodedPolicy];
+    
+    return token;//得到了token
+}
+
+
+- (NSString *)marshal:(NSString *)scope {
+    
+    NSInteger _expire = 0;
+    time_t deadline;
+    time(&deadline);//返回当前系统时间
+    deadline += (_expire > 0) ? _expire : 3600; // +3600秒,即默认token保存1小时.
+    NSNumber *deadlineNumber = [NSNumber numberWithLongLong:deadline];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [dic setObject:scope forKey:@"scope"];//根据
+    [dic setObject:deadlineNumber forKey:@"deadline"];
+    NSString *json = [self convertToJsonData:dic ];
+    
+    return json;
+}
+
+- (NSString *)convertToJsonData:(NSDictionary *)dict{
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString;
+    if (!jsonData) {
+        NSLog(@"%@",error);
+    }else{
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    
+    return mutStr;
+}
 
 
 -(BOOL)tokenCheck:(NSString *)token

@@ -11,17 +11,26 @@ class FlutterQiNiuConfig {
 */
 
   String token;
+  String accessKey;
+  String secretKey;
+  String scope;
   String key;
   String filePath;
 
   FlutterQiNiuConfig({
     this.token,
+    this.accessKey,
+    this.secretKey,
+    this.scope,
     this.filePath,
     this.key,
   });
 
   FlutterQiNiuConfig.fromJson(Map<String, dynamic> json) {
     token = json["token"]?.toString();
+    accessKey = json['accessKey']?.toString();
+    secretKey = json['secretKey']?.toString();
+    scope = json['scope']?.toString();
     key = json["key"]?.toString();
     filePath = json["filePath"]?.toString();
   }
@@ -29,6 +38,9 @@ class FlutterQiNiuConfig {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data["token"] = token;
+    data["accessKey"] = accessKey;
+    data["accessKey"] = accessKey;
+    data["scope"] = scope;
     data["key"] = key;
     data["filePath"] = filePath;
     return data;

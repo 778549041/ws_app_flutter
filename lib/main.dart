@@ -112,8 +112,11 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     ShareSDKRegister register = ShareSDKRegister();
     register.setupWechat(CacheKey.WECHAT_APPKEY, CacheKey.WECHAT_APPSECRET,
         CacheKey.UNIVERSAL_LINKS);
-    register.setupSinaWeibo(CacheKey.SINA_APPKEY, CacheKey.SINA_APPSECRET,
-        CacheKey.SERVICE_URL_HOST + CacheKey.SINA_REDIRECT_URI);
+    register.setupSinaWeibo(
+        CacheKey.SINA_APPKEY,
+        CacheKey.SINA_APPSECRET,
+        CacheKey.SERVICE_URL_HOST + CacheKey.SINA_REDIRECT_URI,
+        CacheKey.UNIVERSAL_LINKS);
     SharesdkPlugin.regist(register);
   }
 
@@ -270,7 +273,8 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        if (Get.isRegistered<CarController>()) {
+        if (Get.isRegistered<CarController>() &&
+            Get.currentRoute == Routes.HOME) {
           Get.find<CarController>().refreshLocation();
         }
         break;

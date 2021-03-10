@@ -14,6 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 从服务端SDK获取token
 @property (nonatomic,strong) NSString *token;
+///应用key
+@property (nonatomic, strong) NSString *accessKey;
+///应用秘钥
+@property (nonatomic, strong) NSString *secretKey;
+
+///scope
+@property (nonatomic, strong) NSString *scope;
 
 /// 指定存储服务上的文件名，或nil
 @property (nonatomic,strong) NSString *key;

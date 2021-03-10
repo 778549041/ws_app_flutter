@@ -27,6 +27,9 @@
         QiniuUploadConfig *config = [[QiniuUploadConfig alloc]init];
         config.filePath = dic[@"filePath"];
         config.token = dic[@"token"];
+        config.accessKey = dic[@"accessKey"];
+        config.secretKey = dic[@"secretKey"];
+        config.scope = dic[@"scope"];
         config.key = key;
         
         QiniuUploadOption *option = [[QiniuUploadOption alloc]init];

@@ -54,12 +54,12 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                       alignment: Alignment.center,
                       height: 200,
                       child: TextField(
-                        controller: TextEditingController(),
-                        focusNode: FocusNode(),
+                        controller: controller.textEditingController,
+                        focusNode: controller.focusNode,
                         maxLength: 5000,
                         maxLines: 10,
                         style: TextStyle(fontSize: 15),
-                        textInputAction: TextInputAction.send,
+                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: '请输入您的动态信息...',
@@ -74,51 +74,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                     SizedBox(
                       height: 20,
                     ),
-                    GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 5,
-                        crossAxisSpacing: 5,
-                      ),
-                      itemCount: controller.selectedAssets.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        AssetEntity item = controller.selectedAssets[index];
-                        final AssetEntityImageProvider imageProvider =
-                            AssetEntityImageProvider(item, isOriginal: false);
-                        return GestureDetector(
-                          onTap: () => controller.clickItem(index, item),
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    top: 8.5, right: 8.5, left: 0, bottom: 0),
-                                child: Image(
-                                  image: imageProvider,
-                                  width: (Get.width - 40) / 3 - 8.5,
-                                  height: (Get.width - 40) / 3 - 8.5,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child: CustomButton(
-                                  backgroundColor: Colors.transparent,
-                                  image:
-                                      'assets/images/circle/circle_delete_image.png',
-                                  imageH: 17,
-                                  imageW: 17,
-                                  onPressed: () =>
-                                      controller.deleteAsset(index),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                    _buildChooseImageWidget(),
                     SizedBox(
                       height: 20,
                     ),
@@ -203,5 +159,113 @@ class CirclePublishPage extends GetView<CirclePublishController> {
         ],
       ),
     );
+  }
+
+  Widget _buildChooseImageWidget() {
+    if (controller.isVideo.value) {
+      AssetEntity item = controller.selectedAssets.first;
+      final AssetEntityImageProvider imageProvider =
+          AssetEntityImageProvider(item, isOriginal: false);
+      String timeLength = '';
+      if (item.duration < 10) {
+        timeLength = '0:0${item.duration}';
+      } else {
+        timeLength = '0:${item.duration}';
+      }
+      return GestureDetector(
+        onTap: () => controller.clickItem(0, item),
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          width: Get.width - 30,
+          height: 200,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 8.5, right: 8.5, left: 0, bottom: 0),
+                child: Image(
+                  image: imageProvider,
+                  width: (Get.width - 30),
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: 70,
+                left: (Get.width - 90) / 2,
+                child: Image.asset(
+                  'assets/images/circle/circle_play.png',
+                  width: 60,
+                  height: 60,
+                ),
+              ),
+              Positioned(
+                right: 10,
+                bottom: 5,
+                child: Text(
+                  timeLength,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: CustomButton(
+                  backgroundColor: Colors.transparent,
+                  image: 'assets/images/circle/circle_delete_image.png',
+                  imageH: 17,
+                  imageW: 17,
+                  onPressed: () => controller.deleteAsset(0),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 5,
+        ),
+        itemCount: controller.selectedAssets.length,
+        itemBuilder: (BuildContext context, int index) {
+          AssetEntity item = controller.selectedAssets[index];
+          final AssetEntityImageProvider imageProvider =
+              AssetEntityImageProvider(item, isOriginal: false);
+          return GestureDetector(
+            onTap: () => controller.clickItem(index, item),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 8.5, right: 8.5, left: 0, bottom: 0),
+                  child: Image(
+                    image: imageProvider,
+                    width: (Get.width - 40) / 3 - 8.5,
+                    height: (Get.width - 40) / 3 - 8.5,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: CustomButton(
+                    backgroundColor: Colors.transparent,
+                    image: 'assets/images/circle/circle_delete_image.png',
+                    imageH: 17,
+                    imageW: 17,
+                    onPressed: () => controller.deleteAsset(index),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 }

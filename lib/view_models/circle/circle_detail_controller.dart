@@ -301,6 +301,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
     if (CommonUtil.containsLink(input)) {
       EasyLoading.showToast('发布内容中不能包含URL链接或网址',
           toastPosition: EasyLoadingToastPosition.bottom);
+      return;
     }
     Map<String, dynamic> params = Map<String, dynamic>();
     params['c_id'] = momentDetailModel.value.list.circleId;
@@ -320,8 +321,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
         params: params);
     if (result.result) {
       momentDetailModel.value.list.comment =
-          (int.parse(momentDetailModel.value.list.comment) + 1)
-              .toString();
+          (int.parse(momentDetailModel.value.list.comment) + 1).toString();
       String comment_type, commented_content_id;
       if (addOrReply.value) {
         //添加新的评论
