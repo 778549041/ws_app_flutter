@@ -331,9 +331,6 @@ class CarController extends BaseController {
     } else if (index == 1004) {
       //点击头像
       Get.toNamed(Routes.MINEINFO);
-    } else if (index == 1005) {
-      //点击勋章
-      //TODO
     } else if (index == 1006) {
       //点击积分
       pushH5Page(args: {

@@ -512,7 +512,4 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
   void clickAvatar(NewsCommentModel model) {
     Get.toNamed(Routes.USERPROFILE, arguments: {'user_id': model.userId});
   }
-
-  //点击勋章
-  void clickMedal() {}
 }

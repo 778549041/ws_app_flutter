@@ -38,8 +38,8 @@ class ReportPage extends GetView<ReportController> {
                     alignment: Alignment.center,
                     height: 200,
                     child: TextField(
-                      controller: TextEditingController(),
-                      focusNode: FocusNode(),
+                      controller: controller.textEditingController,
+                      focusNode: controller.focusNode,
                       maxLength: 200,
                       maxLines: 10,
                       style: TextStyle(fontSize: 15),

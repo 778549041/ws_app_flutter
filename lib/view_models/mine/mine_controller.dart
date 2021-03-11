@@ -152,9 +152,6 @@ class MineController extends BaseController {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
-    } else if (actionTag == 1004) {
-      //勋章
-      //TODO
     } else if (actionTag == 1005) {
       //圈子
       Get.toNamed(Routes.SINGLECIRCLELIST, arguments: {

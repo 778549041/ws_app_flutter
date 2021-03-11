@@ -9,6 +9,7 @@ import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/wow/news_comment_model.dart';
 import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -322,14 +323,12 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                 if (model.memberInfo.showTag)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: CustomButton(
-                                      backgroundColor: Colors.transparent,
-                                      width: 30,
-                                      height: 30,
-                                      image:
-                                          model.memberInfo.medalOrSaleImageName,
-                                      onPressed: () => controller.clickMedal(),
-                                    ),
+                                    child: MedalWidget(
+                                          medalBtnImage: model
+                                              .memberInfo.medalOrSaleImageName,
+                                          medalToastImage: model.memberInfo
+                                              .medalOrSaleDescImageName,
+                                        ),
                                   ),
                               ],
                             ),

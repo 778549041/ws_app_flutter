@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/circle/friend_model.dart';
-import 'package:ws_app_flutter/utils/circle_action_util.dart';
 import 'package:ws_app_flutter/view_models/circle/add_friend_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
@@ -172,16 +172,13 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           left: 5),
-                                                  child: CustomButton(
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    width: 30,
-                                                    height: 30,
-                                                    image: member.memberInfo
+                                                  child: MedalWidget(
+                                                    medalBtnImage: member
+                                                        .memberInfo
                                                         .medalOrSaleImageName,
-                                                    onPressed: () =>
-                                                        CircleActionUtil()
-                                                            .clickMedal(),
+                                                    medalToastImage: member
+                                                        .memberInfo
+                                                        .medalOrSaleDescImageName,
                                                   ),
                                                 ),
                                               Offstage(

@@ -59,19 +59,9 @@ class OwnCarWidgetState extends State<OwnCarWidget>
                   children: <Widget>[
                     Container(
                       margin: const EdgeInsets.only(top: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        children: <Widget>[
-                          Text(
-                            _carDataModel.datas.rspBody.soc.toString(),
-                            style: TextStyle(color: Colors.white, fontSize: 50),
-                          ),
-                          Text(
-                            '%',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ],
+                      child: Text(
+                        _carDataModel.datas.rspBody.soc.toString() + '%',
+                        style: TextStyle(color: Colors.white, fontSize: 50),
                       ),
                     ),
                     Text(

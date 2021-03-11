@@ -29,14 +29,14 @@ class NetConnectController extends BaseController {
 
   //获取当前网页页面标题
   _loadTitle() async {
-    final String title = await webViewController.getTitle();
+    final String title = await webViewController?.getTitle();
     webTitle.value = title;
   }
 
   //加载本地html文件
   Future<void> _loadHtmlFromAsset(String localHtml) async {
     final String path = await rootBundle.loadString(localHtml);
-    webViewController.loadUrl(Uri.dataFromString(path,
+    webViewController?.loadUrl(Uri.dataFromString(path,
             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString());
   }
@@ -75,7 +75,7 @@ class NetConnectController extends BaseController {
   //返回上一层
   Future<void> goBack() async {
     if (webViewController != null && await webViewController.canGoBack()) {
-      webViewController.goBack();
+      webViewController?.goBack();
     } else {
       Get.back();
     }
@@ -94,7 +94,7 @@ class NetConnectController extends BaseController {
   //加载页面
   void loadWebPage({String url, String localHtml}) {
     if (url != null) {
-      webViewController.loadUrl(url, headers: {'Referer': url});
+      webViewController?.loadUrl(url, headers: {'Referer': url});
     }
     if (localHtml != null) {
       _loadHtmlFromAsset(localHtml);
@@ -116,7 +116,7 @@ class NetConnectController extends BaseController {
     //设置cookie
     String cookie =
         "document.cookie = '_SID=${CommonUtil.sid()}'";
-    webViewController.evaluateJavascript(cookie);
+    webViewController?.evaluateJavascript(cookie);
     // _evaluateJavascript();
   }
 

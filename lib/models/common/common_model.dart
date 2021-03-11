@@ -10,6 +10,7 @@ class CommonModel {
   String datas;
   bool res;
   String list;
+  String id;
 
   CommonModel(
       {this.success,
@@ -22,7 +23,8 @@ class CommonModel {
       this.status,
       this.datas,
       this.res,
-      this.list});
+      this.list,
+      this.id});
 
   CommonModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -36,5 +38,6 @@ class CommonModel {
     datas = json['datas'];
     res = json['res'];
     list = json['list'].toString();
+    id = json['id'];
   }
 }

@@ -1,10 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_qiniu/flutter_qiniu.dart';
+import 'package:flutter_qiniu/flutter_qiniu_config.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
-import 'package:ws_app_flutter/widgets/global/custom_button.dart';
-import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
+import 'package:ws_app_flutter/utils/net_utils/api.dart';
+import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 
 class ReportController extends GetxController {
   TextEditingController textEditingController;
@@ -14,6 +21,7 @@ class ReportController extends GetxController {
 
   @override
   void onInit() {
+    publishText = '';
     super.onInit();
   }
 
@@ -24,7 +32,80 @@ class ReportController extends GetxController {
 
   //点击提交按钮
   Future submit() async {
-    //TODO
+    Get.focusScope.unfocus();
+    if (publishText.length == 0) {
+      //无任何内容
+      EasyLoading.showToast('请先输入举报原因',
+          toastPosition: EasyLoadingToastPosition.bottom);
+      return;
+    }
+    if (publishText.length > 0 && CommonUtil.isBlank(publishText)) {
+      textEditingController.text = '';
+      return;
+    }
+    if (selectedAssets != null) {
+      //包含图片
+      reportImage();
+    } else {
+      //纯文本
+      reportOnlyText();
+    }
+  }
+
+  //举报纯文本
+  Future reportOnlyText() async {
+    Map<String, dynamic> params = Map<String, dynamic>();
+    params['type'] = '0';
+    params['content'] = publishText;
+    await reportNetWork(params);
+  }
+
+  //举报图片
+  Future reportImage() async {
+    var imgUrlList = await uploadAssets();
+    String imgIDStr = await CommonUtil.getCoveridsString(imgUrlList, '0');
+
+    Map<String, dynamic> params = Map<String, dynamic>();
+    params['type'] = '1';
+    params['content'] = publishText;
+    params['cover_id'] = imgIDStr;
+
+    await reportNetWork(params);
+  }
+
+  //上传资源文件
+  Future uploadAssets() async {
+    EasyLoading.show(status: '文件上传中...');
+    List<String> imgUrlList = [];
+    for (var item in selectedAssets) {
+      File file = await item.file;
+      FlutterQiNiuConfig config = FlutterQiNiuConfig(
+          accessKey: CacheKey.QINIU_ACCESS_KEY,
+          secretKey: CacheKey.QINIU_SECRET_KEY,
+          scope: CacheKey.QINIU_SPACE_NAME,
+          filePath: file.path);
+      var result = await FlutterQiNiu.upload(config, (key, percent) {
+        print('---上传进度:$key--$percent--------');
+      });
+      print(result);
+      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result['key']);
+    }
+    EasyLoading.dismiss();
+    return imgUrlList;
+  }
+
+  //举报操作网络请求
+  Future reportNetWork(Map<String, dynamic> params) async {
+    CommonModel receive = await DioManager().request<CommonModel>(
+        DioManager.POST, 'index.php/m/circomment-complaint.html',
+        params: params);
+    if (receive.result) {
+      EasyLoading.showToast('举报成功，平台将会在24小时之内给出回复',
+          toastPosition: EasyLoadingToastPosition.bottom);
+      Future.delayed(Duration(seconds: 1)).then((value) async {
+        Get.back();
+      });
+    }
   }
 
   //输入内容变化
@@ -53,47 +134,7 @@ class ReportController extends GetxController {
   //选择图片或者视频
   Future clickPickAsset() async {
     List<AssetEntity> result = await AssetPicker.pickAssets(Get.context,
-        maxAssets: (9 - selectedAssets.length),
-        specialPickerType: SpecialPickerType.wechatMoment,
-        customItemBuilder: (context) {
-      return CustomButton(
-        backgroundColor: Colors.red,
-        onPressed: () {
-          Get.bottomSheet(
-            CustomSheet(
-              dataArr: ['拍摄照片', '拍摄视频'],
-              clickCallback: (selectIndex, selectText) async {
-                if (selectIndex == 0) {
-                  return;
-                }
-                if (selectIndex == 1) {
-                  var _image =
-                      await ImagePicker().getImage(source: ImageSource.camera);
-                  if (_image == null) {
-                    return;
-                  }
-                } else if (selectIndex == 2) {
-                  var _image = await ImagePicker().getVideo(
-                      source: ImageSource.camera,
-                      maxDuration: Duration(seconds: 15));
-                  if (_image == null) {
-                    return;
-                  }
-                }
-              },
-            ), //设置圆角
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-            ),
-            // 抗锯齿
-            clipBehavior: Clip.antiAlias,
-          );
-        },
-      );
-    }, customItemPosition: CustomItemPosition.append);
+        maxAssets: (9 - selectedAssets.length));
     if (result == null) {
       return;
     }

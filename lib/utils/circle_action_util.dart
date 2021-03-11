@@ -10,10 +10,6 @@ import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_contro
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 
 class CircleActionUtil {
-  //点击勋章
-  void clickMedal() {
-    //TODO
-  }
 
   //列表添加好友操作
   Future addFriend(MomentModel model) async {

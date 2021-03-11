@@ -53,13 +53,13 @@ class NearDZMapController extends GetxController {
       if (item.address.length > 0) {
         final poiList = await AmapSearch.instance.searchKeyword(item.address);
         Poi poi = poiList.first;
-        mapController.setCenterCoordinate(poi.latLng);
+        mapController?.setCenterCoordinate(poi.latLng);
         await getCurrentDZMarkerData(poi.latLng.longitude, poi.latLng.latitude);
         await getCurrentStoreMarkerData(
             poi.latLng.longitude, poi.latLng.latitude);
       }
     } else {
-      mapController.setCenterCoordinate(item.coordinate);
+      mapController?.setCenterCoordinate(item.coordinate);
       await getCurrentDZMarkerData(
           item.coordinate.longitude, item.coordinate.latitude);
       await getCurrentStoreMarkerData(
@@ -74,7 +74,7 @@ class NearDZMapController extends GetxController {
     currenSelecttLatLng = location;
     currentSelectTitle = await marker.title;
 
-    await mapController.setCenterCoordinate(location);
+    await mapController?.setCenterCoordinate(location);
 
     if (await marker.title == '当前位置') return;
     if (await marker.snippet == 'dzmarker') {
@@ -107,7 +107,7 @@ class NearDZMapController extends GetxController {
 
   // 地图拖动结束
   Future onMapMoveEnd(MapMove move) async {
-    await mapController.getCenterCoordinate().then((value) async {
+    await mapController?.getCenterCoordinate()?.then((value) async {
       await getCurrentDZMarkerData(value.longitude, value.latitude);
       await getCurrentStoreMarkerData(value.longitude, value.latitude);
     });
@@ -129,7 +129,7 @@ class NearDZMapController extends GetxController {
         myLocationType: MyLocationType.Locate,
         iconProvider: AssetImage('assets/images/wow/icon_current_location.png'),
       ));
-      startLatLng = await mapController.getLocation();
+      startLatLng = await mapController?.getLocation();
       await getCurrentDZMarkerData(startLatLng.longitude, startLatLng.latitude);
       await getCurrentStoreMarkerData(
           startLatLng.longitude, startLatLng.latitude);
@@ -207,7 +207,7 @@ class NearDZMapController extends GetxController {
         iconProvider: AssetImage(_markerIcon(info.serviceType)),
       );
     }).toList();
-    await mapController.addMarkers(markers);
+    await mapController?.addMarkers(markers);
   }
 
   //添加特约店标注
@@ -223,7 +223,7 @@ class NearDZMapController extends GetxController {
         iconProvider: AssetImage('assets/images/wow/dz_store_anno.png'),
       );
     }).toList();
-    await mapController.addMarkers(markers);
+    await mapController?.addMarkers(markers);
   }
 
   //标注图片

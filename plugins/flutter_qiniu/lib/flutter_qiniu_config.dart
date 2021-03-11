@@ -39,7 +39,7 @@ class FlutterQiNiuConfig {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data["token"] = token;
     data["accessKey"] = accessKey;
-    data["accessKey"] = accessKey;
+    data["secretKey"] = secretKey;
     data["scope"] = scope;
     data["key"] = key;
     data["filePath"] = filePath;

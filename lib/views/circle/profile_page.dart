@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/circle/friend_circle_img_model.dart';
-import 'package:ws_app_flutter/utils/circle_action_util.dart';
 import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -60,14 +60,11 @@ class ProfilePage extends GetView<ProfileController> {
                               .friendModel.value.member.memberInfo.showTag)
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
-                              child: CustomButton(
-                                backgroundColor: Colors.transparent,
-                                width: 30,
-                                height: 30,
-                                image: controller.friendModel.value.member
-                                    .memberInfo.medalOrSaleImageName,
-                                onPressed: () =>
-                                    CircleActionUtil().clickMedal(),
+                              child: MedalWidget(
+                                medalBtnImage: controller.friendModel.value
+                                    .member.memberInfo.medalOrSaleImageName,
+                                medalToastImage: controller.friendModel.value
+                                    .member.memberInfo.medalOrSaleDescImageName,
                               ),
                             ),
                         ],
@@ -102,7 +99,8 @@ class ProfilePage extends GetView<ProfileController> {
                   width: 10,
                 ),
                 Obx(
-                  () => Expanded(child: Wrap(
+                  () => Expanded(
+                      child: Wrap(
                     alignment: WrapAlignment.start,
                     spacing: 10,
                     runSpacing: 10,

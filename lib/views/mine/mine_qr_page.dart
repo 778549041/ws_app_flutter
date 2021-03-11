@@ -1,9 +1,8 @@
-import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
-import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
@@ -92,20 +91,20 @@ class MineQRPage extends StatelessWidget {
                         .showTag)
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
-                        child: Obx(() => CustomButton(
-                              backgroundColor: Colors.transparent,
-                              width: 30,
-                              height: 30,
-                              image: Get.find<UserController>()
-                                  .userInfo
-                                  .value
-                                  .member
-                                  .memberInfo
-                                  .medalOrSaleImageName,
-                              onPressed: () {
-                                LogUtil.v('点击了个人信息勋章');
-                              },
-                            )),
+                        child: MedalWidget(
+                          medalBtnImage: Get.find<UserController>()
+                              .userInfo
+                              .value
+                              .member
+                              .memberInfo
+                              .medalOrSaleImageName,
+                          medalToastImage: Get.find<UserController>()
+                              .userInfo
+                              .value
+                              .member
+                              .memberInfo
+                              .medalOrSaleDescImageName,
+                        ),
                       ),
                     Obx(() => Offstage(
                           offstage: Get.find<UserController>()

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/net_utils/api.dart';
+import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
@@ -92,5 +95,22 @@ class CommonUtil {
       //在线客服
 
     }
+  }
+
+  //图片地址转id
+  static Future getCoveridsString(
+      List<String> imgUrlList, String fileType) async {
+    String imgIDListStr = '';
+    for (var i = 0; i < imgUrlList.length; i++) {
+      CommonModel model = await DioManager().request<CommonModel>(
+          DioManager.POST, Api.convertIDToUrl,
+          params: {'url': imgUrlList[i], 'type': fileType});
+      if (i == 0) {
+        imgIDListStr = model.id;
+      } else {
+        imgIDListStr = imgIDListStr + '|' + model.id;
+      }
+    }
+    return imgIDListStr;
   }
 }

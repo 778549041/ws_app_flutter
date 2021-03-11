@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/car/own_car.dart';
 import 'package:ws_app_flutter/widgets/car/unown_car.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
@@ -129,18 +130,20 @@ class CarPage extends GetView<CarController> {
                     .showTag)
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
-                    child: Obx(() => CustomButton(
-                          backgroundColor: Colors.transparent,
-                          width: 30,
-                          height: 30,
-                          image: Get.find<UserController>()
-                              .userInfo
-                              .value
-                              .member
-                              .memberInfo
-                              .medalOrSaleImageName,
-                          onPressed: () => controller.buttonAction(1005),
-                        )),
+                    child: MedalWidget(
+                      medalBtnImage: Get.find<UserController>()
+                          .userInfo
+                          .value
+                          .member
+                          .memberInfo
+                          .medalOrSaleImageName,
+                      medalToastImage: Get.find<UserController>()
+                          .userInfo
+                          .value
+                          .member
+                          .memberInfo
+                          .medalOrSaleDescImageName,
+                    ),
                   ),
               ],
             ),

@@ -40,8 +40,8 @@ class NavMapController extends GetxController {
     InputTip item = searchData[index];
     endLatlng = item.coordinate;
     destination = item.name;
-    mapController.clear();
-    mapController.addMarker(
+    mapController?.clear();
+    mapController?.addMarker(
       MarkerOption(
         coordinate: endLatlng,
         title: '终点',
@@ -71,7 +71,7 @@ class NavMapController extends GetxController {
         myLocationType: MyLocationType.Locate,
         iconProvider: AssetImage('assets/images/wow/icon_current_location.png'),
       ));
-      startLatLng = await mapController.getLocation();
+      startLatLng = await mapController?.getLocation();
     }
   }
 
@@ -93,7 +93,7 @@ class NavMapController extends GetxController {
       }
     }
     print(points);
-    await mapController.addPolyline(PolylineOption(
+    await mapController?.addPolyline(PolylineOption(
         coordinateList: points, width: 10, strokeColor: Colors.green));
   }
 

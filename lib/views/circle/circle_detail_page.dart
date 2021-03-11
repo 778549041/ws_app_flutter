@@ -14,6 +14,7 @@ import 'package:ws_app_flutter/view_models/circle/circle_detail_controller.dart'
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/views/global/gallery_photo_browser.dart';
 import 'package:ws_app_flutter/views/global/video_play_page.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -245,14 +246,11 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                                     if (model.memberInfo.showTag)
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
-                                        child: CustomButton(
-                                          backgroundColor: Colors.transparent,
-                                          width: 30,
-                                          height: 30,
-                                          image: model
+                                        child: MedalWidget(
+                                          medalBtnImage: model
                                               .memberInfo.medalOrSaleImageName,
-                                          onPressed: () =>
-                                              CircleActionUtil().clickMedal(),
+                                          medalToastImage: model.memberInfo
+                                              .medalOrSaleDescImageName,
                                         ),
                                       ),
                                   ],
@@ -521,13 +519,11 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                                 if (model.memberInfo.showTag)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
-                                    child: CustomButton(
-                                      backgroundColor: Colors.transparent,
-                                      width: 30,
-                                      height: 30,
-                                      image:
+                                    child: MedalWidget(
+                                      medalBtnImage:
                                           model.memberInfo.medalOrSaleImageName,
-                                      onPressed: () => controller.clickMedal(),
+                                      medalToastImage: model
+                                          .memberInfo.medalOrSaleDescImageName,
                                     ),
                                   ),
                               ],
@@ -590,7 +586,7 @@ class CircleDetailPage extends GetView<CircleDetailController> {
             padding: const EdgeInsets.only(top: 10, left: 50),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                     child: RichText(

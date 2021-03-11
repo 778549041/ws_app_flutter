@@ -143,6 +143,12 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       onOpenNotification: (Map<String, dynamic> message) async {
         print("flutter onOpenNotification: $message");
       },
+      onReceiveMessage: (Map<String, dynamic> message) async {
+        print("flutter onReceiveMessage: $message");
+      },
+      onReceiveNotificationAuthorization: (Map<String, dynamic> message) async {
+        print("flutter onReceiveNotificationAuthorization: $message");
+      },
     );
     //初始化jpush
     jpush.setup(
@@ -150,6 +156,12 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         channel: 'developer-default',
         production: false,
         debug: false);
+    //申请推送权限
+    jpush.applyPushAuthority(NotificationSettingsIOS(
+      sound: true,
+      alert: true,
+      badge: true,
+    ));
     //上传registrationID到服务器
     jpush.getRegistrationID().then((registrationID) {
       print(registrationID);
@@ -157,12 +169,6 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
     });
     //iOS点击推送启动应用拿到推送消息
     jpush.getLaunchAppNotification().then((Map<dynamic, dynamic> message) {});
-    //申请推送权限
-    jpush.applyPushAuthority(NotificationSettingsIOS(
-      sound: true,
-      alert: true,
-      badge: true,
-    ));
   }
 
   //bugly初始化

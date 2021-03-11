@@ -50,9 +50,6 @@ class EnjoyController extends RefreshListController<ShopModel> {
     if (index == 1000) {
       //点击头像
       Get.toNamed(Routes.MINEINFO);
-    } else if (index == 1001) {
-      //点击勋章
-      //TODO
     } else if (index == 1002) {
       //点击积分
       pushH5Page(args: {

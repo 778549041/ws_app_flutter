@@ -4,7 +4,7 @@ import 'package:flutter_qiniu/flutter_qiniu_config.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert' as convert;
 
-typedef FlutterQiNiuProgress(String key, double percent);
+typedef FlutterQiNiuProgress(String key, dynamic percent);
 
 class FlutterQiNiu {
   static const MethodChannel _channel =

@@ -5,6 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/models/enjoy/shop.dart';
 import 'package:ws_app_flutter/view_models/enjoy/enjoy_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -130,18 +131,20 @@ class EnjoyPage extends GetView<EnjoyController> {
                   .showTag)
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
-                  child: Obx(() => CustomButton(
-                        backgroundColor: Colors.transparent,
-                        width: 30,
-                        height: 30,
-                        image: Get.find<UserController>()
-                            .userInfo
-                            .value
-                            .member
-                            .memberInfo
-                            .medalOrSaleImageName,
-                        onPressed: () => controller.buttonAction(1001),
-                      )),
+                  child: MedalWidget(
+                    medalBtnImage: Get.find<UserController>()
+                        .userInfo
+                        .value
+                        .member
+                        .memberInfo
+                        .medalOrSaleImageName,
+                    medalToastImage: Get.find<UserController>()
+                        .userInfo
+                        .value
+                        .member
+                        .memberInfo
+                        .medalOrSaleDescImageName,
+                  ),
                 ),
             ],
           ),

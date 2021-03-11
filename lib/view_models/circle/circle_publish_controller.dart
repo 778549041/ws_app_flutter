@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_qiniu/flutter_qiniu.dart';
 import 'package:flutter_qiniu/flutter_qiniu_config.dart';
 import 'package:get/get.dart';
@@ -15,8 +14,6 @@ import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
-import 'package:ws_app_flutter/view_models/circle/circle_controller.dart';
-import 'package:ws_app_flutter/view_models/circle/circle_topic_list_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
 // ignore: implementation_imports
@@ -29,15 +26,10 @@ class CirclePublishController extends GetxController {
   var topicModel = TopicModel().obs;
   var selectedAssets = List<AssetEntity>().obs;
   var isVideo = false.obs;
-  FlutterQiNiuConfig config;
 
   @override
   void onInit() {
     publishText = '';
-    config = FlutterQiNiuConfig(
-        accessKey: CacheKey.QINIU_ACCESS_KEY,
-        secretKey: CacheKey.QINIU_SECRET_KEY,
-        scope: CacheKey.QINIU_SPACE_NAME);
     super.onInit();
   }
 
@@ -108,27 +100,61 @@ class CirclePublishController extends GetxController {
     if (topicModel.value != null) {
       params['topic_id'] = topicModel.value.topicId;
     }
-    publishNetWork(params);
+    await publishNetWork(params);
   }
 
   //发布图片
   Future publishImage() async {
+    var imgUrlList = await uploadAssets();
+    String imgIDStr = await CommonUtil.getCoveridsString(imgUrlList, '0');
+
+    Map<String, dynamic> params = Map<String, dynamic>();
+    params['type'] = '1';
+    params['content'] = publishText;
+    params['cover_id'] = imgIDStr;
+    if (topicModel.value != null) {
+      params['topic_id'] = topicModel.value.topicId;
+    }
+
+    await publishNetWork(params);
+  }
+
+  //上传资源文件
+  Future uploadAssets() async {
     EasyLoading.show(status: '文件上传中...');
-    List<String> imageAdd = [];
+    List<String> imgUrlList = [];
     for (var item in selectedAssets) {
       File file = await item.file;
-      File uploadFile = await FlutterImageCompress.compressAndGetFile(
-          file.path, null,
-          quality: 88);
+      FlutterQiNiuConfig config = FlutterQiNiuConfig(
+          accessKey: CacheKey.QINIU_ACCESS_KEY,
+          secretKey: CacheKey.QINIU_SECRET_KEY,
+          scope: CacheKey.QINIU_SPACE_NAME,
+          filePath: file.path);
       var result = await FlutterQiNiu.upload(config, (key, percent) {
         print('---上传进度:$key--$percent--------');
       });
-      imageAdd.add('');
+      print(result);
+      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result['key']);
     }
+    EasyLoading.dismiss();
+    return imgUrlList;
   }
 
   //发布视频
-  Future publishVideo() async {}
+  Future publishVideo() async {
+    var imgUrlList = await uploadAssets();
+    String imgIDStr = await CommonUtil.getCoveridsString(imgUrlList, '1');
+
+    Map<String, dynamic> params = Map<String, dynamic>();
+    params['type'] = '2';
+    params['content'] = publishText;
+    params['cover_id'] = imgIDStr;
+    if (topicModel.value != null) {
+      params['topic_id'] = topicModel.value.topicId;
+    }
+
+    await publishNetWork(params);
+  }
 
   //发布操作网络请求
   Future publishNetWork(Map<String, dynamic> params) async {
@@ -144,10 +170,6 @@ class CirclePublishController extends GetxController {
             toastPosition: EasyLoadingToastPosition.bottom);
       }
       Future.delayed(Duration(seconds: 1)).then((value) async {
-        await Get.find<CircleController>().refresh();
-        if (Get.isRegistered<CircleTopicListController>()) {
-          await Get.find<CircleTopicListController>().refresh();
-        }
         Get.back();
       });
     }

@@ -9,6 +9,7 @@ import 'package:ws_app_flutter/utils/circle_action_util.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/views/global/gallery_photo_browser.dart';
 import 'package:ws_app_flutter/views/global/video_play_page.dart';
+import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
@@ -115,14 +116,11 @@ class CircleListItem extends StatelessWidget {
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(left: 5),
-                                          child: CustomButton(
-                                            backgroundColor: Colors.transparent,
-                                            width: 30,
-                                            height: 30,
-                                            image: model.memberInfo
+                                          child: MedalWidget(
+                                            medalBtnImage: model.memberInfo
                                                 .medalOrSaleImageName,
-                                            onPressed: () =>
-                                                CircleActionUtil().clickMedal(),
+                                            medalToastImage: model.memberInfo
+                                                .medalOrSaleDescImageName,
                                           ),
                                         ),
                                     ],

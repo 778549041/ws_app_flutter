@@ -81,6 +81,10 @@ PODS:
   - flutter_bugly (0.0.1):
     - Bugly
     - Flutter
+  - flutter_image_compress (0.0.1):
+    - Flutter
+    - Mantle
+    - SDWebImageWebPCoder
   - flutter_plugin_record (0.0.1):
     - Flutter
   - flutter_qiniu (0.0.1):
@@ -110,54 +114,66 @@ PODS:
     - Flutter
     - JCore (= 2.4.0)
     - JPush (= 3.4.0)
-  - mob_sharesdk (4.3.16):
-    - mob_sharesdk/ShareSDK (= 4.3.16)
+  - libwebp (1.2.0):
+    - libwebp/demux (= 1.2.0)
+    - libwebp/mux (= 1.2.0)
+    - libwebp/webp (= 1.2.0)
+  - libwebp/demux (1.2.0):
+    - libwebp/webp
+  - libwebp/mux (1.2.0):
+    - libwebp/demux
+  - libwebp/webp (1.2.0)
+  - Mantle (2.1.6):
+    - Mantle/extobjc (= 2.1.6)
+  - Mantle/extobjc (2.1.6)
+  - mob_sharesdk (4.3.17):
+    - mob_sharesdk/ShareSDK (= 4.3.17)
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDK (4.3.16):
+  - mob_sharesdk/ShareSDK (4.3.17):
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKExtension (4.3.16):
+  - mob_sharesdk/ShareSDKExtension (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Douyin (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/Douyin (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Facebook (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/Facebook (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/KuaiShou (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/KuaiShou (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Line (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/Line (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Oasis (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/Oasis (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/QQ (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/QQ (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/SinaWeibo (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/SinaWeibo (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/SnapChat (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/SnapChat (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Twitter (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/Twitter (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/WatermelonVideo (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/WatermelonVideo (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.3.16):
+  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKRestoreScene (4.3.16):
+  - mob_sharesdk/ShareSDKRestoreScene (4.3.17):
     - mob_sharesdk/ShareSDKExtension
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKUI (4.3.16):
+  - mob_sharesdk/ShareSDKUI (4.3.17):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - MOBFoundation (3.2.24)
+  - MOBFoundation (3.2.25)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -173,6 +189,9 @@ PODS:
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
+  - SDWebImageWebPCoder (0.8.3):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.10)
   - shared_preferences (0.0.1):
     - Flutter
   - sharesdk_plugin (1.1.2):
@@ -224,6 +243,7 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
+  - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - flutter_plugin_record (from `.symlinks/plugins/flutter_plugin_record/ios`)
   - flutter_qiniu (from `.symlinks/plugins/flutter_qiniu/ios`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
@@ -261,12 +281,15 @@ SPEC REPOS:
     - HydraAsync
     - JCore
     - JPush
+    - libwebp
+    - Mantle
     - mob_sharesdk
     - MOBFoundation
     - Qiniu
     - Reachability
     - Regift
     - SDWebImage
+    - SDWebImageWebPCoder
     - SwiftyGif
     - TXIMSDK_Smart_iOS
 
@@ -295,6 +318,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_bugly:
     :path: ".symlinks/plugins/flutter_bugly/ios"
+  flutter_image_compress:
+    :path: ".symlinks/plugins/flutter_image_compress/ios"
   flutter_plugin_record:
     :path: ".symlinks/plugins/flutter_plugin_record/ios"
   flutter_qiniu:
@@ -357,6 +382,7 @@ SPEC CHECKSUMS:
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
+  flutter_image_compress: 082f8daaf6c1b0c9fe798251c750ef0ecd98d7ae
   flutter_plugin_record: 562ded56f3a109d769e72c3ef52ef20d835493d4
   flutter_qiniu: 150b2007d3b4c654777d46711e1ac8736215aaba
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8
@@ -371,8 +397,10 @@ SPEC CHECKSUMS:
   JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
   JPush: defaa108c38806f6efdcfaf4c416854d25fca8e5
   jpush_flutter: 364b245849348e05377d67295d0896ddd664a896
-  mob_sharesdk: 0e4039a6a6be6fb5f107f1803e4d90ab7fbe92c3
-  MOBFoundation: 934ee1a43aed452d51942b416bc3dc4d0813ac82
+  libwebp: 6bac0a99ba5a6bb7449a951ff22c484201985f68
+  Mantle: 4c0ed6ce47c96eccc4dc3bb071deb3def0e2c3be
+  mob_sharesdk: 38b0e445a0a40d69d4646149b0381aa1c5f87e61
+  MOBFoundation: eaeb2e9e26a4155fa931020fb275d83445da0e09
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
@@ -381,6 +409,7 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Regift: d097afd401021f4f42b102ee125ceeb125a38caf
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SDWebImageWebPCoder: bbf46e29fb8d1980a78ad3d5e9b4123c77f10ebc
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sharesdk_plugin: de8d8b87c50d60017472c5da425db1acd2911e0a
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
@@ -392,6 +421,6 @@ SPEC CHECKSUMS:
   wakelock: bfc7955c418d0db797614075aabbc58a39ab5107
   webview_flutter: 70e76bed844cc0f9575be75349b6d8a890035f2a
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 3dffd8c48b531d21ec0ec153c22dc8e3a6223bc9
 
 COCOAPODS: 1.10.1
