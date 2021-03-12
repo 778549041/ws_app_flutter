@@ -251,6 +251,8 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                                               .memberInfo.medalOrSaleImageName,
                                           medalToastImage: model.memberInfo
                                               .medalOrSaleDescImageName,
+                                          isSales:
+                                              model.memberInfo.isSales == 1,
                                         ),
                                       ),
                                   ],
@@ -370,14 +372,14 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                       return GestureDetector(
                         onTap: () {
                           Get.to(
-                              GalleryPhotoPage(
-                                heroName: (model.fileList[index].savepath +
-                                    'circleDetailPage'),
-                                galleryItems: model.fileList,
-                                initialIndex: index,
-                                backgroundDecoration:
-                                    const BoxDecoration(color: Colors.black),
-                              ),
+                              () => GalleryPhotoPage(
+                                    heroName: (model.fileList[index].savepath +
+                                        'circleDetailPage'),
+                                    galleryItems: model.fileList,
+                                    initialIndex: index,
+                                    backgroundDecoration: const BoxDecoration(
+                                        color: Colors.black),
+                                  ),
                               transition: Transition.fadeIn);
                         },
                         child: Hero(
@@ -397,9 +399,9 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                   child: GestureDetector(
                     onTap: () {
                       Get.to(
-                          VideoPalyPage(
-                            videoUrl: model.fileList[0].savepath,
-                          ),
+                          () => VideoPalyPage(
+                                videoUrl: model.fileList[0].savepath,
+                              ),
                           transition: Transition.fadeIn);
                     },
                     child: Stack(
@@ -524,6 +526,7 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                                           model.memberInfo.medalOrSaleImageName,
                                       medalToastImage: model
                                           .memberInfo.medalOrSaleDescImageName,
+                                      isSales: model.memberInfo.isSales == 1,
                                     ),
                                   ),
                               ],

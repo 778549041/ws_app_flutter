@@ -138,16 +138,15 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         focusNode: controller.focusNode,
                         textInputAction: TextInputAction.send,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFF999999), width: 0.5)),
-                          hintText: controller.placeholder.value,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 8)
-                        ),
-                        onSubmitted: (value) =>
-                            controller.sendComment(value),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                borderSide: BorderSide(
+                                    color: Color(0xFF999999), width: 0.5)),
+                            hintText: controller.placeholder.value,
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 8)),
+                        onSubmitted: (value) => controller.sendComment(value),
                       ),
                     ),
                   ),
@@ -324,11 +323,12 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: MedalWidget(
-                                          medalBtnImage: model
-                                              .memberInfo.medalOrSaleImageName,
-                                          medalToastImage: model.memberInfo
-                                              .medalOrSaleDescImageName,
-                                        ),
+                                      medalBtnImage:
+                                          model.memberInfo.medalOrSaleImageName,
+                                      medalToastImage: model
+                                          .memberInfo.medalOrSaleDescImageName,
+                                      isSales: model.memberInfo.isSales == 1,
+                                    ),
                                   ),
                               ],
                             ),

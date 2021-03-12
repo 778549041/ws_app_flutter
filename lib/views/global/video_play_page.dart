@@ -52,7 +52,7 @@ class VideoPalyPageState extends State<VideoPalyPage> {
     _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
         allowFullScreen: false,
-        aspectRatio: 5 / 3,
+        // aspectRatio: 5 / 3,
         autoPlay: true,
         looping: false);
     super.initState();

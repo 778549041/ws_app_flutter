@@ -307,13 +307,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.26+2"
-  flutter_custom_clippers:
-    dependency: "direct main"
-    description:
-      name: flutter_custom_clippers
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.2"
   flutter_easyloading:
     dependency: "direct main"
     description:
@@ -1014,7 +1007,7 @@ packages:
       path: "plugins/flutter_html/webview_flutter"
       relative: true
     source: path
-    version: "1.0.7"
+    version: "2.0.2"
   wechat_assets_picker:
     dependency: "direct main"
     description:

@@ -121,6 +121,8 @@ class CircleListItem extends StatelessWidget {
                                                 .medalOrSaleImageName,
                                             medalToastImage: model.memberInfo
                                                 .medalOrSaleDescImageName,
+                                            isSales:
+                                                model.memberInfo.isSales == 1,
                                           ),
                                         ),
                                     ],
@@ -274,14 +276,15 @@ class CircleListItem extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             Get.to(
-                                GalleryPhotoPage(
-                                  heroName: (model.fileList[index].savepath +
-                                      pageName),
-                                  galleryItems: model.fileList,
-                                  initialIndex: index,
-                                  backgroundDecoration:
-                                      const BoxDecoration(color: Colors.black),
-                                ),
+                                () => GalleryPhotoPage(
+                                      heroName:
+                                          (model.fileList[index].savepath +
+                                              pageName),
+                                      galleryItems: model.fileList,
+                                      initialIndex: index,
+                                      backgroundDecoration: const BoxDecoration(
+                                          color: Colors.black),
+                                    ),
                                 transition: Transition.fadeIn);
                           },
                           child: Hero(
@@ -300,9 +303,9 @@ class CircleListItem extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Get.to(
-                            VideoPalyPage(
-                              videoUrl: model.fileList[0].savepath,
-                            ),
+                            () => VideoPalyPage(
+                                  videoUrl: model.fileList[0].savepath,
+                                ),
                             transition: Transition.fadeIn);
                       },
                       child: Stack(

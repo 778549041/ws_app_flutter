@@ -133,6 +133,16 @@ class CirclePublishController extends GetxController {
       var result = await FlutterQiNiu.upload(config, (key, percent) {
         print('---上传进度:$key--$percent--------');
       });
+      // var result = await Storage().putFile(
+      //     file,
+      //     Auth(
+      //             accessKey: CacheKey.QINIU_ACCESS_KEY,
+      //             secretKey: CacheKey.QINIU_SECRET_KEY)
+      //         .generateUploadToken(
+      //             putPolicy: PutPolicy(
+      //                 scope: CacheKey.QINIU_SPACE_NAME,
+      //                 deadline: DateUtil.getNowDateMs() + 3600)),
+      //     options: PutOptions(controller: PutController()));
       print(result);
       imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result['key']);
     }

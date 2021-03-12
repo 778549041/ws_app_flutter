@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class FlutterWebView implements PlatformView, MethodCallHandler {
   private static final String JS_CHANNEL_NAMES_FIELD = "javascriptChannelNames";
-  private final InputAwareWebView webView;
+  private final WebView webView;
   private final MethodChannel methodChannel;
   private final FlutterWebViewClient flutterWebViewClient;
   private final Handler platformThreadHandler;
@@ -74,6 +74,11 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
 
       return true;
     }
+
+    @Override
+    public void onProgressChanged(WebView view, int progress) {
+      flutterWebViewClient.onLoadingProgress(progress);
+    }
   }
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -89,7 +94,13 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     DisplayManager displayManager =
         (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
     displayListenerProxy.onPreWebViewInitialization(displayManager);
-    webView = new InputAwareWebView(context, containerView);
+
+    Boolean usesHybridComposition = (Boolean) params.get("usesHybridComposition");
+    webView =
+        (usesHybridComposition)
+            ? new WebView(context)
+            : new InputAwareWebView(context, containerView);
+
     displayListenerProxy.onPostWebViewInitialization(displayManager);
 
     platformThreadHandler = new Handler(context.getMainLooper());
@@ -122,28 +133,28 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     if (params.containsKey("initialUrl")) {
       String url = (String) params.get("initialUrl");
       if (params.containsKey("sid")) {
-                String sid = (String) params.get("sid");
-//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//                    CookieSyncManager.createInstance(context);
-//                }
-                CookieSyncManager.createInstance(context);
-                CookieManager cookieManager = CookieManager.getInstance();
-                cookieManager.setAcceptCookie(true);
-                cookieManager.removeSessionCookie();// 移除
-                cookieManager.removeAllCookie();
-//                StringBuilder sbCookie = new StringBuilder();//创建一个拼接cookie的容器,为什么这么拼接，大家查阅一下http头Cookie的结构
-//                sbCookie.append(sid);//拼接sessionId
-//                String cookieValue = sbCookie.toString();
-                cookieManager.setCookie(url, "_SID="+ sid +";path=/;httpOnly;");//为url设置cookie
-                CookieSyncManager.getInstance().sync();//同步cookie
-                String newCookie = cookieManager.getCookie(url);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    cookieManager.flush();
-//                } else {
-//                    CookieSyncManager.getInstance().sync();
-//                }
-//                CookieSyncManager.getInstance().sync();
-            }
+          String sid = (String) params.get("sid");
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            CookieSyncManager.createInstance(context);
+//        }
+          CookieSyncManager.createInstance(context);
+          CookieManager cookieManager = CookieManager.getInstance();
+          cookieManager.setAcceptCookie(true);
+          cookieManager.removeSessionCookie();// 移除
+          cookieManager.removeAllCookie();
+//        StringBuilder sbCookie = new StringBuilder();//创建一个拼接cookie的容器,为什么这么拼接，大家查阅一下http头Cookie的结构
+//        sbCookie.append(sid);//拼接sessionId
+//        String cookieValue = sbCookie.toString();
+          cookieManager.setCookie(url, "_SID="+ sid +";path=/;httpOnly;");//为url设置cookie
+          CookieSyncManager.getInstance().sync();//同步cookie
+          String newCookie = cookieManager.getCookie(url);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            cookieManager.flush();
+//        } else {
+//            CookieSyncManager.getInstance().sync();
+//        }
+//        CookieSyncManager.getInstance().sync();
+      }
       webView.loadUrl(url);
     }
   }
@@ -160,7 +171,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   // of Flutter but used as an override anyway wherever it's actually defined.
   // TODO(mklim): Add the @Override annotation once flutter/engine#9727 rolls to stable.
   public void onInputConnectionUnlocked() {
-    webView.unlockInputConnection();
+    if (webView instanceof InputAwareWebView) {
+      ((InputAwareWebView) webView).unlockInputConnection();
+    }
   }
 
   // @Override
@@ -170,7 +183,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   // of Flutter but used as an override anyway wherever it's actually defined.
   // TODO(mklim): Add the @Override annotation once flutter/engine#9727 rolls to stable.
   public void onInputConnectionLocked() {
-    webView.lockInputConnection();
+    if (webView instanceof InputAwareWebView) {
+      ((InputAwareWebView) webView).lockInputConnection();
+    }
   }
 
   // @Override
@@ -180,7 +195,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   // of Flutter but used as an override anyway wherever it's actually defined.
   // TODO(mklim): Add the @Override annotation once stable passes v1.10.9.
   public void onFlutterViewAttached(View flutterView) {
-    webView.setContainerView(flutterView);
+    if (webView instanceof InputAwareWebView) {
+      ((InputAwareWebView) webView).setContainerView(flutterView);
+    }
   }
 
   // @Override
@@ -190,7 +207,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   // of Flutter but used as an override anyway wherever it's actually defined.
   // TODO(mklim): Add the @Override annotation once stable passes v1.10.9.
   public void onFlutterViewDetached() {
-    webView.setContainerView(null);
+    if (webView instanceof InputAwareWebView) {
+      ((InputAwareWebView) webView).setContainerView(null);
+    }
   }
 
   @Override
@@ -392,10 +411,16 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
             webView.setWebContentsDebuggingEnabled(debuggingEnabled);
           }
           break;
+        case "hasProgressTracking":
+          flutterWebViewClient.hasProgressTracking = (boolean) settings.get(key);
+          break;
         case "gestureNavigationEnabled":
           break;
         case "userAgent":
           updateUserAgent((String) settings.get(key));
+          break;
+        case "allowsInlineMediaPlayback":
+          // no-op inline media playback is always allowed on Android.
           break;
         default:
           throw new IllegalArgumentException("Unknown WebView setting: " + key);
@@ -439,7 +464,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   @Override
   public void dispose() {
     methodChannel.setMethodCallHandler(null);
-    webView.dispose();
+    if (webView instanceof InputAwareWebView) {
+      ((InputAwareWebView) webView).dispose();
+    }
     webView.destroy();
   }
 }

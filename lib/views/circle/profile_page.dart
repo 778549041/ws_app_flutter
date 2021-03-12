@@ -65,6 +65,9 @@ class ProfilePage extends GetView<ProfileController> {
                                     .member.memberInfo.medalOrSaleImageName,
                                 medalToastImage: controller.friendModel.value
                                     .member.memberInfo.medalOrSaleDescImageName,
+                                isSales: controller.friendModel.value.member
+                                        .memberInfo.isSales ==
+                                    1,
                               ),
                             ),
                         ],

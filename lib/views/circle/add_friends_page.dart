@@ -179,6 +179,9 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                                     medalToastImage: member
                                                         .memberInfo
                                                         .medalOrSaleDescImageName,
+                                                    isSales: member.memberInfo
+                                                            .isSales ==
+                                                        1,
                                                   ),
                                                 ),
                                               Offstage(

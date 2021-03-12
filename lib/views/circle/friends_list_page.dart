@@ -163,6 +163,7 @@ class FriendsListPage extends GetView<FriendsController> {
                       medalBtnImage: member.memberInfo.medalOrSaleImageName,
                       medalToastImage:
                           member.memberInfo.medalOrSaleDescImageName,
+                      isSales: member.memberInfo.isSales == 1,
                     ),
                   ),
                 Offstage(

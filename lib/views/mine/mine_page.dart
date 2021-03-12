@@ -216,6 +216,13 @@ class MinePage extends GetView<MineController> {
                             .member
                             .memberInfo
                             .medalOrSaleDescImageName,
+                        isSales: Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .member
+                                .memberInfo
+                                .isSales ==
+                            1,
                       ),
                     ),
                   Obx(() => Offstage(

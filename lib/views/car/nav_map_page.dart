@@ -29,19 +29,15 @@ class NavMapPage extends GetView<NavMapController> {
       ),
       child: Stack(
         children: <Widget>[
-          Builder(
-            builder: (context) {
-              return AmapView(
-                // 地图类型 (可选)
-                mapType: MapType.Standard,
-                showCompass: false,
-                // 缩放级别 (可选)
-                zoomLevel: 14,
-                // 地图创建完成回调 (可选)
-                onMapCreated: (mapController) =>
-                    controller.onMapCreated(mapController),
-              );
-            },
+          AmapView(
+            // 地图类型 (可选)
+            mapType: MapType.Standard,
+            showCompass: false,
+            // 缩放级别 (可选)
+            zoomLevel: 14,
+            // 地图创建完成回调 (可选)
+            onMapCreated: (mapController) =>
+                controller.onMapCreated(mapController),
           ),
           Positioned(
             left: (ScreenUtil.getInstance().screenWidth - 80) / 2,

@@ -144,6 +144,13 @@ class EnjoyPage extends GetView<EnjoyController> {
                         .member
                         .memberInfo
                         .medalOrSaleDescImageName,
+                    isSales: Get.find<UserController>()
+                            .userInfo
+                            .value
+                            .member
+                            .memberInfo
+                            .isSales ==
+                        1,
                   ),
                 ),
             ],

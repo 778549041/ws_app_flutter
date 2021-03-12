@@ -28,29 +28,24 @@ class NearDZMapPage extends GetView<NearDZMapController> {
       ),
       child: Stack(
         children: <Widget>[
-          Builder(
-            builder: (context) {
-              return AmapView(
-                // 地图类型 (可选)
-                mapType: MapType.Standard,
-                showCompass: false,
-                // 缩放级别 (可选)
-                zoomLevel: 14,
-                // 标识点击回调 (可选)
-                onMarkerClicked: (IMarker marker) =>
-                    controller.onMarkerClicked(marker),
-                // 地图点击回调 (可选)
-                onMapClicked: (LatLng coord) => controller.onMapClicked(coord),
-                // 地图拖动开始 (可选)
-                onMapMoveStart: (MapMove move) =>
-                    controller.onMapMoveStart(move),
-                // 地图拖动结束 (可选)
-                onMapMoveEnd: (MapMove move) => controller.onMapMoveEnd(move),
-                // 地图创建完成回调 (可选)
-                onMapCreated: (mapController) =>
-                    controller.onMapCreated(mapController),
-              );
-            },
+          AmapView(
+            // 地图类型 (可选)
+            mapType: MapType.Standard,
+            showCompass: false,
+            // 缩放级别 (可选)
+            zoomLevel: 14,
+            // 标识点击回调 (可选)
+            onMarkerClicked: (IMarker marker) =>
+                controller.onMarkerClicked(marker),
+            // 地图点击回调 (可选)
+            onMapClicked: (LatLng coord) => controller.onMapClicked(coord),
+            // 地图拖动开始 (可选)
+            onMapMoveStart: (MapMove move) => controller.onMapMoveStart(move),
+            // 地图拖动结束 (可选)
+            onMapMoveEnd: (MapMove move) => controller.onMapMoveEnd(move),
+            // 地图创建完成回调 (可选)
+            onMapCreated: (mapController) =>
+                controller.onMapCreated(mapController),
           ),
           Positioned(
             top: 0,
