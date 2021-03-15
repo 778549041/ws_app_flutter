@@ -1,5 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/wow/cdz_info_model.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
@@ -61,10 +62,29 @@ class DZInfoView extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 5),
-                          child: Text(
-                            '共${info.kuai}个',
-                            style: TextStyle(fontSize: 11, color: Colors.grey),
-                          ),
+                          child: info.serviceType == '1'
+                              ? RichText(
+                                  text: TextSpan(
+                                      text: '闲${info.kuaiNum}/',
+                                      style: TextStyle(
+                                          color: Color(0xFF01D4D7),
+                                          fontSize: 11),
+                                      children: [
+                                        TextSpan(
+                                          text: '${info.kuai}',
+                                          style: TextStyle(
+                                              color: MainAppColor
+                                                  .secondaryTextColor,
+                                              fontSize: 11),
+                                        )
+                                      ]),
+                                )
+                              : Text(
+                                  '共${info.kuai}个',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: MainAppColor.secondaryTextColor),
+                                ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -76,10 +96,29 @@ class DZInfoView extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 5),
-                          child: Text(
-                            '共${info.man}个',
-                            style: TextStyle(fontSize: 11, color: Colors.grey),
-                          ),
+                          child: info.serviceType == '1'
+                              ? RichText(
+                                  text: TextSpan(
+                                      text: '闲${info.manNum}/',
+                                      style: TextStyle(
+                                          color: Color(0xFF01D4D7),
+                                          fontSize: 11),
+                                      children: [
+                                        TextSpan(
+                                          text: '${info.man}',
+                                          style: TextStyle(
+                                              color: MainAppColor
+                                                  .secondaryTextColor,
+                                              fontSize: 11),
+                                        )
+                                      ]),
+                                )
+                              : Text(
+                                  '共${info.man}个',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: MainAppColor.secondaryTextColor),
+                                ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 15),
@@ -111,7 +150,9 @@ class DZInfoView extends StatelessWidget {
                                 TextStyle(fontSize: 13.0, color: Colors.grey),
                             children: <TextSpan>[
                               TextSpan(
-                                text: info.price,
+                                text: NumUtil.getNumByValueDouble(
+                                        double.parse(info.price), 2)
+                                    .toString(),
                                 style: TextStyle(
                                   color: Color(0xFF0045D0),
                                   fontSize: 11.0,
@@ -136,7 +177,9 @@ class DZInfoView extends StatelessWidget {
                                   TextStyle(fontSize: 13.0, color: Colors.grey),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: info.servicePrice,
+                                  text: NumUtil.getNumByValueDouble(
+                                          double.parse(info.servicePrice), 2)
+                                      .toString(),
                                   style: TextStyle(
                                     color: Color(0xFF0045D0),
                                     fontSize: 11.0,

@@ -9,7 +9,7 @@ import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 class ShareMenuWidget extends StatelessWidget {
   final bool isCircle; //是否是分享圈子
   final bool showWeibo; //是否隐藏微博
-  final String shareType;//分享类型
+  final String shareType; //分享类型
   final Map<String, dynamic> shareData; //待分享的数据
   final Map<String, dynamic> extraData; //易观统计所需数据
   ShareMenuWidget(
@@ -78,6 +78,7 @@ class ShareMenuWidget extends StatelessWidget {
       return;
     }
     ShareSDKPlatform platform;
+    String appName;
     String share_method;
     SSDKMap params;
     String urlStr = shareData['url'];
@@ -87,78 +88,100 @@ class ShareMenuWidget extends StatelessWidget {
     if (index == 0) {
       platform = ShareSDKPlatforms.wechatTimeline;
       share_method = '微信朋友圈';
+      appName = '微信';
     } else if (index == 1) {
       platform = ShareSDKPlatforms.wechatSession;
       share_method = '微信好友';
+      appName = '微信';
     } else if (index == 2) {
       platform = ShareSDKPlatforms.sina;
       share_method = '微博';
+      appName = '微博';
     }
-
-    if (platform == ShareSDKPlatforms.sina) {
-      params = SSDKMap()
-        ..setSina(
-          shareData["desc"],
-          shareData["title"],
-          [shareData["icon"]],
-          null,
-          null,
-          0,
-          0,
-          null,
-          false,
-          urlStr,
-          null,
-          SSDKContentTypes.webpage,
-        );
-    } else if (platform == ShareSDKPlatforms.wechatTimeline ||
-        platform == ShareSDKPlatforms.wechatSession) {
-      params = SSDKMap()
-        ..setWechat(
-            shareData["desc"],
-            shareData["title"],
-            urlStr,
-            shareData["thumbImage"],
-            null,
-            null,
-            null,
-            shareData["icon"],
-            null,
-            null,
-            null,
-            null,
-            null,
-            SSDKContentTypes.auto,
-            platform);
-    }
-    SharesdkPlugin.share(platform, params, (SSDKResponseState state,
-        Map userdata, Map contentEntity, SSDKError error) {
-      if (state == SSDKResponseState.Success) {
-        //分享成功
-      } else if (state == SSDKResponseState.Fail) {
+    SharesdkPlugin.isClientInstalled(platform).then((value) {
+      if (!value) {
         Get.dialog(
             BaseDialog(
-              title: '分享失败',
+              title: '温馨提示',
+              rightText: '知道了',
               hiddenCancel: true,
               content: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(error.code.toString(),
+                child: Text(
+                    '检测到您还未安装 $appName 客户端,您可以先去 APP Store 下载 $appName APP再试!',
                     style: TextStyle(fontSize: 16.0)),
               ),
             ),
             barrierDismissible: false);
-      } else if (state == SSDKResponseState.Cancel) {
-        Get.dialog(
-            BaseDialog(
-              title: '分享取消',
-              hiddenCancel: true,
-              content: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text('用户取消了分享', style: TextStyle(fontSize: 16.0)),
-              ),
-            ),
-            barrierDismissible: false);
+        return;
       }
+      if (platform == ShareSDKPlatforms.sina) {
+        params = SSDKMap()
+          ..setSina(
+            shareData["desc"],
+            shareData["title"],
+            [shareData["icon"]],
+            null,
+            null,
+            0,
+            0,
+            null,
+            false,
+            urlStr,
+            null,
+            SSDKContentTypes.webpage,
+          );
+      } else if (platform == ShareSDKPlatforms.wechatTimeline ||
+          platform == ShareSDKPlatforms.wechatSession) {
+        params = SSDKMap()
+          ..setWechat(
+              shareData["desc"],
+              shareData["title"],
+              urlStr,
+              shareData["thumbImage"],
+              null,
+              null,
+              null,
+              shareData["icon"],
+              null,
+              null,
+              null,
+              null,
+              null,
+              SSDKContentTypes.auto,
+              platform);
+      }
+      SharesdkPlugin.share(platform, params, (SSDKResponseState state,
+          Map userdata, Map contentEntity, SSDKError error) {
+        if (state == SSDKResponseState.Success) {
+          //分享成功
+        } else if (state == SSDKResponseState.Fail) {
+          Get.dialog(
+              BaseDialog(
+                title: '分享失败',
+                hiddenCancel: true,
+                content: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Text(error.code.toString(),
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ),
+              barrierDismissible: false);
+        } else if (state == SSDKResponseState.Cancel) {
+          Get.dialog(
+              BaseDialog(
+                title: '分享取消',
+                hiddenCancel: true,
+                content: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Text('用户取消了分享', style: TextStyle(fontSize: 16.0)),
+                ),
+              ),
+              barrierDismissible: false);
+        }
+      });
     });
   }
 }

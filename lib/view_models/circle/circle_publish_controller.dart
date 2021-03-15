@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_qiniu/flutter_qiniu.dart';
-import 'package:flutter_qiniu/flutter_qiniu_config.dart';
+import 'package:qiniu_sdk_base/qiniu_sdk_base.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -125,26 +125,18 @@ class CirclePublishController extends GetxController {
     List<String> imgUrlList = [];
     for (var item in selectedAssets) {
       File file = await item.file;
-      FlutterQiNiuConfig config = FlutterQiNiuConfig(
-          accessKey: CacheKey.QINIU_ACCESS_KEY,
-          secretKey: CacheKey.QINIU_SECRET_KEY,
-          scope: CacheKey.QINIU_SPACE_NAME,
-          filePath: file.path);
-      var result = await FlutterQiNiu.upload(config, (key, percent) {
-        print('---上传进度:$key--$percent--------');
-      });
-      // var result = await Storage().putFile(
-      //     file,
-      //     Auth(
-      //             accessKey: CacheKey.QINIU_ACCESS_KEY,
-      //             secretKey: CacheKey.QINIU_SECRET_KEY)
-      //         .generateUploadToken(
-      //             putPolicy: PutPolicy(
-      //                 scope: CacheKey.QINIU_SPACE_NAME,
-      //                 deadline: DateUtil.getNowDateMs() + 3600)),
-      //     options: PutOptions(controller: PutController()));
+      var result = await Storage().putFile(
+          file,
+          Auth(
+                  accessKey: CacheKey.QINIU_ACCESS_KEY,
+                  secretKey: CacheKey.QINIU_SECRET_KEY)
+              .generateUploadToken(
+                  putPolicy: PutPolicy(
+                      scope: CacheKey.QINIU_SPACE_NAME,
+                      deadline: DateUtil.getNowDateMs() + 3600)),
+          options: PutOptions(controller: PutController()));
       print(result);
-      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result['key']);
+      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result.key);
     }
     EasyLoading.dismiss();
     return imgUrlList;

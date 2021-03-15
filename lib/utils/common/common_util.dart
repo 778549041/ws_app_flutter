@@ -113,4 +113,18 @@ class CommonUtil {
     }
     return imgIDListStr;
   }
+
+  //图片路径
+  static String qnImageFilePatName() {
+    String now = DateUtil.formatDateStr(DateUtil.getNowDateStr(),format: 'yyyyMMdd');
+    String name = 'Picture/$now/${DateUtil.getNowDateMs()}${Uuid().v1()}.jpg';
+    return name;
+  }
+
+  //视频路径
+  static String qnVideoFilePatName() {
+    String now = DateUtil.formatDateStr(DateUtil.getNowDateStr(),format: 'yyyyMMdd');
+    String name = 'Video/$now/${DateUtil.getNowDateMs()}${Uuid().v1()}.mp4';
+    return name;
+  }
 }

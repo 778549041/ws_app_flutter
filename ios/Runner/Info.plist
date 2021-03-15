@@ -53,6 +53,9 @@
 	<array>
 		<string>weixin</string>
 		<string>weixinULAPI</string>
+		<string>sinaweibo</string>
+		<string>qqmap</string>
+		<string>baidumap</string>
 		<string>weibosdk2.5</string>
 		<string>weibosdk</string>
 		<string>sinaweibosso</string>

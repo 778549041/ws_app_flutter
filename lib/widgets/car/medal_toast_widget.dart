@@ -1,5 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bubble/bubble_widget.dart';
 import 'package:get/get.dart';
 
 class MedalToastWidget extends StatelessWidget {
@@ -12,18 +13,26 @@ class MedalToastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double leftP, topP;
+    double leftP, topP, arrowPadding,width,height;
+    BubbleArrowDirection direction = BubbleArrowDirection.top;
     if (isSales) {
       leftP = (Get.width - 280) / 2;
+      width = 280.0;
+      height = 130.0;
     } else {
       leftP = (Get.width - ScreenUtil.getInstance().getWidth(295)) / 2;
+      width = ScreenUtil.getInstance().getWidth(295);
+      height = ScreenUtil.getInstance().getWidth(135);
     }
-    topP = offset.dy + rect.size.height;
+    arrowPadding = offset.dx + rect.size.width / 2 - leftP - 15;
+    topP = offset.dy + rect.size.height / 2;
     if (offset.dy + rect.size.height / 2 > Get.height / 2) {
+      direction = BubbleArrowDirection.bottom;
+      arrowPadding = width + leftP - offset.dx + rect.size.width / 2 - leftP - 10;
       if (isSales) {
-        topP = offset.dy - 120 - 15;
+        topP = offset.dy - 120 - 20;
       } else {
-        topP = offset.dy - ScreenUtil.getInstance().getWidth(135) - 15;
+        topP = offset.dy - ScreenUtil.getInstance().getWidth(135) - 20;
       }
     }
     return GestureDetector(
@@ -40,7 +49,16 @@ class MedalToastWidget extends StatelessWidget {
           Positioned(
             left: leftP,
             top: topP,
-            child: _buildChild(),
+            child: BubbleWidget(
+              width,
+              height,
+              Colors.red,
+              direction,
+              length: arrowPadding,
+              innerPadding: 0.0,
+              strokeWidth: 0.0,
+              child: _buildChild(),
+            ),
           ),
         ],
       ),
@@ -95,8 +113,6 @@ class MedalToastWidget extends StatelessWidget {
       );
     }
     return Container(
-      width: ScreenUtil.getInstance().getWidth(295),
-      height: ScreenUtil.getInstance().getWidth(135),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,

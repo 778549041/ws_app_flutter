@@ -78,6 +78,8 @@ PODS:
     - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
+  - flutter_bubble (0.0.1):
+    - Flutter
   - flutter_bugly (0.0.1):
     - Bugly
     - Flutter
@@ -87,9 +89,6 @@ PODS:
     - SDWebImageWebPCoder
   - flutter_plugin_record (0.0.1):
     - Flutter
-  - flutter_qiniu (0.0.1):
-    - Flutter
-    - Qiniu (~> 7.4)
   - flutter_qr_reader (0.0.1):
     - Flutter
   - flutter_video_compress (0.3.0):
@@ -101,7 +100,6 @@ PODS:
   - foundation_fluttify (0.0.1):
     - Flutter
   - GGWkCookie (0.1.0)
-  - HappyDNS (0.3.17)
   - HydraAsync (2.0.5)
   - image_gallery_saver (1.5.0):
     - Flutter
@@ -155,8 +153,6 @@ PODS:
     - Flutter
   - photo_manager (0.0.1):
     - Flutter
-  - Qiniu (7.4.4):
-    - HappyDNS (~> 0.3.17)
   - Reachability (3.2)
   - Regift (1.5.0)
   - SDWebImage (5.10.4):
@@ -206,10 +202,10 @@ DEPENDENCIES:
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
+  - flutter_bubble (from `.symlinks/plugins/flutter_bubble/ios`)
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
   - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - flutter_plugin_record (from `.symlinks/plugins/flutter_plugin_record/ios`)
-  - flutter_qiniu (from `.symlinks/plugins/flutter_qiniu/ios`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
   - flutter_video_compress (from `.symlinks/plugins/flutter_video_compress/ios`)
   - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
@@ -241,7 +237,6 @@ SPEC REPOS:
     - DKPhotoGallery
     - FMDB
     - GGWkCookie
-    - HappyDNS
     - HydraAsync
     - JCore
     - JPush
@@ -249,7 +244,6 @@ SPEC REPOS:
     - Mantle
     - mob_sharesdk
     - MOBFoundation
-    - Qiniu
     - Reachability
     - Regift
     - SDWebImage
@@ -280,14 +274,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
+  flutter_bubble:
+    :path: ".symlinks/plugins/flutter_bubble/ios"
   flutter_bugly:
     :path: ".symlinks/plugins/flutter_bugly/ios"
   flutter_image_compress:
     :path: ".symlinks/plugins/flutter_image_compress/ios"
   flutter_plugin_record:
     :path: ".symlinks/plugins/flutter_plugin_record/ios"
-  flutter_qiniu:
-    :path: ".symlinks/plugins/flutter_qiniu/ios"
   flutter_qr_reader:
     :path: ".symlinks/plugins/flutter_qr_reader/ios"
   flutter_video_compress:
@@ -345,16 +339,15 @@ SPEC CHECKSUMS:
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_bubble: b921aa40cef2e1dd1232a775ad3ec37499f3e128
   flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
   flutter_image_compress: 082f8daaf6c1b0c9fe798251c750ef0ecd98d7ae
   flutter_plugin_record: 562ded56f3a109d769e72c3ef52ef20d835493d4
-  flutter_qiniu: 150b2007d3b4c654777d46711e1ac8736215aaba
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8
   flutter_video_compress: 641fd3e03d970d79176a59d91d7a4392923710b0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   foundation_fluttify: 0c45145e3fad1fb99188e4979daed5b24cd9b278
   GGWkCookie: 6b62f0463fb04b7ba779c8bfdcc01867c9ac9fcb
-  HappyDNS: 848ef73e24f2b0e2752064223ce2dc0dd88900ea
   HydraAsync: 6b74390f143e7edfb8bd3c706262b67bbefc09df
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
@@ -369,7 +362,6 @@ SPEC CHECKSUMS:
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   photo_manager: f7c619c2cc8c2adb8d85c63363babac477de9c67
-  Qiniu: 529d25de615c6ad1cb587f9d165a160d98e9fac9
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Regift: d097afd401021f4f42b102ee125ceeb125a38caf
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84

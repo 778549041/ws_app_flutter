@@ -42,7 +42,9 @@ class SingleCDZInfo {
   String payment; //支付方式
   String remark; //备注
   int kuai; //直流快充数量
+  int kuaiNum;//快充闲置个数
   int man; //交流慢充数量
+  int manNum;//慢充闲置个数
   String serviceType; //服务商(1:特来电,2:国翰,3:星星)
 
   SingleCDZInfo(
@@ -93,7 +95,9 @@ class SingleCDZInfo {
     equipmentID = json['EquipmentID'];
     equipmentOwnerID = json['EquipmentOwnerID'];
     kuai = json['kuai'];
+    kuaiNum = json['kuai_num'];
     man = json['man'];
+    manNum = json['man_num'];
     matchCars = json['MatchCars'];
     operatorID = json['OperatorID'];
     parkFee = json['ParkFee'];
@@ -122,7 +126,7 @@ class CDZListModel {
   CDZListModel.fromJson(Map<String, dynamic> json) {
     result = json['result'];
     if (json['list'] != null) {
-      list = List<CDZInfo>();
+      list = <CDZInfo>[];
       (json['list'] as List).forEach((element) {
         list.add(CDZInfo.fromJson(element));
       });

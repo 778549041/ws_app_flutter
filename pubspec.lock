@@ -279,6 +279,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.5.0"
+  flutter_bubble:
+    dependency: "direct main"
+    description:
+      name: flutter_bubble
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1"
   flutter_bugly:
     dependency: "direct main"
     description:
@@ -377,13 +384,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.5"
-  flutter_qiniu:
-    dependency: "direct main"
-    description:
-      path: "plugins/flutter_qiniu"
-      relative: true
-    source: path
-    version: "0.0.1"
   flutter_qr_reader:
     dependency: "direct main"
     description:
@@ -405,6 +405,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.1.2+1"
+  flutter_staggered_animations:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_animations
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   flutter_sticky_header:
     dependency: "direct main"
     description:
@@ -674,13 +681,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.0"
+  photo:
+    dependency: "direct main"
+    description:
+      name: photo
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.0-dev.3"
   photo_manager:
     dependency: transitive
     description:
       name: photo_manager
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0"
+    version: "0.5.8"
   photo_view:
     dependency: "direct main"
     description:
@@ -723,6 +737,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.6.4"
+  qiniu_flutter_sdk:
+    dependency: "direct main"
+    description:
+      name: qiniu_flutter_sdk
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
+  qiniu_sdk_base:
+    dependency: transitive
+    description:
+      name: qiniu_sdk_base
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.2"
   quiver:
     dependency: transitive
     description:
@@ -1024,4 +1052,4 @@ packages:
     version: "4.5.1"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  flutter: ">=1.24.0-10.1.pre"
