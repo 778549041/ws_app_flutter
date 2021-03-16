@@ -256,7 +256,11 @@ class CircleListItem extends StatelessWidget {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     print('点击跳转链接');
-                                    CommonUtil.serviceControlPushPage();
+                                    CommonUtil.serviceControlPushPage(
+                                      type: model.params.type,
+                                      detailId: model.params.detailId,
+                                      url: model.params.url,
+                                      hasNav: false);
                                   }),
                           ]),
                     ),

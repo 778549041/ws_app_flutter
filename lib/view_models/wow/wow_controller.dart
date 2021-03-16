@@ -10,4 +10,8 @@ class WowController extends BaseController {
   void onReady() {
     super.onReady();
   }
+
+  void tabClick(int index) {
+
+  }
 }

@@ -59,12 +59,14 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
     //本地同步数据状态到上级资讯列表页面
     //首页资讯列表
-    for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
-      NewModel newModel = Get.find<NewsController>().list[i];
-      if (newModel.articleId == newsDetailModel.value.article.articleId) {
-        Get.find<NewsController>().list.remove(newModel);
-        newModel.read = (int.parse(newModel.read) + 1).toString();
-        Get.find<NewsController>().list.insert(i, newModel);
+    if (Get.isRegistered<NewsController>()) {
+      for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
+        NewModel newModel = Get.find<NewsController>().list[i];
+        if (newModel.articleId == newsDetailModel.value.article.articleId) {
+          Get.find<NewsController>().list.remove(newModel);
+          newModel.read = (int.parse(newModel.read) + 1).toString();
+          Get.find<NewsController>().list.insert(i, newModel);
+        }
       }
     }
     //首页wow推荐资讯
@@ -141,14 +143,17 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
         //本地同步数据状态到上级资讯列表页面
         //首页资讯列表
-        for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
-          NewModel newModel = Get.find<NewsController>().list[i];
-          if (newModel.articleId == newsDetailModel.value.article.articleId) {
-            Get.find<NewsController>().list.remove(newModel);
-            newModel.articlePraise = newModel.articlePraise - 1;
-            Get.find<NewsController>().list.insert(i, newModel);
+        if (Get.isRegistered<NewsController>()) {
+          for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
+            NewModel newModel = Get.find<NewsController>().list[i];
+            if (newModel.articleId == newsDetailModel.value.article.articleId) {
+              Get.find<NewsController>().list.remove(newModel);
+              newModel.articlePraise = newModel.articlePraise - 1;
+              Get.find<NewsController>().list.insert(i, newModel);
+            }
           }
         }
+
         //首页wow推荐资讯
         for (var i = 0;
             i < Get.find<RecommendController>().newsListModel.value.list.length;
@@ -197,14 +202,17 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
         //本地同步数据状态到上级资讯列表页面
         //首页资讯列表
-        for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
-          NewModel newModel = Get.find<NewsController>().list[i];
-          if (newModel.articleId == newsDetailModel.value.article.articleId) {
-            Get.find<NewsController>().list.remove(newModel);
-            newModel.articlePraise = newModel.articlePraise + 1;
-            Get.find<NewsController>().list.insert(i, newModel);
+        if (Get.isRegistered<NewsController>()) {
+          for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
+            NewModel newModel = Get.find<NewsController>().list[i];
+            if (newModel.articleId == newsDetailModel.value.article.articleId) {
+              Get.find<NewsController>().list.remove(newModel);
+              newModel.articlePraise = newModel.articlePraise + 1;
+              Get.find<NewsController>().list.insert(i, newModel);
+            }
           }
         }
+
         //首页wow推荐资讯
         for (var i = 0;
             i < Get.find<RecommendController>().newsListModel.value.list.length;
@@ -290,15 +298,18 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
       //本地同步数据状态到上级资讯列表页面
       //首页资讯列表
-      for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
-        NewModel newModel = Get.find<NewsController>().list[i];
-        if (newModel.articleId == newsDetailModel.value.article.articleId) {
-          Get.find<NewsController>().list.remove(newModel);
-          newModel.commentCount =
-              (int.parse(newModel.commentCount) - 1).toString();
-          Get.find<NewsController>().list.insert(i, newModel);
+      if (Get.isRegistered<NewsController>()) {
+        for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
+          NewModel newModel = Get.find<NewsController>().list[i];
+          if (newModel.articleId == newsDetailModel.value.article.articleId) {
+            Get.find<NewsController>().list.remove(newModel);
+            newModel.commentCount =
+                (int.parse(newModel.commentCount) - 1).toString();
+            Get.find<NewsController>().list.insert(i, newModel);
+          }
         }
       }
+
       //首页wow推荐资讯
       for (var i = 0;
           i < Get.find<RecommendController>().newsListModel.value.list.length;

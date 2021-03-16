@@ -8,7 +8,6 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/activity_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/news_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
-import 'package:ws_app_flutter/view_models/wow/wow_controller.dart';
 
 class MainController extends BaseController {
   var selectedIndex = 0.obs;
@@ -17,7 +16,6 @@ class MainController extends BaseController {
 
   @override
   void onInit() async {
-    Get.lazyPut<WowController>(() => WowController());
     Get.lazyPut<RecommendController>(() => RecommendController());
     Get.lazyPut<NewsController>(() => NewsController());
     Get.lazyPut<ActivityController>(() => ActivityController());
@@ -48,13 +46,13 @@ class MainController extends BaseController {
 
   //tabbaritem点击
   void onItemTap(int index) async {
-    await Get.find<UserController>().getUserInfo();
-    if (index == 4) {
-      await Get.find<MineController>().requestFavorData();
-      await Get.find<UserController>().requestNewMessage();
-    } else if (index == 1) {
-      await Get.find<UserController>().requestNewMessage();
-    }
     pageController.jumpToPage(index);
+    Get.find<UserController>().getUserInfo();
+    if (index == 4) {
+      Get.find<MineController>().requestFavorData();
+      Get.find<UserController>().requestNewMessage();
+    } else if (index == 1) {
+      Get.find<UserController>().requestNewMessage();
+    }
   }
 }

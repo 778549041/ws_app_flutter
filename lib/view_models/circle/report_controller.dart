@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:qiniu_sdk_base/qiniu_sdk_base.dart';
 import 'package:get/get.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -77,9 +79,11 @@ class ReportController extends GetxController {
     EasyLoading.show(status: '文件上传中...');
     List<String> imgUrlList = [];
     for (var item in selectedAssets) {
-      File file = await item.file;
+      String filePath = await FlutterAbsolutePath.getAbsolutePath(item.id);
+      File compressedFile = await FlutterNativeImage.compressImage(filePath,
+          quality: 70, percentage: 50);
       var result = await Storage().putFile(
-          file,
+          compressedFile,
           Auth(
                   accessKey: CacheKey.QINIU_ACCESS_KEY,
                   secretKey: CacheKey.QINIU_SECRET_KEY)

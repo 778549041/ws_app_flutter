@@ -272,6 +272,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_absolute_path:
+    dependency: "direct main"
+    description:
+      name: flutter_absolute_path
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.6"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -335,13 +342,6 @@ packages:
       relative: true
     source: path
     version: "1.2.0"
-  flutter_image_compress:
-    dependency: "direct main"
-    description:
-      name: flutter_image_compress
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.7.0"
   flutter_layout_grid:
     dependency: transitive
     description:
@@ -354,6 +354,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_native_image:
+    dependency: "direct main"
+    description:
+      name: flutter_native_image
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.5+3"
   flutter_page_indicator:
     dependency: transitive
     description:
@@ -681,13 +688,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.0"
-  photo:
-    dependency: "direct main"
-    description:
-      name: photo
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.5.0-dev.3"
   photo_manager:
     dependency: transitive
     description:

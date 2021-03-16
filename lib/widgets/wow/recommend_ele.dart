@@ -21,7 +21,7 @@ class RecommendEle extends StatefulWidget {
 }
 
 class RecommendEleState extends State<RecommendEle>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   TimerUtil _timerUtil;
   bool _charging = true;

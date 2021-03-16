@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
+import 'package:ws_app_flutter/models/wow/category_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
+import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/wow_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class CommonUtil {
@@ -69,11 +72,7 @@ class CommonUtil {
 
   //服务端接口控制跳转页面
   static void serviceControlPushPage(
-      //TODO
-      {String type,
-      String detailId,
-      String url,
-      bool hasNav}) {
+      {String type, String detailId, String url, bool hasNav}) {
     if (type == 'H5' && url.length > 0) {
       Get.toNamed(Routes.WEBVIEW, arguments: {
         'url': url,
@@ -81,19 +80,31 @@ class CommonUtil {
       });
     } else if (type == "zixun_list") {
       //资讯列表
+      CategoryModel model = CategoryModel();
+      model.nodeId = detailId;
+      Get.toNamed(Routes.CATENEWSLIST, arguments: {'model': model});
     } else if (type == "zixun_detail") {
       //资讯详情
+      Get.toNamed(Routes.NEWSDETAIL, arguments: {'article_id': detailId});
     } else if (type == "huodong_list") {
       //活动列表
+      if (Get.currentRoute != Routes.HOME) {
+        Get.until((route) => Get.currentRoute == Routes.HOME);
+      }
+      Get.find<MainController>().onItemTap(0);
+      Get.find<WowController>().tabClick(1);
     } else if (type == "dianzhaung") {
       //附近电桩
+      Get.toNamed(Routes.NEARDZMAP);
     } else if (type == "topic_list") {
       //话题圈子列表
+      Get.toNamed(Routes.CIRCLTOPICLIST, arguments: {'topcid': detailId});
     } else if (type == "topic_detail") {
       //圈子详情
+      Get.toNamed(Routes.CIRCLEDETAIL, arguments: {'circle_id': detailId});
     } else if (type == "customerService") {
       //在线客服
-
+      //TODO
     }
   }
 
@@ -116,14 +127,16 @@ class CommonUtil {
 
   //图片路径
   static String qnImageFilePatName() {
-    String now = DateUtil.formatDateStr(DateUtil.getNowDateStr(),format: 'yyyyMMdd');
+    String now =
+        DateUtil.formatDateStr(DateUtil.getNowDateStr(), format: 'yyyyMMdd');
     String name = 'Picture/$now/${DateUtil.getNowDateMs()}${Uuid().v1()}.jpg';
     return name;
   }
 
   //视频路径
   static String qnVideoFilePatName() {
-    String now = DateUtil.formatDateStr(DateUtil.getNowDateStr(),format: 'yyyyMMdd');
+    String now =
+        DateUtil.formatDateStr(DateUtil.getNowDateStr(), format: 'yyyyMMdd');
     String name = 'Video/$now/${DateUtil.getNowDateMs()}${Uuid().v1()}.mp4';
     return name;
   }

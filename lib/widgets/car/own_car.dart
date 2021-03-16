@@ -21,7 +21,7 @@ class OwnCarWidget extends StatefulWidget {
 }
 
 class OwnCarWidgetState extends State<OwnCarWidget>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _animation;
   TimerUtil _timerUtil;

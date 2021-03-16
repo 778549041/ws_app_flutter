@@ -72,7 +72,6 @@ dependencies:
   wechat_assets_picker: ^4.2.2
   #图片浏览查看
   photo_view: ^0.11.1
-  photo: any
   #图片保存到本地相册
   image_gallery_saver: ^1.6.8
   #视频播放器
@@ -104,7 +103,9 @@ dependencies:
   # 视频压缩
   flutter_video_compress: ^0.3.7+8
   # 图片压缩
-  flutter_image_compress: ^0.7.0
+  flutter_native_image: ^0.0.5+3
+  # 路径转换工具
+  flutter_absolute_path: ^1.0.6
   # 加载html文本
   flutter_html: 
     path: plugins/flutter_html

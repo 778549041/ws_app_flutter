@@ -94,6 +94,9 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                             () => Html(
                               data: controller
                                   .newsDetailModel.value.article.bodys.content,
+                              onImageError: (exception, stackTrace) {},
+                              onImageTap: (url) {},
+                              onLinkTap: (url) {},
                             ),
                           ),
                         ),

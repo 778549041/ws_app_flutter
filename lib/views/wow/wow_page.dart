@@ -2,6 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/view_models/wow/wow_controller.dart';
 import 'package:ws_app_flutter/views/wow/activity_list_page.dart';
 import 'package:ws_app_flutter/views/wow/news_list_page.dart';
 import 'package:ws_app_flutter/views/wow/recommend_page.dart';
@@ -12,6 +13,7 @@ class WowPage extends StatefulWidget {
 }
 
 class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  final WowController controller = Get.put<WowController>(WowController());
   final List<Tab> tabs = <Tab>[
     Tab(
       text: '推荐',
@@ -53,6 +55,7 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, A
               indicatorColor: Colors.transparent,
               controller: _tabController,
               tabs: tabs,
+              onTap: (value) => controller.tabClick(value),
             ),
           ),
           Container(

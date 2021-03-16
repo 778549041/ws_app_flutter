@@ -1,5 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
@@ -16,20 +17,23 @@ class BasePage extends StatelessWidget {
   final Widget leftItem; //左边组件
   final VoidCallback leftCallBack; //左边按钮事件
   final List<Widget> rightActions; //右边按钮集合
+  final SystemUiOverlayStyle overlayStyle; //状态栏颜色
 
-  BasePage(
-      {@required this.child,
-      this.title,
-      this.titleWidget,
-      this.fontSize = 22,
-      this.titleColor = Colors.white,
-      this.isBack = true,
-      this.navBackgroundColor = Colors.transparent,
-      this.bgColor = Colors.white,
-      this.showAppBar = true,
-      this.leftItem,
-      this.leftCallBack,
-      this.rightActions});
+  BasePage({
+    @required this.child,
+    this.title,
+    this.titleWidget,
+    this.fontSize = 22,
+    this.titleColor = Colors.white,
+    this.isBack = true,
+    this.navBackgroundColor = Colors.transparent,
+    this.bgColor = Colors.white,
+    this.showAppBar = true,
+    this.leftItem,
+    this.leftCallBack,
+    this.rightActions,
+    this.overlayStyle = SystemUiOverlayStyle.light,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,10 @@ class BasePage extends StatelessWidget {
                   centerTitle: true,
                   //导航栏背景色
                   backgroundColor: navBackgroundColor,
+                  //设置状态栏颜色
+                  systemOverlayStyle: overlayStyle,
+                  //必须设置该值为false，否则设置状态栏颜色不生效
+                  backwardsCompatibility: false,
                   //z轴高度，设置导航栏背景透明时需要设置此值为0
                   elevation: 0,
                   //根据isback标签判断左边是展示外部传入的自定义组件还是默认组件，默认为返回按钮
@@ -79,9 +87,11 @@ class BasePage extends StatelessWidget {
               : null,
           body: Container(
             width: Get.width,
-            height: showAppBar ? (Get.height -
-                ScreenUtil.getInstance().appBarHeight -
-                ScreenUtil.getInstance().statusBarHeight) : Get.height,
+            height: showAppBar
+                ? (Get.height -
+                    ScreenUtil.getInstance().appBarHeight -
+                    ScreenUtil.getInstance().statusBarHeight)
+                : Get.height,
             margin: EdgeInsets.only(top: 0, bottom: 0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -90,7 +100,8 @@ class BasePage extends StatelessWidget {
                 color: bgColor),
             child: ClipRRect(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(showAppBar ? 10 : 0), topRight: Radius.circular(showAppBar ? 10 : 0)),
+                  topLeft: Radius.circular(showAppBar ? 10 : 0),
+                  topRight: Radius.circular(showAppBar ? 10 : 0)),
               child: child,
             ),
           ),

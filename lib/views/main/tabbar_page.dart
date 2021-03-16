@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 import 'package:ws_app_flutter/views/car/car_page.dart';
@@ -32,41 +33,44 @@ class MainTabBarPage extends GetView<MainController> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: () => controller.onWillPop(),
-        child: PageView.builder(
-          itemBuilder: (context, index) => _allPages[index],
-          itemCount: _allPages.length,
-          controller: controller.pageController,
-          physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (value) => controller.onChangeValue(value),
+    return AnnotatedRegion(
+      child: Scaffold(
+        body: WillPopScope(
+          onWillPop: () => controller.onWillPop(),
+          child: PageView.builder(
+            itemBuilder: (context, index) => _allPages[index],
+            itemCount: _allPages.length,
+            controller: controller.pageController,
+            physics: NeverScrollableScrollPhysics(),
+            onPageChanged: (value) => controller.onChangeValue(value),
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 54,
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
-          width: Get.width,
-          child: Row(
-            children: List.generate(
-                _allPages.length,
-                (index) => SizedBox(
-                      height: 49,
-                      width: Get.width / 5,
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        child: Obx(
-                          () => controller.selectedIndex.value == index
-                              ? Image.asset(_selectedImageName[index])
-                              : Image.asset(_normalImageName[index]),
+        bottomNavigationBar: BottomAppBar(
+          child: Container(
+            height: 54,
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            width: Get.width,
+            child: Row(
+              children: List.generate(
+                  _allPages.length,
+                  (index) => SizedBox(
+                        height: 49,
+                        width: Get.width / 5,
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          child: Obx(
+                            () => controller.selectedIndex.value == index
+                                ? Image.asset(_selectedImageName[index])
+                                : Image.asset(_normalImageName[index]),
+                          ),
+                          onTap: () => controller.onItemTap(index),
                         ),
-                        onTap: () => controller.onItemTap(index),
-                      ),
-                    )),
+                      )),
+            ),
           ),
         ),
       ),
+      value: SystemUiOverlayStyle.light,
     );
   }
 }

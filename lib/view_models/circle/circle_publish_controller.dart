@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
+// import 'package:flutter_video_compress/flutter_video_compress.dart';
 import 'package:qiniu_sdk_base/qiniu_sdk_base.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -124,9 +127,20 @@ class CirclePublishController extends GetxController {
     EasyLoading.show(status: '文件上传中...');
     List<String> imgUrlList = [];
     for (var item in selectedAssets) {
-      File file = await item.file;
+      File compressedFile;
+      if (item.type == AssetType.image) {
+        String filePath = await FlutterAbsolutePath.getAbsolutePath(item.id);
+        compressedFile =
+            await FlutterNativeImage.compressImage(filePath, quality: 70);
+      } else if (item.type == AssetType.video) {
+        // File file = await item.file;
+        // MediaInfo info = await FlutterVideoCompress().compressVideo(file.path);
+        // compressedFile = info.file;
+        compressedFile = await item.file;
+      }
+
       var result = await Storage().putFile(
-          file,
+          compressedFile,
           Auth(
                   accessKey: CacheKey.QINIU_ACCESS_KEY,
                   secretKey: CacheKey.QINIU_SECRET_KEY)
