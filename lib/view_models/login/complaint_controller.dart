@@ -6,7 +6,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class ComplaintController extends GetxController {
-  var data = List().obs;
+  var data = [].obs;
   String province, city, store, storeid, name, vincode, inputStr;
 
   @override

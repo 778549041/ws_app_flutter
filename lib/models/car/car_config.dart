@@ -1,10 +1,10 @@
 class CarConfigListModel {
   List<CarConfigModel> data;
 
-  CarConfigListModel() : data = List<CarConfigModel>();
+  CarConfigListModel() : data = <CarConfigModel>[];
 
   CarConfigListModel.fromJson(Map<String, dynamic> json) {
-    data = List<CarConfigModel>();
+    data = <CarConfigModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
         data.add(CarConfigModel.fromJson(element));

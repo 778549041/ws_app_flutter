@@ -27,7 +27,7 @@ class CirclePublishController extends GetxController {
   FocusNode focusNode;
   String publishText;
   var topicModel = TopicModel().obs;
-  var selectedAssets = List<AssetEntity>().obs;
+  var selectedAssets = <AssetEntity>[].obs;
   var isVideo = false.obs;
 
   @override

@@ -24,9 +24,9 @@ class CarController extends BaseController {
   var carConfigList = CarConfigListModel().obs;
   var currentConfig = CarConfigModel().obs;
   var currentIndex = 0.obs;
-  var carImageList = List<String>().obs;
-  var carColorList = List().obs;
-  List<String> _carConfigImageList = List<String>();
+  var carImageList = <String>[].obs;
+  var carColorList = [].obs;
+  List<String> _carConfigImageList = <String>[];
   SwiperController swiperController;
   SwiperController colorSwiperController;
 

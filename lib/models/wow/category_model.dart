@@ -1,10 +1,10 @@
 class CategoryListModel {
   List<CategoryModel> list;
 
-  CategoryListModel() : list = List<CategoryModel>();
+  CategoryListModel() : list = <CategoryModel>[];
 
   CategoryListModel.fromJson(Map<String, dynamic> json) {
-    list = List<CategoryModel>();
+    list = <CategoryModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(CategoryModel.fromJson(element));

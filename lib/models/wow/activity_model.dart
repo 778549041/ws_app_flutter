@@ -3,11 +3,11 @@ class ActivityListModel {
   Pager pager;
 
   ActivityListModel()
-      : list = List<ActivityModel>(),
+      : list = <ActivityModel>[],
         pager = Pager();
 
   ActivityListModel.fromJson(Map<String, dynamic> json) {
-    list = List<ActivityModel>();
+    list = <ActivityModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(ActivityModel.fromJson(element));
@@ -20,10 +20,10 @@ class ActivityListModel {
 class RecommendActivityListModel {
   List<ActivityModel> data;
 
-  RecommendActivityListModel() : data = List<ActivityModel>();
+  RecommendActivityListModel() : data = <ActivityModel>[];
 
   RecommendActivityListModel.fromJson(Map<String, dynamic> json) {
-    data = List<ActivityModel>();
+    data = <ActivityModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
         data.add(ActivityModel.fromJson(element));

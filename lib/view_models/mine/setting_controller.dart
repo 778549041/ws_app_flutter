@@ -9,7 +9,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 
 class SettingController extends BaseController {
-  var data = List().obs;
+  var data = [].obs;
 
   @override
   void onInit() {

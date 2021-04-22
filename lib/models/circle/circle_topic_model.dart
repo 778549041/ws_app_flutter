@@ -2,10 +2,10 @@ class TopicListModel {
   int totalPage;
   List<TopicModel> list;
 
-  TopicListModel({this.totalPage = 0}) : list = List<TopicModel>();
+  TopicListModel({this.totalPage = 0}) : list = <TopicModel>[];
 
   TopicListModel.fromJson(Map<String, dynamic> json) {
-    list = List<TopicModel>();
+    list = <TopicModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(TopicModel.fromJson(element));

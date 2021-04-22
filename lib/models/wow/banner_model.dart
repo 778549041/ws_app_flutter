@@ -4,13 +4,13 @@ class BannerModel {
 
   BannerModel()
       : carouselHead = CarouselHead(),
-        headlines = List<HeadLine>();
+        headlines = <HeadLine>[];
 
   BannerModel.fromJson(Map<String, dynamic> json) {
     carouselHead = json['carousel_head'] != null
         ? CarouselHead.fromJson(json['carousel_head'])
         : CarouselHead();
-    headlines = List<HeadLine>();
+    headlines = <HeadLine>[];
     if (json['headlines'] != null) {
       (json['headlines'] as List).forEach((element) {
         headlines.add(HeadLine.fromJson(element));
@@ -65,7 +65,7 @@ class Banner {
       this.opName = '',
       this.screen = '',
       this.showType = '',
-      this.status = ''}) : items = List<BannerItem>();
+      this.status = ''}) : items = <BannerItem>[];
 
   Banner.fromJson(Map<String, dynamic> json) {
     carouselId = json['carousel_id'] ?? '';
@@ -78,7 +78,7 @@ class Banner {
     screen = json['screen'] ?? '';
     showType = json['show_type'] ?? '';
     status = json['status'] ?? '';
-    items = List<BannerItem>();
+    items = <BannerItem>[];
     if (json['items'] != null) {
       (json['items'] as List).forEach((element) {
         items.add(BannerItem.fromJson(element));

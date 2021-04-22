@@ -1,9 +1,9 @@
 class IntresModel {
   List<IntresData> list;
-  IntresModel() : list = List<IntresData>();
+  IntresModel() : list = <IntresData>[];
 
   IntresModel.fromJson(Map<String, dynamic> json) {
-    list = List<IntresData>();
+    list = <IntresData>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(IntresData.fromJson(element));

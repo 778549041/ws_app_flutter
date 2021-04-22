@@ -4,7 +4,7 @@ class AddressListModel {
 
   AddressListModel.fromJson(Map<String, dynamic> json) {
     if (json['list'] != null) {
-      list = List<AddressModel>();
+      list = <AddressModel>[];
       (json['list'] as List).forEach((element) {
         list.add(AddressModel.fromJson(element));
       });

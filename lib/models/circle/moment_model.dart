@@ -5,11 +5,11 @@ class MomentListModel {
   List<MomentModel> list;
   int totalPage;
 
-  MomentListModel({this.isLogin, this.totalPage}) : list = List<MomentModel>();
+  MomentListModel({this.isLogin, this.totalPage}) : list = <MomentModel>[];
 
   MomentListModel.fromJson(Map<String, dynamic> json) {
     isLogin = json['is_login'];
-    list = List<MomentModel>();
+    list = <MomentModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(MomentModel.fromJson(element));
@@ -92,7 +92,7 @@ class MomentModel {
       this.isDetail})
       : params = MomentParams(),
         memberInfo = CommonMemberModel(),
-        fileList = List<FileModel>();
+        fileList = <FileModel>[];
 
   MomentModel.fromJson(Map<String, dynamic> json) {
     circleId = json['circle_id'];
@@ -119,7 +119,7 @@ class MomentModel {
     avatar = json['avatar'] ?? '';
     nickname = json['nickname'];
     isSelf = json['is_self'];
-    fileList = List<FileModel>();
+    fileList = <FileModel>[];
     if (json['file_list'] != null) {
       (json['file_list'] as List).forEach((element) {
         fileList.add(FileModel.fromJson(element));

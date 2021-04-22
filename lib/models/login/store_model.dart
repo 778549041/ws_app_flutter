@@ -4,7 +4,7 @@ class StoreListModel {
 
   StoreListModel.fromJson(Map<String, dynamic> json) {
     if (json['list'] != null) {
-      list = List<StoreModel>();
+      list = <StoreModel>[];
       if (json['list'] == false) return;
       (json['list'] as List).forEach((element) {
         list.add(StoreModel.fromJson(element));

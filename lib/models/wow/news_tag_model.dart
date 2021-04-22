@@ -4,7 +4,7 @@ class NewsTagListModel {
   NewsTagListModel({this.list});
 
   NewsTagListModel.fromJson(Map<String, dynamic> json) {
-    list = List<NewsTagModel>();
+    list = <NewsTagModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(NewsTagModel.fromJson(element));

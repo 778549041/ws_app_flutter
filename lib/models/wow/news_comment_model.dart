@@ -7,7 +7,7 @@ class NewsCommentListModel {
   NewsCommentListModel({this.cmtList, this.totalPage});
 
   NewsCommentListModel.fromJson(Map<String, dynamic> json) {
-    cmtList = List<NewsCommentModel>();
+    cmtList = <NewsCommentModel>[];
     if (json['cmt_list'] != null) {
       (json['cmt_list'] as List).forEach((element) {
         cmtList.add(NewsCommentModel.fromJson(element));
@@ -62,7 +62,7 @@ class NewsCommentModel {
     memberInfo = json['member_info'] != null
         ? CommonMemberModel.fromJson(json['member_info'])
         : null;
-    replyData = List<ReplyModel>();
+    replyData = <ReplyModel>[];
     if (json['reply_data'] != null) {
       (json['reply_data'] as List).forEach((element) {
         replyData.add(ReplyModel.fromJson(element));

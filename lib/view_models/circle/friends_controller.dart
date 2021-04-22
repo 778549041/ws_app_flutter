@@ -12,7 +12,7 @@ class FriendsController extends ListController<FriendMember> {
   TextEditingController textEditingController;
   String searchKey;
   var isActive = false.obs; //是否搜索状态，如果是搜索则根据搜索结果展示列表，否则根据推荐结果展示
-  var showListData = List<FriendMember>().obs; //最终要展示的数据结果
+  var showListData = <FriendMember>[].obs; //最终要展示的数据结果
 
   @override
   void onInit() {

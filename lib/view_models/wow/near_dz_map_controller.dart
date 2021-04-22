@@ -21,7 +21,7 @@ class NearDZMapController extends GetxController {
   LatLng startLatLng; //当前位置经纬度
   List<CDZInfo> dzMarkerList = []; //充电站标注
   List<NearStoreModel> storeMarkerList = []; //特约店标注
-  var searchData = List<InputTip>().obs; //输入搜索tips
+  var searchData = <InputTip>[].obs; //输入搜索tips
   LatLng currenSelecttLatLng; //当前选择的位置经纬度(调起第三方所需数据)
   String currentSelectTitle; //当前选择的位置(调起第三方所需数据)
 

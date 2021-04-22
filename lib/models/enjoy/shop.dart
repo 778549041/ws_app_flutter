@@ -3,11 +3,11 @@ class ShopListModel {
   Pager pager;
 
   ShopListModel()
-      : dataList = List<ShopModel>(),
+      : dataList = <ShopModel>[],
         pager = Pager();
 
   ShopListModel.fromJson(Map<String, dynamic> json) {
-    dataList = List<ShopModel>();
+    dataList = <ShopModel>[];
     if (json['data_list'] != null) {
       (json['data_list'] as List).forEach((element) {
         dataList.add(ShopModel.fromJson(element));

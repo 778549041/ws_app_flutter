@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -320,7 +318,7 @@ class LoginPage extends GetView<LoginController> {
   }
 
   Widget _buildThirdLogin() {
-    if (Platform.isIOS) {
+    if (GetPlatform.isIOS) {
       return Container(
         margin: const EdgeInsets.only(top: 10),
         child: Row(

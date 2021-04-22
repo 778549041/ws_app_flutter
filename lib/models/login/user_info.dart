@@ -110,7 +110,7 @@ class Member {
       this.unionid = '',
       this.showName = ''})
       : memberInfo = CommonMemberModel(),
-        interest = List<String>();
+        interest = <String>[];
 
   Member.fromJson(Map<String, dynamic> json) {
     addr = json['addr'] ?? '';
@@ -131,7 +131,7 @@ class Member {
     fcreateDate = json['fcreateDate'] ?? '';
     headImg = json['head_img'] ?? '';
     integral = json['integral'] ?? '';
-    interest = List<String>();
+    interest = <String>[];
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
         interest.add(element);

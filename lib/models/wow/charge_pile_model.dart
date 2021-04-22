@@ -7,7 +7,7 @@ class ChargePileListModel {
   ChargePileListModel.fromJson(Map<String, dynamic> json) {
     result = json['result'];
     if (json['list'] != null) {
-      list = List<ChargePileInfo>();
+      list = <ChargePileInfo>[];
       (json['list'] as List).forEach((element) {
         list.add(ChargePileInfo.fromJson(element));
       });

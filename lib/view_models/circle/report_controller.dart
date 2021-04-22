@@ -18,7 +18,7 @@ class ReportController extends GetxController {
   TextEditingController textEditingController;
   FocusNode focusNode;
   String publishText;
-  var selectedAssets = List<AssetEntity>().obs;
+  var selectedAssets = <AssetEntity>[].obs;
 
   @override
   void onInit() {

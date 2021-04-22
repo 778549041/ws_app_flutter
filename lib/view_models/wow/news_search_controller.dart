@@ -9,8 +9,8 @@ class NewsSearchController extends RefreshListController<NewModel> {
   var searchType = 0.obs; //搜索类型，默认0未搜索状态，1输入内容搜索，2选择tag搜索
   var selectedTag = ''.obs; //当前选中的tag,默认-1
   var searchKey = ''.obs; //搜索关键字
-  List<NewsTagModel> _data = List<NewsTagModel>(); //标签数据
-  var searchTagList = List<NewsTagModel>().obs; //标签数据
+  List<NewsTagModel> _data = <NewsTagModel>[]; //标签数据
+  var searchTagList = <NewsTagModel>[].obs; //标签数据
 
   @override
   void onInit() async {

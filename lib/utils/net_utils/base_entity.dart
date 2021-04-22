@@ -26,7 +26,7 @@ class BaseListEntity<T> {
   BaseListEntity({this.code, this.message, this.data});
 
   factory BaseListEntity.fromJson(Map<String, dynamic> json) {
-    List<T> mData = List<T>();
+    List<T> mData = <T>[];
     if (json['data'] != null) {
       //遍历data并转换为我们传进来的类型
       (json['data'] as List).forEach((element) {

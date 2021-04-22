@@ -3,7 +3,7 @@ import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 
 abstract class ListController<T> extends BaseController {
   /// 页面数据
-  var list = List<T>().obs;
+  var list = <T>[].obs;
 
   @override
   void onInit() {

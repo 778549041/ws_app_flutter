@@ -3,10 +3,10 @@ class NewsListModel {
   int totalPage;
   String contentName;
 
-  NewsListModel({this.totalPage, this.contentName}) : list = List<NewModel>();
+  NewsListModel({this.totalPage, this.contentName}) : list = <NewModel>[];
 
   NewsListModel.fromJson(Map<String, dynamic> json) {
-    list = List<NewModel>();
+    list = <NewModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(NewModel.fromJson(element));

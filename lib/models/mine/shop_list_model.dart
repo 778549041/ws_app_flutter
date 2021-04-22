@@ -1,10 +1,10 @@
 class ShopAddressListModel {
   List<ShopAddressModel> list;
 
-  ShopAddressListModel() : list = List<ShopAddressModel>();
+  ShopAddressListModel() : list = <ShopAddressModel>[];
 
   ShopAddressListModel.fromJson(Map<String, dynamic> json) {
-    list = List<ShopAddressModel>();
+    list = <ShopAddressModel>[];
     if (json['list'] != null && json['list'] != false) {
       (json['list'] as List).forEach((element) {
         list.add(ShopAddressModel.fromJson(element));

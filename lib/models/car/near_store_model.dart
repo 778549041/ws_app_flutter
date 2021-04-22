@@ -1,10 +1,10 @@
 class NearStoreListModel {
   List<NearStoreModel> data;
 
-  NearStoreListModel() : data = List<NearStoreModel>();
+  NearStoreListModel() : data = <NearStoreModel>[];
 
   NearStoreListModel.fromJson(Map<String,dynamic> json){
-    data = List<NearStoreModel>();
+    data = <NearStoreModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
         data.add(NearStoreModel.fromJson(element));

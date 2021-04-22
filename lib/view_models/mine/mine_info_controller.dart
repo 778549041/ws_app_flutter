@@ -17,7 +17,7 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
 
 class MineInfoController extends GetxController {
-  var data = List().obs;
+  var data = [].obs;
 
   @override
   void onInit() {

@@ -1,10 +1,10 @@
 class TextBannerListModel {
   List<TextBannerModel> data;
 
-  TextBannerListModel() : data = List<TextBannerModel>();
+  TextBannerListModel() : data = <TextBannerModel>[];
 
   TextBannerListModel.fromJson(Map<String, dynamic> json) {
-    data = List<TextBannerModel>();
+    data = <TextBannerModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
         data.add(TextBannerModel.fromJson(element));

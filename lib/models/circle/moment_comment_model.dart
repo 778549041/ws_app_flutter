@@ -8,7 +8,7 @@ class MomentCommentListModel {
 
   MomentCommentListModel.fromJson(Map<String, dynamic> json) {
     totalPage = json['total_page'];
-    data = List<MomentCommentModel>();
+    data = <MomentCommentModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
         data.add(MomentCommentModel.fromJson(element));
@@ -65,7 +65,7 @@ class MomentCommentModel {
     memberInfo = json['member_info'] != null
         ? CommonMemberModel.fromJson(json['member_info'])
         : null;
-    replyData = List<MomentCommentReplyModel>();
+    replyData = <MomentCommentReplyModel>[];
     if (json['reply_data'] != null) {
       (json['reply_data'] as List).forEach((element) {
         replyData.add(MomentCommentReplyModel.fromJson(element));

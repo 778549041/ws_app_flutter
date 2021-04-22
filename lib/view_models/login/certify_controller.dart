@@ -11,7 +11,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class CertifyController extends GetxController {
-  var data = List().obs;
+  var data = [].obs;
   List<AddressModel> provincedata = [];
   List<AddressModel> citydata = [];
   List<StoreModel> storedata = [];

@@ -14,8 +14,8 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class SelectIntreController extends BaseController {
-  List<String> selectIntres = List<String>(); //选中兴趣爱好
-  List<IntresData> allIntres = List<IntresData>(); //所有兴趣爱好
+  List<String> selectIntres = <String>[]; //选中兴趣爱好
+  List<IntresData> allIntres = <IntresData>[]; //所有兴趣爱好
 
   @override
   void onReady() async {

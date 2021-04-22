@@ -74,7 +74,7 @@ class CacheManager {
     if (null == value) {
       return 0;
     }
-    List<String> unitArr = List()
+    List<String> unitArr = []
       ..add('B')
       ..add('K')
       ..add('M')

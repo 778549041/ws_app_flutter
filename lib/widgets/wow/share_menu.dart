@@ -129,7 +129,7 @@ class ShareMenuWidget extends StatelessWidget {
             false,
             urlStr,
             null,
-            SSDKContentTypes.webpage,
+            SSDKContentTypes.auto,
           );
       } else if (platform == ShareSDKPlatforms.wechatTimeline ||
           platform == ShareSDKPlatforms.wechatSession) {

@@ -48,6 +48,8 @@ dependencies:
   #uuid
   uuid: ^2.2.2
 
+  #闪屏页
+  # flutter_native_splash: any
   #官方webview插件
   # webview_flutter: 
   #   path: plugins/webview_flutter
@@ -62,7 +64,7 @@ dependencies:
   # 类iOS侧滑菜单
   flutter_slidable: ^0.5.7
   # 谁用谁闪亮
-  shimmer: ^1.1.2
+  # shimmer: ^1.1.2
   # 通讯录列表
   azlistview: ^1.1.1
   #城市选择器
@@ -70,6 +72,8 @@ dependencies:
   #图片选择器
   image_picker: ^0.6.7+22
   wechat_assets_picker: ^4.2.2
+  #类似微信拍摄的相机
+  # wechat_camera_picker: ^2.0.0-nullsafety.4
   #图片浏览查看
   photo_view: ^0.11.1
   #图片保存到本地相册
@@ -102,6 +106,7 @@ dependencies:
   file_picker: ^2.1.7
   # 视频压缩
   flutter_video_compress: ^0.3.7+8
+  # video_compress: any
   # 图片压缩
   flutter_native_image: ^0.0.5+3
   # 路径转换工具
@@ -112,13 +117,14 @@ dependencies:
   # 点赞按钮
   like_button: ^2.0.0
   # 列表滚动到指定行
-  scrollable_positioned_list: ^0.1.10
+  # scrollable_positioned_list: ^0.1.10
   # 文本展开收起
   expandable_text: ^1.3.2
   # 列表动画
-  flutter_staggered_animations: ^1.0.0
+  # flutter_staggered_animations: ^1.0.0
   # 气泡组件
   flutter_bubble: ^0.0.1
+  # bubble: any
 
   #打开第三方应用
   url_launcher: ^5.7.10

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class MineController extends BaseController {
-  List<Map<String, String>> data = List<Map<String, String>>();
+  List<Map<String, String>> data = <Map<String, String>>[];
   var favorModel = FavorModel().obs;
 
   @override

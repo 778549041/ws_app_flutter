@@ -10,7 +10,7 @@ import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
 class NavMapController extends GetxController {
   AmapController mapController;
   LatLng startLatLng; //当前位置经纬度
-  var searchData = List<InputTip>().obs; //输入搜索tips
+  var searchData = <InputTip>[].obs; //输入搜索tips
   LatLng endLatlng; //终点位置经纬度(调起第三方所需数据)
   String destination; //终点位置(调起第三方所需数据)
 

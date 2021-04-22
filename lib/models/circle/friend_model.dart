@@ -20,10 +20,10 @@ class FriendModel {
 class AddFriendListModel {
   List<FriendMember> list;
 
-  AddFriendListModel() : list = List<FriendMember>();
+  AddFriendListModel() : list = <FriendMember>[];
 
   AddFriendListModel.fromJson(Map<String, dynamic> json) {
-    list = List<FriendMember>();
+    list = <FriendMember>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
         list.add(FriendMember.fromJson(element));
@@ -35,10 +35,10 @@ class AddFriendListModel {
 class FriendListModel {
   List<FriendMember> memberList;
 
-  FriendListModel() : memberList = List<FriendMember>();
+  FriendListModel() : memberList = <FriendMember>[];
 
   FriendListModel.fromJson(Map<String, dynamic> json) {
-    memberList = List<FriendMember>();
+    memberList = <FriendMember>[];
     if (json['memberList'] != null) {
       (json['memberList'] as List).forEach((element) {
         memberList.add(FriendMember.fromJson(element));
@@ -72,13 +72,13 @@ class FriendMember extends ISuspensionBean {
       this.mobile = '',
       this.nickname = '',
       this.groupName = ''})
-      : interest = List<String>(),
+      : interest = <String>[],
         memberInfo = CommonMemberModel();
 
   FriendMember.fromJson(Map<String, dynamic> json) {
     addr = json['addr'];
     avatar = json['avatar'] ?? '';
-    interest = List<String>();
+    interest = <String>[];
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
         interest.add(element);
