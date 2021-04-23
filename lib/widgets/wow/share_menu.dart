@@ -28,7 +28,7 @@ class ShareMenuWidget extends StatelessWidget {
     if (showWeibo) {
       data.add({"image": "assets/images/wow/wd_weibo.png", "title": "微博"});
     }
-    if (isCircle && GetPlatform.isIOS) {
+    if (isCircle) {
       data.add({"image": "assets/images/wow/circle_report.png", "title": "举报"});
     }
     return Container(

@@ -4,12 +4,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_video_compress/flutter_video_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_value_callback.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
+import 'package:video_compress/video_compress.dart';
 import 'package:ws_app_flutter/models/mine/advanceMsgList.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/widgets/chat/advanceMsgItem.dart';
@@ -19,7 +19,6 @@ class AdvanceMsg extends StatelessWidget {
   final String toUser;
   final int type;
   final picker = ImagePicker();
-  final _flutterVideoCompress = FlutterVideoCompress();
 
   sendVideoMsg(context) async {
     final video = await picker.getVideo(
@@ -31,10 +30,7 @@ class AdvanceMsg extends StatelessWidget {
     }
 
     final thumbnailFile =
-        await _flutterVideoCompress.getThumbnailWithFile(video.path,
-            quality: 100, // default(100)
-            position: -1 // default(-1)
-            );
+        await VideoCompress.getFileThumbnail(video.path);
     print("thumbnailFile $thumbnailFile");
 
     V2TimValueCallback<V2TimMessage> res = await TencentImSDKPlugin.v2TIMManager

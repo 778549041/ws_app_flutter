@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_pickers/pickers.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -142,14 +140,14 @@ class MineInfoController extends GetxController {
 
   //选择性别
   void selectSex() {
-    DataPicker.showDatePicker(
+    Pickers.showSinglePicker(
       Get.context,
-      datas: ['男', '女'],
-      onConfirm: (value) async {
+      data: ['男', '女'],
+      onConfirm: (data) async {
         await Get.find<UserController>().changeUserInfo(
-            gender: value == '男'
+            gender: data == '男'
                 ? 'male'
-                : value == '女'
+                : data == '女'
                     ? 'female'
                     : '');
         initData();
@@ -159,26 +157,10 @@ class MineInfoController extends GetxController {
 
   //选择出生日期
   void selectBirth() {
-    DatePicker.showDatePicker(
+    Pickers.showDatePicker(
       Get.context,
-      pickerTheme: DateTimePickerTheme(
-          confirm: Text(
-            '确定',
-            style: TextStyle(color: Colors.blue, fontSize: 14),
-          ),
-          cancel: Text(
-            '取消',
-            style: TextStyle(color: Colors.grey, fontSize: 14),
-          )),
-      minDateTime: DateTime.parse('1997-01-01'),
-      maxDateTime: DateTime.parse('2100-01-01'),
-      initialDateTime: DateTime.now(),
-      dateFormat: 'yyyy-MMMM-dd',
-      locale: DateTimePickerLocale.zh_cn,
-      onClose: () => LogUtil.v('------close-----'),
-      onCancel: () => LogUtil.v('------cancel------'),
-      onConfirm: (dateTime, selectedIndex) async {
-        var birthday = dateTime.toString().split(' ')[0];
+      onConfirm: (res) async {
+        var birthday = '${res.year}-${res.month}-${res.day}';
         await Get.find<UserController>().changeUserInfo(birthday: birthday);
         initData();
       },

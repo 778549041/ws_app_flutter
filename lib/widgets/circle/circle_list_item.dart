@@ -197,7 +197,7 @@ class CircleListItem extends StatelessWidget {
                           ),
                           //举报按钮
                           Offstage(
-                            offstage: model.isSelf || !GetPlatform.isIOS,
+                            offstage: model.isSelf,
                             child: CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 73,
@@ -257,10 +257,10 @@ class CircleListItem extends StatelessWidget {
                                   ..onTap = () {
                                     print('点击跳转链接');
                                     CommonUtil.serviceControlPushPage(
-                                      type: model.params.type,
-                                      detailId: model.params.detailId,
-                                      url: model.params.url,
-                                      hasNav: false);
+                                        type: model.params.type,
+                                        detailId: model.params.detailId,
+                                        url: model.params.url,
+                                        hasNav: false);
                                   }),
                           ]),
                     ),

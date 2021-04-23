@@ -296,7 +296,7 @@ class CircleDetailPage extends GetView<CircleDetailController> {
                         ),
                         //举报按钮
                         Offstage(
-                          offstage: model.isSelf || !GetPlatform.isIOS,
+                          offstage: model.isSelf,
                           child: CustomButton(
                             backgroundColor: Colors.transparent,
                             width: 73,

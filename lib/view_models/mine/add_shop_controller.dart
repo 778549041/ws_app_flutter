@@ -1,6 +1,6 @@
-import 'package:city_pickers/city_pickers.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_pickers/pickers.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
@@ -19,12 +19,14 @@ class AddShopController extends GetxController {
 
   //选择地址
   void selectAddress() async {
-    Result result =
-        await CityPickers.showCityPicker(context: Get.context, height: 256);
-    if (result != null) {
-      area.value =
-          result.provinceName + '/' + result.cityName + '/' + result.areaName;
-    }
+    Pickers.showAddressPicker(
+      Get.context,
+      initTown: '',
+      addAllItem: false,
+      onConfirm: (province, city, town) {
+        area.value = province + '/' + city + '/' + town;
+      },
+    );
   }
 
   Future submitted() async {

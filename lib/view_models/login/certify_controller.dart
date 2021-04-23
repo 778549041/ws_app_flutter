@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_pickers/pickers.dart';
+import 'package:flutter_pickers/style/default_style.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/address_model.dart';
@@ -102,48 +103,52 @@ class CertifyController extends GetxController {
       });
     }
 
-    DataPicker.showDatePicker(Get.context, datas: datas,
-        onConfirm: (value) async {
-      if (index == 0) {
-        //选择省份
-        province = value;
-        for (var address in provincedata) {
-          if (address.fName == value) {
-            await getCityData(cityid: address.fItemId);
-            if (citydata.length > 0) {
-              city = citydata.first.fName;
-              await getStoreData(citydata.first.fItemId);
+    Pickers.showSinglePicker(
+      Get.context,
+      data: datas,
+      pickerStyle: DefaultPickerStyle(),
+      onConfirm: (data) async {
+        if (index == 0) {
+          //选择省份
+          province = data;
+          for (var address in provincedata) {
+            if (address.fName == data) {
+              await getCityData(cityid: address.fItemId);
+              if (citydata.length > 0) {
+                city = citydata.first.fName;
+                await getStoreData(citydata.first.fItemId);
+              }
+              store = '请选择特约店';
+              storeid = '';
+              initData();
             }
-            store = '请选择特约店';
-            storeid = '';
-            initData();
+          }
+        } else if (index == 1) {
+          //选择城市
+          city = data;
+          for (var address in citydata) {
+            if (address.fName == data) {
+              await getStoreData(address.fItemId);
+              store = '请选择特约店';
+              storeid = '';
+              initData();
+            }
+          }
+        } else if (index == 2) {
+          //选择特约店
+          if (data == '暂无特约店') {
+            return;
+          }
+          store = data;
+          initData();
+          for (var storeitem in storedata) {
+            if (storeitem.fAdminShopName == data) {
+              storeid = storeitem.fAppID;
+            }
           }
         }
-      } else if (index == 1) {
-        //选择城市
-        city = value;
-        for (var address in citydata) {
-          if (address.fName == value) {
-            await getStoreData(address.fItemId);
-            store = '请选择特约店';
-            storeid = '';
-            initData();
-          }
-        }
-      } else if (index == 2) {
-        //选择特约店
-        if (value == '暂无特约店') {
-          return;
-        }
-        store = value;
-        initData();
-        for (var storeitem in storedata) {
-          if (storeitem.fAdminShopName == value) {
-            storeid = storeitem.fAppID;
-          }
-        }
-      }
-    });
+      },
+    );
   }
 
   //输入

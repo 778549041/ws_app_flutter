@@ -1,5 +1,5 @@
-import 'package:city_pickers/city_pickers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pickers/pickers.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
@@ -35,11 +35,13 @@ class ChangeAreaController extends GetxController {
 
   //选择地址
   void selectAddress() async {
-    Result result =
-        await CityPickers.showCityPicker(context: Get.context, height: 256);
-    if (result != null) {
-      area.value =
-          result.provinceName + '/' + result.cityName + '/' + result.areaName;
-    }
+    Pickers.showAddressPicker(
+      Get.context,
+      addAllItem: false,
+      initTown: '',
+      onConfirm: (province, city, town) {
+        area.value = province + '/' + city + '/' + town;
+      },
+    );
   }
 }

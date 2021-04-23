@@ -66,9 +66,7 @@ dependencies:
   # 谁用谁闪亮
   # shimmer: ^1.1.2
   # 通讯录列表
-  azlistview: ^1.1.1
-  #城市选择器
-  city_pickers: ^0.2.0
+  azlistview: ^2.0.0-nullsafety.0
   #图片选择器
   image_picker: ^0.6.7+22
   wechat_assets_picker: ^4.2.2
@@ -81,13 +79,11 @@ dependencies:
   #视频播放器
   chewie: ^0.12.2
   video_player: ^1.0.1
-  #选择器
-  flutter_cupertino_data_picker: ^0.8.6
-  flutter_cupertino_date_picker: ^1.0.26+2
   # 验证码输入框1`
   pin_code_text_field: ^1.8.0
-  flutter_picker:
-    git: git://github.com/yangyxd/flutter_picker.git
+  #选择器
+  flutter_picker: ^2.0.1
+  flutter_pickers: ^2.0.1
   #loading、toast
   flutter_easyloading: ^2.2.2
   # 小红点 https://pub.flutter-io.cn/packages/badges
@@ -105,8 +101,7 @@ dependencies:
   # 文件选择器
   file_picker: ^2.1.7
   # 视频压缩
-  flutter_video_compress: ^0.3.7+8
-  # video_compress: any
+  video_compress: ^3.0.0
   # 图片压缩
   flutter_native_image: ^0.0.5+3
   # 路径转换工具

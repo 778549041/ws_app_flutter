@@ -49,7 +49,7 @@ packages:
       name: azlistview
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "2.0.0-nullsafety.0"
   badges:
     dependency: "direct main"
     description:
@@ -99,13 +99,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.2"
-  city_pickers:
-    dependency: "direct main"
-    description:
-      name: city_pickers
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.0"
   clock:
     dependency: transitive
     description:
@@ -307,20 +300,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.4.2"
-  flutter_cupertino_data_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_cupertino_data_picker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.8.6"
-  flutter_cupertino_date_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_cupertino_date_picker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.26+2"
   flutter_easyloading:
     dependency: "direct main"
     description:
@@ -371,12 +350,17 @@ packages:
   flutter_picker:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "00833be40cf63e11bcf9f534f1d3a7e9ed19f030"
-      url: "git://github.com/yangyxd/flutter_picker.git"
-    source: git
-    version: "2.0.0"
+      name: flutter_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
+  flutter_pickers:
+    dependency: "direct main"
+    description:
+      name: flutter_pickers
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -438,13 +422,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_video_compress:
-    dependency: "direct main"
-    description:
-      name: flutter_video_compress
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.7+8"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -569,13 +546,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.2"
-  lpinyin:
-    dependency: transitive
-    description:
-      name: lpinyin
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.1"
   matcher:
     dependency: transitive
     description:
@@ -771,7 +741,7 @@ packages:
       name: scrollable_positioned_list
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.10"
+    version: "0.2.0-nullsafety.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -973,6 +943,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
+  video_compress:
+    dependency: "direct main"
+    description:
+      name: video_compress
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   video_player:
     dependency: "direct main"
     description:

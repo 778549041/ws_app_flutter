@@ -1,8 +1,5 @@
-import 'package:city_pickers/city_pickers.dart';
-import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_data_picker/flutter_cupertino_data_picker.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:flutter_pickers/pickers.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -34,54 +31,40 @@ class CompleteInfoController extends BaseController {
   //直接跳过
   void jumpToNext() {
     //跳转兴趣标签
-    Get.toNamed(Routes.SELECTINTREST,arguments: {'fromComplete':true});
+    Get.toNamed(Routes.SELECTINTREST, arguments: {'fromComplete': true});
   }
 
   //选择性别
   void selectSex() {
-    DataPicker.showDatePicker(
+    Pickers.showSinglePicker(
       Get.context,
-      datas: ['男', '女'],
-      onConfirm: (value) {
-        sex.value = value;
+      data: ['男', '女'],
+      onConfirm: (data) {
+        sex.value = data;
       },
     );
   }
 
   //选择出生日期
   void selectBirth() {
-    DatePicker.showDatePicker(
+    Pickers.showDatePicker(
       Get.context,
-      pickerTheme: DateTimePickerTheme(
-          confirm: Text(
-            '确定',
-            style: TextStyle(color: Colors.blue, fontSize: 14),
-          ),
-          cancel: Text(
-            '取消',
-            style: TextStyle(color: Colors.grey, fontSize: 14),
-          )),
-      minDateTime: DateTime.parse('1997-01-01'),
-      maxDateTime: DateTime.parse('2100-01-01'),
-      initialDateTime: DateTime.now(),
-      dateFormat: 'yyyy-MMMM-dd',
-      locale: DateTimePickerLocale.zh_cn,
-      onClose: () => LogUtil.v('------close-----'),
-      onCancel: () => LogUtil.v('------cancel------'),
-      onConfirm: (dateTime, selectedIndex) {
-        birthday.value = dateTime.toString().split(' ')[0];
+      onConfirm: (res) {
+        birthday.value = '${res.year}-${res.month}-${res.day}';
       },
     );
   }
 
   //选择地址
   void selectAddress() async {
-    Result result =
-        await CityPickers.showCityPicker(context: Get.context, height: 256);
-    if (result != null) {
-      addr.value =
-          result.provinceName + '/' + result.cityName + '/' + result.areaName;
-    }
+    Pickers.showAddressPicker(
+      Get.context,
+      initTown: '',
+      addAllItem: false,
+      onConfirm: (province, city, town) {
+        addr.value = province + '/' + city + '/' + town;
+      },
+    );
   }
 
   //继续完善
@@ -98,7 +81,7 @@ class CompleteInfoController extends BaseController {
         area: addr.value == '请选择现居地' ? '' : addr.value);
     if (obj.success != null) {
       //跳转兴趣标签
-      Get.toNamed(Routes.SELECTINTREST,arguments: {'fromComplete':true});
+      Get.toNamed(Routes.SELECTINTREST, arguments: {'fromComplete': true});
     }
   }
 }
