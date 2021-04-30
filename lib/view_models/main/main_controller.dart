@@ -6,6 +6,7 @@ import 'package:ws_app_flutter/view_models/enjoy/enjoy_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/activity_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/eletric_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/news_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 
@@ -42,11 +43,6 @@ class MainController extends BaseController {
   //pageview页面切换
   void onChangeValue(int index) {
     selectedIndex.value = index;
-  }
-
-  //tabbaritem点击
-  void onItemTap(int index) async {
-    pageController.jumpToPage(index);
     Get.find<UserController>().getUserInfo();
     if (index == 4) {
       Get.find<MineController>().requestFavorData();
@@ -54,5 +50,14 @@ class MainController extends BaseController {
     } else if (index == 1) {
       Get.find<UserController>().requestNewMessage();
     }
+    Get.find<EletricController>().cancelTimer();
+    if (index == 0 || index == 2) {
+      Get.find<EletricController>().addTimer();
+    }
+  }
+
+  //tabbaritem点击
+  void onItemTap(int index) async {
+    pageController.jumpToPage(index);
   }
 }

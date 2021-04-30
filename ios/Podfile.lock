@@ -33,8 +33,6 @@ PODS:
     - AnalysysAgent (~> 4.4.5)
     - Flutter
   - Bugly (2.5.71)
-  - city_pickers (0.0.1):
-    - Flutter
   - connectivity (0.0.1):
     - Flutter
     - Reachability
@@ -91,9 +89,6 @@ PODS:
     - Flutter
   - flutter_qr_reader (0.0.1):
     - Flutter
-  - flutter_video_compress (0.3.0):
-    - Flutter
-    - Regift
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -141,8 +136,8 @@ PODS:
     - Flutter
   - photo_manager (0.0.1):
     - Flutter
+    - FlutterMacOS
   - Reachability (3.2)
-  - Regift (1.5.0)
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
@@ -163,9 +158,11 @@ PODS:
   - tencent_im_sdk_plugin (1.0.5):
     - Flutter
     - HydraAsync
-    - TXIMSDK_Smart_iOS (= 5.1.138)
-  - TXIMSDK_Smart_iOS (5.1.138)
+    - TXIMSDK_Smart_iOS (= 5.2.210)
+  - TXIMSDK_Smart_iOS (5.2.210)
   - url_launcher (0.0.1):
+    - Flutter
+  - video_compress (0.3.0):
     - Flutter
   - video_player (0.0.1):
     - Flutter
@@ -181,7 +178,6 @@ DEPENDENCIES:
   - amap_map_fluttify (from `.symlinks/plugins/amap_map_fluttify/ios`)
   - amap_search_fluttify (from `.symlinks/plugins/amap_search_fluttify/ios`)
   - argo_flutter_plugin (from `.symlinks/plugins/argo_flutter_plugin/ios`)
-  - city_pickers (from `.symlinks/plugins/city_pickers/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - core_location_fluttify (from `.symlinks/plugins/core_location_fluttify/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
@@ -193,7 +189,6 @@ DEPENDENCIES:
   - flutter_native_image (from `.symlinks/plugins/flutter_native_image/ios`)
   - flutter_plugin_record (from `.symlinks/plugins/flutter_plugin_record/ios`)
   - flutter_qr_reader (from `.symlinks/plugins/flutter_qr_reader/ios`)
-  - flutter_video_compress (from `.symlinks/plugins/flutter_video_compress/ios`)
   - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
@@ -207,6 +202,7 @@ DEPENDENCIES:
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - tencent_im_sdk_plugin (from `.symlinks/plugins/tencent_im_sdk_plugin/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - video_compress (from `.symlinks/plugins/video_compress/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
@@ -229,7 +225,6 @@ SPEC REPOS:
     - mob_sharesdk
     - MOBFoundation
     - Reachability
-    - Regift
     - SDWebImage
     - SwiftyGif
     - TXIMSDK_Smart_iOS
@@ -245,8 +240,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amap_search_fluttify/ios"
   argo_flutter_plugin:
     :path: ".symlinks/plugins/argo_flutter_plugin/ios"
-  city_pickers:
-    :path: ".symlinks/plugins/city_pickers/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
   core_location_fluttify:
@@ -269,8 +262,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_plugin_record/ios"
   flutter_qr_reader:
     :path: ".symlinks/plugins/flutter_qr_reader/ios"
-  flutter_video_compress:
-    :path: ".symlinks/plugins/flutter_video_compress/ios"
   foundation_fluttify:
     :path: ".symlinks/plugins/foundation_fluttify/ios"
   image_gallery_saver:
@@ -297,6 +288,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/tencent_im_sdk_plugin/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  video_compress:
+    :path: ".symlinks/plugins/video_compress/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
   wakelock:
@@ -316,7 +309,6 @@ SPEC CHECKSUMS:
   AnalysysAgent: 0538c696e379544d65bf411dbba31cca1a40f7eb
   argo_flutter_plugin: 346b50deb10771feea6451422964828fb4e53246
   Bugly: fd066c75c4a0eca1440f9b6a84bd37d51bfc85ac
-  city_pickers: b0370f4c35c201723b5b7fcce10ec29b59d5bc35
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   core_location_fluttify: 9466a411ea7d22c6349c7e6a767ae4623f01eb1d
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
@@ -330,7 +322,6 @@ SPEC CHECKSUMS:
   flutter_native_image: 9c0b7451838484458e5b0fae007b86a4c2d4bdfe
   flutter_plugin_record: 562ded56f3a109d769e72c3ef52ef20d835493d4
   flutter_qr_reader: 254fd9eea45a65ef461e050d6607daf9cfb753e8
-  flutter_video_compress: 641fd3e03d970d79176a59d91d7a4392923710b0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   foundation_fluttify: 0c45145e3fad1fb99188e4979daed5b24cd9b278
   GGWkCookie: 6b62f0463fb04b7ba779c8bfdcc01867c9ac9fcb
@@ -345,17 +336,17 @@ SPEC CHECKSUMS:
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
-  photo_manager: f7c619c2cc8c2adb8d85c63363babac477de9c67
+  photo_manager: a8db3597a3b44e17ecb331fa099731c99b849496
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Regift: d097afd401021f4f42b102ee125ceeb125a38caf
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sharesdk_plugin: 172b031a3e53f06d30eb47b633a504606a64bea5
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
-  tencent_im_sdk_plugin: 233e3688a567afa9046f32dc84428e17634f7428
-  TXIMSDK_Smart_iOS: 0bbc2a288a4f3edc28b7d983e3ecab8fe626b9d8
+  tencent_im_sdk_plugin: 4263c840e09037a4da00ff76158cd9f438e23cfc
+  TXIMSDK_Smart_iOS: 6de1e2c508e35f7606fc3205713d2c66b5682617
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  video_compress: fce97e4fb1dfd88175aa07d2ffc8a2f297f87fbe
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   wakelock: bfc7955c418d0db797614075aabbc58a39ab5107
   webview_flutter: e2b5a3df204bd1496f3c479a1f6cb68592a38811

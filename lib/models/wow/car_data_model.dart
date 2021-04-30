@@ -39,7 +39,7 @@ class CarHeader {
   CarHeader({this.chargingStatus, this.soc = 0, this.rangMileage = 0});
 
   CarHeader.fromJson(Map<String, dynamic> json) {
-    chargingStatus = json['charging_status'];
+    chargingStatus = json['charging_status'] ?? 0;
     soc = json['SOC'] ?? 0;
     rangMileage = json['rang_mileage'] ?? 0;
   }

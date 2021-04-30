@@ -9,6 +9,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/eletric_controller.dart';
 
 class RecommendController extends RefreshListController {
   var userInfo = UserInfo().obs;
@@ -25,11 +26,13 @@ class RecommendController extends RefreshListController {
     await _requestCircleData();
     await _requestRecommendNewsData();
     await _requestRecommendActivityData();
+    Get.find<EletricController>().requestElectricityData();
     return list;
   }
 
   @override
   void onInit() {
+    Get.lazyPut<EletricController>(() => EletricController());
     userInfo.value = Get.find<UserController>().userInfo.value;
     super.onInit();
   }
@@ -41,42 +44,33 @@ class RecommendController extends RefreshListController {
 
   //banner图数据
   Future _requestImageBannerData() async {
-    bannerModel.value = await DioManager().request<BannerModel>(
-      DioManager.GET,
-      Api.homeImageBannerDataUrl
-    );
+    bannerModel.value = await DioManager()
+        .request<BannerModel>(DioManager.GET, Api.homeImageBannerDataUrl);
   }
 
   //文本banner数据
   Future _requestTextBannerData() async {
     textBannerModel.value = await DioManager().request<TextBannerListModel>(
-      DioManager.POST,
-      Api.homeTextBannerDataUrl
-    );
+        DioManager.POST, Api.homeTextBannerDataUrl);
   }
 
   //首页推荐圈子
   Future _requestCircleData() async {
-    MomentListModel obj = await DioManager().request<MomentListModel>(
-      DioManager.POST,
-      Api.homeCircleDataUrl
-    );
+    MomentListModel obj = await DioManager()
+        .request<MomentListModel>(DioManager.POST, Api.homeCircleDataUrl);
     momentListModel.value = obj;
   }
 
   //首页推荐资讯
   Future _requestRecommendNewsData() async {
-    newsListModel.value = await DioManager().request<NewsListModel>(
-      DioManager.GET,
-      Api.homeRecommendNewsUrl
-    );
+    newsListModel.value = await DioManager()
+        .request<NewsListModel>(DioManager.GET, Api.homeRecommendNewsUrl);
   }
 
   //首页推荐活动
   Future _requestRecommendActivityData() async {
-    activityListModel.value = await DioManager().request<RecommendActivityListModel>(
-      DioManager.POST,
-      Api.homeRecommendActivityUrl
-    );
+    activityListModel.value = await DioManager()
+        .request<RecommendActivityListModel>(
+            DioManager.POST, Api.homeRecommendActivityUrl);
   }
 }

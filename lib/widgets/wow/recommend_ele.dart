@@ -1,34 +1,23 @@
 import 'package:flustars/flustars.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
-import 'package:ws_app_flutter/models/wow/car_data_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/view_models/wow/eletric_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
-import 'package:ws_app_flutter/widgets/global/gradient_progress.dart';
-import 'package:ws_app_flutter/widgets/global/turnbox.dart';
+import 'package:ws_app_flutter/widgets/global/switch_loading.dart';
 
-class RecommendEle extends StatefulWidget {
-  @override
-  RecommendEleState createState() => RecommendEleState();
-}
-
-class RecommendEleState extends State<RecommendEle>
-    with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  TimerUtil _timerUtil;
-  bool _charging = true;
-  double _progressValue = 1.0;
-  CarDataModel _carDataModel = CarDataModel();
-  List<Color> _colors = [Color(0xFF2659FF), Color(0xFF01D4D7)];
-
+class RecommendEle extends GetView<EletricController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,105 +25,15 @@ class RecommendEleState extends State<RecommendEle>
       padding: EdgeInsets.only(left: 15, right: 15),
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) {
-                  return Container(
-                      width: 60,
-                      height: 60,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          Positioned(
-                            height: 60,
-                            top: 0,
-                            child: TurnBox(
-                              turns: 0.50,
-                              child: GradientCircularProgressIndicator(
-                                colors: _colors,
-                                radius: 30,
-                                strokeWidth: 3,
-                                value: _animationController.value,
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              width: 30,
-                              child: Text(
-                                _charging ? '充电中' : '剩余电量',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ));
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      _carDataModel.datas.rspBody.soc.toString(),
-                      style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
-                    ),
-                    Text(
-                      '%',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 0.5,
-                height: 65,
-                color: Colors.black.withOpacity(0.3),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/wow/dashboard.png',
-                      width: 40,
-                      height: 27,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      width: 45,
-                      child: Text(
-                        '可续航里程',
-                        style: TextStyle(fontSize: 12),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      _carDataModel.datas.rspBody.rangMileage.toString(),
-                      style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
-                    ),
-                    Text(
-                      'KM',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          _buildEletricView(),
+          Text(
+            '车辆数据上传于：2021-4-30 10:17:17',
+            style: TextStyle(color: Color(0xFF999999), fontSize: 12),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          _buildCarControlView(),
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Row(
@@ -149,6 +48,304 @@ class RecommendEleState extends State<RecommendEle>
           SizedBox(
             height: 20,
           )
+        ],
+      ),
+    );
+  }
+
+  //电量信息
+  Widget _buildEletricView() {
+    return Obx(
+      () => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CircularPercentIndicator(
+            radius: 60,
+            lineWidth: 3,
+            animation: true,
+            startAngle: 180,
+            animationDuration: 2000,
+            percent: controller.progressValue.value,
+            rotateLinearGradient: true,
+            restartAnimation: true,
+            backgroundColor: Color(0xFFEEEEEE),
+            circularStrokeCap: CircularStrokeCap.round,
+            center: Container(
+              width: 30,
+              child: Text(
+                controller.charging.value ? '充电中' : '剩余电量',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
+            linearGradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: controller.colors,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  controller.carDataModel.value.datas.rspBody.soc.toString(),
+                  style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
+                ),
+                Text(
+                  '%',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 0.5,
+            height: 65,
+            color: Colors.black.withOpacity(0.3),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Column(
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/wow/dashboard.png',
+                  width: 40,
+                  height: 27,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  width: 45,
+                  child: Text(
+                    '可续航里程',
+                    style: TextStyle(fontSize: 12),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  controller.carDataModel.value.datas.rspBody.rangMileage.toString(),
+                  style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
+                ),
+                Text(
+                  'KM',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //车控视图
+  Widget _buildCarControlView() {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/chekong/car.png',
+                      width: 30,
+                      height: 23,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text('车辆'),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    IndexedStack(
+                      alignment: AlignmentDirectional.center,
+                      index: 1,
+                      children: <Widget>[
+                        SpinKitCircle(
+                          color: Color(0xFF1B7DF4),
+                          size: 30,
+                        ),
+                        CustomButton(
+                          width: 53,
+                          height: 25,
+                          radius: 12.5,
+                          backgroundColor: Color(0xFF1B7DF4),
+                          image: 'assets/images/chekong/find_car.png',
+                          imageH: 13.5,
+                          imageW: 15.5,
+                          title: '寻车',
+                          fontSize: 11,
+                          titleColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Flexible(
+                    child: Text(
+                  '熄火',
+                  style: TextStyle(color: Color(0xFF999999)),
+                  maxLines: 1,
+                )),
+              ],
+            ),
+          ),
+          Divider(
+            height: 0.5,
+            color: Color(0xFFF3F3F3),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/chekong/lock.png',
+                      width: 30,
+                      height: 23,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text('门锁'),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    IndexedStack(
+                      alignment: AlignmentDirectional.center,
+                      index: 1,
+                      children: <Widget>[
+                        SpinKitCircle(
+                          color: Color(0xFF1B7DF4),
+                          size: 30,
+                        ),
+                        SwitchLoadingView(
+                          width: 53,
+                          height: 25,
+                          unselectedText: '开锁',
+                          selectedText: '落锁',
+                          bgColor: Color(0xFF1B7DF4),
+                          loadingColor: Color(0xFF1B7DF4),
+                          callback: (value) {
+                            print(value);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      '车门关/车锁关',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(color: Color(0xFF999999)),
+                      maxLines: 1,
+                    ),
+                    Image.asset(
+                      'assets/images/mine/mine_right_arrow.png',
+                      width: 7.5,
+                      height: 11,
+                    ),
+                  ],
+                )),
+              ],
+            ),
+          ),
+          Divider(
+            height: 0.5,
+            color: Color(0xFFF3F3F3),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/chekong/ck_kt.png',
+                      width: 30,
+                      height: 23,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text('空调'),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    IndexedStack(
+                      alignment: AlignmentDirectional.center,
+                      index: 1,
+                      children: <Widget>[
+                        SpinKitCircle(
+                          color: Color(0xFF1B7DF4),
+                          size: 30,
+                        ),
+                        CustomButton(
+                          width: 30,
+                          height: 30,
+                          image: 'assets/images/chekong/kt_switch.png',
+                          imageH: 30,
+                          imageW: 30,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Flexible(
+                          child: Text(
+                        '空调已关闭',
+                        style: TextStyle(color: Color(0xFF999999)),
+                        maxLines: 1,
+                      )),
+                      Offstage(
+                        offstage: false,
+                        child: Image.asset(
+                          'assets/images/mine/mine_right_arrow.png',
+                          width: 7.5,
+                          height: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -223,72 +420,5 @@ class RecommendEleState extends State<RecommendEle>
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
       }
     }
-  }
-
-  @override
-  void initState() {
-    _timerUtil = TimerUtil(mInterval: 120 * 1000);
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
-    _requestElectricityData();
-    super.initState();
-  }
-
-  //请求电量信息数据
-  void _requestElectricityData() {
-    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
-      _timerUtil.setOnTimerTickCallback((millisUntilFinished) async {
-        CarDataModel obj = await DioManager().request<CarDataModel>(
-            DioManager.POST, Api.vechileEleDataUrl, queryParamters: {
-          "member_id": Get.find<UserController>().userInfo.value.member.memberId
-        });
-        setState(() {
-          _carDataModel = obj;
-          if (obj.datas.rspBody.chargingStatus == 1 ||
-              obj.datas.rspBody.chargingStatus == 2) {
-            _charging = true;
-            _progressValue = 1.0;
-            _colors = [Color(0xFF2659FF), Color(0xFF01D4D7)];
-          } else {
-            _progressValue = obj.datas.rspBody.soc / 100;
-            _charging = false;
-            if (_progressValue <= 0.25) {
-              _colors = [Color(0xFFE80016), Color(0xFFE80016)];
-            } else if (_progressValue <= 0.50) {
-              _colors = [Color(0xFFF2AE2C), Color(0xFFF2AE2C)];
-            } else {
-              _colors = [Color(0xFF1EE623), Color(0xFF1EE623)];
-            }
-          }
-          _animationController = AnimationController(
-              vsync: this,
-              duration: Duration(seconds: 2),
-              upperBound: _progressValue);
-          if (_charging) {
-            _animationController.repeat();
-          } else {
-            _animationController.forward();
-          }
-        });
-      });
-      _timerUtil.startTimer();
-    }
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    if (_timerUtil != null) _timerUtil.cancel();
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(RecommendEle oldWidget) {
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 }

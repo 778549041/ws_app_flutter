@@ -12,7 +12,7 @@ class WowPage extends StatefulWidget {
   WowPageState createState() => WowPageState();
 }
 
-class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin {
   final WowController controller = Get.put<WowController>(WowController());
   final List<Tab> tabs = <Tab>[
     Tab(
@@ -33,11 +33,7 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, A
   TabController _tabController;
   
   @override
-  bool get wantKeepAlive => true;
-  
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       body: Stack(
         children: <Widget>[

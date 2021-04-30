@@ -55,8 +55,11 @@ dependencies:
   #   path: plugins/webview_flutter
   #loading组件
   flutter_spinkit: ^4.1.2+1
+  #圆形、直线进度条
+  percent_indicator: ^3.0.1
   #网络图片加载组件 类似SDWebImage
   cached_network_image: ^2.3.3
+  extended_image: any
   #上下拉刷新
   pull_to_refresh: ^1.6.4
   #轮播图
@@ -162,6 +165,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/car/
+    - assets/images/chekong/
+    - assets/images/door_lock/
     - assets/images/circle/
     - assets/images/common/
     - assets/images/enjoy/
