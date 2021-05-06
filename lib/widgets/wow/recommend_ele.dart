@@ -1,10 +1,8 @@
-import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
@@ -14,6 +12,7 @@ import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/eletric_controller.dart';
+import 'package:ws_app_flutter/widgets/car/battery_view.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/switch_loading.dart';
 
@@ -59,30 +58,9 @@ class RecommendEle extends GetView<EletricController> {
       () => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          CircularPercentIndicator(
-            radius: 60,
-            lineWidth: 3,
-            animation: true,
-            startAngle: 180,
-            animationDuration: 2000,
+          BatteryView(
             percent: controller.progressValue.value,
-            rotateLinearGradient: true,
-            restartAnimation: true,
-            backgroundColor: Color(0xFFEEEEEE),
-            circularStrokeCap: CircularStrokeCap.round,
-            center: Container(
-              width: 30,
-              child: Text(
-                controller.charging.value ? '充电中' : '剩余电量',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-            linearGradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: controller.colors,
-            ),
+            isCharging: controller.charging.value,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 10),
@@ -132,7 +110,8 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  controller.carDataModel.value.datas.rspBody.rangMileage.toString(),
+                  controller.carDataModel.value.datas.rspBody.rangMileage
+                      .toString(),
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                 ),
                 Text(
@@ -191,6 +170,9 @@ class RecommendEle extends GetView<EletricController> {
                           title: '寻车',
                           fontSize: 11,
                           titleColor: Colors.white,
+                          onPressed: () {
+                            
+                          },
                         ),
                       ],
                     ),
@@ -314,6 +296,9 @@ class RecommendEle extends GetView<EletricController> {
                           image: 'assets/images/chekong/kt_switch.png',
                           imageH: 30,
                           imageW: 30,
+                          onPressed: () {
+                            
+                          },
                         ),
                       ],
                     ),

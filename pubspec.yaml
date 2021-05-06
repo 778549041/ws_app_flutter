@@ -48,6 +48,8 @@ dependencies:
   #uuid
   uuid: ^2.2.2
 
+  #tabbar
+  persistent_bottom_nav_bar: ^4.0.2
   #闪屏页
   # flutter_native_splash: any
   #官方webview插件
