@@ -9,6 +9,10 @@ class CommonMemberModel {
   int userType;
   String hrefUrl;
   int isEnd;
+  int vehicleControlBind;//是否绑定车控功能
+  int vehicleControlPin;//是否设置了pin码
+  int isVehicleControl;//是否有车控功能
+  String memberIdStr;//加密的用户id字符串
   String medalOrSaleImageName; //销售员或者勋章标签图标
   String medalOrSaleDescImageName; //销售员或者勋章详情图片
   bool showTag; //是否展示标签
@@ -24,6 +28,10 @@ class CommonMemberModel {
       this.userType = 0,
       this.hrefUrl = '',
       this.isEnd = 0,
+      this.vehicleControlBind = 0,
+      this.vehicleControlPin = 0,
+      this.isVehicleControl = 0,
+      this.memberIdStr = '',
       this.medalOrSaleImageName = 'assets/images/mine/sales_tag_small.png',
       this.medalOrSaleDescImageName = 'assets/images/mine/sales_tag_big.png',
       this.showTag = false});
@@ -39,6 +47,10 @@ class CommonMemberModel {
     userType = json['user_type'] ?? 0;
     hrefUrl = json['href_url'] ?? '';
     isEnd = json['is_end'] ?? 0;
+    vehicleControlBind = json['vehicle_control_bind'] ?? 0;
+    vehicleControlPin = json['vehicle_control_pin'] ?? 0;
+    isVehicleControl = json['is_vehicle_control'] ?? 0;
+    memberIdStr = json['member_id_str'] ?? '';
     medalOrSaleImageName = _getMedalOrSaleImageName();
     medalOrSaleDescImageName = _getMedalOrSaleDescImageName();
     showTag = _getShowTag();

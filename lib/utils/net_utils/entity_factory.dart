@@ -1,4 +1,6 @@
 import 'package:ws_app_flutter/models/car/car_config.dart';
+import 'package:ws_app_flutter/models/car/car_status_model.dart';
+import 'package:ws_app_flutter/models/car/control_cmd_model.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/circle/friend_circle_img_model.dart';
@@ -121,6 +123,10 @@ class EntityFactory {
      return AddFriendListModel.fromJson(json) as T;
    } else if (T.toString() == 'FriendListModel') {
      return FriendListModel.fromJson(json) as T;
+   }  else if (T.toString() == 'CarStatusModel') {
+     return CarStatusModel.fromJson(json) as T;
+   }  else if (T.toString() == 'ControlCmdModel') {
+     return ControlCmdModel.fromJson(json) as T;
    } 
    else {
       return json as T;

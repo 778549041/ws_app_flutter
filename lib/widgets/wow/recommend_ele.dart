@@ -1,9 +1,11 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -25,10 +27,15 @@ class RecommendEle extends GetView<EletricController> {
       child: Column(
         children: <Widget>[
           _buildEletricView(),
-          Text(
-            '车辆数据上传于：2021-4-30 10:17:17',
-            style: TextStyle(color: Color(0xFF999999), fontSize: 12),
-          ),
+          Obx(() => Offstage(
+                offstage:
+                    controller.carStatusModel.value.datas.sendingTime.length ==
+                        0,
+                child: Text(
+                  '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
+                  style: TextStyle(color: Color(0xFF999999), fontSize: 12),
+                ),
+              )),
           SizedBox(
             height: 10,
           ),
@@ -37,10 +44,10 @@ class RecommendEle extends GetView<EletricController> {
             padding: const EdgeInsets.only(top: 15),
             child: Row(
               children: <Widget>[
-                _buildToolBtn(0, 'assets/images/wow/neardz.png'),
-                _buildToolBtn(1, 'assets/images/wow/eluwy.png'),
-                _buildToolBtn(2, 'assets/images/wow/yyby.png'),
-                _buildToolBtn(3, 'assets/images/wow/dczd.png'),
+                _buildToolBtn(0, 'assets/images/wow/home_miles.png'),
+                _buildToolBtn(1, 'assets/images/wow/home_battery.png'),
+                _buildToolBtn(2, 'assets/images/wow/home_cd.png'),
+                _buildToolBtn(3, 'assets/images/wow/home_sos.png'),
               ],
             ),
           ),
@@ -80,28 +87,16 @@ class RecommendEle extends GetView<EletricController> {
           ),
           Container(
             width: 0.5,
-            height: 65,
+            height: 40,
             color: Colors.black.withOpacity(0.3),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Column(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/wow/dashboard.png',
-                  width: 40,
-                  height: 27,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  width: 45,
-                  child: Text(
-                    '可续航里程',
-                    style: TextStyle(fontSize: 12),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+            child: Image.asset(
+              'assets/images/wow/dashboard.png',
+              width: 40,
+              height: 27,
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
@@ -129,7 +124,8 @@ class RecommendEle extends GetView<EletricController> {
   //车控视图
   Widget _buildCarControlView() {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Column(
         children: <Widget>[
           Padding(
@@ -170,9 +166,7 @@ class RecommendEle extends GetView<EletricController> {
                           title: '寻车',
                           fontSize: 11,
                           titleColor: Colors.white,
-                          onPressed: () {
-                            
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -296,9 +290,7 @@ class RecommendEle extends GetView<EletricController> {
                           image: 'assets/images/chekong/kt_switch.png',
                           imageH: 30,
                           imageW: 30,
-                          onPressed: () {
-                            
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -340,23 +332,61 @@ class RecommendEle extends GetView<EletricController> {
     final double _width = (Get.width - 51) / 4;
     final double _height = _width * 75 / 81;
     final double spacing = index == 0 ? 0 : 7;
-    return Padding(
-      padding: EdgeInsets.only(left: spacing),
-      child: CustomButton(
-        width: _width,
-        height: _height,
-        image: imageName,
-        imageW: _width,
-        imageH: _height,
-        onPressed: () => buttonAction(index),
-      ),
+    var _title = index == 0
+        ? '里程信息'
+        : index == 1
+            ? 'e路无忧'
+            : index == 2
+                ? '附近电桩'
+                : '一键救援';
+    return GestureDetector(
+      onTap: () => buttonAction(index),
+      child: Container(
+          margin: EdgeInsets.only(left: spacing),
+          width: _width,
+          height: _height,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: Colors.white),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                imageName,
+                width: 24,
+                height: 24,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Divider(
+                height: 1.5,
+                color: MainAppColor.secondaryTextColor,
+                indent: 15,
+                endIndent: 15,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                _title,
+                style: TextStyle(fontSize: 12),
+              ),
+            ],
+          )),
     );
   }
 
   Future buttonAction(int index) async {
     if (index == 0) {
-      //附近电桩
-      Get.toNamed(Routes.NEARDZMAP);
+      //里程信息
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MilesInfoPage
+        });
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
     } else if (index == 1) {
       //e路无忧
       CommonModel _model = await DioManager()
@@ -371,36 +401,16 @@ class RecommendEle extends GetView<EletricController> {
         });
       }
     } else if (index == 2) {
-      //预约保养
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
-          'true') {
-        CommonModel _model = await DioManager().request<CommonModel>(
-            DioManager.POST, Api.reservationMaintainUrl,
-            params: {
-              'unionId':
-                  Get.find<UserController>().userInfo.value.member.unionid,
-              'vin': Get.find<UserController>().userInfo.value.member.fVIN
-            });
-        if (_model.datas != null && _model.datas.length > 0) {
-          Get.toNamed(Routes.WEBVIEW, arguments: {
-            'url': _model.datas,
-            'title': '预约保养',
-            'hasNav': true,
-          });
-        } else {
-          EasyLoading.showToast(_model.message,
-              toastPosition: EasyLoadingToastPosition.bottom);
-        }
-      } else {
-        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
-      }
+      //附近电桩
+      Get.toNamed(Routes.NEARDZMAP);
     } else if (index == 3) {
-      //电池诊断
+      //一键救援
       if (Get.find<UserController>().userInfo.value.member.isVehicle ==
           'true') {
-        Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage
-        });
+        //拨号
+        if (await canLaunch('tel:400-830-8999')) {
+          launch('tel:400-830-8999');
+        }
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
       }

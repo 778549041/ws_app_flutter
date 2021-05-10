@@ -25,7 +25,7 @@ class MainController extends BaseController {
     Get.lazyPut<MineController>(() => MineController());
 
     pageController = PageController(initialPage: selectedIndex.value);
-    await Get.find<UserController>().requestNewMessage();
+    Get.find<UserController>().requestNewMessage();
     super.onInit();
   }
 
@@ -50,9 +50,9 @@ class MainController extends BaseController {
     } else if (index == 1) {
       Get.find<UserController>().requestNewMessage();
     }
-    Get.find<EletricController>().cancelTimer();
+    Get.find<EletricController>().cancelAllTimer();
     if (index == 0 || index == 2) {
-      Get.find<EletricController>().addTimer();
+      Get.find<EletricController>().addAllTimer();
     }
   }
 

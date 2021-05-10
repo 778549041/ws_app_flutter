@@ -68,7 +68,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
               height: widget.height,
               padding: EdgeInsets.only(left: widget.height),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: widget.bgColor,
                 borderRadius: BorderRadius.circular(widget.height / 2),
               ),
               child: Text(
@@ -83,7 +83,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
                 width: widget.width,
                 height: widget.height,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: widget.bgColor,
                   borderRadius: BorderRadius.circular(widget.height / 2),
                 ),
                 child: Row(
@@ -116,7 +116,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
                           Offstage(
                             offstage: !loading,
                             child: SpinKitCircle(
-                              color: Colors.blue,
+                              color: widget.loadingColor,
                               size: widget.height - 2,
                             ),
                           )
@@ -153,6 +153,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
 
   @override
   void didChangeDependencies() {
+    print('didChangeDependencies:didChangeDependencies');
     super.didChangeDependencies();
   }
 }

@@ -95,8 +95,8 @@ class DioManager {
   /// [path]：请求地址
   /// [shouldLoading]：是否显示loading框,默认不显示
   /// [loadingMessage]：loading信息
-  /// [params]：请求参数
-  /// [queryParamters]：请求参数
+  /// [params]：请求参数 json格式或者表单格式
+  /// [queryParamters]：请求参数,会被拼接在接口地址之后
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future request<T>(String method, String path,
       {bool shouldLoading = false,
