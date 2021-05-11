@@ -29,7 +29,7 @@ class ControlCmdData {
   });
 
   ControlCmdData.fromJson(Map<String, dynamic> json) {
-    value = json['value'] ?? '0';
+    value = json['value'].toString() ?? '0';
     command = json['command'] ?? '';
     if (command == 'airOpenCommand') {
       cmdType = 1;

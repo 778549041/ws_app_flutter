@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,10 +34,15 @@ class OwnCarWidget extends GetView<EletricController> {
         child: Column(
           children: <Widget>[
             _buildEletricView(),
-            Text(
-              '车辆数据上传于：2021-4-30 10:17:17',
-              style: TextStyle(color: Color(0xFF999999), fontSize: 12),
-            ),
+            Obx(() => Offstage(
+                offstage:
+                    controller.carStatusModel.value.datas.sendingTime.length ==
+                        '0',
+                child: Text(
+                  '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
+                  style: TextStyle(color: Color(0xFF999999), fontSize: 12),
+                ),
+              )),
             Container(
               margin: const EdgeInsets.only(top: 10),
               child: Text(
@@ -108,7 +114,7 @@ class OwnCarWidget extends GetView<EletricController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    controller.carDataModel.value.datas.rspBody.soc.toString(),
+                    controller.carStatusModel.value.datas.soc1,
                     style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                   ),
                   Text(
@@ -133,7 +139,7 @@ class OwnCarWidget extends GetView<EletricController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    controller.carDataModel.value.datas.rspBody.rangMileage
+                    controller.carStatusModel.value.datas.rangMileage
                         .toString(),
                     style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                   ),

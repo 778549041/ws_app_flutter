@@ -30,7 +30,7 @@ class RecommendEle extends GetView<EletricController> {
           Obx(() => Offstage(
                 offstage:
                     controller.carStatusModel.value.datas.sendingTime.length ==
-                        0,
+                        '0',
                 child: Text(
                   '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
                   style: TextStyle(color: Color(0xFF999999), fontSize: 12),
@@ -75,7 +75,7 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  controller.carDataModel.value.datas.rspBody.soc.toString(),
+                  controller.carStatusModel.value.datas.soc1,
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                 ),
                 Text(
@@ -105,8 +105,7 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  controller.carDataModel.value.datas.rspBody.rangMileage
-                      .toString(),
+                  controller.carStatusModel.value.datas.rangMileage.toString(),
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                 ),
                 Text(
@@ -147,29 +146,36 @@ class RecommendEle extends GetView<EletricController> {
                     SizedBox(
                       width: 15,
                     ),
-                    IndexedStack(
-                      alignment: AlignmentDirectional.center,
-                      index: 1,
-                      children: <Widget>[
-                        SpinKitCircle(
-                          color: Color(0xFF1B7DF4),
-                          size: 30,
-                        ),
-                        CustomButton(
-                          width: 53,
-                          height: 25,
-                          radius: 12.5,
-                          backgroundColor: Color(0xFF1B7DF4),
-                          image: 'assets/images/chekong/find_car.png',
-                          imageH: 13.5,
-                          imageW: 15.5,
-                          title: '寻车',
-                          fontSize: 11,
-                          titleColor: Colors.white,
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
+                    Obx(() => IndexedStack(
+                          alignment: AlignmentDirectional.center,
+                          index: (controller.currentCmdType == 3 &&
+                                  controller.currentCmdStatus == 1)
+                              ? 0
+                              : 1,
+                          children: <Widget>[
+                            SpinKitCircle(
+                              color: Color(0xFF1B7DF4),
+                              size: 30,
+                            ),
+                            CustomButton(
+                              width: 53,
+                              height: 25,
+                              radius: 12.5,
+                              backgroundColor: Color(0xFF1B7DF4),
+                              disabled: (controller.currentCmdType != 3 &&
+                                      controller.currentCmdStatus == 1)
+                                  ? true
+                                  : false,
+                              image: 'assets/images/chekong/find_car.png',
+                              imageH: 13.5,
+                              imageW: 15.5,
+                              title: '寻车',
+                              fontSize: 11,
+                              titleColor: Colors.white,
+                              onPressed: () => controller.sendControlCmd(3, 5),
+                            ),
+                          ],
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -207,27 +213,22 @@ class RecommendEle extends GetView<EletricController> {
                     SizedBox(
                       width: 15,
                     ),
-                    IndexedStack(
-                      alignment: AlignmentDirectional.center,
-                      index: 1,
-                      children: <Widget>[
-                        SpinKitCircle(
-                          color: Color(0xFF1B7DF4),
-                          size: 30,
-                        ),
-                        SwitchLoadingView(
+                    Obx(() => SwitchLoadingView(
                           width: 53,
                           height: 25,
-                          unselectedText: '开锁',
-                          selectedText: '落锁',
+                          selected: !controller.openLock.value,
+                          unselectedText:
+                              controller.openLock.value ? '开锁' : '落锁',
+                          selectedText: controller.openLock.value ? '落锁' : '开锁',
                           bgColor: Color(0xFF1B7DF4),
-                          loadingColor: Color(0xFF1B7DF4),
+                          disabled: controller.disabledLock.value,
+                          loadingColor: controller.openLock.value
+                              ? Color(0xFF1B7DF4)
+                              : Color(0xFFFF6F6F),
                           callback: (value) {
                             print(value);
                           },
-                        ),
-                      ],
-                    ),
+                        )),
                   ],
                 ),
                 SizedBox(
@@ -276,24 +277,42 @@ class RecommendEle extends GetView<EletricController> {
                     SizedBox(
                       width: 15,
                     ),
-                    IndexedStack(
-                      alignment: AlignmentDirectional.center,
-                      index: 1,
-                      children: <Widget>[
-                        SpinKitCircle(
-                          color: Color(0xFF1B7DF4),
-                          size: 30,
-                        ),
-                        CustomButton(
-                          width: 30,
-                          height: 30,
-                          image: 'assets/images/chekong/kt_switch.png',
-                          imageH: 30,
-                          imageW: 30,
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
+                    Obx(() => IndexedStack(
+                          alignment: AlignmentDirectional.center,
+                          index: (controller.currentCmdType == 1 &&
+                                  controller.currentCmdStatus == 1)
+                              ? 0
+                              : 1,
+                          children: <Widget>[
+                            SpinKitCircle(
+                              color: Color(0xFF1B7DF4),
+                              size: 30,
+                            ),
+                            CustomButton(
+                              width: 30,
+                              height: 30,
+                              radius: 15,
+                              disabled: (controller.currentCmdType != 1 &&
+                                      controller.currentCmdStatus == 1)
+                                  ? true
+                                  : false,
+                              image: (controller.currentCmdType != 1 &&
+                                      controller.currentCmdStatus == 1)
+                                  ? 'assets/images/chekong/kt_switch_disabled.png'
+                                  : 'assets/images/chekong/kt_switch.png',
+                              imageH: 30,
+                              imageW: 30,
+                              onPressed: () {
+                                if (controller
+                                    .carStatusModel.value.datas.airOpenStatus) {
+                                  controller.sendControlCmd(1, 2);
+                                } else {
+                                  controller.sendControlCmd(1, 1);
+                                }
+                              },
+                            ),
+                          ],
+                        )),
                   ],
                 ),
                 SizedBox(

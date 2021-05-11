@@ -68,7 +68,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
               height: widget.height,
               padding: EdgeInsets.only(left: widget.height),
               decoration: BoxDecoration(
-                color: widget.bgColor,
+                color: widget.disabled ? Color(0xFFCCCCCC) : widget.bgColor,
                 borderRadius: BorderRadius.circular(widget.height / 2),
               ),
               child: Text(
@@ -83,7 +83,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
                 width: widget.width,
                 height: widget.height,
                 decoration: BoxDecoration(
-                  color: widget.bgColor,
+                  color: widget.disabled ? Color(0xFFCCCCCC) : widget.bgColor,
                   borderRadius: BorderRadius.circular(widget.height / 2),
                 ),
                 child: Row(

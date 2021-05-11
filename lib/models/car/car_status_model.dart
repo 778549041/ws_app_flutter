@@ -90,7 +90,7 @@ class CarStatusData {
     this.rangMileage = '获取中',
     this.chargingStatus = '255',
     this.soc1 = '获取中',
-    this.sendingTime = '',
+    this.sendingTime = '0',
     this.soh = '',
     this.airSocCreateValue = 0,
     this.startTime = 0,
