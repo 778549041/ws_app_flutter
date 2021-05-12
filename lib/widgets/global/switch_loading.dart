@@ -51,12 +51,6 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
                   widget.callback(selected);
                 }
               });
-              Future.delayed(Duration(seconds: 2)).then((value) {
-                setState(() {
-                  loading = false;
-                  disabled = false;
-                });
-              });
             },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(widget.height / 2),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,9 +75,10 @@ class RecommendEle extends GetView<EletricController> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   controller.carStatusModel.value.datas.soc1,
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
+                  maxLines: 1,
                 ),
                 Text(
                   '%',
@@ -104,9 +106,10 @@ class RecommendEle extends GetView<EletricController> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   controller.carStatusModel.value.datas.rangMileage.toString(),
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
+                  maxLines: 1,
                 ),
                 Text(
                   'KM',
@@ -149,7 +152,8 @@ class RecommendEle extends GetView<EletricController> {
                     Obx(() => IndexedStack(
                           alignment: AlignmentDirectional.center,
                           index: (controller.currentCmdType == 3 &&
-                                  controller.currentCmdStatus == 1)
+                                  (controller.currentCmdStatus == 1 ||
+                                      controller.currentCmdStatus == 3))
                               ? 0
                               : 1,
                           children: <Widget>[
@@ -163,7 +167,8 @@ class RecommendEle extends GetView<EletricController> {
                               radius: 12.5,
                               backgroundColor: Color(0xFF1B7DF4),
                               disabled: (controller.currentCmdType != 3 &&
-                                      controller.currentCmdStatus == 1)
+                                      (controller.currentCmdStatus == 1 ||
+                                          controller.currentCmdStatus == 3))
                                   ? true
                                   : false,
                               image: 'assets/images/chekong/find_car.png',
@@ -182,11 +187,11 @@ class RecommendEle extends GetView<EletricController> {
                   width: 10,
                 ),
                 Flexible(
-                    child: Text(
-                  '熄火',
-                  style: TextStyle(color: Color(0xFF999999)),
-                  maxLines: 1,
-                )),
+                    child: Obx(() => Text(
+                          controller.carStatusModel.value.datas.carLaunchStr,
+                          style: TextStyle(color: Color(0xFF999999)),
+                          maxLines: 1,
+                        ))),
               ],
             ),
           ),
@@ -221,12 +226,22 @@ class RecommendEle extends GetView<EletricController> {
                               controller.openLock.value ? '开锁' : '落锁',
                           selectedText: controller.openLock.value ? '落锁' : '开锁',
                           bgColor: Color(0xFF1B7DF4),
-                          disabled: controller.disabledLock.value,
+                          loading: (controller.currentCmdType == 2 &&
+                              (controller.currentCmdStatus == 1 ||
+                                  controller.currentCmdStatus == 3)),
+                          disabled: controller.disabledLock.value ||
+                              (controller.currentCmdType != 2 &&
+                                  (controller.currentCmdStatus == 1 ||
+                                      controller.currentCmdStatus == 3)),
                           loadingColor: controller.openLock.value
                               ? Color(0xFF1B7DF4)
                               : Color(0xFFFF6F6F),
                           callback: (value) {
-                            print(value);
+                            if (controller.openLock.value) {
+                              controller.sendControlCmd(2, 2);
+                            } else {
+                              controller.sendControlCmd(2, 1);
+                            }
                           },
                         )),
                   ],
@@ -238,12 +253,31 @@ class RecommendEle extends GetView<EletricController> {
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text(
-                      '车门关/车锁关',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Color(0xFF999999)),
-                      maxLines: 1,
-                    ),
+                    Obx(() => RichText(
+                            text: TextSpan(
+                                text: controller
+                                    .carStatusModel.value.datas.doorOpenStr,
+                                style: TextStyle(
+                                    color: controller.carStatusModel.value.datas
+                                                .allDoorStatus ==
+                                            1
+                                        ? Color(0xFFFF6F6F)
+                                        : Color(0xFF999999)),
+                                children: [
+                              TextSpan(
+                                  text: '/',
+                                  style: TextStyle(color: Color(0xFF999999))),
+                              TextSpan(
+                                text: controller
+                                    .carStatusModel.value.datas.lockOpenStr,
+                                style: TextStyle(
+                                    color: controller.carStatusModel.value.datas
+                                                .allLockStatus ==
+                                            1
+                                        ? Color(0xFFFF6F6F)
+                                        : Color(0xFF999999)),
+                              ),
+                            ]))),
                     Image.asset(
                       'assets/images/mine/mine_right_arrow.png',
                       width: 7.5,
@@ -280,7 +314,8 @@ class RecommendEle extends GetView<EletricController> {
                     Obx(() => IndexedStack(
                           alignment: AlignmentDirectional.center,
                           index: (controller.currentCmdType == 1 &&
-                                  controller.currentCmdStatus == 1)
+                                  (controller.currentCmdStatus == 1 ||
+                                      controller.currentCmdStatus == 3))
                               ? 0
                               : 1,
                           children: <Widget>[
@@ -293,11 +328,13 @@ class RecommendEle extends GetView<EletricController> {
                               height: 30,
                               radius: 15,
                               disabled: (controller.currentCmdType != 1 &&
-                                      controller.currentCmdStatus == 1)
+                                      (controller.currentCmdStatus == 1 ||
+                                          controller.currentCmdStatus == 3))
                                   ? true
                                   : false,
                               image: (controller.currentCmdType != 1 &&
-                                      controller.currentCmdStatus == 1)
+                                      (controller.currentCmdStatus == 1 ||
+                                          controller.currentCmdStatus == 3))
                                   ? 'assets/images/chekong/kt_switch_disabled.png'
                                   : 'assets/images/chekong/kt_switch.png',
                               imageH: 30,
@@ -323,11 +360,16 @@ class RecommendEle extends GetView<EletricController> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Flexible(
-                          child: Text(
-                        '空调已关闭',
-                        style: TextStyle(color: Color(0xFF999999)),
-                        maxLines: 1,
-                      )),
+                          child: Obx(() => Text(
+                                controller
+                                    .carStatusModel.value.datas.airOpenStr,
+                                style: TextStyle(
+                                    color: controller.carStatusModel.value.datas
+                                            .airOpenStatus
+                                        ? Colors.green
+                                        : Color(0xFF999999)),
+                                maxLines: 1,
+                              ))),
                       Offstage(
                         offstage: false,
                         child: Image.asset(

@@ -87,9 +87,9 @@ class CarStatusData {
     this.airConditionMode = '255',
     this.temperatureInCar = '- - ℃',
     this.airConditionTemp = '',
-    this.rangMileage = '获取中',
+    this.rangMileage = '0',
     this.chargingStatus = '255',
-    this.soc1 = '获取中',
+    this.soc1 = '0',
     this.sendingTime = '0',
     this.soh = '',
     this.airSocCreateValue = 0,
@@ -165,7 +165,7 @@ class CarStatusData {
         trunkStatus == '2' &&
         carOverStatus == '2') {
       allDoorStatus = 2;
-      doorOpenStr = '门关';
+      doorOpenStr = '车门关';
     } else if (doorLbStatus == '1' &&
         doorLfStatus == '1' &&
         doorRbStatus == '1' &&
@@ -173,10 +173,10 @@ class CarStatusData {
         trunkStatus == '1' &&
         carOverStatus == '1') {
       allDoorStatus = 1;
-      doorOpenStr = '门开';
+      doorOpenStr = '车门开';
     } else {
       allDoorStatus = 3;
-      doorOpenStr = '门开';
+      doorOpenStr = '车门开';
     }
     //所有车锁状态
     if (doorlockLbStatus == '2' &&

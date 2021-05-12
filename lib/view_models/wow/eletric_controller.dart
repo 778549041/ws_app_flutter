@@ -20,8 +20,9 @@ class EletricController extends BaseController {
   var currentCmdTitle = ''.obs; //当前指令名称
   var currentCmdType = 0.obs; //当前指令类型
   var currentCmdStatus = 0.obs; //当前指令状态
-  var openLock = true.obs;//是否是开锁
-  var disabledLock = false.obs;//开落锁是否可以操作
+  var openLock = true.obs; //是否是开锁
+  var disabledLock = false.obs; //是否禁用开落锁按钮
+  var showLoadingView = false.obs; //是否展示指令弹框
 
   @override
   void onInit() {
@@ -129,13 +130,14 @@ class EletricController extends BaseController {
       charging.value = false;
     }
     if (int.parse(carStatusModel.value.datas.soc1) <= 100) {
-      progressValue.value = int.parse(carStatusModel.value.datas.soc1)/100;
+      progressValue.value = int.parse(carStatusModel.value.datas.soc1) / 100;
     }
-    if (carStatusModel.value.datas.allDoorStatus == 2 && carStatusModel.value.datas.allLockStatus != 2) {
+    if (carStatusModel.value.datas.allDoorStatus == 2 &&
+        carStatusModel.value.datas.allLockStatus != 2) {
       openLock.value = false;
     } else {
       openLock.value = true;
-      if (carStatusModel.value.datas.allLockStatus == 2) {
+      if (carStatusModel.value.datas.allLockStatus == 1) {
         disabledLock.value = true;
       } else {
         disabledLock.value = false;
@@ -156,15 +158,24 @@ class EletricController extends BaseController {
     currentCmdType.value = cmdResultModel.datas.cmdType;
     if (cmdResultModel.datas.value == '0') {
       currentCmdStatus.value = 0;
-    } else if (cmdResultModel.datas.value == '1') {
-      currentCmdStatus.value = 3;
-    } else if (cmdResultModel.datas.value == '2') {
-      currentCmdStatus.value = 4;
-    } else if (cmdResultModel.datas.value == '3' ||
-        cmdResultModel.datas.value == '4') {
-      currentCmdStatus.value = 5;
-    } else if (cmdResultModel.datas.value == '5') {
-      currentCmdStatus.value = 2;
+      showLoadingView.value = false;
+    } else {
+      showLoadingView.value = true;
+      if (cmdResultModel.datas.value == '1') {
+        currentCmdStatus.value = 3;
+      } else {
+        if (cmdResultModel.datas.value == '2') {
+          currentCmdStatus.value = 4;
+        } else if (cmdResultModel.datas.value == '3' ||
+            cmdResultModel.datas.value == '4') {
+          currentCmdStatus.value = 5;
+        } else if (cmdResultModel.datas.value == '5') {
+          currentCmdStatus.value = 2;
+        }
+        Future.delayed(Duration(seconds: 3)).then((value) {
+          showLoadingView.value = false;
+        });
+      }
     }
   }
 
@@ -172,6 +183,7 @@ class EletricController extends BaseController {
   // controlType 控制类型 1、远程空调 2、开/落锁 3、寻车
   // cmdType 指令类型 (远程空调--1.开启 2.关闭 开/落锁--1.开启 2.关闭 寻车--3.鸣笛 4.闪灯 5.鸣笛+闪灯)
   void sendControlCmd(int controlType, int cmdType) async {
+    cancelCmdResultTimer();
     currentCmdType.value = controlType;
     if (controlType == 1) {
       if (cmdType == 1) {
@@ -189,6 +201,7 @@ class EletricController extends BaseController {
       currentCmdTitle.value = '正在寻车';
     }
     currentCmdStatus.value = 1;
+    showLoadingView.value = true;
 
     CommonModel model = await DioManager().request<CommonModel>(
         DioManager.POST, 'wsapp/vehicle/sendVehicleCmd', params: {
@@ -198,13 +211,18 @@ class EletricController extends BaseController {
     });
     if (model.code != '200') {
       currentCmdStatus.value = 2;
+      Future.delayed(Duration(seconds: 3)).then((value) {
+        showLoadingView.value = false;
+      });
     }
+    addCmdResultTimer();
   }
 
   // 远程空调设置
   // controlType 控制类型 4、运行时长设置 5、电量安全值设置
   // value 预设值 （运行时长、电量安全值）
   void sendKTSetCmd(int controlType, String value) async {
+    cancelCmdResultTimer();
     currentCmdType.value = controlType;
     if (controlType == 4) {
       currentCmdTitle.value = '正在设置运行时长';
@@ -212,13 +230,18 @@ class EletricController extends BaseController {
       currentCmdTitle.value = '正在设置电池SOC';
     }
     currentCmdStatus.value = 1;
+    showLoadingView.value = true;
 
     CommonModel model = await DioManager().request<CommonModel>(
         DioManager.POST, 'wsapp/vehicle/sendSetCmd',
         params: {'carVin': _vin, 'controlType': controlType, 'value': value});
     if (model.code != '200') {
       currentCmdStatus.value = 2;
+      Future.delayed(Duration(seconds: 3)).then((value) {
+        showLoadingView.value = false;
+      });
     }
+    addCmdResultTimer();
   }
 
   // 设置空调定时启动
@@ -226,6 +249,7 @@ class EletricController extends BaseController {
   void sentTimingLaunch(String value) async {
     currentCmdTitle.value = '正在设置定时启动';
     currentCmdStatus.value = 1;
+    showLoadingView.value = true;
 
     CommonModel model = await DioManager().request<CommonModel>(
         DioManager.POST, 'wsapp/vehicle/sendAirTimingOpenDuration',
@@ -235,12 +259,16 @@ class EletricController extends BaseController {
     } else {
       currentCmdStatus.value = 2;
     }
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      showLoadingView.value = false;
+    });
   }
 
   // 取消定时启动
   void cancelTimingLaunch() async {
     currentCmdTitle.value = '正在设置取消定时';
     currentCmdStatus.value = 1;
+    showLoadingView.value = true;
 
     CommonModel model = await DioManager().request<CommonModel>(
         DioManager.POST, 'wsapp/vehicle/cancelTiming',
@@ -252,5 +280,8 @@ class EletricController extends BaseController {
     } else {
       currentCmdStatus.value = 2;
     }
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      showLoadingView.value = false;
+    });
   }
 }

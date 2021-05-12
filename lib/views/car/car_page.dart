@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/widgets/car/control_loading_view.dart';
 import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
 import 'package:ws_app_flutter/widgets/car/own_car.dart';
 import 'package:ws_app_flutter/widgets/car/unown_car.dart';
@@ -47,6 +48,12 @@ class CarPage extends GetView<CarController> {
               top: ScreenUtil.getInstance().statusBarHeight + 60),
           width: Get.width,
           child: _buildBody(),
+        ),
+        Positioned(
+          left: 20,
+          top: 100,
+          right: 20,
+          child: ControlLoadingView(),
         ),
       ],
     );
