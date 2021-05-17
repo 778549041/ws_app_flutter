@@ -54,4 +54,8 @@ abstract class Routes {
   static const REPORTKNOW = '/report-know'; //举报须知
   static const REPORT = '/report'; //举报
   static const TOPICLIST = '/topic-list'; //话题列表
+  //车控
+  static const DOORLOCK = '/door-lock-page';//门锁详情
+  static const AIRCONDITION = '/air-condition-page';//空调详情
+  static const VITUALCONTROL = '/vitual-control-page';//虚拟体验
 }

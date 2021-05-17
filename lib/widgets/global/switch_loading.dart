@@ -10,6 +10,7 @@ class SwitchLoadingView extends StatefulWidget {
   final TextStyle textStyle;
   final Color bgColor; //背景色
   final Color loadingColor; //loading颜色
+  final Color disabledColor; //禁用时背景色
   final bool loading; //是否加载
   final bool disabled; //是否可点击
   final ValueChanged<bool> callback; //事件回调
@@ -23,6 +24,7 @@ class SwitchLoadingView extends StatefulWidget {
     this.textStyle = const TextStyle(color: Colors.white, fontSize: 11),
     this.bgColor,
     this.loadingColor,
+    this.disabledColor = const Color(0xFFCCCCCC),
     this.loading = false,
     this.disabled = false,
     this.callback,
@@ -62,7 +64,7 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
               height: widget.height,
               padding: EdgeInsets.only(left: widget.height),
               decoration: BoxDecoration(
-                color: widget.disabled ? Color(0xFFCCCCCC) : widget.bgColor,
+                color: widget.disabled ? widget.disabledColor : widget.bgColor,
                 borderRadius: BorderRadius.circular(widget.height / 2),
               ),
               child: Text(
@@ -77,7 +79,8 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
                 width: widget.width,
                 height: widget.height,
                 decoration: BoxDecoration(
-                  color: widget.disabled ? Color(0xFFCCCCCC) : widget.bgColor,
+                  color:
+                      widget.disabled ? widget.disabledColor : widget.bgColor,
                   borderRadius: BorderRadius.circular(widget.height / 2),
                 ),
                 child: Row(

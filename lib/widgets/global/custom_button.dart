@@ -10,6 +10,7 @@ enum XJImagePosition {
 
 class CustomButton extends StatelessWidget {
   final bool disabled; //禁用点击
+  final Color disabledColor; //禁用时背景色
   final double width; //按钮宽度
   final double height; //按钮高度
   final Color backgroundColor; //按钮背景色(与渐变背景只能设置一个)
@@ -36,6 +37,7 @@ class CustomButton extends StatelessWidget {
   CustomButton(
       {Key key,
       this.disabled = false,
+      this.disabledColor = const Color(0xFFCCCCCC),
       this.width,
       this.height,
       this.backgroundColor = Colors.white,
@@ -88,7 +90,7 @@ class CustomButton extends StatelessWidget {
                 color: Color.fromARGB(shadowColorA, 0, 0, 0))
           ],
           border: Border.all(width: borderWidth, color: borderColor),
-          color: disabled ? Colors.grey : backgroundColor,
+          color: disabled ? disabledColor : backgroundColor,
           gradient: gradient,
         ),
         child: _buildChild(),

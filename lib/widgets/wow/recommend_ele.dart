@@ -199,93 +199,99 @@ class RecommendEle extends GetView<EletricController> {
             height: 0.5,
             color: Color(0xFFF3F3F3),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/chekong/lock.png',
-                      width: 30,
-                      height: 23,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text('门锁'),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Obx(() => SwitchLoadingView(
-                          width: 53,
-                          height: 25,
-                          selected: !controller.openLock.value,
-                          unselectedText:
-                              controller.openLock.value ? '开锁' : '落锁',
-                          selectedText: controller.openLock.value ? '落锁' : '开锁',
-                          bgColor: Color(0xFF1B7DF4),
-                          loading: (controller.currentCmdType == 2 &&
-                              (controller.currentCmdStatus == 1 ||
-                                  controller.currentCmdStatus == 3)),
-                          disabled: controller.disabledLock.value ||
-                              (controller.currentCmdType != 2 &&
-                                  (controller.currentCmdStatus == 1 ||
-                                      controller.currentCmdStatus == 3)),
-                          loadingColor: controller.openLock.value
-                              ? Color(0xFF1B7DF4)
-                              : Color(0xFFFF6F6F),
-                          callback: (value) {
-                            if (controller.openLock.value) {
-                              controller.sendControlCmd(2, 2);
-                            } else {
-                              controller.sendControlCmd(2, 1);
-                            }
-                          },
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Obx(() => RichText(
-                            text: TextSpan(
-                                text: controller
-                                    .carStatusModel.value.datas.doorOpenStr,
-                                style: TextStyle(
-                                    color: controller.carStatusModel.value.datas
-                                                .allDoorStatus ==
-                                            1
-                                        ? Color(0xFFFF6F6F)
-                                        : Color(0xFF999999)),
-                                children: [
-                              TextSpan(
-                                  text: '/',
-                                  style: TextStyle(color: Color(0xFF999999))),
-                              TextSpan(
-                                text: controller
-                                    .carStatusModel.value.datas.lockOpenStr,
-                                style: TextStyle(
-                                    color: controller.carStatusModel.value.datas
-                                                .allLockStatus ==
-                                            1
-                                        ? Color(0xFFFF6F6F)
-                                        : Color(0xFF999999)),
-                              ),
-                            ]))),
-                    Image.asset(
-                      'assets/images/mine/mine_right_arrow.png',
-                      width: 7.5,
-                      height: 11,
-                    ),
-                  ],
-                )),
-              ],
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.DOORLOCK);
+            },
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/chekong/lock.png',
+                        width: 30,
+                        height: 23,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('门锁'),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Obx(() => SwitchLoadingView(
+                            width: 53,
+                            height: 25,
+                            selected: !controller.openLock.value,
+                            unselectedText:
+                                controller.openLock.value ? '开锁' : '落锁',
+                            selectedText:
+                                controller.openLock.value ? '落锁' : '开锁',
+                            bgColor: Color(0xFF1B7DF4),
+                            loading: (controller.currentCmdType == 2 &&
+                                (controller.currentCmdStatus == 1 ||
+                                    controller.currentCmdStatus == 3)),
+                            disabled: controller.disabledLock.value ||
+                                (controller.currentCmdType != 2 &&
+                                    (controller.currentCmdStatus == 1 ||
+                                        controller.currentCmdStatus == 3)),
+                            loadingColor: controller.openLock.value
+                                ? Color(0xFF1B7DF4)
+                                : Color(0xFFFF6F6F),
+                            callback: (value) {
+                              if (controller.openLock.value) {
+                                controller.sendControlCmd(2, 2);
+                              } else {
+                                controller.sendControlCmd(2, 1);
+                              }
+                            },
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Obx(() => RichText(
+                              text: TextSpan(
+                                  text: controller
+                                      .carStatusModel.value.datas.doorOpenStr,
+                                  style: TextStyle(
+                                      color: controller.carStatusModel.value
+                                                  .datas.allDoorStatus ==
+                                              1
+                                          ? Color(0xFFFF6F6F)
+                                          : Color(0xFF999999)),
+                                  children: [
+                                TextSpan(
+                                    text: '/',
+                                    style: TextStyle(color: Color(0xFF999999))),
+                                TextSpan(
+                                  text: controller
+                                      .carStatusModel.value.datas.lockOpenStr,
+                                  style: TextStyle(
+                                      color: controller.carStatusModel.value
+                                                  .datas.allLockStatus ==
+                                              1
+                                          ? Color(0xFFFF6F6F)
+                                          : Color(0xFF999999)),
+                                ),
+                              ]))),
+                      Image.asset(
+                        'assets/images/mine/mine_right_arrow.png',
+                        width: 7.5,
+                        height: 11,
+                      ),
+                    ],
+                  )),
+                ],
+              ),
             ),
           ),
           Divider(
@@ -327,18 +333,19 @@ class RecommendEle extends GetView<EletricController> {
                               width: 30,
                               height: 30,
                               radius: 15,
+                              backgroundColor: controller
+                                      .carStatusModel.value.datas.airOpenStatus
+                                  ? Colors.green
+                                  : Color(0xFF1B7DF4),
                               disabled: (controller.currentCmdType != 1 &&
                                       (controller.currentCmdStatus == 1 ||
                                           controller.currentCmdStatus == 3))
                                   ? true
                                   : false,
-                              image: (controller.currentCmdType != 1 &&
-                                      (controller.currentCmdStatus == 1 ||
-                                          controller.currentCmdStatus == 3))
-                                  ? 'assets/images/chekong/kt_switch_disabled.png'
-                                  : 'assets/images/chekong/kt_switch.png',
-                              imageH: 30,
-                              imageW: 30,
+                              image:
+                                  'assets/images/chekong/air_white_switch.png',
+                              imageH: 20,
+                              imageW: 20,
                               onPressed: () {
                                 if (controller
                                     .carStatusModel.value.datas.airOpenStatus) {

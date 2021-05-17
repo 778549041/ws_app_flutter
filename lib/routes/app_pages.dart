@@ -42,8 +42,11 @@ import 'package:ws_app_flutter/view_models/wow/ele_list_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/near_dz_map_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/news_search_controller.dart';
+import 'package:ws_app_flutter/views/car/air_condition_page.dart';
+import 'package:ws_app_flutter/views/car/door_lock_page.dart';
 import 'package:ws_app_flutter/views/car/dz_introduce_page.dart';
 import 'package:ws_app_flutter/views/car/nav_map_page.dart';
+import 'package:ws_app_flutter/views/car/vitual_control_page.dart';
 import 'package:ws_app_flutter/views/circle/add_friends_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_detail_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_msg_page.dart';
@@ -418,5 +421,11 @@ abstract class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut<TopicController>(() => TopicController());
         })),
+    //门锁详情
+    GetPage(name: Routes.DOORLOCK, page: () => DoorLockPage()),
+    //空调详情
+    GetPage(name: Routes.AIRCONDITION, page: () => AirConditionPage()),
+    //虚拟体验
+    GetPage(name: Routes.VITUALCONTROL, page: () => VitualControlPage()),
   ];
 }

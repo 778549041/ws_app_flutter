@@ -364,18 +364,19 @@ class OwnCarWidget extends GetView<EletricController> {
                               width: 30,
                               height: 30,
                               radius: 15,
+                              backgroundColor: controller
+                                      .carStatusModel.value.datas.airOpenStatus
+                                  ? Colors.green
+                                  : Color(0xFF1B7DF4),
                               disabled: (controller.currentCmdType != 1 &&
                                       (controller.currentCmdStatus == 1 ||
                                           controller.currentCmdStatus == 3))
                                   ? true
                                   : false,
-                              image: (controller.currentCmdType != 1 &&
-                                      (controller.currentCmdStatus == 1 ||
-                                          controller.currentCmdStatus == 3))
-                                  ? 'assets/images/chekong/kt_switch_disabled.png'
-                                  : 'assets/images/chekong/kt_switch.png',
-                              imageH: 30,
-                              imageW: 30,
+                              image:
+                                  'assets/images/chekong/air_white_switch.png',
+                              imageH: 20,
+                              imageW: 20,
                               onPressed: () {
                                 if (controller
                                     .carStatusModel.value.datas.airOpenStatus) {
