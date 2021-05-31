@@ -1,9 +1,13 @@
 import 'package:flustars/flustars.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/car/car_status_model.dart';
 import 'package:ws_app_flutter/models/car/control_cmd_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/wow/car_data_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
@@ -283,5 +287,33 @@ class EletricController extends BaseController {
     Future.delayed(Duration(seconds: 3)).then((value) {
       showLoadingView.value = false;
     });
+  }
+
+  void pushAction(int index) {
+    if (index == 0) {
+      Get.toNamed(Routes.DOORLOCK).then((value) {
+        cancelAllTimer();
+        addAllTimer();
+      });
+      cancelAllTimer();
+      addAllTimer();
+    } else if (index == 1) {
+      Get.toNamed(Routes.AIRCONDITION).then((value) {
+        cancelAllTimer();
+        addAllTimer();
+      });
+      cancelAllTimer();
+      addAllTimer();
+    } else if (index == 2) {
+      //电池诊断
+      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+          'true') {
+        Get.toNamed(Routes.WEBVIEW, arguments: {
+          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage
+        });
+      } else {
+        CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
+      }
+    }
   }
 }

@@ -39,7 +39,7 @@ class CompleteInfoController extends BaseController {
     Pickers.showSinglePicker(
       Get.context,
       data: ['男', '女'],
-      onConfirm: (data) {
+      onConfirm: (data, position) {
         sex.value = data;
       },
     );

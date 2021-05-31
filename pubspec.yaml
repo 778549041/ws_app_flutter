@@ -74,7 +74,7 @@ dependencies:
   azlistview: ^2.0.0-nullsafety.0
   #图片选择器
   image_picker: ^0.6.7+22
-  wechat_assets_picker: ^4.2.2
+  wechat_assets_picker: any
   #类似微信拍摄的相机
   # wechat_camera_picker: ^2.0.0-nullsafety.4
   #图片浏览查看
@@ -132,7 +132,7 @@ dependencies:
   #分享
   sharesdk_plugin: ^1.2.9
   #扫码
-  flutter_qr_reader: ^1.0.3
+  flutter_qr_reader: 1.0.3
   #极光推送
   jpush_flutter: ^0.6.3
   #高德地图

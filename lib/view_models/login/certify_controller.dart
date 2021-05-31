@@ -107,7 +107,7 @@ class CertifyController extends GetxController {
       Get.context,
       data: datas,
       pickerStyle: DefaultPickerStyle(),
-      onConfirm: (data) async {
+      onConfirm: (data, position) async {
         if (index == 0) {
           //选择省份
           province = data;

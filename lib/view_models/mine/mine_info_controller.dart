@@ -143,7 +143,7 @@ class MineInfoController extends GetxController {
     Pickers.showSinglePicker(
       Get.context,
       data: ['男', '女'],
-      onConfirm: (data) async {
+      onConfirm: (data, position) async {
         await Get.find<UserController>().changeUserInfo(
             gender: data == '男'
                 ? 'male'

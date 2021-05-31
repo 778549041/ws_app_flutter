@@ -236,190 +236,199 @@ class OwnCarWidget extends GetView<EletricController> {
             height: 0.5,
             color: Color(0xFFF3F3F3),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/chekong/lock.png',
-                      width: 30,
-                      height: 23,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text('门锁'),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Obx(() => SwitchLoadingView(
-                          width: 53,
-                          height: 25,
-                          selected: !controller.openLock.value,
-                          unselectedText:
-                              controller.openLock.value ? '开锁' : '落锁',
-                          selectedText: controller.openLock.value ? '落锁' : '开锁',
-                          bgColor: Color(0xFF1B7DF4),
-                          loading: (controller.currentCmdType == 2 &&
-                              (controller.currentCmdStatus == 1 ||
-                                  controller.currentCmdStatus == 3)),
-                          disabled: controller.disabledLock.value ||
-                              (controller.currentCmdType != 2 &&
-                                  (controller.currentCmdStatus == 1 ||
-                                      controller.currentCmdStatus == 3)),
-                          loadingColor: controller.openLock.value
-                              ? Color(0xFF1B7DF4)
-                              : Color(0xFFFF6F6F),
-                          callback: (value) {
-                            if (controller.openLock.value) {
-                              controller.sendControlCmd(2, 2);
-                            } else {
-                              controller.sendControlCmd(2, 1);
-                            }
-                          },
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Obx(() => RichText(
-                            text: TextSpan(
-                                text: controller
-                                    .carStatusModel.value.datas.doorOpenStr,
-                                style: TextStyle(
-                                    color: controller.carStatusModel.value.datas
-                                                .allDoorStatus !=
-                                            2
-                                        ? Color(0xFFFF6F6F)
-                                        : Color(0xFF999999)),
-                                children: [
-                              TextSpan(
-                                  text: '/',
-                                  style: TextStyle(color: Color(0xFF999999))),
-                              TextSpan(
-                                text: controller
-                                    .carStatusModel.value.datas.lockOpenStr,
-                                style: TextStyle(
-                                    color: controller.carStatusModel.value.datas
-                                                .allLockStatus !=
-                                            2
-                                        ? Color(0xFFFF6F6F)
-                                        : Color(0xFF999999)),
-                              ),
-                            ]))),
-                    Image.asset(
-                      'assets/images/mine/mine_right_arrow.png',
-                      width: 7.5,
-                      height: 11,
-                    ),
-                  ],
-                )),
-              ],
+          GestureDetector(
+            onTap: () => controller.pushAction(0),
+            behavior: HitTestBehavior.translucent,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/chekong/lock.png',
+                        width: 30,
+                        height: 23,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('门锁'),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Obx(() => SwitchLoadingView(
+                            width: 53,
+                            height: 25,
+                            selected: !controller.openLock.value,
+                            unselectedText:
+                                controller.openLock.value ? '开锁' : '落锁',
+                            selectedText:
+                                controller.openLock.value ? '落锁' : '开锁',
+                            bgColor: Color(0xFF1B7DF4),
+                            loading: (controller.currentCmdType == 2 &&
+                                (controller.currentCmdStatus == 1 ||
+                                    controller.currentCmdStatus == 3)),
+                            disabled: controller.disabledLock.value ||
+                                (controller.currentCmdType != 2 &&
+                                    (controller.currentCmdStatus == 1 ||
+                                        controller.currentCmdStatus == 3)),
+                            loadingColor: controller.openLock.value
+                                ? Color(0xFF1B7DF4)
+                                : Color(0xFFFF6F6F),
+                            callback: (value) {
+                              if (controller.openLock.value) {
+                                controller.sendControlCmd(2, 2);
+                              } else {
+                                controller.sendControlCmd(2, 1);
+                              }
+                            },
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Obx(() => RichText(
+                              text: TextSpan(
+                                  text: controller
+                                      .carStatusModel.value.datas.doorOpenStr,
+                                  style: TextStyle(
+                                      color: controller.carStatusModel.value
+                                                  .datas.allDoorStatus !=
+                                              2
+                                          ? Color(0xFFFF6F6F)
+                                          : Color(0xFF999999)),
+                                  children: [
+                                TextSpan(
+                                    text: '/',
+                                    style: TextStyle(color: Color(0xFF999999))),
+                                TextSpan(
+                                  text: controller
+                                      .carStatusModel.value.datas.lockOpenStr,
+                                  style: TextStyle(
+                                      color: controller.carStatusModel.value
+                                                  .datas.allLockStatus !=
+                                              2
+                                          ? Color(0xFFFF6F6F)
+                                          : Color(0xFF999999)),
+                                ),
+                              ]))),
+                      Image.asset(
+                        'assets/images/mine/mine_right_arrow.png',
+                        width: 7.5,
+                        height: 11,
+                      ),
+                    ],
+                  )),
+                ],
+              ),
             ),
           ),
           Divider(
             height: 0.5,
             color: Color(0xFFF3F3F3),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/chekong/ck_kt.png',
-                      width: 30,
-                      height: 23,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text('空调'),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Obx(() => IndexedStack(
-                          alignment: AlignmentDirectional.center,
-                          index: (controller.currentCmdType == 1 &&
-                                  (controller.currentCmdStatus == 1 ||
-                                      controller.currentCmdStatus == 3))
-                              ? 0
-                              : 1,
-                          children: <Widget>[
-                            SpinKitCircle(
-                              color: Color(0xFF1B7DF4),
-                              size: 30,
-                            ),
-                            CustomButton(
-                              width: 30,
-                              height: 30,
-                              radius: 15,
-                              backgroundColor: controller
-                                      .carStatusModel.value.datas.airOpenStatus
-                                  ? Colors.green
-                                  : Color(0xFF1B7DF4),
-                              disabled: (controller.currentCmdType != 1 &&
-                                      (controller.currentCmdStatus == 1 ||
-                                          controller.currentCmdStatus == 3))
-                                  ? true
-                                  : false,
-                              image:
-                                  'assets/images/chekong/air_white_switch.png',
-                              imageH: 20,
-                              imageW: 20,
-                              onPressed: () {
-                                if (controller
-                                    .carStatusModel.value.datas.airOpenStatus) {
-                                  controller.sendControlCmd(1, 2);
-                                } else {
-                                  controller.sendControlCmd(1, 1);
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          GestureDetector(
+            onTap: () => controller.pushAction(1),
+            behavior: HitTestBehavior.translucent,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
                     children: <Widget>[
-                      Flexible(
-                          child: Obx(() => Text(
-                                controller
-                                    .carStatusModel.value.datas.airOpenStr,
-                                style: TextStyle(
-                                    color: controller.carStatusModel.value.datas
-                                            .airOpenStatus
-                                        ? Colors.green
-                                        : Color(0xFF999999)),
-                                maxLines: 1,
-                              ))),
-                      Offstage(
-                        offstage: false,
-                        child: Image.asset(
-                          'assets/images/mine/mine_right_arrow.png',
-                          width: 7.5,
-                          height: 11,
-                        ),
+                      Image.asset(
+                        'assets/images/chekong/ck_kt.png',
+                        width: 30,
+                        height: 23,
                       ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('空调'),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Obx(() => IndexedStack(
+                            alignment: AlignmentDirectional.center,
+                            index: (controller.currentCmdType == 1 &&
+                                    (controller.currentCmdStatus == 1 ||
+                                        controller.currentCmdStatus == 3))
+                                ? 0
+                                : 1,
+                            children: <Widget>[
+                              SpinKitCircle(
+                                color: Color(0xFF1B7DF4),
+                                size: 30,
+                              ),
+                              CustomButton(
+                                width: 30,
+                                height: 30,
+                                radius: 15,
+                                backgroundColor: controller.carStatusModel.value
+                                        .datas.airOpenStatus
+                                    ? Colors.green
+                                    : Color(0xFF1B7DF4),
+                                disabled: (controller.currentCmdType != 1 &&
+                                        (controller.currentCmdStatus == 1 ||
+                                            controller.currentCmdStatus == 3))
+                                    ? true
+                                    : false,
+                                image:
+                                    'assets/images/chekong/air_white_switch.png',
+                                imageH: 20,
+                                imageW: 20,
+                                onPressed: () {
+                                  if (controller.carStatusModel.value.datas
+                                      .airOpenStatus) {
+                                    controller.sendControlCmd(1, 2);
+                                  } else {
+                                    controller.sendControlCmd(1, 1);
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
                     ],
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Flexible(
+                            child: Obx(() => Text(
+                                  controller
+                                      .carStatusModel.value.datas.airOpenStr,
+                                  style: TextStyle(
+                                      color: controller.carStatusModel.value
+                                              .datas.airOpenStatus
+                                          ? Colors.green
+                                          : Color(0xFF999999)),
+                                  maxLines: 1,
+                                ))),
+                        Offstage(
+                          offstage: false,
+                          child: Image.asset(
+                            'assets/images/mine/mine_right_arrow.png',
+                            width: 7.5,
+                            height: 11,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Divider(
@@ -481,45 +490,49 @@ class OwnCarWidget extends GetView<EletricController> {
             height: 0.5,
             color: Color(0xFFF3F3F3),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/chekong/car_battery_diagnosis.png',
-                      width: 30,
-                      height: 23,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text('电池诊断'),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      '健康度92%',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Color(0xFF999999)),
-                      maxLines: 1,
-                    ),
-                    Image.asset(
-                      'assets/images/mine/mine_right_arrow.png',
-                      width: 7.5,
-                      height: 11,
-                    ),
-                  ],
-                )),
-              ],
+          GestureDetector(
+            onTap: () => controller.pushAction(2),
+            behavior: HitTestBehavior.translucent,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/chekong/car_battery_diagnosis.png',
+                        width: 30,
+                        height: 23,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('电池诊断'),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        '健康度92%',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: Color(0xFF999999)),
+                        maxLines: 1,
+                      ),
+                      Image.asset(
+                        'assets/images/mine/mine_right_arrow.png',
+                        width: 7.5,
+                        height: 11,
+                      ),
+                    ],
+                  )),
+                ],
+              ),
             ),
           ),
         ],
@@ -570,15 +583,6 @@ class OwnCarWidget extends GetView<EletricController> {
     } else if (index == 3) {
       //实时导航
       Get.toNamed(Routes.NAVMAP);
-      // //电池诊断
-      // if (Get.find<UserController>().userInfo.value.member.isVehicle ==
-      //     'true') {
-      //   Get.toNamed(Routes.WEBVIEW, arguments: {
-      //     'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage
-      //   });
-      // } else {
-      //   CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
-      // }
     }
   }
 }

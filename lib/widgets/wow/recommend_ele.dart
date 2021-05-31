@@ -200,9 +200,8 @@ class RecommendEle extends GetView<EletricController> {
             color: Color(0xFFF3F3F3),
           ),
           GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.DOORLOCK);
-            },
+            onTap: () => controller.pushAction(0),
+            behavior: HitTestBehavior.translucent,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
               child: Row(
@@ -298,97 +297,101 @@ class RecommendEle extends GetView<EletricController> {
             height: 0.5,
             color: Color(0xFFF3F3F3),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/chekong/ck_kt.png',
-                      width: 30,
-                      height: 23,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text('空调'),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Obx(() => IndexedStack(
-                          alignment: AlignmentDirectional.center,
-                          index: (controller.currentCmdType == 1 &&
-                                  (controller.currentCmdStatus == 1 ||
-                                      controller.currentCmdStatus == 3))
-                              ? 0
-                              : 1,
-                          children: <Widget>[
-                            SpinKitCircle(
-                              color: Color(0xFF1B7DF4),
-                              size: 30,
-                            ),
-                            CustomButton(
-                              width: 30,
-                              height: 30,
-                              radius: 15,
-                              backgroundColor: controller
-                                      .carStatusModel.value.datas.airOpenStatus
-                                  ? Colors.green
-                                  : Color(0xFF1B7DF4),
-                              disabled: (controller.currentCmdType != 1 &&
-                                      (controller.currentCmdStatus == 1 ||
-                                          controller.currentCmdStatus == 3))
-                                  ? true
-                                  : false,
-                              image:
-                                  'assets/images/chekong/air_white_switch.png',
-                              imageH: 20,
-                              imageW: 20,
-                              onPressed: () {
-                                if (controller
-                                    .carStatusModel.value.datas.airOpenStatus) {
-                                  controller.sendControlCmd(1, 2);
-                                } else {
-                                  controller.sendControlCmd(1, 1);
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          GestureDetector(
+            onTap: () => controller.pushAction(1),
+            behavior: HitTestBehavior.translucent,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
                     children: <Widget>[
-                      Flexible(
-                          child: Obx(() => Text(
-                                controller
-                                    .carStatusModel.value.datas.airOpenStr,
-                                style: TextStyle(
-                                    color: controller.carStatusModel.value.datas
-                                            .airOpenStatus
-                                        ? Colors.green
-                                        : Color(0xFF999999)),
-                                maxLines: 1,
-                              ))),
-                      Offstage(
-                        offstage: false,
-                        child: Image.asset(
-                          'assets/images/mine/mine_right_arrow.png',
-                          width: 7.5,
-                          height: 11,
-                        ),
+                      Image.asset(
+                        'assets/images/chekong/ck_kt.png',
+                        width: 30,
+                        height: 23,
                       ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('空调'),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Obx(() => IndexedStack(
+                            alignment: AlignmentDirectional.center,
+                            index: (controller.currentCmdType == 1 &&
+                                    (controller.currentCmdStatus == 1 ||
+                                        controller.currentCmdStatus == 3))
+                                ? 0
+                                : 1,
+                            children: <Widget>[
+                              SpinKitCircle(
+                                color: Color(0xFF1B7DF4),
+                                size: 30,
+                              ),
+                              CustomButton(
+                                width: 30,
+                                height: 30,
+                                radius: 15,
+                                backgroundColor: controller.carStatusModel.value
+                                        .datas.airOpenStatus
+                                    ? Colors.green
+                                    : Color(0xFF1B7DF4),
+                                disabled: (controller.currentCmdType != 1 &&
+                                        (controller.currentCmdStatus == 1 ||
+                                            controller.currentCmdStatus == 3))
+                                    ? true
+                                    : false,
+                                image:
+                                    'assets/images/chekong/air_white_switch.png',
+                                imageH: 20,
+                                imageW: 20,
+                                onPressed: () {
+                                  if (controller.carStatusModel.value.datas
+                                      .airOpenStatus) {
+                                    controller.sendControlCmd(1, 2);
+                                  } else {
+                                    controller.sendControlCmd(1, 1);
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
                     ],
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Flexible(
+                            child: Obx(() => Text(
+                                  controller
+                                      .carStatusModel.value.datas.airOpenStr,
+                                  style: TextStyle(
+                                      color: controller.carStatusModel.value
+                                              .datas.airOpenStatus
+                                          ? Colors.green
+                                          : Color(0xFF999999)),
+                                  maxLines: 1,
+                                ))),
+                        Offstage(
+                          offstage: false,
+                          child: Image.asset(
+                            'assets/images/mine/mine_right_arrow.png',
+                            width: 7.5,
+                            height: 11,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

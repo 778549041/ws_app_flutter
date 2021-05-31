@@ -336,7 +336,7 @@ SPEC CHECKSUMS:
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
-  photo_manager: a8db3597a3b44e17ecb331fa099731c99b849496
+  photo_manager: 61cdd6835af271b9ad1bb533fccf71d5db02fff3
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d

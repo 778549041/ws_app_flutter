@@ -7,7 +7,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/utils/net_utils/base_entity.dart';
 import 'package:ws_app_flutter/utils/net_utils/entity_factory.dart';
-import 'package:ws_app_flutter/utils/net_utils/net_cache.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/retry_interceptor.dart';
 
