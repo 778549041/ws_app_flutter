@@ -8,13 +8,14 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 
 class PayConfirmController extends GetxController {
   String input;
+  final String lastInput = Get.arguments['lastInput'];
 
   @override
   void onInit() {
     super.onInit();
   }
   
-  Future submitted(String lastInput) async {
+  Future submitted() async {
     if (lastInput != input) {
       EasyLoading.showToast('两次设置密码不一致',
           toastPosition: EasyLoadingToastPosition.bottom);

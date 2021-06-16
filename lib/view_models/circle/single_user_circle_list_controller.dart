@@ -5,7 +5,8 @@ import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
 class SingleUserCircleController extends RefreshListController<MomentModel> {
-  var memberId = ''.obs;
+  final String memberId =
+      Get.arguments == null ? null : Get.arguments['memberId']; //用户id
 
   @override
   Future<List<MomentModel>> loadData({int pageNum}) async {
@@ -21,7 +22,7 @@ class SingleUserCircleController extends RefreshListController<MomentModel> {
   Future requestCircleListData(int pageNum) async {
     MomentListModel _model = await DioManager().request<MomentListModel>(
         DioManager.POST, Api.circleMomentListUrl,
-        params: {"page": pageNum, 'member_id': memberId.value});
+        params: {"page": pageNum, 'member_id': memberId});
     return _model.list;
   }
 }

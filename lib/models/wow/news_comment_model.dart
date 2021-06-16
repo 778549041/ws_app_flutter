@@ -1,4 +1,5 @@
 import 'package:ws_app_flutter/models/common/common_member.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class NewsCommentListModel {
   List<NewsCommentModel> cmtList;
@@ -10,10 +11,15 @@ class NewsCommentListModel {
     cmtList = <NewsCommentModel>[];
     if (json['cmt_list'] != null) {
       (json['cmt_list'] as List).forEach((element) {
-        cmtList.add(NewsCommentModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            cmtList.add(
+                NewsCommentModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
-    totalPage = json['total_page'];
+    totalPage = asT<int>(json['total_page']);
   }
 }
 
@@ -48,24 +54,28 @@ class NewsCommentModel {
       this.replyData});
 
   NewsCommentModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    avatar = json['avatar'];
-    content = json['content'];
-    isSelf = json['is_self'];
-    isOfficial = json['is_official'] == 'true';
-    nickname = json['nickname'];
-    praiseNum = json['praise_num'].toString();
-    praiseStatus = json['praise_status'];
-    pubdate = json['pubdate'];
-    userId = json['user_id'];
-    isVehicle = json['is_vehicle'] == 'true';
-    memberInfo = json['member_info'] != null
-        ? CommonMemberModel.fromJson(json['member_info'])
-        : null;
+    id = asT<String>(json['id']);
+    avatar = asT<String>(json['avatar']);
+    content = asT<String>(json['content']);
+    isSelf = asT<bool>(json['is_self']);
+    isOfficial = asT<bool>(json['is_official']);
+    nickname = asT<String>(json['nickname']);
+    praiseNum = asT<String>(json['praise_num']);
+    praiseStatus = asT<bool>(json['praise_status']);
+    pubdate = asT<String>(json['pubdate']);
+    userId = asT<String>(json['user_id']);
+    isVehicle = asT<bool>(json['is_vehicle']);
+    memberInfo = CommonMemberModel.fromJson(
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
     replyData = <ReplyModel>[];
     if (json['reply_data'] != null) {
       (json['reply_data'] as List).forEach((element) {
-        replyData.add(ReplyModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            replyData
+                .add(ReplyModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -88,11 +98,11 @@ class ReplyModel {
       this.isOfficial});
 
   ReplyModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    plName = json['pl_name'];
-    content = json['content'];
-    replyName = json['reply_name'];
-    pid = json['pid'];
-    isOfficial = json['is_official'] == 'true';
+    id = asT<String>(json['id']);
+    plName = asT<String>(json['pl_name']);
+    content = asT<String>(json['content']);
+    replyName = asT<String>(json['reply_name']);
+    pid = asT<String>(json['pid']);
+    isOfficial = asT<bool>(json['is_official']);
   }
 }

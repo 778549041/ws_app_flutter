@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class IMInfoModel {
   IMInfo data;
   String error;
@@ -5,8 +7,9 @@ class IMInfoModel {
   IMInfoModel({this.data, this.error});
 
   IMInfoModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? IMInfo.fromJson(json['data']) : null;
-    error = json['error'];
+    data = IMInfo.fromJson(
+        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>()));
+    error = asT<String>(json['error']);
   }
 }
 
@@ -19,9 +22,9 @@ class IMInfo {
   IMInfo({this.memberId, this.sdkappid, this.sig, this.user});
 
   IMInfo.fromJson(Map<String, dynamic> json) {
-    memberId = json['member_id'];
-    sdkappid = json['sdkappid'];
-    sig = json['sig'];
-    user = json['user'];
+    memberId = asT<String>(json['member_id']);
+    sdkappid = asT<String>(json['sdkappid']);
+    sig = asT<String>(json['sig']);
+    user = asT<String>(json['user']);
   }
 }

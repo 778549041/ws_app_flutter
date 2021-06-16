@@ -8,14 +8,10 @@ import 'package:ws_app_flutter/widgets/chat/msgInput.dart';
 import 'package:ws_app_flutter/widgets/chat/sendMsg.dart';
 
 class ChatPage extends GetView<ChatController> {
-  final String userId = Get.arguments['userId'];//用户聊天信息
-  final String showName = Get.arguments['showName'];
-
   @override
   Widget build(BuildContext context) {
-    controller.userID = userId;
     return BasePage(
-      title: showName,
+      title: controller.showName,
       child: Column(
         children: [
           Expanded(
@@ -40,7 +36,7 @@ class ChatPage extends GetView<ChatController> {
               ),
             ),
           ),
-          MsgInput(userId,1),
+          MsgInput(controller.userID,1),
         ],
       ),
     );

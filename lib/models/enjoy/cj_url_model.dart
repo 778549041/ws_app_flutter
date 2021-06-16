@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class CJUrlModel {
   String message;
   bool result;
@@ -7,10 +9,11 @@ class CJUrlModel {
   CJUrlModel({this.message, this.result, this.code, this.data});
 
   CJUrlModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-    result = json['result'];
-    code = json['code'];
-    data = json['data'] != null ? CJUrlData.fromJson(json['data']) : null;
+    message = asT<String>(json['message']);
+    result = asT<bool>(json['result']);
+    code = asT<int>(json['code']);
+    data = CJUrlData.fromJson(
+        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>()));
   }
 }
 
@@ -27,9 +30,9 @@ class CJUrlData {
       this.activityShakeUrl});
 
   CJUrlData.fromJson(Map<String, dynamic> json) {
-    activityAdventuresUrl = json['activity_adventures_url'];
-    activityMachineUrl = json['activity_machine_url'];
-    activityScratchUrl = json['activity_scratch_url'];
-    activityShakeUrl = json['activity_shake_url'];
+    activityAdventuresUrl = asT<String>(json['activity_adventures_url']);
+    activityMachineUrl = asT<String>(json['activity_machine_url']);
+    activityScratchUrl = asT<String>(json['activity_scratch_url']);
+    activityShakeUrl = asT<String>(json['activity_shake_url']);
   }
 }

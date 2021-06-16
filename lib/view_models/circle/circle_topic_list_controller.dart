@@ -7,7 +7,7 @@ import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
 class CircleTopicListController extends RefreshListController<MomentModel> {
-  var topicId = ''.obs;
+  final String topcId = Get.arguments == null ? null : Get.arguments['topcid'];
   var topicDetailModel = SingleTopicodel().obs;
 
   @override
@@ -30,14 +30,14 @@ class CircleTopicListController extends RefreshListController<MomentModel> {
   Future requestCircleListData(int pageNum) async {
     MomentListModel _model = await DioManager().request<MomentListModel>(
         DioManager.POST, Api.circleMomentListUrl,
-        params: {"page": pageNum, 'topic_id': topicId.value});
+        params: {"page": pageNum, 'topic_id': topcId});
     return _model.list;
   }
 
   Future getTopicDetailData() async {
     topicDetailModel.value = await DioManager().request<SingleTopicodel>(
         DioManager.GET, Api.circleTopicDetailUrl,
-        queryParamters: {'cid': topicId.value});
+        queryParamters: {'cid': topcId});
   }
 
   void pushToPublish() {

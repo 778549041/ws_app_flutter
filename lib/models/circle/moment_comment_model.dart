@@ -1,4 +1,5 @@
 import 'package:ws_app_flutter/models/common/common_member.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class MomentCommentListModel {
   int totalPage;
@@ -7,11 +8,16 @@ class MomentCommentListModel {
   MomentCommentListModel({this.totalPage, this.data});
 
   MomentCommentListModel.fromJson(Map<String, dynamic> json) {
-    totalPage = json['total_page'];
+    totalPage = asT<int>(json['total_page']);
     data = <MomentCommentModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
-        data.add(MomentCommentModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            data.add(MomentCommentModel.fromJson(
+                asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -50,25 +56,29 @@ class MomentCommentModel {
       this.replyData});
 
   MomentCommentModel.fromJson(Map<String, dynamic> json) {
-    avatar = json['avatar'];
-    cType = json['c_type'];
-    content = json['content'];
-    id = json['id'];
-    isOfficial = json['is_official'] == 'true';
-    isSelf = json['is_self'];
-    isVehicle = json['is_vehicle'] == 'true';
-    nickname = json['nickname'];
-    praiseNum = json['praise_num'].toString();
-    praiseStatus = json['praise_status'];
-    pubdate = json['pubdate'];
-    userId = json['user_id'];
-    memberInfo = json['member_info'] != null
-        ? CommonMemberModel.fromJson(json['member_info'])
-        : null;
+    avatar = asT<String>(json['avatar']);
+    cType = asT<String>(json['c_type']);
+    content = asT<String>(json['content']);
+    id = asT<String>(json['id']);
+    isOfficial = asT<bool>(json['is_official']);
+    isSelf = asT<bool>(json['is_self']);
+    isVehicle = asT<bool>(json['is_vehicle']);
+    nickname = asT<String>(json['nickname']);
+    praiseNum = asT<String>(json['praise_num']);
+    praiseStatus = asT<bool>(json['praise_status']);
+    pubdate = asT<String>(json['pubdate']);
+    userId = asT<String>(json['user_id']);
+    memberInfo = CommonMemberModel.fromJson(
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
     replyData = <MomentCommentReplyModel>[];
     if (json['reply_data'] != null) {
       (json['reply_data'] as List).forEach((element) {
-        replyData.add(MomentCommentReplyModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            replyData.add(MomentCommentReplyModel.fromJson(
+                asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -93,12 +103,12 @@ class MomentCommentReplyModel {
       this.pid});
 
   MomentCommentReplyModel.fromJson(Map<String, dynamic> json) {
-    cType = json['c_type'];
-    content = json['content'];
-    id = json['id'];
-    isOfficial = json['is_official'] == 'true';
-    plName = json['pl_name'];
-    replyName = json['reply_name'];
-    pid = json['pid'];
+    cType = asT<String>(json['c_type']);
+    content = asT<String>(json['content']);
+    id = asT<String>(json['id']);
+    isOfficial = asT<bool>(json['is_official']);
+    plName = asT<String>(json['pl_name']);
+    replyName = asT<String>(json['reply_name']);
+    pid = asT<String>(json['pid']);
   }
 }

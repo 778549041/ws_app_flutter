@@ -10,11 +10,8 @@ import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class ProfilePage extends GetView<ProfileController> {
-  final String userId = Get.arguments == null ? null : Get.arguments['user_id'];
-
   @override
   Widget build(BuildContext context) {
-    controller.userId.value = userId;
     return BasePage(
       title: '好友详情',
       child: SingleChildScrollView(
@@ -234,8 +231,9 @@ class ProfilePage extends GetView<ProfileController> {
             Obx(
               () => Offstage(
                 offstage: (controller.friendModel.value.error != null ||
-                    userId == controller.friendModel.value.member.memberId ||
-                    userId == '1'),
+                    controller.userId ==
+                        controller.friendModel.value.member.memberId ||
+                    controller.userId == '1'),
                 child: CustomButton(
                   backgroundColor: MainAppColor.mainBlueBgColor,
                   title: controller.friendModel.value.member.isFriend

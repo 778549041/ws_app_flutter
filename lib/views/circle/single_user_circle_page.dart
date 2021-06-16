@@ -6,12 +6,8 @@ import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/circle/circle_list_item.dart';
 
 class SingleUserCircleListPage extends GetView<SingleUserCircleController> {
-  final String memberId =
-      Get.arguments == null ? null : Get.arguments['memberId']; //用户id
-
   @override
   Widget build(BuildContext context) {
-    controller.memberId.value = memberId;
     return BasePage(
       title: '圈子列表',
       child: SmartRefresher(
@@ -28,7 +24,7 @@ class SingleUserCircleListPage extends GetView<SingleUserCircleController> {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: CircleListItem(
                       model: controller.list[index],
-                      pageName: 'singleUserCircleList$memberId',
+                      pageName: 'singleUserCircleList${controller.memberId}',
                     ),
                   );
                 }, childCount: controller.list.length),

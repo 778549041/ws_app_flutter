@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:azlistview/azlistview.dart';
 import 'package:ws_app_flutter/models/common/common_member.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class FriendModel {
   String error;
@@ -10,10 +11,9 @@ class FriendModel {
   FriendModel({this.error}) : member = FriendMember();
 
   FriendModel.fromJson(Map<String, dynamic> json) {
-    error = json['error'];
-    member = json['member'] != null
-        ? FriendMember.fromJson(json['member'])
-        : FriendMember();
+    error = asT<String>(json['error'], '');
+    member = FriendMember.fromJson(
+        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>()));
   }
 }
 
@@ -26,7 +26,11 @@ class AddFriendListModel {
     list = <FriendMember>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(FriendMember.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(FriendMember.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -41,7 +45,12 @@ class FriendListModel {
     memberList = <FriendMember>[];
     if (json['memberList'] != null) {
       (json['memberList'] as List).forEach((element) {
-        memberList.add(FriendMember.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            memberList
+                .add(FriendMember.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -76,25 +85,28 @@ class FriendMember extends ISuspensionBean {
         memberInfo = CommonMemberModel();
 
   FriendMember.fromJson(Map<String, dynamic> json) {
-    addr = json['addr'];
-    avatar = json['avatar'] ?? '';
+    addr = asT<String>(json['addr'], '');
+    avatar = asT<String>(json['avatar'], '');
     interest = <String>[];
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
-        interest.add(element);
+        if (element != null) {
+          tryCatch(() {
+            interest.add(asT<String>(element));
+          });
+        }
       });
     }
-    isFriend = json['isFriend'];
-    name = json['name'];
-    sex = json['sex'];
-    memberId = json['member_id'];
-    memberInfo = json['member_info'] != null
-        ? CommonMemberModel.fromJson(json['member_info'])
-        : CommonMemberModel();
-    friendsRelation = json['friends_relation'];
-    mobile = json['mobile'];
-    nickname = json['nickname'];
-    groupName = json['init'];
+    isFriend = asT<bool>(json['isFriend']);
+    name = asT<String>(json['name']);
+    sex = asT<String>(json['sex']);
+    memberId = asT<String>(json['member_id']);
+    memberInfo = CommonMemberModel.fromJson(
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+    friendsRelation = asT<int>(json['friends_relation']);
+    mobile = asT<String>(json['mobile']);
+    nickname = asT<String>(json['nickname']);
+    groupName = asT<String>(json['init']);
   }
 
   @override

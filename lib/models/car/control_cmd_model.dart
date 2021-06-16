@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class ControlCmdModel {
   String code;
   String message;
@@ -7,11 +9,10 @@ class ControlCmdModel {
       : datas = ControlCmdData();
 
   ControlCmdModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'] ?? '0';
-    message = json['message'] ?? '';
-    datas = json['datas'] != null
-        ? ControlCmdData.fromJson(json['datas'])
-        : ControlCmdData();
+    code = asT<String>(json['code'], '0');
+    message = asT<String>(json['message'], '');
+    datas = ControlCmdData.fromJson(
+        asT<Map<String, dynamic>>(json['datas'], Map<String, dynamic>()));
   }
 }
 
@@ -29,8 +30,8 @@ class ControlCmdData {
   });
 
   ControlCmdData.fromJson(Map<String, dynamic> json) {
-    value = json['value'].toString() ?? '0';
-    command = json['command'] ?? '';
+    value = asT<String>(json['value'], '0');
+    command = asT<String>(json['command'], 'airOpenCommand');
     if (command == 'airOpenCommand') {
       cmdType = 1;
       loadingTitle = '正在开启远程空调';

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/view_models/mine/add_shop_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
@@ -9,22 +8,10 @@ import 'package:ws_app_flutter/widgets/global/form_Input_cell.dart';
 import 'package:ws_app_flutter/widgets/global/form_select_cell.dart';
 
 class AddShopPage extends GetView<AddShopController> {
-  final ShopAddressModel model =
-      Get.arguments == null ? null : Get.arguments['model']; //修改地址传过来的参数
-
   @override
   Widget build(BuildContext context) {
-    if (model != null) {
-      controller.model.value = model;
-      controller.isDefault.value = model.isDefault;
-      controller.area.value = (model.area.contains('mainland')
-          ? model.area.split(':')[1]
-          : model.area);
-    } else {
-      controller.area.value = '请选城市';
-    }
     return BasePage(
-      title: model == null ? '新增地址' : '编辑地址',
+      title: controller.model.value == null ? '新增地址' : '编辑地址',
       child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
         child: Column(
@@ -87,11 +74,11 @@ class AddShopPage extends GetView<AddShopController> {
               hintText: '',
               hiddenArrow: true,
               rightWidget: Obx(() => CupertinoSwitch(
-                            value: controller.isDefault.value,
-                            onChanged: (value) async {
-                              controller.isDefault.value = value;
-                            },
-                          )),
+                    value: controller.isDefault.value,
+                    onChanged: (value) async {
+                      controller.isDefault.value = value;
+                    },
+                  )),
             ),
             SizedBox(
               height: 100,

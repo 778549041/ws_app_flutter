@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class ActivityListModel {
   List<ActivityModel> list;
   Pager pager;
@@ -10,10 +12,16 @@ class ActivityListModel {
     list = <ActivityModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(ActivityModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(
+                ActivityModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
-    pager = json['pager'] != null ? Pager.fromJson(json['pager']) : Pager();
+    pager = Pager.fromJson(
+        asT<Map<String, dynamic>>(json['pager'], Map<String, dynamic>()));
   }
 }
 
@@ -26,7 +34,12 @@ class RecommendActivityListModel {
     data = <ActivityModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
-        data.add(ActivityModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            data.add(
+                ActivityModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -93,34 +106,35 @@ class ActivityModel {
       : store = ActivityAddress();
 
   ActivityModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? '';
-    ifpub = json['ifpub'] ?? false;
-    memberLv = json['member_lv'] ?? '';
-    introduce = json['introduce'] ?? '';
-    url = json['url'] ?? '';
-    imageUrl = json['image_url'] ?? '';
-    createtime = json['createtime'] ?? '';
-    updatetime = json['updatetime'] ?? '';
-    fromTime = json['from_time'] ?? '';
-    toTime = json['to_time'] ?? '';
-    isHeader = json['is_header'] ?? '';
-    apply = json['apply'] ?? '';
-    auth = json['auth'] ?? '';
-    desc = json['desc'] ?? '';
-    huodongId = json['huodong_id'] ?? '';
-    imageId = json['image_id'] ?? '';
-    imgUrl = json['img_url'] ?? '';
-    isOnline = json['is_online'] ?? '';
-    status = json['status'] ?? 0;
-    isPub = json['is_pub'] ?? '';
-    isVote = json['is_vote'] ?? '';
-    lastModify = json['last_modify'] ?? '';
-    limit = json['limit'] ?? '';
-    name = json['name'] ?? '';
-    ordernum = json['ordernum'] ?? '';
-    isCustom = json['is_custom'] ?? '';
-    store =
-        (json['store'] != null && json['store'] is Map) ? ActivityAddress.fromJson(json['store']) : ActivityAddress();
+    id = asT<String>(json['id'], '');
+    ifpub = asT<bool>(json['ifpub'], false);
+    memberLv = asT<String>(json['member_lv'], '');
+    introduce = asT<String>(json['introduce'], '');
+    url = asT<String>(json['url'], '');
+    imageUrl = asT<String>(json['image_url'], '');
+    createtime = asT<String>(json['createtime'], '');
+    updatetime = asT<String>(json['updatetime'], '');
+    fromTime = asT<String>(json['from_time'], '');
+    toTime = asT<String>(json['to_time'], '');
+    isHeader = asT<String>(json['is_header'], '');
+    apply = asT<String>(json['apply'], '');
+    auth = asT<String>(json['auth'], '');
+    desc = asT<String>(json['desc'], '');
+    huodongId = asT<String>(json['huodong_id'], '');
+    imageId = asT<String>(json['image_id'], '');
+    imgUrl = asT<String>(json['img_url'], '');
+    isOnline = asT<String>(json['is_online'], '');
+    status = asT<int>(json['status'], 0);
+    isPub = asT<String>(json['is_pub'], '');
+    isVote = asT<String>(json['is_vote'], '');
+    lastModify = asT<String>(json['last_modify'], '');
+    limit = asT<String>(json['limit'], '');
+    name = asT<String>(json['name'], '');
+    ordernum = asT<String>(json['ordernum'], '');
+    isCustom = asT<String>(json['is_custom'], '');
+    store = (json['store'] != null && json['store'] is Map)
+        ? ActivityAddress.fromJson(json['store'])
+        : ActivityAddress();
     isBgClear = false;
   }
 }
@@ -133,9 +147,9 @@ class Pager {
   Pager({this.current, this.token, this.total});
 
   Pager.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
-    current = json['current'];
-    total = json['total'];
+    token = asT<int>(json['token']);
+    current = asT<String>(json['current']);
+    total = asT<int>(json['total']);
   }
 }
 
@@ -149,9 +163,9 @@ class ActivityAddress {
       {this.address = '', this.lat = '', this.lng = '', this.region = ''});
 
   ActivityAddress.fromJson(Map<String, dynamic> json) {
-    address = json['address'] ?? '';
-    region = json['region'] ?? '';
-    lat = json['lat'] ?? '';
-    lng = json['lng'] ?? '';
+    address = asT<String>(json['address'], '');
+    region = asT<String>(json['region'], '');
+    lat = asT<String>(json['lat'], '');
+    lng = asT<String>(json['lng'], '');
   }
 }

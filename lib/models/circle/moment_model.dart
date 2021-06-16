@@ -1,4 +1,5 @@
 import 'package:ws_app_flutter/models/common/common_member.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class MomentListModel {
   bool isLogin;
@@ -8,14 +9,18 @@ class MomentListModel {
   MomentListModel({this.isLogin, this.totalPage}) : list = <MomentModel>[];
 
   MomentListModel.fromJson(Map<String, dynamic> json) {
-    isLogin = json['is_login'];
+    isLogin = asT<bool>(json['is_login']);
     list = <MomentModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(MomentModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(MomentModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
-    totalPage = json['total_page'];
+    totalPage = asT<int>(json['total_page']);
   }
 }
 
@@ -25,9 +30,8 @@ class SingleMomentModel {
   SingleMomentModel() : list = MomentModel();
 
   SingleMomentModel.fromJson(Map<String, dynamic> json) {
-    list = json['list'] != null
-        ? MomentModel.fromJson(json['list'])
-        : MomentModel();
+    list = MomentModel.fromJson(
+        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>()));
   }
 }
 
@@ -95,38 +99,41 @@ class MomentModel {
         fileList = <FileModel>[];
 
   MomentModel.fromJson(Map<String, dynamic> json) {
-    circleId = json['circle_id'];
-    userType = json['user_type'];
-    visitsNum = json['visits_num'];
-    hrefType = json['href_type'];
-    isGood = json['is_good'];
-    params = json['params'] != null
-        ? MomentParams.fromJson(json['params'])
-        : MomentParams();
-    memberInfo = json['member_info'] != null
-        ? CommonMemberModel.fromJson(json['member_info'])
-        : CommonMemberModel();
-    classify = json['classify'];
-    topicId = json['topic_id'];
-    topicTitle = json['topic_title'] ?? '';
-    memberId = json['member_id'];
-    content = json['content'] ?? '';
-    type = json['type'];
-    comment = json['comment'].toString();
-    examine = json['examine'];
-    praise = json['praise'] ?? '0';
-    praiseStatus = json['praise_status'];
-    avatar = json['avatar'] ?? '';
-    nickname = json['nickname'];
-    isSelf = json['is_self'];
+    circleId = asT<String>(json['circle_id']);
+    userType = asT<int>(json['user_type']);
+    visitsNum = asT<String>(json['visits_num']);
+    hrefType = asT<String>(json['href_type']);
+    isGood = asT<String>(json['is_good']);
+    params = MomentParams.fromJson(
+        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>()));
+    memberInfo = CommonMemberModel.fromJson(
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+    classify = asT<String>(json['classify']);
+    topicId = asT<String>(json['topic_id']);
+    topicTitle = asT<String>(json['topic_title'], '');
+    memberId = asT<String>(json['member_id']);
+    content = asT<String>(json['content'], '');
+    type = asT<String>(json['type']);
+    comment = asT<String>(json['comment']);
+    examine = asT<String>(json['examine']);
+    praise = asT<String>(json['praise'], '0');
+    praiseStatus = asT<bool>(json['praise_status']);
+    avatar = asT<String>(json['avatar'], '');
+    nickname = asT<String>(json['nickname']);
+    isSelf = asT<bool>(json['is_self']);
     fileList = <FileModel>[];
     if (json['file_list'] != null) {
       (json['file_list'] as List).forEach((element) {
-        fileList.add(FileModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            fileList
+                .add(FileModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
-    pubtime = json['pubtime'];
-    friendsRelation = json['friends_relation'];
+    pubtime = asT<String>(json['pubtime']);
+    friendsRelation = asT<int>(json['friends_relation']);
   }
 }
 
@@ -139,10 +146,10 @@ class MomentParams {
   MomentParams({this.name = '', this.type, this.url, this.detailId});
 
   MomentParams.fromJson(Map<String, dynamic> json) {
-    name = json['name'] ?? '';
-    type = json['type'];
-    url = json['url'];
-    detailId = json['detail_id'];
+    name = asT<String>(json['name'], '');
+    type = asT<String>(json['type']);
+    url = asT<String>(json['url']);
+    detailId = asT<String>(json['detail_id']);
   }
 }
 
@@ -152,6 +159,6 @@ class FileModel {
   FileModel({this.savepath});
 
   FileModel.fromJson(Map<String, dynamic> json) {
-    savepath = json['savepath'];
+    savepath = asT<String>(json['savepath']);
   }
 }

@@ -7,20 +7,8 @@ import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class ComplaintPage extends GetView<ComplaintController> {
-  final String province = Get.arguments['province'];
-  final String city = Get.arguments['city'];
-  final String store = Get.arguments['store'];
-  final String name = Get.arguments['name'];
-  final String vincode = Get.arguments['vincode'];
-
   @override
   Widget build(BuildContext context) {
-    controller.province = province;
-    controller.city = city;
-    controller.store = store;
-    controller.name = name;
-    controller.vincode = vincode;
-
     return BasePage(
       title: '车主申述',
       child: Obx(

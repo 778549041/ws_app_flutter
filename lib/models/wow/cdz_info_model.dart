@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class SingleCDZInfoModel {
   bool result;
   SingleCDZInfo list;
@@ -5,8 +7,9 @@ class SingleCDZInfoModel {
   SingleCDZInfoModel({this.result, this.list});
 
   SingleCDZInfoModel.fromJson(Map<String, dynamic> json) {
-    result = json['result'];
-    list = json['list'] != null ? SingleCDZInfo.fromJson(json['list']) : null;
+    result = asT<bool>(json['result']);
+    list = SingleCDZInfo.fromJson(
+        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>()));
   }
 }
 
@@ -42,9 +45,9 @@ class SingleCDZInfo {
   String payment; //支付方式
   String remark; //备注
   int kuai; //直流快充数量
-  int kuaiNum;//快充闲置个数
+  int kuaiNum; //快充闲置个数
   int man; //交流慢充数量
-  int manNum;//慢充闲置个数
+  int manNum; //慢充闲置个数
   String serviceType; //服务商(1:特来电,2:国翰,3:星星)
 
   SingleCDZInfo(
@@ -81,54 +84,57 @@ class SingleCDZInfo {
       this.supportOrder});
 
   SingleCDZInfo.fromJson(Map<String, dynamic> json) {
-    stationID = json['StationID'];
-    serviceType = json['ServiceType'];
-    stationName = json['StationName'];
-    stationLat = json['StationLat'];
-    stationLng = json['StationLng'];
-    address = json['Address'];
-    areaCode = json['AreaCode'];
-    busineHours = json['BusineHours'];
-    construction = json['Construction'];
-    countryCode = json['CountryCode'];
-    electricityFee = json['ElectricityFee'];
-    equipmentID = json['EquipmentID'];
-    equipmentOwnerID = json['EquipmentOwnerID'];
-    kuai = json['kuai'];
-    kuaiNum = json['kuai_num'];
-    man = json['man'];
-    manNum = json['man_num'];
-    matchCars = json['MatchCars'];
-    operatorID = json['OperatorID'];
-    parkFee = json['ParkFee'];
-    parkInfo = json['ParkInfo'];
-    parkNums = json['ParkNums'];
-    payment = json['Payment'];
-    price = json['price'];
-    remark = json['Remark'];
-    servicePrice = json['service_price'];
-    serviceFee = json['ServiceFee'];
-    serviceTel = json['ServiceTel'];
-    siteGuide = json['SiteGuide'];
-    stationStatus = json['StationStatus'];
-    stationTel = json['StationTel'];
-    stationType = json['StationType'];
-    supportOrder = json['SupportOrder'];
+    stationID = asT<String>(json['StationID']);
+    serviceType = asT<String>(json['ServiceType']);
+    stationName = asT<String>(json['StationName']);
+    stationLat = asT<String>(json['StationLat']);
+    stationLng = asT<String>(json['StationLng']);
+    address = asT<String>(json['Address']);
+    areaCode = asT<String>(json['AreaCode']);
+    busineHours = asT<String>(json['BusineHours']);
+    construction = asT<String>(json['Construction']);
+    countryCode = asT<String>(json['CountryCode']);
+    electricityFee = asT<String>(json['ElectricityFee']);
+    equipmentID = asT<String>(json['EquipmentID']);
+    equipmentOwnerID = asT<String>(json['EquipmentOwnerID']);
+    kuai = asT<int>(json['kuai']);
+    kuaiNum = asT<int>(json['kuai_num']);
+    man = asT<int>(json['man']);
+    manNum = asT<int>(json['man_num']);
+    matchCars = asT<String>(json['MatchCars']);
+    operatorID = asT<String>(json['OperatorID']);
+    parkFee = asT<String>(json['ParkFee']);
+    parkInfo = asT<String>(json['ParkInfo']);
+    parkNums = asT<String>(json['ParkNums']);
+    payment = asT<String>(json['Payment']);
+    price = asT<String>(json['price']);
+    remark = asT<String>(json['Remark']);
+    servicePrice = asT<String>(json['service_price']);
+    serviceFee = asT<String>(json['ServiceFee']);
+    serviceTel = asT<String>(json['ServiceTel']);
+    siteGuide = asT<String>(json['SiteGuide']);
+    stationStatus = asT<String>(json['StationStatus']);
+    stationTel = asT<String>(json['StationTel']);
+    stationType = asT<String>(json['StationType']);
+    supportOrder = asT<String>(json['SupportOrder']);
   }
 }
-
 
 class CDZListModel {
   bool result;
   List<CDZInfo> list;
-  CDZListModel({this.result,this.list});
+  CDZListModel({this.result, this.list});
 
   CDZListModel.fromJson(Map<String, dynamic> json) {
-    result = json['result'];
+    result = asT<bool>(json['result']);
+    list = <CDZInfo>[];
     if (json['list'] != null) {
-      list = <CDZInfo>[];
       (json['list'] as List).forEach((element) {
-        list.add(CDZInfo.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(CDZInfo.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -141,14 +147,19 @@ class CDZInfo {
   String stationName;
   String serviceType;
 
-  CDZInfo({this.stationID,this.stationLng,this.stationLat,this.stationName,this.serviceType});
+  CDZInfo(
+      {this.stationID,
+      this.stationLng,
+      this.stationLat,
+      this.stationName,
+      this.serviceType});
 
   CDZInfo.fromJson(Map<String, dynamic> json) {
-    stationID = json['StationID'];
-    stationLng = json['StationLng'];
-    stationLat = json['StationLat'];
-    stationName = json['StationName'];
-    serviceType = json['ServiceType'];
+    stationID = asT<String>(json['StationID']);
+    stationLng = asT<String>(json['StationLng']);
+    stationLat = asT<String>(json['StationLat']);
+    stationName = asT<String>(json['StationName']);
+    serviceType = asT<String>(json['ServiceType']);
   }
 
   Map<String, dynamic> toJson() {

@@ -19,17 +19,17 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class CircleDetailPage extends GetView<CircleDetailController> {
-  final String circleId =
-      Get.arguments == null ? null : Get.arguments['circle_id']; //圈子id
-  final String commentId = Get.arguments == null
-      ? null
-      : Get.arguments['commentId'] ?? ''; //需要置顶的评论id
+class CircleDetailPage extends StatefulWidget {
+  @override
+  CircleDetailPageState createState() => CircleDetailPageState();
+}
+
+class CircleDetailPageState extends State<CircleDetailPage>
+    with WidgetsBindingObserver {
+  final CircleDetailController controller = Get.find<CircleDetailController>();
 
   @override
   Widget build(BuildContext context) {
-    controller.circleId.value = circleId;
-    controller.commentId.value = commentId;
     return BasePage(
       title: '圈子正文',
       rightActions: <Widget>[
@@ -698,5 +698,43 @@ class CircleDetailPage extends GetView<CircleDetailController> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  ///应用尺寸改变时回调，例如旋转
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (MediaQuery.of(Get.context).viewInsets.bottom == 0) {
+        //关闭键盘
+        print('关闭键盘');
+        controller.placeholder.value = '我来说下~';
+      } else {
+        //显示键盘
+        print('显示键盘');
+      }
+    });
+  }
+
+  @override
+  void didUpdateWidget(CircleDetailPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 }

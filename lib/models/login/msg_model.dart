@@ -1,4 +1,5 @@
 import 'package:ws_app_flutter/models/common/common_member.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class MsgModel {
   String interactionCount;
@@ -13,11 +14,10 @@ class MsgModel {
       this.memberInfo});
 
   MsgModel.fromJson(Map<String, dynamic> json) {
-    interactionCount = json['interactionCount'].toString();
-    msgCount = json['msgCount'].toString();
-    circleCount = json['circleCount'].toString();
-    memberInfo = json['memberInfo'] != null
-        ? CommonMemberModel.fromJson(json['memberInfo'])
-        : null;
+    interactionCount = asT<String>(json['interactionCount']);
+    msgCount = asT<String>(json['msgCount']);
+    circleCount = asT<String>(json['circleCount']);
+    memberInfo = CommonMemberModel.fromJson(
+        asT<Map<String, dynamic>>(json['memberInfo'], Map<String, dynamic>()));
   }
 }

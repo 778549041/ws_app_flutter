@@ -1,5 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:ws_app_flutter/models/common/common_member.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class UserInfo {
   int huodongData;
@@ -9,10 +10,10 @@ class UserInfo {
   UserInfo({this.huodongData = 0, this.memberVip = false}) : member = Member();
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    huodongData = json['huodong_data'] ?? 0;
-    member =
-        json['member'] != null ? Member.fromJson(json['member']) : Member();
-    memberVip = json['member_vip'] ?? false;
+    huodongData = asT<int>(json['huodong_data'], 0);
+    member = Member.fromJson(
+        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>()));
+    memberVip = asT<bool>(json['member_vip'], false);
   }
 }
 
@@ -113,58 +114,61 @@ class Member {
         interest = <String>[];
 
   Member.fromJson(Map<String, dynamic> json) {
-    addr = json['addr'] ?? '';
-    area = json['area'] ?? '';
-    avatar = json['avatar'] ?? '';
-    bDay = json['b_day'] ?? '';
-    bMonth = json['b_month'] ?? '';
-    bYear = json['b_year'] ?? '';
-    binding = json['binding'] ?? false;
-    email = json['email'] ?? '';
-    experience = json['experience'] ?? '';
-    fCarColor = json['FCarColor'] ?? '';
-    fLicPlate = json['FLicPlate'] ?? '';
-    fName = json['FName'] ?? '';
-    fPhoneNum = json['FPhoneNum'] ?? '';
-    fPurchaseDate = json['FPurchaseDate'] ?? '';
-    fVIN = json['FVIN'] ?? '';
-    fcreateDate = json['fcreateDate'] ?? '';
-    headImg = json['head_img'] ?? '';
-    integral = json['integral'] ?? '';
+    addr = asT<String>(json['addr'], '');
+    area = asT<String>(json['area'], '');
+    avatar = asT<String>(json['avatar'], '');
+    bDay = asT<String>(json['b_day'], '');
+    bMonth = asT<String>(json['b_month'], '');
+    bYear = asT<String>(json['b_year'], '');
+    binding = asT<bool>(json['binding'], false);
+    email = asT<String>(json['email'], '');
+    experience = asT<String>(json['experience'], '');
+    fCarColor = asT<String>(json['FCarColor'], '');
+    fLicPlate = asT<String>(json['FLicPlate'], '');
+    fName = asT<String>(json['FName'], '');
+    fPhoneNum = asT<String>(json['FPhoneNum'], '');
+    fPurchaseDate = asT<String>(json['FPurchaseDate'], '');
+    fVIN = asT<String>(json['FVIN'], '');
+    fcreateDate = asT<String>(json['fcreateDate'], '');
+    headImg = asT<String>(json['head_img'], '');
+    integral = asT<String>(json['integral'], '');
     interest = <String>[];
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
-        interest.add(element);
+        if (element != null) {
+          tryCatch(() {
+            interest.add(asT<String>(element));
+          });
+        }
       });
     }
-    isDisplay = json['is_display'] ?? '';
-    isReceive = json['is_receive'] ?? '';
-    isVehicle = json['is_vehicle'] ?? '';
-    levelname = json['levelname'] ?? '';
-    localUname = json['local_uname'] ?? '';
-    loginAccount = json['login_account'] ?? '';
-    lvChannelprice = json['lv_channelprice'] ?? '';
-    lvDiscount = json['lv_discount'] ?? '';
-    lvIngoreExperience = json['lv_ingore_experience'] ?? '';
-    memberCur = json['member_cur'] ?? '';
-    memberId = json['member_id'] ?? '';
-    memberInfo = json['member_info'] != null
-        ? CommonMemberModel.fromJson(json['member_info'])
-        : CommonMemberModel();
-    memberLv = json['member_lv'] ?? '';
-    memberQrcode = json['member_qrcode'] ?? '';
-    memberReceive = json['member_receive'] ?? '';
-    mobile = json['mobile'] ?? '';
-    nextExperience = json['next_experience'] ?? '';
-    nextLevelname = json['next_levelname'] ?? '';
-    nextLvDiscount = json['next_lv_discount'] ?? '';
-    openid = json['openid'] ?? '';
-    profession = json['profession'] ?? '';
-    regtime = json['regtime'] ?? '';
-    sex = json['sex'] ?? '';
-    uname = json['uname'] ?? '';
-    name = json['name'] ?? '';
-    unionid = json['unionid'] ?? '';
+    isDisplay = asT<String>(json['is_display'], '');
+    isReceive = asT<String>(json['is_receive'], '');
+    isVehicle = asT<String>(json['is_vehicle'], '');
+    levelname = asT<String>(json['levelname'], '');
+    localUname = asT<String>(json['local_uname'], '');
+    loginAccount = asT<String>(json['login_account'], '');
+    lvChannelprice = asT<String>(json['lv_channelprice'], '');
+    lvDiscount = asT<String>(json['lv_discount'], '');
+    lvIngoreExperience = asT<String>(json['lv_ingore_experience'], '');
+    memberCur = asT<String>(json['member_cur'], '');
+    memberId = asT<String>(json['member_id'], '');
+    memberInfo = CommonMemberModel.fromJson(
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+    memberLv = asT<String>(json['member_lv'], '');
+    memberQrcode = asT<String>(json['member_qrcode'], '');
+    memberReceive = asT<String>(json['member_receive'], '');
+    mobile = asT<String>(json['mobile'], '');
+    nextExperience = asT<String>(json['next_experience'], '');
+    nextLevelname = asT<String>(json['next_levelname'], '');
+    nextLvDiscount = asT<String>(json['next_lv_discount'], '');
+    openid = asT<String>(json['openid'], '');
+    profession = asT<String>(json['profession'], '');
+    regtime = asT<String>(json['regtime'], '');
+    sex = asT<String>(json['sex'], '');
+    uname = asT<String>(json['uname'], '');
+    name = asT<String>(json['name'], '');
+    unionid = asT<String>(json['unionid'], '');
     showName = _showName();
   }
 

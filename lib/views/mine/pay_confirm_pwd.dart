@@ -6,7 +6,6 @@ import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class PayPwdConfirmPage extends GetView<PayConfirmController> {
-  final String lastInput = Get.arguments['lastInput'];
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -53,7 +52,7 @@ class PayPwdConfirmPage extends GetView<PayConfirmController> {
               title: '提交',
               titleColor: Colors.white,
               radius: 20,
-              onPressed: () => controller.submitted(lastInput),
+              onPressed: () => controller.submitted(),
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class BannerModel {
   CarouselHead carouselHead;
   List<HeadLine> headlines;
@@ -7,13 +9,17 @@ class BannerModel {
         headlines = <HeadLine>[];
 
   BannerModel.fromJson(Map<String, dynamic> json) {
-    carouselHead = json['carousel_head'] != null
-        ? CarouselHead.fromJson(json['carousel_head'])
-        : CarouselHead();
+    carouselHead = CarouselHead.fromJson(asT<Map<String, dynamic>>(
+        json['carousel_head'], Map<String, dynamic>()));
     headlines = <HeadLine>[];
     if (json['headlines'] != null) {
       (json['headlines'] as List).forEach((element) {
-        headlines.add(HeadLine.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            headlines
+                .add(HeadLine.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -26,8 +32,8 @@ class HeadLine {
   HeadLine({this.articleId = '', this.title = ''});
 
   HeadLine.fromJson(Map<String, dynamic> json) {
-    articleId = json['article_id'] ?? '';
-    title = json['title'] ?? '';
+    articleId = asT<String>(json['article_id'], '');
+    title = asT<String>(json['title'], '');
   }
 }
 
@@ -37,8 +43,8 @@ class CarouselHead {
   CarouselHead() : banner = Banner();
 
   CarouselHead.fromJson(Map<String, dynamic> json) {
-    banner =
-        json['banner'] != null ? Banner.fromJson(json['banner']) : Banner();
+    banner = Banner.fromJson(
+        asT<Map<String, dynamic>>(json['banner'], Map<String, dynamic>()));
   }
 }
 
@@ -65,23 +71,28 @@ class Banner {
       this.opName = '',
       this.screen = '',
       this.showType = '',
-      this.status = ''}) : items = <BannerItem>[];
+      this.status = ''})
+      : items = <BannerItem>[];
 
   Banner.fromJson(Map<String, dynamic> json) {
-    carouselId = json['carousel_id'] ?? '';
-    carouselType = json['carousel_type'] ?? '';
-    createtime = json['createtime'] ?? '';
-    figureType = json['figure_type'] ?? '';
-    lastModify = json['last_modify'] ?? '';
-    opId = json['op_id'] ?? '';
-    opName = json['op_name'] ?? '';
-    screen = json['screen'] ?? '';
-    showType = json['show_type'] ?? '';
-    status = json['status'] ?? '';
+    carouselId = asT<String>(json['carousel_id'], '');
+    carouselType = asT<String>(json['carousel_type'], '');
+    createtime = asT<String>(json['createtime'], '');
+    figureType = asT<String>(json['figure_type'], '');
+    lastModify = asT<String>(json['last_modify'], '');
+    opId = asT<String>(json['op_id'], '');
+    opName = asT<String>(json['op_name'], '');
+    screen = asT<String>(json['screen'], '');
+    showType = asT<String>(json['show_type'], '');
+    status = asT<String>(json['status'], '');
     items = <BannerItem>[];
     if (json['items'] != null) {
       (json['items'] as List).forEach((element) {
-        items.add(BannerItem.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            items.add(BannerItem.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -102,17 +113,18 @@ class BannerItem {
       this.isHeader = '',
       this.title = '',
       this.pOrder = '',
-      this.name = ''}) : params = BannerParams();
+      this.name = ''})
+      : params = BannerParams();
 
   BannerItem.fromJson(Map<String, dynamic> json) {
-    imageUrl = json['image_url'] ?? '';
-    link = json['link'] ?? '';
-    params =
-        json['params'] != null ? BannerParams.fromJson(json['params']) : BannerParams();
-    isHeader = json['is_header'] ?? '';
-    title = json['title'] ?? '';
-    pOrder = json['p_order'] ?? '';
-    name = json['name'] ?? '';
+    imageUrl = asT<String>(json['image_url'], '');
+    link = asT<String>(json['link'], '');
+    params = BannerParams.fromJson(
+        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>()));
+    isHeader = asT<String>(json['is_header'], '');
+    title = asT<String>(json['title'], '');
+    pOrder = asT<String>(json['p_order'], '');
+    name = asT<String>(json['name'], '');
   }
 }
 
@@ -124,8 +136,8 @@ class BannerParams {
   BannerParams({this.type = '', this.url = '', this.detailId = ''});
 
   BannerParams.fromJson(Map<String, dynamic> json) {
-    type = json['type'] ?? '';
-    url = json['url'] ?? '';
-    detailId = json['detail_id'] ?? '';
+    type = asT<String>(json['type'], '');
+    url = asT<String>(json['url'], '');
+    detailId = asT<String>(json['detail_id'], '');
   }
 }

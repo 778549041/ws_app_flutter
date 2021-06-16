@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 
 class ChatController extends RefreshListController<V2TimMessage> {
   String lastMsgID;
-  String userID;
+  final String userID = Get.arguments['userId'];//用户聊天信息
+  final String showName = Get.arguments['showName'];
   var show = true.obs;
 
   @override

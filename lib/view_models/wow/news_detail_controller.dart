@@ -19,7 +19,10 @@ import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/widgets/wow/share_menu.dart';
 
 class NewsDetailController extends RefreshListController<NewsCommentModel> {
-  var articleId = ''.obs;
+  final String articleId =
+      Get.arguments == null ? null : Get.arguments['article_id'];
+  final String cateStr =
+      Get.arguments == null ? null : Get.arguments['cateStr'];
   var newsDetailModel = NewsDetailModel().obs;
   FocusNode focusNode;
   TextEditingController textEditingController;
@@ -47,7 +50,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
     NewsCommentListModel _model = await DioManager()
         .request<NewsCommentListModel>(
             DioManager.GET, Api.newsDetailCommentListUrl,
-            queryParamters: {'cmt_page': pageNum, 'art_id': articleId.value});
+            queryParamters: {'cmt_page': pageNum, 'art_id': articleId});
     return _model.cmtList;
   }
 
@@ -55,7 +58,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
   Future getNewsDetailData() async {
     newsDetailModel.value = await DioManager().request<NewsDetailModel>(
         DioManager.GET, Api.newsDetailUrl,
-        queryParamters: {'art_id': articleId.value});
+        queryParamters: {'art_id': articleId});
 
     //本地同步数据状态到上级资讯列表页面
     //首页资讯列表

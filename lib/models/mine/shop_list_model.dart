@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class ShopAddressListModel {
   List<ShopAddressModel> list;
 
@@ -7,7 +9,12 @@ class ShopAddressListModel {
     list = <ShopAddressModel>[];
     if (json['list'] != null && json['list'] != false) {
       (json['list'] as List).forEach((element) {
-        list.add(ShopAddressModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(
+                ShopAddressModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -44,18 +51,18 @@ class ShopAddressModel {
       this.updatetime = ''});
 
   ShopAddressModel.fromJson(Map<String, dynamic> json) {
-    addr = json['addr'] ?? '';
-    addrId = json['addr_id'] ?? '';
-    area = json['area'] ?? '';
-    day = json['day'] ?? '';
-    email = json['email'] ?? '';
-    isDefault = json['is_default'] == 'true';
-    memberId = json['member_id'] ?? '';
-    mobile = json['mobile'] ?? '';
-    name = json['name'] ?? '';
-    province = json['province'] ?? '';
-    tel = json['tel'] ?? '';
-    time = json['time'] ?? '';
-    updatetime = json['updatetime'] ?? '';
+    addr = asT<String>(json['addr'], '');
+    addrId = asT<String>(json['addr_id'], '');
+    area = asT<String>(json['area'], '');
+    day = asT<String>(json['day'], '');
+    email = asT<String>(json['email'], '');
+    isDefault = asT<bool>(json['is_default']);
+    memberId = asT<String>(json['member_id'], '');
+    mobile = asT<String>(json['mobile'], '');
+    name = asT<String>(json['name'], '');
+    province = asT<String>(json['province'], '');
+    tel = asT<String>(json['tel'], '');
+    time = asT<String>(json['time'], '');
+    updatetime = asT<String>(json['updatetime'], '');
   }
 }

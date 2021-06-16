@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class NewsTagListModel {
   List<NewsTagModel> list;
 
@@ -7,7 +9,11 @@ class NewsTagListModel {
     list = <NewsTagModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(NewsTagModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(NewsTagModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -21,8 +27,8 @@ class NewsTagModel {
   NewsTagModel({this.tagId, this.tagName, this.selected});
 
   NewsTagModel.fromJson(Map<String, dynamic> json) {
-    tagId = json['tag_id'];
-    tagName = json['tag_name'];
+    tagId = asT<String>(json['tag_id']);
+    tagName = asT<String>(json['tag_name']);
     selected = false;
   }
 }

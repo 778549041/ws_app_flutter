@@ -1,13 +1,15 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class SplashModel {
   String result;
   SplashData data;
 
   SplashModel({this.result = ''}) : data = SplashData();
+
   SplashModel.fromJson(Map<String, dynamic> json) {
-    result = json['result'] ?? '';
-    data = (json['data'] != null)
-        ? SplashData.fromJson(json['data'])
-        : SplashData();
+    result = asT<String>(json['result'], '');
+    data = SplashData.fromJson(
+        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>()));
   }
 }
 
@@ -40,17 +42,17 @@ class SplashData {
       this.status = ''});
 
   SplashData.fromJson(Map<String, dynamic> json) {
-    termsType = json['terms_type'] ?? '';
-    showType = json['show_type'] ?? '';
-    createtime = json['createtime'] ?? '';
-    appType = json['app_type'] ?? '';
-    lastModify = json['last_modify'] ?? '';
-    size = json['size'] ?? '';
-    logoId = json['logo_id'] ?? '';
-    pOrder = json['p_order'] ?? '';
-    imageId = json['image_id'] ?? '';
-    url = json['url'] ?? '';
-    desc = json['desc'] ?? '';
-    status = json['status'] ?? '';
+    termsType = asT<String>(json['terms_type'], '');
+    showType = asT<String>(json['show_type'], '');
+    createtime = asT<String>(json['createtime'], '');
+    appType = asT<String>(json['app_type'], '');
+    lastModify = asT<String>(json['last_modify'], '');
+    size = asT<String>(json['size'], '');
+    logoId = asT<String>(json['logo_id'], '');
+    pOrder = asT<String>(json['p_order'], '');
+    imageId = asT<String>(json['image_id'], '');
+    url = asT<String>(json['url'], '');
+    desc = asT<String>(json['desc'], '');
+    status = asT<String>(json['status'], '');
   }
 }

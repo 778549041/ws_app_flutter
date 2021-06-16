@@ -2,20 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
-import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_publish_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class CirclePublishPage extends GetView<CirclePublishController> {
-  final TopicModel model =
-      Get.arguments == null ? null : Get.arguments['model']; //修改地址传过来的参数
-
   @override
   Widget build(BuildContext context) {
-    if (model != null) {
-      controller.topicModel.value = model;
-    }
     return BasePage(
       title: '发圈子',
       isBack: false,

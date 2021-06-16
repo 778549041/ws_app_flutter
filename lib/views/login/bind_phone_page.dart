@@ -5,13 +5,6 @@ import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class BindPhonePage extends GetView<BindController> {
-  final bool appleLogin = Get.arguments['appleLogin'] ?? false;
-  final String openid = Get.arguments['openid'] ?? '';
-  final String memberId = Get.arguments['memberId'] ?? '';
-  final String unionid = Get.arguments['unionid'] ?? '';
-  final String clientUser = Get.arguments['clientUser'] ?? '';
-  final String identityToken = Get.arguments['identityToken'] ?? '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +21,11 @@ class BindPhonePage extends GetView<BindController> {
               fit: BoxFit.cover,
             ),
             Container(
-                margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 72),
+                margin: EdgeInsets.only(
+                    top: ScreenUtil.getInstance().statusBarHeight + 72),
                 width: Get.width,
-                height: Get.height - (ScreenUtil.getInstance().statusBarHeight + 72),
+                height: Get.height -
+                    (ScreenUtil.getInstance().statusBarHeight + 72),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -156,12 +151,7 @@ class BindPhonePage extends GetView<BindController> {
                             radius: 22,
                             title: '绑定',
                             titleColor: Colors.white,
-                            onPressed: () => controller.bindAction(appleLogin,
-                                openid: openid,
-                                memberId: memberId,
-                                unionid: unionid,
-                                clientUser: clientUser,
-                                identityToken: identityToken),
+                            onPressed: () => controller.bindAction(),
                             fontSize: 20,
                           ),
                         ),

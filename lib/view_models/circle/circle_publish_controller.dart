@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
-// import 'package:flutter_video_compress/flutter_video_compress.dart';
 import 'package:qiniu_sdk_base/qiniu_sdk_base.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,6 +31,8 @@ class CirclePublishController extends GetxController {
   @override
   void onInit() {
     publishText = '';
+    topicModel.value =
+        Get.arguments == null ? null : Get.arguments['model']; //修改地址传过来的参数
     super.onInit();
   }
 
@@ -129,12 +129,12 @@ class CirclePublishController extends GetxController {
     for (var item in selectedAssets) {
       File compressedFile;
       if (item.type == AssetType.image) {
-        String filePath = await FlutterAbsolutePath.getAbsolutePath(item.id);
+        String filePath = (await item.file).path;
         compressedFile =
             await FlutterNativeImage.compressImage(filePath, quality: 70);
       } else if (item.type == AssetType.video) {
         // File file = await item.file;
-        // MediaInfo info = await FlutterVideoCompress().compressVideo(file.path);
+        // MediaInfo info = await VideoCompress.compressVideo(file.path);
         // compressedFile = info.file;
         compressedFile = await item.file;
       }

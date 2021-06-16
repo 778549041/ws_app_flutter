@@ -18,13 +18,10 @@ import 'package:ws_app_flutter/global/global.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
-import 'package:ws_app_flutter/view_models/car/car_controller.dart';
-import 'package:ws_app_flutter/view_models/circle/circle_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
-import 'package:ws_app_flutter/view_models/wow/news_detail_controller.dart';
 import 'package:ws_app_flutter/views/splash/splash_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -55,7 +52,7 @@ void configLoading() {
     ..dismissOnTap = false;
 }
 
-class MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
@@ -258,7 +255,6 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     _initShareSDK();
     _initAmap();
     _initJPush();
@@ -269,48 +265,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
-        break;
-      case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        if (Get.isRegistered<CarController>() &&
-            Get.currentRoute == Routes.HOME) {
-          Get.find<CarController>().refreshLocation();
-        }
-        break;
-      case AppLifecycleState.paused: // 界面不可见，后台
-        break;
-      case AppLifecycleState.detached: // APP结束时调用
-        break;
-    }
-    super.didChangeAppLifecycleState(state);
-  }
-
-  ///应用尺寸改变时回调，例如旋转
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (MediaQuery.of(Get.context).viewInsets.bottom == 0) {
-        //关闭键盘
-        print('关闭键盘');
-        if (Get.isRegistered<NewsDetailController>()) {
-          Get.find<NewsDetailController>().placeholder.value = '我来说下~';
-        }
-        if (Get.isRegistered<CircleDetailController>()) {
-          Get.find<CircleDetailController>().placeholder.value = '我来说下~';
-        }
-      } else {
-        //显示键盘
-        print('显示键盘');
-      }
-    });
   }
 
   @override

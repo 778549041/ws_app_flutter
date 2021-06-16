@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class IntresModel {
   List<IntresData> list;
   IntresModel() : list = <IntresData>[];
@@ -6,7 +8,11 @@ class IntresModel {
     list = <IntresData>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(IntresData.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(IntresData.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -20,8 +26,8 @@ class IntresData {
   IntresData({this.name = '', this.interestId = '', this.selected = false});
 
   IntresData.fromJson(Map<String, dynamic> json) {
-    name = json['name'] ?? '';
-    interestId = json['interest_id'] ?? '';
+    name = asT<String>(json['name'], '');
+    interestId = asT<String>(json['interest_id'], '');
     selected = false;
   }
 }

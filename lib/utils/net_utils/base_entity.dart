@@ -1,5 +1,5 @@
-
 import 'package:ws_app_flutter/utils/net_utils/entity_factory.dart';
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class BaseEntity<T> {
   int code;
@@ -7,13 +7,13 @@ class BaseEntity<T> {
   String result;
   T data;
 
-  BaseEntity({this.code, this.message,this.result, this.data});
+  BaseEntity({this.code, this.message, this.result, this.data});
 
   factory BaseEntity.fromJson(Map<String, dynamic> json) {
     return BaseEntity(
-        code: json['errorCode'],
-        message: json['errorMsg'],
-        result: json['result'],
+        code: asT<int>(json['errorCode']),
+        message: asT<String>(json['errorMsg']),
+        result: asT<String>(json['result']),
         data: EntityFactory.generateOBJ<T>(json['data']));
   }
 }
@@ -30,11 +30,17 @@ class BaseListEntity<T> {
     if (json['data'] != null) {
       //遍历data并转换为我们传进来的类型
       (json['data'] as List).forEach((element) {
-        mData.add(EntityFactory.generateOBJ<T>(element));
+        if (element != null) {
+          tryCatch(() {
+            mData.add(EntityFactory.generateOBJ<T>(element));
+          });
+        }
       });
     }
     return BaseListEntity(
-        code: json['errorCode'], message: json['errorMsg'], data: mData);
+        code: asT<int>(json['errorCode']),
+        message: asT<String>(json['errorMsg']),
+        data: mData);
   }
 }
 

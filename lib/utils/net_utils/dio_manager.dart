@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:common_utils/common_utils.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/utils/net_utils/base_entity.dart';
@@ -53,19 +54,16 @@ class DioManager {
           ),
         );
       }
-      dio.interceptors.add(InterceptorsWrapper(
-        onRequest: (RequestOptions options) {
-          LogUtil.v('请求地址: ${options.baseUrl + options.path}');
-          LogUtil.v('请求参数: ${options.data}');
-          LogUtil.v('请求参数: ${options.queryParameters}');
-        },
-        onResponse: (Response response) {
-          // LogUtil.v('返回参数: ${response.data}');
-        },
-        onError: (DioError error) {
-          LogUtil.v('错误信息: ${error.message}');
-        },
-      ));
+      if (kDebugMode) {
+        dio.interceptors.add(LogInterceptor(
+          responseBody: true,
+          error: true,
+          requestHeader: false,
+          responseHeader: false,
+          request: false,
+          requestBody: true,
+        ));
+      }
     }
   }
 
@@ -123,12 +121,14 @@ class DioManager {
         // BaseEntity entity = BaseEntity<T>.fromJson(respData);
         return EntityFactory.generateOBJ<T>(respData);
       } else {
-        EasyLoading.showToast('未知错误',toastPosition: EasyLoadingToastPosition.bottom);
+        EasyLoading.showToast('未知错误',
+            toastPosition: EasyLoadingToastPosition.bottom);
       }
     } on DioError catch (e) {
       //加载失败隐藏loading框
       if (shouldLoading) await EasyLoading.dismiss();
-      EasyLoading.showToast(createErrorEntity(e).message,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(createErrorEntity(e).message,
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -166,12 +166,14 @@ class DioManager {
         BaseEntity entity = BaseEntity<T>.fromJson(respData);
         return entity.data;
       } else {
-        EasyLoading.showToast('未知错误',toastPosition: EasyLoadingToastPosition.bottom);
+        EasyLoading.showToast('未知错误',
+            toastPosition: EasyLoadingToastPosition.bottom);
       }
     } on DioError catch (e) {
       //加载失败隐藏loading框
       if (shouldLoading) await EasyLoading.dismiss();
-      EasyLoading.showToast(createErrorEntity(e).message,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(createErrorEntity(e).message,
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 

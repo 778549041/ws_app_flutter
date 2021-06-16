@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class CommonMemberModel {
   String avatar;
   String isOfficial;
@@ -9,10 +11,10 @@ class CommonMemberModel {
   int userType;
   String hrefUrl;
   int isEnd;
-  int vehicleControlBind;//是否绑定车控功能
-  int vehicleControlPin;//是否设置了pin码
-  int isVehicleControl;//是否有车控功能
-  String memberIdStr;//加密的用户id字符串
+  int vehicleControlBind; //是否绑定车控功能
+  int vehicleControlPin; //是否设置了pin码
+  int isVehicleControl; //是否有车控功能
+  String memberIdStr; //加密的用户id字符串
   String medalOrSaleImageName; //销售员或者勋章标签图标
   String medalOrSaleDescImageName; //销售员或者勋章详情图片
   bool showTag; //是否展示标签
@@ -37,20 +39,20 @@ class CommonMemberModel {
       this.showTag = false});
 
   CommonMemberModel.fromJson(Map<String, dynamic> json) {
-    avatar = json['avatar'] ?? '';
-    isOfficial = json['is_official'] ?? '';
-    isSales = json['is_sales'] ?? 0;
-    isVehicle = json['is_vehicle'] ?? '';
-    memberLv = json['member_lv'] ?? '';
-    nickname = json['nickname'] ?? '';
-    medal = (json['medal'] is String ? int.parse(json['medal']) : json['medal']) ?? 0;
-    userType = json['user_type'] ?? 0;
-    hrefUrl = json['href_url'] ?? '';
-    isEnd = json['is_end'] ?? 0;
-    vehicleControlBind = json['vehicle_control_bind'] ?? 0;
-    vehicleControlPin = json['vehicle_control_pin'] ?? 0;
-    isVehicleControl = json['is_vehicle_control'] ?? 0;
-    memberIdStr = json['member_id_str'] ?? '';
+    avatar = asT<String>(json['avatar'], '');
+    isOfficial = asT<String>(json['is_official'], '');
+    isSales = asT<int>(json['is_sales'], 0);
+    isVehicle = asT<String>(json['is_vehicle'], '');
+    memberLv = asT<String>(json['member_lv'], '');
+    nickname = asT<String>(json['nickname'], '');
+    medal = asT<int>(json['medal'], 0);
+    userType = asT<int>(json['user_type'], 0);
+    hrefUrl = asT<String>(json['href_url'], '');
+    isEnd = asT<int>(json['is_end'], 0);
+    vehicleControlBind = asT<int>(json['vehicle_control_bind'], 0);
+    vehicleControlPin = asT<int>(json['vehicle_control_pin'], 0);
+    isVehicleControl = asT<int>(json['is_vehicle_control'], 0);
+    memberIdStr = asT<String>(json['member_id_str'], '');
     medalOrSaleImageName = _getMedalOrSaleImageName();
     medalOrSaleDescImageName = _getMedalOrSaleDescImageName();
     showTag = _getShowTag();
@@ -75,15 +77,15 @@ class CommonMemberModel {
   String _getMedalOrSaleDescImageName() {
     String medalOrSaleDescImageName = '';
     if (this.isSales == 1) {
-        medalOrSaleDescImageName = "assets/images/mine/sales_tag_big.png";
+      medalOrSaleDescImageName = "assets/images/mine/sales_tag_big.png";
     } else if (this.medal == 1) {
-        medalOrSaleDescImageName = "assets/images/mine/medal_normal_desc.jpg";
+      medalOrSaleDescImageName = "assets/images/mine/medal_normal_desc.jpg";
     } else if (this.medal == 2) {
-        medalOrSaleDescImageName = "assets/images/mine/medal_gold_desc.jpg";
+      medalOrSaleDescImageName = "assets/images/mine/medal_gold_desc.jpg";
     } else if (this.medal == 3) {
-        medalOrSaleDescImageName = "assets/images/mine/medal_platina_desc.jpg";
+      medalOrSaleDescImageName = "assets/images/mine/medal_platina_desc.jpg";
     } else if (this.medal == 4) {
-        medalOrSaleDescImageName = "assets/images/mine/medal_diamond_desc.jpg";
+      medalOrSaleDescImageName = "assets/images/mine/medal_diamond_desc.jpg";
     }
     return medalOrSaleDescImageName;
   }

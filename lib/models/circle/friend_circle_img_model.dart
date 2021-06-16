@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class FriendCircleImgListModel {
   List<FriendCircleImgModel> list;
 
@@ -7,7 +9,10 @@ class FriendCircleImgListModel {
     list = <FriendCircleImgModel>[];
     if (json['list'] != null && json['list'] != false) {
       (json['list'] as List).forEach((element) {
-        list.add(FriendCircleImgModel.fromJson(element));
+        tryCatch(() {
+          list.add(FriendCircleImgModel.fromJson(
+              asT<Map<String, dynamic>>(element)));
+        });
       });
     }
   }
@@ -20,7 +25,7 @@ class FriendCircleImgModel {
   FriendCircleImgModel(this.savepath, this.type);
 
   FriendCircleImgModel.fromJson(Map<String, dynamic> json) {
-    savepath = json['savepath'];
-    type = json['type'];
+    savepath = asT<String>(json['savepath'], '');
+    type = asT<String>(json['type'], '');
   }
 }

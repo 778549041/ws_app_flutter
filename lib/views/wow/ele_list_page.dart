@@ -5,13 +5,8 @@ import 'package:ws_app_flutter/view_models/wow/ele_list_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 
 class EleListPage extends GetView<EleListController> {
-  final String stationID = Get.arguments['stationID'];
-  final String serviceType = Get.arguments['serviceType'];
-
   @override
   Widget build(BuildContext context) {
-    controller.stationID.value = stationID;
-    controller.serviceType.value = serviceType;
     return BasePage(
       child: Obx(
         () => CustomScrollView(

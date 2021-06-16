@@ -7,7 +7,12 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class ComplaintController extends GetxController {
   var data = [].obs;
-  String province, city, store, storeid, name, vincode, inputStr;
+  final String province = Get.arguments['province'];
+  final String city = Get.arguments['city'];
+  final String store = Get.arguments['store'];
+  final String name = Get.arguments['name'];
+  final String vincode = Get.arguments['vincode'];
+  String storeid, inputStr;
 
   @override
   void onReady() {

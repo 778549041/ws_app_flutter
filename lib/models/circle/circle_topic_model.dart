@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class TopicListModel {
   int totalPage;
   List<TopicModel> list;
@@ -8,10 +10,14 @@ class TopicListModel {
     list = <TopicModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(TopicModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(TopicModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
-    totalPage = json['total_page'];
+    totalPage = asT<int>(json['total_page']);
   }
 }
 
@@ -21,8 +27,8 @@ class SingleTopicodel {
   SingleTopicodel() : list = TopicModel();
 
   SingleTopicodel.fromJson(Map<String, dynamic> json) {
-    list =
-        json['list'] != null ? TopicModel.fromJson(json['list']) : TopicModel();
+    list = TopicModel.fromJson(
+        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>()));
   }
 }
 
@@ -47,13 +53,13 @@ class TopicModel {
       this.showAll = false});
 
   TopicModel.fromJson(Map<String, dynamic> json) {
-    topicId = json['topic_id'] ?? '';
-    title = json['title'] ?? '';
-    content = json['content'] ?? '';
-    imageUrl = json['image_url'] ?? '';
-    adminUrl = json['admin_url'] ?? '';
-    totalNum = json['num'] ?? 0;
-    join = json['join'] ?? 0;
+    topicId = asT<String>(json['topic_id'], '');
+    title = asT<String>(json['title'], '');
+    content = asT<String>(json['content'], '');
+    imageUrl = asT<String>(json['image_url'], '');
+    adminUrl = asT<String>(json['admin_url'], '');
+    totalNum = asT<int>(json['num'], 0);
+    join = asT<int>(json['join'], 0);
     showAll = false;
   }
 }

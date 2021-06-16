@@ -1,17 +1,19 @@
 //EVCC返回的车辆状态数据模型
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class CarStatusModel {
   String code;
   String message;
   CarStatusData datas;
 
-  CarStatusModel({this.code = '0', this.message = ''}) : datas = CarStatusData();
+  CarStatusModel({this.code = '0', this.message = ''})
+      : datas = CarStatusData();
 
   CarStatusModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'] ?? '0';
-    message = json['message'] ?? '';
-    datas = json['datas'] != null
-        ? CarStatusData.fromJson(json['datas'])
-        : CarStatusData();
+    code = asT<String>(json['code'], '0');
+    message = asT<String>(json['message'], '');
+    datas = CarStatusData.fromJson(
+        asT<Map<String, dynamic>>(json['datas'], Map<String, dynamic>()));
   }
 }
 
@@ -31,7 +33,8 @@ class CarStatusData {
   String waterPumpState; //电动水泵工作状态 1表示开，2表示关，255无法获取
   String positionLightStatus; //位置灯开关状态 1表示开，2表示关，255无法获取
   String warnningLightStatus; //告警灯开关状态 1表示开，2表示关，255无法获取
-  String cruiseControlStatus; //巡航控制系统状态 0: ALL OFF1: MAIN SW ON2: CANCEL SW ON3: SET SW ON4: RESUME SW ON5:6: HARNESS OPEN7: HARNESS SHORT255无法获取
+  String
+      cruiseControlStatus; //巡航控制系统状态 0: ALL OFF1: MAIN SW ON2: CANCEL SW ON3: SET SW ON4: RESUME SW ON5:6: HARNESS OPEN7: HARNESS SHORT255无法获取
   String airConditionStatus; //空调开关状态 1表示开，2表示关，255无法获取
   String airConditionFan; //空调风扇状态 0 FAN0，1 FAN1，
   String airLoopStatus; //空调循环状态 1表示内循环，2表示外循环，255无法获取
@@ -91,7 +94,7 @@ class CarStatusData {
     this.chargingStatus = '255',
     this.soc1 = '0',
     this.sendingTime = '0',
-    this.soh = '',
+    this.soh = '0',
     this.airSocCreateValue = 0,
     this.startTime = 0,
     this.runTime = 0,
@@ -113,38 +116,38 @@ class CarStatusData {
   });
 
   CarStatusData.fromJson(Map<String, dynamic> json) {
-    engineLockStatus = json['engine_lock_status'] ?? '255';
-    extendVehiclesStatus = json['extend_vehicles_status'] ?? '255';
-    doorlockRfStatus = json['doorlock_rf_status'] ?? '255';
-    doorlockRbStatus = json['doorlock_rb_status'] ?? '255';
-    doorlockLfStatus = json['doorlock_lf_status'] ?? '255';
-    doorlockLbStatus = json['doorlock_lb_status'] ?? '255';
-    doorRfStatus = json['door_rf_status'] ?? '255';
-    doorLfStatus = json['door_lf_status'] ?? '255';
-    doorLbStatus = json['door_lb_status'] ?? '255';
-    doorRbStatus = json['door_rb_status'] ?? '255';
-    trunkStatus = json['trunk_status'] ?? '255';
-    carOverStatus = json['car_over_status'] ?? '255';
-    waterPumpState = json['water_pump_state'] ?? '255';
-    positionLightStatus = json['position_light_status'] ?? '255';
-    warnningLightStatus = json['warnning_light_status'] ?? '255';
-    cruiseControlStatus = json['cruise_control_status'] ?? '255';
-    airConditionStatus = json['air_condition_status'] ?? '255';
-    airConditionFan = json['air_condition_fan'] ?? '255';
-    airLoopStatus = json['air_loop_status'] ?? '255';
-    airConditionMode = json['air_condition_mode'] ?? '255';
-    temperatureInCar = json['temperature_in_car'] ?? '- - ℃';
-    airConditionTemp = json['air_condition_temp'] ?? '';
-    rangMileage = json['rang_mileage'] ?? '';
-    chargingStatus = json['charging_status'] ?? '255';
-    soc1 = json['soc1'] ?? '';
-    sendingTime = json['sendingTime'] ?? '';
-    soh = json['SOH'] ?? '';
-    airSocCreateValue = int.parse(json['airSocCreateValue']) ?? 0;
-    startTime = json['startTime'] ?? 0;
-    runTime = json['runTime'] ?? 0;
-    airTimingOpenDuration = json['airTimingOpenDuration'] ?? 0;
-    airWorkDuration = int.parse(json['airWorkDuration']) ?? 0;
+    engineLockStatus = asT<String>(json['engine_lock_status'], '255');
+    extendVehiclesStatus = asT<String>(json['extend_vehicles_status'], '255');
+    doorlockRfStatus = asT<String>(json['doorlock_rf_status'], '255');
+    doorlockRbStatus = asT<String>(json['doorlock_rb_status'], '255');
+    doorlockLfStatus = asT<String>(json['doorlock_lf_status'], '255');
+    doorlockLbStatus = asT<String>(json['doorlock_lb_status'], '255');
+    doorRfStatus = asT<String>(json['door_rf_status'], '255');
+    doorLfStatus = asT<String>(json['door_lf_status'], '255');
+    doorLbStatus = asT<String>(json['door_lb_status'], '255');
+    doorRbStatus = asT<String>(json['door_rb_status'], '255');
+    trunkStatus = asT<String>(json['trunk_status'], '255');
+    carOverStatus = asT<String>(json['car_over_status'], '255');
+    waterPumpState = asT<String>(json['water_pump_state'], '255');
+    positionLightStatus = asT<String>(json['position_light_status'], '255');
+    warnningLightStatus = asT<String>(json['warnning_light_status'], '255');
+    cruiseControlStatus = asT<String>(json['cruise_control_status'], '255');
+    airConditionStatus = asT<String>(json['air_condition_status'], '255');
+    airConditionFan = asT<String>(json['air_condition_fan'], '255');
+    airLoopStatus = asT<String>(json['air_loop_status'], '255');
+    airConditionMode = asT<String>(json['air_condition_mode'], '255');
+    temperatureInCar = asT<String>(json['temperature_in_car'], '- - ℃');
+    airConditionTemp = asT<String>(json['air_condition_temp'], '');
+    rangMileage = asT<String>(json['rang_mileage'], '470');
+    chargingStatus = asT<String>(json['charging_status']);
+    soc1 = asT<String>(json['soc1'], '100');
+    sendingTime = asT<String>(json['sendingTime'], '0');
+    soh = asT<String>(json['SOH'], '100');
+    airSocCreateValue = asT<int>(json['airSocCreateValue'], 0);
+    startTime = asT<int>(json['startTime'], 0);
+    runTime = asT<int>(json['runTime'], 0);
+    airTimingOpenDuration = asT<int>(json['airTimingOpenDuration'], 0);
+    airWorkDuration = asT<int>(json['airWorkDuration'], 0);
     //车辆启动状态
     if (extendVehiclesStatus == '1') {
       carLaunchStr = '启动';

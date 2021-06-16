@@ -10,6 +10,7 @@ class CateNewsController extends RefreshListController<NewModel> {
 
   @override
   void onInit() {
+    model.value = (Get.arguments == null ? null : Get.arguments['model']);
     pageSize = 5;
     super.onInit();
   }

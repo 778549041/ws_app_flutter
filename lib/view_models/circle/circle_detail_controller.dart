@@ -20,8 +20,11 @@ import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/widgets/wow/share_menu.dart';
 
 class CircleDetailController extends RefreshListController<MomentCommentModel> {
-  var circleId = ''.obs; //当前圈子id
-  var commentId = ''.obs; //需要置顶的评论id
+  final String circleId =
+      Get.arguments == null ? null : Get.arguments['circle_id']; //圈子id
+  final String commentId = Get.arguments == null
+      ? null
+      : Get.arguments['commentId'] ?? ''; //需要置顶的评论id
   var momentDetailModel = SingleMomentModel().obs;
   FocusNode focusNode;
   TextEditingController textEditingController;
@@ -51,8 +54,8 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
             DioManager.GET, Api.circleMomentDetailCommentListUrl,
             queryParamters: {
           'cmt_page': pageNum,
-          'c_id': circleId.value,
-          'comment_id': commentId.value
+          'c_id': circleId,
+          'comment_id': commentId
         });
     return _model.data;
   }
@@ -61,7 +64,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
   Future getMomentDetailData() async {
     momentDetailModel.value = await DioManager().request<SingleMomentModel>(
         DioManager.GET, Api.circleMomentDetailUrl,
-        queryParamters: {'cid': circleId.value});
+        queryParamters: {'cid': circleId});
 
     //本地同步数据状态到其他圈子列表页面
     //wow推荐圈子
@@ -151,7 +154,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
   Future deleteComment(MomentCommentModel model) async {
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.POST, Api.circleMomentDetailDeleteCommentUrl,
-        params: {'cmt_id': model.id, 'c_id': circleId.value});
+        params: {'cmt_id': model.id, 'c_id': circleId});
     if (result.result) {
       momentDetailModel.value.list.comment =
           (int.parse(momentDetailModel.value.list.comment) - 1).toString();

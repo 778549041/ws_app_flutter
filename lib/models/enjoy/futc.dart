@@ -1,10 +1,13 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class FUTCModel {
   FUTCData list;
 
   FUTCModel() : list = FUTCData();
 
   FUTCModel.fromJson(Map<String, dynamic> json) {
-    list = json['list'] != null ? FUTCData.fromJson(json['list']) : FUTCData();
+    list = FUTCData.fromJson(
+        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>()));
   }
 }
 
@@ -15,7 +18,7 @@ class FUTCData {
   FUTCData({this.imageUrl = '', this.url = ''});
 
   FUTCData.fromJson(Map<String, dynamic> json) {
-    imageUrl = json['image_url'] ?? '';
-    url = json['url'] ?? '';
+    imageUrl = asT<String>(json['image_url'], '');
+    url = asT<String>(json['url'], '');
   }
 }

@@ -1,13 +1,20 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class NearStoreListModel {
   List<NearStoreModel> data;
 
   NearStoreListModel() : data = <NearStoreModel>[];
 
-  NearStoreListModel.fromJson(Map<String,dynamic> json){
+  NearStoreListModel.fromJson(Map<String, dynamic> json) {
     data = <NearStoreModel>[];
     if (json['data'] != null) {
       (json['data'] as List).forEach((element) {
-        data.add(NearStoreModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            data.add(
+                NearStoreModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
   }
@@ -32,13 +39,13 @@ class NearStoreModel {
       this.slow});
 
   NearStoreModel.fromJson(Map<String, dynamic> json) {
-    fSalesPhone = json['FSalesPhone'];
-    fShopAddr = json['FShopAddr'];
-    fShopName = json['FShopName'];
-    fShopLat = json['FShopLat'];
-    fShopLng = json['FShopLng'];
-    block = json['block'];
-    slow = json['slow'];
+    fSalesPhone = asT<String>(json['FSalesPhone'], '');
+    fShopAddr = asT<String>(json['FShopAddr'], '');
+    fShopName = asT<String>(json['FShopName'], '');
+    fShopLat = asT<String>(json['FShopLat'], '');
+    fShopLng = asT<String>(json['FShopLng'], '');
+    block = asT<String>(json['block'], '');
+    slow = asT<String>(json['slow'], '');
   }
 
   Map<String, dynamic> toJson() {

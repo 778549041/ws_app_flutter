@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class CertifyModel {
   bool result;
   String message;
@@ -6,8 +8,8 @@ class CertifyModel {
   CertifyModel({this.result = false, this.message = '', this.code = 0});
 
   CertifyModel.fromJson(Map<String, dynamic> json) {
-    result = json['result'] ?? false;
-    message = json['message'] ?? '';
-    code = json['code'] ?? 0;
+    result = asT<bool>(json['result'], false);
+    message = asT<String>(json['message'], '');
+    code = asT<int>(json['code'], 0);
   }
 }

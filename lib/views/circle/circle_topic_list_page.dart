@@ -12,11 +12,8 @@ import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
 class CircleTopicListPage extends GetView<CircleTopicListController> {
-  final String topcId = Get.arguments == null ? null : Get.arguments['topcid'];
-
   @override
   Widget build(BuildContext context) {
-    controller.topicId.value = topcId;
     return BasePage(
       title: '话题活动',
       bgColor: MainAppColor.mainSilverColor,

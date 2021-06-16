@@ -14,15 +14,17 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class NewsDetailPage extends GetView<NewsDetailController> {
-  final String articleId =
-      Get.arguments == null ? null : Get.arguments['article_id'];
-  final String cateStr =
-      Get.arguments == null ? null : Get.arguments['cateStr'];
+class NewsDetailPage extends StatefulWidget {
+  @override
+  NewsDetailPageState createState() => NewsDetailPageState();
+}
+
+class NewsDetailPageState extends State<NewsDetailPage>
+    with WidgetsBindingObserver {
+  final NewsDetailController controller = Get.find<NewsDetailController>();
 
   @override
   Widget build(BuildContext context) {
-    controller.articleId.value = articleId;
     return BasePage(
       title: '资讯',
       rightActions: <Widget>[
@@ -498,5 +500,43 @@ class NewsDetailPage extends GetView<NewsDetailController> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  ///应用尺寸改变时回调，例如旋转
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (MediaQuery.of(Get.context).viewInsets.bottom == 0) {
+        //关闭键盘
+        print('关闭键盘');
+        controller.placeholder.value = '我来说下~';
+      } else {
+        //显示键盘
+        print('显示键盘');
+      }
+    });
+  }
+
+  @override
+  void didUpdateWidget(NewsDetailPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 }

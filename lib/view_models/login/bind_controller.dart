@@ -11,6 +11,13 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class BindController extends BaseController {
+  final bool appleLogin = Get.arguments['appleLogin'] ?? false;
+  final String openid = Get.arguments['openid'] ?? '';
+  final String memberId = Get.arguments['memberId'] ?? '';
+  final String unionid = Get.arguments['unionid'] ?? '';
+  final String clientUser = Get.arguments['clientUser'] ?? '';
+  final String identityToken = Get.arguments['identityToken'] ?? '';
+
   var pwdBtnTitle = '获取验证码'.obs; //密码框按钮文本
   var enabled = true.obs; //验证码按钮是否能点击
   var errorMsg = ''.obs; //错误信息
@@ -34,11 +41,13 @@ class BindController extends BaseController {
     }
     String _phoneNumber = nameController.text;
     if (_phoneNumber.length == 0) {
-      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请输入手机号',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('手机号格式错误',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     CommonModel obj = await DioManager().request<CommonModel>(
@@ -46,19 +55,16 @@ class BindController extends BaseController {
         params: {'mobile': _phoneNumber});
     doCountDown();
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(obj.success,
+          toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(obj.error,
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
   //绑定
-  void bindAction(bool appleLogin,
-      {String openid,
-      String memberId,
-      String unionid,
-      String clientUser,
-      String identityToken}) async {
+  void bindAction() async {
     String _phoneNumber = nameController.text;
     String _pwdStr = pwdController.text;
     var _params = Map<String, dynamic>();
@@ -66,15 +72,18 @@ class BindController extends BaseController {
     _params['vcode'] = _pwdStr;
 
     if (_phoneNumber.length == 0) {
-      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请输入手机号',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('手机号格式错误',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (_pwdStr.length == 0) {
-      EasyLoading.showToast('请输入验证码',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请输入验证码',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!appleLogin) {

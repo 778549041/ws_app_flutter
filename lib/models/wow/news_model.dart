@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class NewsListModel {
   List<NewModel> list;
   int totalPage;
@@ -9,11 +11,15 @@ class NewsListModel {
     list = <NewModel>[];
     if (json['list'] != null) {
       (json['list'] as List).forEach((element) {
-        list.add(NewModel.fromJson(element));
+        if (element != null) {
+          tryCatch(() {
+            list.add(NewModel.fromJson(asT<Map<String, dynamic>>(element)));
+          });
+        }
       });
     }
-    totalPage = json['total_page'];
-    contentName = json['content_name'];
+    totalPage = asT<int>(json['total_page']);
+    contentName = asT<String>(json['content_name']);
   }
 }
 
@@ -50,21 +56,21 @@ class NewModel {
       : bodys = HtmlBody();
 
   NewModel.fromJson(Map<String, dynamic> json) {
-    articleId = json['article_id'];
-    articlePraise = json['article_praise'];
-    title = json['title'];
-    pubtime = json['pubtime'];
-    imageUrl = json['image_url'];
-    commentCount = json['comment_count'];
-    collectStatus = json['collect_status'];
-    collection = json['collection'].toString();
-    read = json['read'].toString();
+    articleId = asT<String>(json['article_id']);
+    articlePraise = asT<int>(json['article_praise']);
+    title = asT<String>(json['title']);
+    pubtime = asT<String>(json['pubtime']);
+    imageUrl = asT<String>(json['image_url']);
+    commentCount = asT<String>(json['comment_count']);
+    collectStatus = asT<bool>(json['collect_status']);
+    collection = asT<String>(json['collection']);
+    read = asT<String>(json['read']);
     isBgClear = false;
-    bodys =
-        json['bodys'] != null ? HtmlBody.fromJson(json['bodys']) : HtmlBody();
-    isLogin = json['is_login'];
-    praiseStatus = json['praise_status'];
-    uptime = json['uptime'];
+    bodys = HtmlBody.fromJson(
+        asT<Map<String, dynamic>>(json['bodys'], Map<String, dynamic>()));
+    isLogin = asT<bool>(json['is_login']);
+    praiseStatus = asT<bool>(json['praise_status']);
+    uptime = asT<String>(json['uptime']);
   }
 }
 
@@ -74,9 +80,8 @@ class NewsDetailModel {
   NewsDetailModel() : article = NewModel();
 
   NewsDetailModel.fromJson(Map<String, dynamic> json) {
-    article = json['article'] != null
-        ? NewModel.fromJson(json['article'])
-        : NewModel();
+    article = NewModel.fromJson(
+        asT<Map<String, dynamic>>(json['article'], Map<String, dynamic>()));
   }
 }
 
@@ -88,8 +93,8 @@ class HtmlBody {
   HtmlBody({this.content = '', this.seoDescription = '', this.seotitle = ''});
 
   HtmlBody.fromJson(Map<String, dynamic> json) {
-    content = json['content'];
-    seoDescription = json['seo_description'];
-    seotitle = json['seo_title'];
+    content = asT<String>(json['content']);
+    seoDescription = asT<String>(json['seo_description']);
+    seotitle = asT<String>(json['seo_title']);
   }
 }

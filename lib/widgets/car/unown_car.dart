@@ -5,9 +5,15 @@ import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
-class UnOwnCarWidget extends StatelessWidget {
+class UnOwnCarWidget extends StatefulWidget {
+  @override
+  UnOwnCarWidgetState createState() => UnOwnCarWidgetState();
+}
+
+class UnOwnCarWidgetState extends State<UnOwnCarWidget>
+    with WidgetsBindingObserver {
   final CarController controller = Get.put<CarController>(CarController());
-  
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -353,5 +359,43 @@ class UnOwnCarWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        break;
+      case AppLifecycleState.resumed: //从后台切换前台，界面可见
+        controller.refreshLocation();
+        break;
+      case AppLifecycleState.paused: // 界面不可见，后台
+        break;
+      case AppLifecycleState.detached: // APP结束时调用
+        break;
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void didUpdateWidget(UnOwnCarWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 }

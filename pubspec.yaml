@@ -61,7 +61,6 @@ dependencies:
   percent_indicator: ^3.0.1
   #网络图片加载组件 类似SDWebImage
   cached_network_image: ^2.3.3
-  extended_image: any
   #上下拉刷新
   pull_to_refresh: ^1.6.4
   #轮播图
@@ -109,20 +108,18 @@ dependencies:
   video_compress: ^3.0.0
   # 图片压缩
   flutter_native_image: ^0.0.5+3
-  # 路径转换工具
-  flutter_absolute_path: ^1.0.6
   # 加载html文本
   flutter_html: 
     path: plugins/flutter_html
   # 点赞按钮
   like_button: ^2.0.0
   # 列表滚动到指定行
-  # scrollable_positioned_list: ^0.1.10
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
   # 文本展开收起
   expandable_text: ^1.3.2
   auto_size_text: ^3.0.0-nullsafety.0
   # 列表动画
-  # flutter_staggered_animations: ^1.0.0
+  flutter_staggered_animations: ^1.0.0
   # 气泡组件
   flutter_bubble: ^0.0.1
   # bubble: any
@@ -137,7 +134,6 @@ dependencies:
   jpush_flutter: ^0.6.3
   #高德地图
   amap_map_fluttify: ^0.30.1
-  # amap_flutter_map: ^1.0.2
   #腾讯云IM
   tencent_im_sdk_plugin: ^1.0.20
   #bugly

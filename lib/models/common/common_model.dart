@@ -1,3 +1,5 @@
+import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
+
 class CommonModel {
   String success;
   String error;
@@ -27,17 +29,17 @@ class CommonModel {
       this.id});
 
   CommonModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    error = json['error'];
-    redirect = json['redirect'];
-    result = json['result'];
-    code = json['code'].toString();
-    message = json['message'];
-    imageId = json['image_id'];
-    status = json['status'];
-    datas = json['datas'];
-    res = json['res'];
-    list = json['list'].toString();
-    id = json['id'];
+    success = asT<String>(json['success']);
+    error = asT<String>(json['error']);
+    redirect = asT<String>(json['redirect']);
+    result = asT<bool>(json['result']);
+    code = asT<String>(json['code']);
+    message = asT<String>(json['message']);
+    imageId = asT<String>(json['image_id']);
+    status = asT<bool>(json['status']);
+    datas = asT<String>(json['datas']);
+    res = asT<bool>(json['res']);
+    list = asT<String>(json['list']);
+    id = asT<String>(json['id']);
   }
 }
