@@ -51,6 +51,7 @@ class CarStatusData {
   int runTime; //运行倒计时,服务端会倒计时，每次返回的值会变化
   int airTimingOpenDuration; //设置的启动倒计时时长，固定值
   int airWorkDuration; //设置的运行时长，固定值
+  String fCarColorUrl; //车门状态图片
 
   String carLaunchStr; //启动状态显示文本
   int allDoorStatus; //所有车门总状态，全部开启为1，全部关闭为2，其他情况为3
@@ -69,7 +70,7 @@ class CarStatusData {
 
   CarStatusData({
     this.engineLockStatus = '255',
-    this.extendVehiclesStatus = '255',
+    this.extendVehiclesStatus = '0',
     this.doorlockRfStatus = '255',
     this.doorlockRbStatus = '255',
     this.doorlockLbStatus = '255',
@@ -113,11 +114,12 @@ class CarStatusData {
     this.airLoopTitle = '',
     this.airModeImage = '',
     this.doorLockUnable = true,
+    this.fCarColorUrl = 'https://wsmedia.ghac.cn/NonCarOwner/',
   });
 
   CarStatusData.fromJson(Map<String, dynamic> json) {
     engineLockStatus = asT<String>(json['engine_lock_status'], '255');
-    extendVehiclesStatus = asT<String>(json['extend_vehicles_status'], '255');
+    extendVehiclesStatus = asT<String>(json['extend_vehicles_status'], '0');
     doorlockRfStatus = asT<String>(json['doorlock_rf_status'], '255');
     doorlockRbStatus = asT<String>(json['doorlock_rb_status'], '255');
     doorlockLfStatus = asT<String>(json['doorlock_lf_status'], '255');
@@ -148,6 +150,7 @@ class CarStatusData {
     runTime = asT<int>(json['runTime'], 0);
     airTimingOpenDuration = asT<int>(json['airTimingOpenDuration'], 0);
     airWorkDuration = asT<int>(json['airWorkDuration'], 0);
+    fCarColorUrl = asT<String>(json['FCarColorURL'], 'https://wsmedia.ghac.cn/NonCarOwner/');
     //车辆启动状态
     if (extendVehiclesStatus == '1') {
       carLaunchStr = '启动';
@@ -272,6 +275,41 @@ class CarStatusData {
       airModeImage = 'assets/images/chekong/air_blow_face.png';
     } else {
       airModeImage = 'assets/images/chekong/air_blow_face.png';
+    }
+
+    //车门图片
+    if (doorLfStatus == '1' && doorLbStatus == '1' && doorRfStatus == '1' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'all_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '2' && doorRfStatus == '2' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'all_close.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '2' && doorRfStatus == '2' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'lf_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '1' && doorRfStatus == '2' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'lb_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '2' && doorRfStatus == '1' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'rf_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '2' && doorRfStatus == '2' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'rb_open.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '1' && doorRfStatus == '2' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'lf_lb_open.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '2' && doorRfStatus == '1' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'lf_rf_open.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '2' && doorRfStatus == '2' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'lf_rb_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '1' && doorRfStatus == '1' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'lb_rf_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '1' && doorRfStatus == '2' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'lb_rb_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '2' && doorRfStatus == '1' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'rf_rb_open.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '1' && doorRfStatus == '1' && doorRbStatus == '2') {
+      fCarColorUrl = fCarColorUrl + 'lf_lb_rf_open.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '1' && doorRfStatus == '2' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'lf_lb_rb_open.png'; 
+    } else if (doorLfStatus == '1' && doorLbStatus == '2' && doorRfStatus == '1' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'lf_rf_rb_open.png'; 
+    } else if (doorLfStatus == '2' && doorLbStatus == '1' && doorRfStatus == '1' && doorRbStatus == '1') {
+      fCarColorUrl = fCarColorUrl + 'lb_rf_rb_open.png'; 
     }
   }
 }

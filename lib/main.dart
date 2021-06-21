@@ -14,6 +14,7 @@ import 'package:tencent_im_sdk_plugin/models/v2_tim_message_progress.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message_receipt.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/global/global.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -39,15 +40,15 @@ class MyApp extends StatefulWidget {
 void configLoading() {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.circle
-    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorType = EasyLoadingIndicatorType.ring
+    ..maskType = EasyLoadingMaskType.clear
+    ..loadingStyle = EasyLoadingStyle.custom
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = Colors.yellow
-    ..backgroundColor = Colors.green
-    ..indicatorColor = Colors.yellow
-    ..textColor = Colors.yellow
-    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..backgroundColor = MainAppColor.mainSilverColor
+    ..indicatorColor = Colors.black
+    ..textColor = Colors.black
     ..userInteractions = true
     ..dismissOnTap = false;
 }

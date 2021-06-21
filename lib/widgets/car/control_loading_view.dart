@@ -129,6 +129,10 @@ class ControlLoadingView extends GetView<EletricController> {
         color = Color(0xFFFF6F6F);
       } else if (controller.currentCmdStatus.value == 4) {
         status = '请求执行成功';
+      } else if (controller.currentCmdStatus.value == 6) {
+        status = '当前版本车辆状态数据更新需启动车辆后重试';
+      } else if (controller.currentCmdStatus.value == 7) {
+        status = '服务器连接失败，请稍后重试';
       }
       return Text(
         status,

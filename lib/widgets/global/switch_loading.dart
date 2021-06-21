@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class SwitchLoadingView extends StatefulWidget {
+class SwitchLoadingView extends StatelessWidget {
   final double width; //宽
   final double height; //高
   final bool selected; //是否选中
@@ -13,7 +13,7 @@ class SwitchLoadingView extends StatefulWidget {
   final Color disabledColor; //禁用时背景色
   final bool loading; //是否加载
   final bool disabled; //是否可点击
-  final ValueChanged<bool> callback; //事件回调
+  final VoidCallback callback; //事件回调
 
   SwitchLoadingView({
     this.width,
@@ -31,90 +31,69 @@ class SwitchLoadingView extends StatefulWidget {
   });
 
   @override
-  SwitchLoadingViewState createState() => SwitchLoadingViewState();
-}
-
-class SwitchLoadingViewState extends State<SwitchLoadingView> {
-  bool selected = false;
-  bool loading = false;
-  bool disabled = false;
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: disabled
-          ? null
-          : () {
-              setState(() {
-                selected = !selected;
-                loading = true;
-                disabled = true;
-                if (widget.callback != null) {
-                  widget.callback(selected);
-                }
-              });
-            },
+      onTap: disabled ? null : callback,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(widget.height / 2),
+        borderRadius: BorderRadius.circular(height / 2),
         child: Stack(
           children: <Widget>[
             Container(
               alignment: Alignment.center,
-              width: widget.width,
-              height: widget.height,
-              padding: EdgeInsets.only(left: widget.height),
+              width: width,
+              height: height,
+              padding: EdgeInsets.only(left: height),
               decoration: BoxDecoration(
-                color: widget.disabled ? widget.disabledColor : widget.bgColor,
-                borderRadius: BorderRadius.circular(widget.height / 2),
+                color: disabled ? disabledColor : bgColor,
+                borderRadius: BorderRadius.circular(height / 2),
               ),
               child: Text(
-                widget.unselectedText,
-                style: widget.textStyle,
+                unselectedText,
+                style: textStyle,
               ),
             ),
             AnimatedPositioned(
-              left: selected ? 0 : widget.height - widget.width,
+              left: selected ? 0 : height - width,
               duration: Duration(milliseconds: 200),
               child: Container(
-                width: widget.width,
-                height: widget.height,
+                width: width,
+                height: height,
                 decoration: BoxDecoration(
-                  color:
-                      widget.disabled ? widget.disabledColor : widget.bgColor,
-                  borderRadius: BorderRadius.circular(widget.height / 2),
+                  color: disabled ? disabledColor : bgColor,
+                  borderRadius: BorderRadius.circular(height / 2),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Container(
                       alignment: Alignment.center,
-                      width: widget.width - widget.height,
-                      height: widget.height,
+                      width: width - height,
+                      height: height,
                       child: Text(
-                        widget.selectedText,
-                        style: widget.textStyle,
+                        selectedText,
+                        style: textStyle,
                       ),
                     ),
                     Container(
-                      width: widget.height,
-                      height: widget.height,
+                      width: height,
+                      height: height,
                       child: Stack(
                         alignment: Alignment.center,
                         children: <Widget>[
                           Container(
-                            width: widget.height - 2,
-                            height: widget.height - 2,
+                            width: height - 2,
+                            height: height - 2,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                  (widget.height - 2) / 2),
+                              borderRadius:
+                                  BorderRadius.circular((height - 2) / 2),
                             ),
                           ),
                           Offstage(
                             offstage: !loading,
                             child: SpinKitCircle(
-                              color: widget.loadingColor,
-                              size: widget.height - 2,
+                              color: loadingColor,
+                              size: height - 2,
                             ),
                           )
                         ],
@@ -128,29 +107,5 @@ class SwitchLoadingViewState extends State<SwitchLoadingView> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    selected = widget.selected;
-    loading = widget.loading;
-    disabled = widget.disabled;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(SwitchLoadingView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void didChangeDependencies() {
-    print('didChangeDependencies:didChangeDependencies');
-    super.didChangeDependencies();
   }
 }

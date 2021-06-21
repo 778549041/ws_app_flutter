@@ -147,9 +147,17 @@ class EletricController extends BaseController {
         disabledLock.value = false;
       }
     }
-    // if (carStatusModel.value.datas == null) {
-
-    // }
+    if (carStatusModel.value.code == '200') {
+      if (carStatusModel.value.datas.extendVehiclesStatus == '0') {
+        currentCmdStatus.value = 6;
+        currentCmdTitle.value = '车辆数据未获取';
+        showLoadingView.value = true;
+      }
+    } else {
+      currentCmdStatus.value = 7;
+      currentCmdTitle.value = '车辆数据未获取';
+      showLoadingView.value = true;
+    }
   }
 
   //指令结果查询
@@ -169,6 +177,7 @@ class EletricController extends BaseController {
         currentCmdStatus.value = 3;
       } else {
         if (cmdResultModel.datas.value == '2') {
+          await requestCarStatusData();
           currentCmdStatus.value = 4;
         } else if (cmdResultModel.datas.value == '3' ||
             cmdResultModel.datas.value == '4') {
@@ -291,6 +300,7 @@ class EletricController extends BaseController {
 
   void pushAction(int index) {
     if (index == 0) {
+      //门锁详情
       Get.toNamed(Routes.DOORLOCK).then((value) {
         cancelAllTimer();
         addAllTimer();
@@ -298,6 +308,7 @@ class EletricController extends BaseController {
       cancelAllTimer();
       addAllTimer();
     } else if (index == 1) {
+      //远程空调
       Get.toNamed(Routes.AIRCONDITION).then((value) {
         cancelAllTimer();
         addAllTimer();

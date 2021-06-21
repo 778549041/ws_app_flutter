@@ -261,12 +261,18 @@ class OwnCarWidget extends GetView<EletricController> {
                       Obx(() => SwitchLoadingView(
                             width: 53,
                             height: 25,
-                            selected: !controller.openLock.value,
+                            selected: (controller.currentCmdType == 2 &&
+                                    (controller.currentCmdStatus == 1 ||
+                                        controller.currentCmdStatus == 3))
+                                ? controller.openLock.value
+                                : !controller.openLock.value,
                             unselectedText:
-                                controller.openLock.value ? '开锁' : '落锁',
+                                controller.openLock.value ? '开锁' : '等待',
                             selectedText:
-                                controller.openLock.value ? '落锁' : '开锁',
-                            bgColor: Color(0xFF1B7DF4),
+                                controller.openLock.value ? '等待' : '落锁',
+                            bgColor: controller.openLock.value
+                                ? Color(0xFF1B7DF4)
+                                : Color(0xFFFF6F6F),
                             loading: (controller.currentCmdType == 2 &&
                                 (controller.currentCmdStatus == 1 ||
                                     controller.currentCmdStatus == 3)),
@@ -277,7 +283,7 @@ class OwnCarWidget extends GetView<EletricController> {
                             loadingColor: controller.openLock.value
                                 ? Color(0xFF1B7DF4)
                                 : Color(0xFFFF6F6F),
-                            callback: (value) {
+                            callback: () {
                               if (controller.openLock.value) {
                                 controller.sendControlCmd(2, 2);
                               } else {
