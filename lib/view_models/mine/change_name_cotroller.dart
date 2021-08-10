@@ -5,7 +5,7 @@ import 'package:ws_app_flutter/view_models/mine/mine_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class ChangeNameController extends GetxController {
-  String value;
+  String? value;
 
   @override
   void onInit() {
@@ -16,13 +16,13 @@ class ChangeNameController extends GetxController {
   void submmited(bool isName) async {
     CommonModel _model;
     if (isName) {
-      if (value.length == 0) {
-        value = Get.find<UserController>().userInfo.value.member.showName;
+      if (value?.length == 0) {
+        value = Get.find<UserController>().userInfo.value.member!.showName;
       }
-      _model = await Get.find<UserController>().changeUserInfo(name: value);
+      _model = await Get.find<UserController>().changeUserInfo(name: value!);
     } else {
       _model =
-          await Get.find<UserController>().changeUserInfo(profession: value);
+          await Get.find<UserController>().changeUserInfo(profession: value!);
     }
     if (_model.success != null) {
       EasyLoading.showToast('修改成功',

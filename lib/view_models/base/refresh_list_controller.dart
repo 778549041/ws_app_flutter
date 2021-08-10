@@ -3,29 +3,30 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/view_models/base/list_controller.dart';
 
 abstract class RefreshListController<T> extends ListController<T> {
-  /// 分页第一页页码
-  static const int pageNumFirst = 1;
+  /// 分页第一页页码,外部可重写设置
+  int pageNumFirst = 1;
 
   /// 分页条目数量,默认20条，可外部设置条数
   int pageSize = 20;
 
-  RefreshController _refreshController = RefreshController(initialRefresh: false);
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   RefreshController get refreshController => _refreshController;
 
   /// 当前页码
-  int _currentPageNum = pageNumFirst;
+  int _currentPageNum = 0;
 
   /// 下拉刷新
   ///
   /// [init] 是否是第一次加载
   /// true:  Error时,需要跳转页面
   /// false: Error时,不需要跳转页面,直接给出提示
-  Future<List<T>> refresh({bool init = false}) async {
+  Future<List<T>?> refresh({bool init = false}) async {
     try {
       _currentPageNum = pageNumFirst;
       var data = await loadData(pageNum: pageNumFirst);
-      if (data.isEmpty) {
+      if (data == null || data.isEmpty) {
         refreshController.refreshCompleted(resetFooterState: true);
         list.clear();
         setEmpty();
@@ -55,10 +56,10 @@ abstract class RefreshListController<T> extends ListController<T> {
   }
 
   /// 上拉加载更多
-  Future<List<T>> loadMore() async {
+  Future<List<T>?> loadMore() async {
     try {
       var data = await loadData(pageNum: ++_currentPageNum);
-      if (data.isEmpty) {
+      if (data == null || data.isEmpty) {
         _currentPageNum--;
         refreshController.loadNoData();
       } else {
@@ -81,7 +82,7 @@ abstract class RefreshListController<T> extends ListController<T> {
   }
 
   // 加载数据
-  Future<List<T>> loadData({int pageNum});
+  Future<List<T>?> loadData({int pageNum});
 
   @override
   void onClose() {

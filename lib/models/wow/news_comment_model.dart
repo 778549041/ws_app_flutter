@@ -2,8 +2,8 @@ import 'package:ws_app_flutter/models/common/common_member.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class NewsCommentListModel {
-  List<NewsCommentModel> cmtList;
-  int totalPage;
+  List<NewsCommentModel>? cmtList;
+  int? totalPage;
 
   NewsCommentListModel({this.cmtList, this.totalPage});
 
@@ -13,8 +13,8 @@ class NewsCommentListModel {
       (json['cmt_list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            cmtList.add(
-                NewsCommentModel.fromJson(asT<Map<String, dynamic>>(element)));
+            cmtList!.add(
+                NewsCommentModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -24,19 +24,19 @@ class NewsCommentListModel {
 }
 
 class NewsCommentModel {
-  String id; //评论ID
-  String avatar; //头像路径
-  String content; //评论内容
-  bool isSelf; //判断是否为自己的评论，true为是，false为否
-  bool isOfficial; //是否官方
-  String nickname; //昵称
-  String praiseNum; //评论点赞数
-  bool praiseStatus; //判断是否点赞，true为已点赞，false为未点赞
-  String pubdate; //评论时间
-  String userId; //用户ID
-  bool isVehicle; //是否是车主
-  CommonMemberModel memberInfo;
-  List<ReplyModel> replyData; //评论回复
+  String? id; //评论ID
+  String? avatar; //头像路径
+  String? content; //评论内容
+  bool? isSelf; //判断是否为自己的评论，true为是，false为否
+  bool? isOfficial; //是否官方
+  String? nickname; //昵称
+  String? praiseNum; //评论点赞数
+  bool? praiseStatus; //判断是否点赞，true为已点赞，false为未点赞
+  String? pubdate; //评论时间
+  String? userId; //用户ID
+  bool? isVehicle; //是否是车主
+  CommonMemberModel? memberInfo;
+  List<ReplyModel>? replyData; //评论回复
 
   NewsCommentModel(
       {this.id,
@@ -66,14 +66,13 @@ class NewsCommentModel {
     userId = asT<String>(json['user_id']);
     isVehicle = asT<bool>(json['is_vehicle']);
     memberInfo = CommonMemberModel.fromJson(
-        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
     replyData = <ReplyModel>[];
     if (json['reply_data'] != null) {
       (json['reply_data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            replyData
-                .add(ReplyModel.fromJson(asT<Map<String, dynamic>>(element)));
+            replyData?.add(ReplyModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -82,12 +81,12 @@ class NewsCommentModel {
 }
 
 class ReplyModel {
-  String id; //当前评论id
-  String plName; //当前评论用户昵称
-  String content; //评论内容
-  String replyName; //被回复人昵称
-  String pid; //当前资讯id
-  bool isOfficial; //是否官方
+  String? id; //当前评论id
+  String? plName; //当前评论用户昵称
+  String? content; //评论内容
+  String? replyName; //被回复人昵称
+  String? pid; //当前资讯id
+  bool? isOfficial; //是否官方
 
   ReplyModel(
       {this.id,

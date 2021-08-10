@@ -87,7 +87,7 @@ class ControlLoadingView extends GetView<EletricController> {
     if (controller.currentCmdStatus.value == 5) {
       //指令执行失败
       if (controller.currentCmdType.value == 1 &&
-          controller.carStatusModel.value.datas.airOpenStatus == 0) {
+          controller.carStatusModel.value.datas?.airOpenStatus == 0) {
         //如果是开空调指令
         return RichText(
           text: TextSpan(

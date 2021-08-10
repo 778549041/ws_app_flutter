@@ -1,7 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/splash/splash_controller.dart';
@@ -63,7 +63,7 @@ class SplashPage extends GetView<SplashController> {
             Obx(() => NetImageWidget(
                   width: double.infinity,
                   height: double.infinity,
-                  imageUrl: controller.splashModel.value.data.url,
+                  imageUrl: controller.splashModel.value.data?.url,
                   fit: BoxFit.cover,
                   placeholder: 'assets/images/splash/launch.png',
                 )),
@@ -93,7 +93,7 @@ class SplashPage extends GetView<SplashController> {
             ),
             Obx(
               () => Offstage(
-                offstage: (controller.splashModel.value.data.showType != '2')
+                offstage: (controller.splashModel.value.data?.showType != '2')
                     ? true
                     : false,
                 child: Container(
@@ -113,7 +113,7 @@ class SplashPage extends GetView<SplashController> {
                                 imageUrl: Get.find<UserController>()
                                         .userInfo
                                         .value
-                                        .member
+                                        .member!
                                         .headImg ??
                                     '',
                               ),
@@ -136,7 +136,7 @@ class SplashPage extends GetView<SplashController> {
                           Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
+                                  .member!
                                   .name ??
                               '',
                           style: TextStyle(color: Colors.white),

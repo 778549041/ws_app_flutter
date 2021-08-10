@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
@@ -172,7 +172,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                       children: <Widget>[
                         if (controller.currentConfig.value.imageName != null)
                           Image.asset(
-                            controller.currentConfig.value.imageName,
+                            controller.currentConfig.value.imageName!,
                             scale: 2,
                           ),
                         Padding(
@@ -205,7 +205,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                 style: TextStyle(fontSize: 12),
               ),
               Obx(() => Text(
-                    controller.currentConfig.value.price,
+                    controller.currentConfig.value.price!,
                     style: TextStyle(fontSize: 12),
                   )),
             ],
@@ -289,10 +289,10 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
           Obx(() => ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: controller.nearStoreList.value.data.length,
+              itemCount: controller.nearStoreList.value.data!.length,
               itemBuilder: ((context, index) {
                 NearStoreModel _model =
-                    controller.nearStoreList.value.data[index];
+                    controller.nearStoreList.value.data![index];
                 return _buildSingleStoreItem(index, _model);
               }))),
         ],
@@ -315,7 +315,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        model.fShopName,
+                        model.fShopName!,
                         style: TextStyle(fontSize: 14),
                       ),
                       Padding(
@@ -332,7 +332,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                             ),
                             Expanded(
                                 child: Text(
-                              model.fShopAddr,
+                              model.fShopAddr!,
                               style: TextStyle(fontSize: 12),
                             )),
                           ],
@@ -347,7 +347,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                 image: 'assets/images/car/car_store_phone.png',
                 imageH: 37,
                 imageW: 37,
-                onPressed: () => controller.callPhoneNumber(model.fSalesPhone),
+                onPressed: () => controller.callPhoneNumber(model.fSalesPhone!),
               ),
             ],
           ),
@@ -364,12 +364,12 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 

@@ -12,7 +12,6 @@ class FeedBackPage extends GetView<FeedBackController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '意见反馈',
-      rightActions: [],
       child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
         child: Column(
@@ -32,7 +31,7 @@ class FeedBackPage extends GetView<FeedBackController> {
               style: TextStyle(fontSize: 15),
               inputFormatters: [LengthLimitingTextInputFormatter(500)],
               onSubmitted: (value) {
-                Get.focusScope.requestFocus(controller.mobileFocusNode);
+                Get.focusScope?.requestFocus(controller.mobileFocusNode);
               },
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -64,7 +63,7 @@ class FeedBackPage extends GetView<FeedBackController> {
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                hintText: Get.find<UserController>().userInfo.value.member.mobile.replaceRange(3, 7, '****'),
+                hintText: Get.find<UserController>().userInfo.value.member!.mobile!.replaceRange(3, 7, '****'),
                 hintStyle: TextStyle(color: Color(0xFFD6D6D6)),
                 contentPadding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                 enabledBorder: OutlineInputBorder(

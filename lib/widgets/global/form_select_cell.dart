@@ -27,9 +27,9 @@ class FormSelectCell extends StatefulWidget {
   final String hintText;
   final bool showRedStar; //显示左侧小红星，默认不显示
   final bool hiddenArrow; //隐藏箭头，默认不隐藏
-  final Widget leftWidget; //左侧widget ，默认隐藏
-  final Widget rightWidget; //右侧widget ，默认隐藏
-  final _ClickCallBack clickCallBack;
+  final Widget? leftWidget; //左侧widget ，默认隐藏
+  final Widget? rightWidget; //右侧widget ，默认隐藏
+  final _ClickCallBack? clickCallBack;
   final double space; //标题宽度
   final TextStyle titleStyle;
   final TextStyle textStyle;
@@ -41,7 +41,7 @@ class FormSelectCell extends StatefulWidget {
   final Color bgColor; //背景颜色，默认白色
 
   const FormSelectCell({
-    Key key,
+    Key? key,
     this.title: '',
     this.text: '',
     this.hintText: '请选择',
@@ -105,7 +105,9 @@ class _FormSelectCellState extends State<FormSelectCell> {
                       ? CrossAxisAlignment.start
                       : CrossAxisAlignment.center,
                   children: <Widget>[
-                    widget.leftWidget != null ? widget.leftWidget : Container(),
+                    widget.leftWidget != null
+                        ? widget.leftWidget!
+                        : Container(),
                     Container(
                       width: _starW,
                       padding: EdgeInsets.fromLTRB(
@@ -133,7 +135,7 @@ class _FormSelectCellState extends State<FormSelectCell> {
                       border: widget.border,
                     )),
                     widget.rightWidget != null
-                        ? widget.rightWidget
+                        ? widget.rightWidget!
                         : Container(),
                     Offstage(
                       offstage: _hiddenArrow,
@@ -143,7 +145,7 @@ class _FormSelectCellState extends State<FormSelectCell> {
                   ])),
           onTap: () {
             if (widget.clickCallBack != null) {
-              widget.clickCallBack();
+              widget.clickCallBack!();
             }
           },
         ));

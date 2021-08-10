@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BaseDialog extends StatelessWidget {
   BaseDialog({
-    Key key,
+    Key? key,
     this.title,
     this.content,
     this.leftText: "取消",
@@ -12,12 +12,12 @@ class BaseDialog extends StatelessWidget {
     this.hiddenCancel: false,
   }) : super(key: key);
 
-  final String title;
-  final Widget content;
+  final String? title;
+  final Widget? content;
   final String leftText;
   final String rightText;
-  final VoidCallback onCancel;
-  final VoidCallback onConfirm;
+  final VoidCallback? onCancel;
+  final VoidCallback? onConfirm;
   final bool hiddenCancel;
 
   @override
@@ -27,7 +27,7 @@ class BaseDialog extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: 8.0),
         child: Text(
-          title == null ? "" : title,
+          title == null ? "" : title!,
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
         ),
       ),
@@ -43,7 +43,7 @@ class BaseDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                   if (onCancel != null) {
-                    onCancel();
+                    onCancel!();
                   }
                 },
               ),
@@ -58,7 +58,7 @@ class BaseDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             if (onConfirm != null) {
-              onConfirm();
+              onConfirm!();
             }
           },
         ),
@@ -72,7 +72,7 @@ class BaseDialog extends StatelessWidget {
         children: <Widget>[
           SizedBox(height: 24),
           dialogTitle,
-          content == null ? Container() : Flexible(child: content),
+          content == null ? Container() : Flexible(child: content!),
           SizedBox(height: 8),
           Divider(height: 1),
           bottomButton,
@@ -104,15 +104,15 @@ class BaseDialog extends StatelessWidget {
 
 class _DialogButton extends StatelessWidget {
   _DialogButton({
-    Key key,
+    Key? key,
     this.text: '',
     this.textColor,
     this.onPressed,
   }) : super(key: key);
 
   final String text;
-  final Color textColor;
-  final VoidCallback onPressed;
+  final Color? textColor;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

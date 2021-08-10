@@ -130,9 +130,9 @@ class AddFriendPage extends GetView<AddFriendsController> {
                   Obx(
                     () => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        FriendMember member = controller.showListData[index];
+                        FriendMember? member = controller.showListData[index];
                         return GestureDetector(
-                          onTap: () => controller.addFriend(member),
+                          onTap: () => controller.addFriend(member!),
                           behavior: HitTestBehavior.translucent,
                           child: Column(
                             children: <Widget>[
@@ -142,7 +142,7 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                 child: Row(
                                   children: <Widget>[
                                     RoundAvatar(
-                                      imageUrl: member.avatar,
+                                      imageUrl: member!.avatar!,
                                       height: 46,
                                       borderColor: Colors.transparent,
                                       borderWidth: 0,
@@ -159,7 +159,7 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                             children: <Widget>[
                                               Flexible(
                                                 child: Text(
-                                                  member.nickname,
+                                                  member.nickname!,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style:
@@ -167,26 +167,26 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                                 ),
                                               ),
                                               //销售员或者勋章标签
-                                              if (member.memberInfo.showTag)
+                                              if (member.memberInfo!.showTag!)
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
                                                           left: 5),
                                                   child: MedalWidget(
                                                     medalBtnImage: member
-                                                        .memberInfo
-                                                        .medalOrSaleImageName,
+                                                        .memberInfo!
+                                                        .medalOrSaleImageName!,
                                                     medalToastImage: member
-                                                        .memberInfo
-                                                        .medalOrSaleDescImageName,
-                                                    isSales: member.memberInfo
+                                                        .memberInfo!
+                                                        .medalOrSaleDescImageName!,
+                                                    isSales: member.memberInfo!
                                                             .isSales ==
                                                         1,
                                                   ),
                                                 ),
                                               Offstage(
                                                 offstage:
-                                                    member.sex.length == 0,
+                                                    member.sex?.length == 0,
                                                 child: Image.asset(
                                                   member.sex == '0'
                                                       ? 'assets/images/mine/woman.png'
@@ -207,7 +207,7 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (context, index) {
                                                 String item =
-                                                    member.interest[index];
+                                                    member.interest![index];
                                                 return Container(
                                                   margin: const EdgeInsets.only(
                                                       right: 5),
@@ -230,7 +230,7 @@ class AddFriendPage extends GetView<AddFriendsController> {
                                                   ),
                                                 );
                                               },
-                                              itemCount: member.interest.length,
+                                              itemCount: member.interest!.length,
                                             ),
                                           ),
                                         ],

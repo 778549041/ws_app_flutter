@@ -14,9 +14,9 @@ import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 
 class ReportController extends GetxController {
-  TextEditingController textEditingController;
-  FocusNode focusNode;
-  String publishText;
+  late TextEditingController textEditingController;
+  late FocusNode focusNode;
+  String? publishText;
   var selectedAssets = <AssetEntity>[].obs;
 
   @override
@@ -32,18 +32,18 @@ class ReportController extends GetxController {
 
   //点击提交按钮
   Future submit() async {
-    Get.focusScope.unfocus();
-    if (publishText.length == 0) {
+    Get.focusScope?.unfocus();
+    if (publishText?.length == 0 || publishText == null) {
       //无任何内容
       EasyLoading.showToast('请先输入举报原因',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
-    if (publishText.length > 0 && CommonUtil.isBlank(publishText)) {
+    if (publishText!.length > 0 && CommonUtil.isBlank(publishText)) {
       textEditingController.text = '';
       return;
     }
-    if (selectedAssets != null) {
+    if (selectedAssets.length > 0) {
       //包含图片
       reportImage();
     } else {
@@ -78,7 +78,7 @@ class ReportController extends GetxController {
     EasyLoading.show(status: '文件上传中...');
     List<String> imgUrlList = [];
     for (var item in selectedAssets) {
-      String filePath = (await item.file).path;
+      String filePath = (await item.file)!.path;
       File compressedFile = await FlutterNativeImage.compressImage(filePath,
           quality: 70, percentage: 50);
       var result = await Storage().putFile(
@@ -92,7 +92,7 @@ class ReportController extends GetxController {
                       deadline: DateUtil.getNowDateMs() + 3600)),
           options: PutOptions(controller: PutController()));
       print(result);
-      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result.key);
+      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result.key!);
     }
     EasyLoading.dismiss();
     return imgUrlList;
@@ -103,7 +103,7 @@ class ReportController extends GetxController {
     CommonModel receive = await DioManager().request<CommonModel>(
         DioManager.POST, 'index.php/m/circomment-complaint.html',
         params: params);
-    if (receive.result) {
+    if (receive.result!) {
       EasyLoading.showToast('举报成功，平台将会在24小时之内给出回复',
           toastPosition: EasyLoadingToastPosition.bottom);
       Future.delayed(Duration(seconds: 1)).then((value) async {
@@ -120,9 +120,9 @@ class ReportController extends GetxController {
   //点击选择的图片进行预览
   Future clickItem(int index, AssetEntity assetEntity) async {
     await AssetPickerViewer.pushToViewer(
-      Get.context,
+      Get.context!,
       currentIndex: index,
-      assets: selectedAssets,
+      previewAssets: selectedAssets,
       themeData: AssetPicker.themeData(Colors.black),
       specialPickerType: assetEntity.type == AssetType.video
           ? SpecialPickerType.wechatMoment
@@ -137,7 +137,7 @@ class ReportController extends GetxController {
 
   //选择图片或者视频
   Future clickPickAsset() async {
-    List<AssetEntity> result = await AssetPicker.pickAssets(Get.context,
+    List<AssetEntity>? result = await AssetPicker.pickAssets(Get.context!,
         maxAssets: (9 - selectedAssets.length));
     if (result == null) {
       return;

@@ -15,7 +15,7 @@ class FileMessage extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Row(
-          textDirection: message.isSelf ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: message.isSelf! ? TextDirection.rtl : TextDirection.ltr,
           children: [
             Expanded(
               child: Container(
@@ -24,7 +24,7 @@ class FileMessage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      message.fileElem.fileName,
+                      message.fileElem!.fileName!,
                       style: TextStyle(
                         height: 1.5,
                         fontSize: 12,
@@ -32,7 +32,7 @@ class FileMessage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "${message.fileElem.fileSize} KB",
+                      "${message.fileElem!.fileSize!} KB",
                       style: TextStyle(
                         height: 1.5,
                         fontSize: 12,

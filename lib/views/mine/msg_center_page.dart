@@ -28,13 +28,13 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                         Badge(
                           toAnimate: false,
                           showBadge:
-                              int.parse(controller.msgModel.interactionCount) >
+                              int.parse(controller.msgModel!.interactionCount!) >
                                   0,
                           elevation: 0,
                           shape: BadgeShape.circle,
                           padding: EdgeInsets.all(7),
                           badgeContent: Text(
-                            controller.msgModel.interactionCount,
+                            controller.msgModel!.interactionCount!,
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
@@ -48,12 +48,12 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                         Badge(
                           toAnimate: false,
                           showBadge:
-                              int.parse(controller.msgModel.msgCount) > 0,
+                              int.parse(controller.msgModel!.msgCount!) > 0,
                           elevation: 0,
                           shape: BadgeShape.circle,
                           padding: EdgeInsets.all(7),
                           badgeContent: Text(
-                            controller.msgModel.msgCount,
+                            controller.msgModel!.msgCount!,
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
@@ -81,9 +81,9 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      V2TimConversation _item =
+                      V2TimConversation? _item =
                           Get.find<ConversationController>().list[index];
-                      return ConversationRow(conversation: _item,);
+                      return ConversationRow(conversation: _item!,);
                     },
                     childCount: Get.find<ConversationController>().list.length,
                   ),
@@ -95,7 +95,7 @@ class MsgCenterPage extends GetView<MsgCenterController> {
   }
 
   Widget _buildHeaderRow(int index, Widget content) {
-    String _image, _title;
+    String? _image, _title;
     if (index == 0) {
       _image = 'assets/images/mine/mine_msg_active.png';
       _title = '互动消息';
@@ -117,7 +117,7 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                   width: 10,
                 ),
                 Image.asset(
-                  _image,
+                  _image!,
                   width: 26,
                   height: 24,
                 ),
@@ -125,7 +125,7 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                   width: 20,
                 ),
                 Text(
-                  _title,
+                  _title!,
                   style: TextStyle(fontSize: 15),
                 ),
               ],

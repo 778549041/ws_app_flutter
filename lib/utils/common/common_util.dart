@@ -16,29 +16,29 @@ import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 class CommonUtil {
   //获取uuid
   static String sid() {
-    String sid = SpUtil.getString(CacheKey.SID_KEY);
+    String? sid = SpUtil.getString(CacheKey.SID_KEY);
     if (ObjectUtil.isEmptyString(sid)) {
       sid = Uuid().v1();
       SpUtil.putString(CacheKey.SID_KEY, sid);
     }
     //b55b8c00-85d7-11ea-af6d-09351c0892b3
-    return sid;
+    return sid!;
   }
 
   //检查密码格式
-  static bool checkPwd(String input) {
+  static bool checkPwd(String? input) {
     if (input == null || input.isEmpty) return false;
     return new RegExp("^([A-Za-z0-9]){6,12}\$").hasMatch(input);
   }
 
   //检查支付密码格式
-  static bool checkPayPwd(String input) {
+  static bool checkPayPwd(String? input) {
     if (input == null || input.isEmpty) return false;
     return new RegExp("([0-9])\1{1}").hasMatch(input);
   }
 
   //检查字符串是否包含url地址
-  static bool containsLink(String source) {
+  static bool containsLink(String? source) {
     if (source == null || source.isEmpty) return false;
     return new RegExp(
             r"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)")
@@ -46,7 +46,7 @@ class CommonUtil {
   }
 
   //检查字符串是否为空或全为空格
-  static bool isBlank(String source) {
+  static bool isBlank(String? source) {
     if (source == null || source.isEmpty) return true;
     source = source.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
     if (source.length == 0) return true;
@@ -72,8 +72,8 @@ class CommonUtil {
 
   //服务端接口控制跳转页面
   static void serviceControlPushPage(
-      {String type, String detailId, String url, bool hasNav}) {
-    if (type == 'H5' && url.length > 0) {
+      {String? type, String? detailId, String? url, bool? hasNav}) {
+    if (type == 'H5' && url != null) {
       Get.toNamed(Routes.WEBVIEW, arguments: {
         'url': url,
         'hasNav': hasNav,
@@ -81,7 +81,7 @@ class CommonUtil {
     } else if (type == "zixun_list") {
       //资讯列表
       CategoryModel model = CategoryModel();
-      model.nodeId = detailId;
+      model.nodeId = detailId!;
       Get.toNamed(Routes.CATENEWSLIST, arguments: {'model': model});
     } else if (type == "zixun_detail") {
       //资讯详情
@@ -117,9 +117,9 @@ class CommonUtil {
           DioManager.POST, Api.convertIDToUrl,
           params: {'url': imgUrlList[i], 'type': fileType});
       if (i == 0) {
-        imgIDListStr = model.id;
+        imgIDListStr = model.id!;
       } else {
-        imgIDListStr = imgIDListStr + '|' + model.id;
+        imgIDListStr = imgIDListStr + '|' + model.id!;
       }
     }
     return imgIDListStr;

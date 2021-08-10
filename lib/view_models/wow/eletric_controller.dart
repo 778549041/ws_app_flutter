@@ -14,9 +14,9 @@ import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class EletricController extends BaseController {
-  TimerUtil _statusTimer;
-  TimerUtil _cmdResultTimer;
-  String _vin;
+  TimerUtil? _statusTimer;
+  TimerUtil? _cmdResultTimer;
+  String? _vin;
   var carDataModel = CarDataModel().obs; //电量信息数据
   var carStatusModel = CarStatusModel().obs; //车辆状态数据
   var charging = true.obs; //充电状态
@@ -30,7 +30,7 @@ class EletricController extends BaseController {
 
   @override
   void onInit() {
-    _vin = Get.find<UserController>().userInfo.value.member.fVIN;
+    _vin = Get.find<UserController>().userInfo.value.member!.fVIN!;
     super.onInit();
   }
 
@@ -42,7 +42,7 @@ class EletricController extends BaseController {
 
   //添加（重置）所有定时器
   void addAllTimer() {
-    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member?.isVehicle == 'true') {
       //如果是车主才请求电量信息数据和车辆状态数据
       addStatusTimer();
     }
@@ -50,9 +50,9 @@ class EletricController extends BaseController {
     if (Get.find<UserController>()
             .userInfo
             .value
-            .member
-            .memberInfo
-            .vehicleControlBind ==
+            .member!
+            .memberInfo!
+            .vehicleControlBind! ==
         1) {
       //如果已经绑定车控车辆（绑定必有车控功能），才查询车控指令状态
       addCmdResultTimer();
@@ -63,21 +63,21 @@ class EletricController extends BaseController {
   void addStatusTimer() {
     //电量信息，车辆状态
     _statusTimer = TimerUtil(mInterval: 60 * 1000);
-    _statusTimer.setOnTimerTickCallback((millisUntilFinished) {
+    _statusTimer!.setOnTimerTickCallback((millisUntilFinished) {
       // requestElectricityData();
       requestCarStatusData();
     });
-    _statusTimer.startTimer();
+    _statusTimer!.startTimer();
   }
 
   //添加(重置)指令结果查询定时器
   void addCmdResultTimer() {
     //指令结果
     _cmdResultTimer = TimerUtil(mInterval: 5 * 1000);
-    _cmdResultTimer.setOnTimerTickCallback((millisUntilFinished) {
+    _cmdResultTimer!.setOnTimerTickCallback((millisUntilFinished) {
       requestCmdResult();
     });
-    _cmdResultTimer.startTimer();
+    _cmdResultTimer!.startTimer();
   }
 
   //取消所有定时器
@@ -89,7 +89,7 @@ class EletricController extends BaseController {
   //取消车辆状态数据查询定时器
   void cancelStatusTimer() {
     if (_statusTimer != null) {
-      _statusTimer.cancel();
+      _statusTimer!.cancel();
       _statusTimer = null;
     }
   }
@@ -97,7 +97,7 @@ class EletricController extends BaseController {
   //取消指令结果查询定时器
   void cancelCmdResultTimer() {
     if (_cmdResultTimer != null) {
-      _cmdResultTimer.cancel();
+      _cmdResultTimer!.cancel();
       _cmdResultTimer = null;
     }
   }
@@ -110,45 +110,45 @@ class EletricController extends BaseController {
           "member_id": Get.find<UserController>()
               .userInfo
               .value
-              .member
-              .memberInfo
-              .memberIdStr
+              .member!
+              .memberInfo!
+              .memberIdStr!
         });
-    if (carDataModel.value.datas.rspBody.chargingStatus == 1 ||
-        carDataModel.value.datas.rspBody.chargingStatus == 2) {
+    if (carDataModel.value.datas?.rspBody?.chargingStatus == 1 ||
+        carDataModel.value.datas?.rspBody?.chargingStatus == 2) {
       charging.value = true;
     } else {
       charging.value = false;
     }
-    progressValue.value = carDataModel.value.datas.rspBody.soc / 100;
+    progressValue.value = carDataModel.value.datas?.rspBody?.soc != null ? (carDataModel.value.datas!.rspBody!.soc! / 100) : 0;
   }
 
   //车辆状态查询
-  void requestCarStatusData() async {
+  Future requestCarStatusData() async {
     carStatusModel.value = await DioManager().request<CarStatusModel>(
         DioManager.POST, 'wsapp/vehicle/getVehicleAllStatus',
         params: {'carVin': _vin});
-    if (carStatusModel.value.datas.chargingStatus == '1') {
+    if (carStatusModel.value.datas?.chargingStatus == '1') {
       charging.value = true;
     } else {
       charging.value = false;
     }
-    if (int.parse(carStatusModel.value.datas.soc1) <= 100) {
-      progressValue.value = int.parse(carStatusModel.value.datas.soc1) / 100;
+    if (int.parse(carStatusModel.value.datas!.soc1!) <= 100) {
+      progressValue.value = int.parse(carStatusModel.value.datas!.soc1!) / 100;
     }
-    if (carStatusModel.value.datas.allDoorStatus == 2 &&
-        carStatusModel.value.datas.allLockStatus != 2) {
+    if (carStatusModel.value.datas?.allDoorStatus == 2 &&
+        carStatusModel.value.datas?.allLockStatus != 2) {
       openLock.value = false;
     } else {
       openLock.value = true;
-      if (carStatusModel.value.datas.allLockStatus == 1) {
+      if (carStatusModel.value.datas?.allLockStatus == 1) {
         disabledLock.value = true;
       } else {
         disabledLock.value = false;
       }
     }
     if (carStatusModel.value.code == '200') {
-      if (carStatusModel.value.datas.extendVehiclesStatus == '0') {
+      if (carStatusModel.value.datas?.extendVehiclesStatus == '0') {
         currentCmdStatus.value = 6;
         currentCmdTitle.value = '车辆数据未获取';
         showLoadingView.value = true;
@@ -166,23 +166,23 @@ class EletricController extends BaseController {
         .request<ControlCmdModel>(
             DioManager.POST, 'wsapp/vehicle/getCommandStateVal',
             params: {'carVin': _vin});
-    currentCmdTitle.value = cmdResultModel.datas.loadingTitle;
-    currentCmdType.value = cmdResultModel.datas.cmdType;
-    if (cmdResultModel.datas.value == '0') {
+    currentCmdTitle.value = cmdResultModel.datas!.loadingTitle!;
+    currentCmdType.value = cmdResultModel.datas!.cmdType!;
+    if (cmdResultModel.datas?.value == '0') {
       currentCmdStatus.value = 0;
       showLoadingView.value = false;
     } else {
       showLoadingView.value = true;
-      if (cmdResultModel.datas.value == '1') {
+      if (cmdResultModel.datas?.value == '1') {
         currentCmdStatus.value = 3;
       } else {
-        if (cmdResultModel.datas.value == '2') {
+        if (cmdResultModel.datas?.value == '2') {
           await requestCarStatusData();
           currentCmdStatus.value = 4;
-        } else if (cmdResultModel.datas.value == '3' ||
-            cmdResultModel.datas.value == '4') {
+        } else if (cmdResultModel.datas?.value == '3' ||
+            cmdResultModel.datas?.value == '4') {
           currentCmdStatus.value = 5;
-        } else if (cmdResultModel.datas.value == '5') {
+        } else if (cmdResultModel.datas?.value == '5') {
           currentCmdStatus.value = 2;
         }
         Future.delayed(Duration(seconds: 3)).then((value) {
@@ -301,7 +301,7 @@ class EletricController extends BaseController {
   void pushAction(int index) {
     if (index == 0) {
       //门锁详情
-      Get.toNamed(Routes.DOORLOCK).then((value) {
+      Get.toNamed(Routes.DOORLOCK)?.then((value) {
         cancelAllTimer();
         addAllTimer();
       });
@@ -309,7 +309,7 @@ class EletricController extends BaseController {
       addAllTimer();
     } else if (index == 1) {
       //远程空调
-      Get.toNamed(Routes.AIRCONDITION).then((value) {
+      Get.toNamed(Routes.AIRCONDITION)?.then((value) {
         cancelAllTimer();
         addAllTimer();
       });
@@ -317,7 +317,7 @@ class EletricController extends BaseController {
       addAllTimer();
     } else if (index == 2) {
       //电池诊断
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+      if (Get.find<UserController>().userInfo.value.member?.isVehicle ==
           'true') {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage

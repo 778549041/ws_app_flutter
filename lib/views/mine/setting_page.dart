@@ -11,7 +11,6 @@ class SettingPage extends GetView<SettingController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '我的设置',
-      rightActions: [],
       child: CustomScrollView(
         slivers: <Widget>[
           Obx(() => SliverList(

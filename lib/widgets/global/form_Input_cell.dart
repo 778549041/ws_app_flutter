@@ -28,16 +28,16 @@ class FormInputCell extends StatefulWidget {
   final String text;
   final String hintText;
   final TextInputType keyboardType; //键盘类型，默认文字
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool showRedStar; //显示左侧小红星，默认不显示
-  final Widget leftWidget; //左侧widget ，默认隐藏
-  final Widget rightWidget; //右侧widget ，默认隐藏
-  final int maxLines; //最大行数，默认显示一行，自动换行，最多展示_maxLines 行
+  final Widget? leftWidget; //左侧widget ，默认隐藏
+  final Widget? rightWidget; //右侧widget ，默认隐藏
+  final int? maxLines; //最大行数，默认显示一行，自动换行，最多展示_maxLines 行
   final int maxLength; //最大长度，默认_maxLength
   final bool showMaxLength; //是否显示右侧最大长度文字，默认不显示
   final bool enabled; //是否可编辑，默认true
-  final List<TextInputFormatter> inputFormatters;
-  final _InputCallBack inputCallBack;
+  final List<TextInputFormatter>? inputFormatters;
+  final _InputCallBack? inputCallBack;
   final double space; //标题宽度
   final TextStyle titleStyle;
   final TextStyle textStyle;
@@ -49,7 +49,7 @@ class FormInputCell extends StatefulWidget {
   final Color bgColor; //背景颜色，默认白色
 
   const FormInputCell({
-    Key key,
+    Key? key,
     this.title: '',
     this.text: '',
     this.keyboardType: TextInputType.text,
@@ -108,7 +108,7 @@ class _FormInputCellState extends State<FormInputCell> {
                     ? CrossAxisAlignment.start
                     : CrossAxisAlignment.center,
                 children: <Widget>[
-                  widget.leftWidget != null ? widget.leftWidget : Container(),
+                  widget.leftWidget != null ? widget.leftWidget! : Container(),
                   Container(
                     width: _starW,
                     padding: EdgeInsets.fromLTRB(
@@ -141,7 +141,9 @@ class _FormInputCellState extends State<FormInputCell> {
                     textAlign: widget.textAlign,
                     border: widget.border,
                   )),
-                  widget.rightWidget != null ? widget.rightWidget : Container(),
+                  widget.rightWidget != null
+                      ? widget.rightWidget!
+                      : Container(),
                 ])));
   }
 }

@@ -18,7 +18,7 @@ class AddShopPage extends GetView<AddShopController> {
           children: <Widget>[
             FormInputCell(
               title: '姓名',
-              text: controller.model.value.name,
+              text: controller.model.value.name!,
               hintText: '请输入姓名',
               textAlign: TextAlign.right,
               inputCallBack: (value) {
@@ -27,7 +27,7 @@ class AddShopPage extends GetView<AddShopController> {
             ),
             FormInputCell(
               title: '手机号',
-              text: controller.model.value.mobile,
+              text: controller.model.value.mobile == null ? '' : controller.model.value.mobile!,
               hintText: '请输入手机号码',
               keyboardType: TextInputType.phone,
               maxLength: 11,
@@ -61,7 +61,7 @@ class AddShopPage extends GetView<AddShopController> {
               clickCallBack: () => controller.selectAddress(),
             ),
             FormInputCell(
-              text: controller.model.value.addr,
+              text: controller.model.value.addr == null ? '' : controller.model.value.addr!,
               hintText: '详细地址如街道、门牌号等',
               textAlign: TextAlign.right,
               inputCallBack: (value) {

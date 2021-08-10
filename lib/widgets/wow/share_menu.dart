@@ -10,12 +10,12 @@ class ShareMenuWidget extends StatelessWidget {
   final bool isCircle; //是否是分享圈子
   final bool showWeibo; //是否隐藏微博
   final String shareType; //分享类型
-  final Map<String, dynamic> shareData; //待分享的数据
-  final Map<String, dynamic> extraData; //易观统计所需数据
+  final Map<String, dynamic>? shareData; //待分享的数据
+  final Map<String, dynamic>? extraData; //易观统计所需数据
   ShareMenuWidget(
       {this.isCircle = false,
       this.showWeibo = true,
-      this.shareType,
+      this.shareType = '',
       this.shareData,
       this.extraData});
 
@@ -77,11 +77,11 @@ class ShareMenuWidget extends StatelessWidget {
       Get.toNamed(Routes.REPORT);
       return;
     }
-    ShareSDKPlatform platform;
-    String appName;
-    String share_method;
-    SSDKMap params;
-    String urlStr = shareData['url'];
+    ShareSDKPlatform? platform;
+    String? appName;
+    String? share_method;
+    SSDKMap? params;
+    String urlStr = shareData!['url'];
     if (!urlStr.contains('http')) {
       urlStr = CacheKey.SERVICE_URL_HOST + 'htmlrouter/dist' + urlStr;
     }
@@ -98,7 +98,7 @@ class ShareMenuWidget extends StatelessWidget {
       share_method = '微博';
       appName = '微博';
     }
-    SharesdkPlugin.isClientInstalled(platform).then((value) {
+    SharesdkPlugin.isClientInstalled(platform!).then((value) {
       if (!value) {
         Get.dialog(
             BaseDialog(
@@ -118,41 +118,41 @@ class ShareMenuWidget extends StatelessWidget {
       if (platform == ShareSDKPlatforms.sina) {
         params = SSDKMap()
           ..setSina(
-            shareData["desc"],
-            shareData["title"],
-            [shareData["icon"]],
-            null,
-            null,
+            shareData!["desc"],
+            shareData!["title"],
+            [shareData!["icon"]],
+            '',
+            '',
             0,
             0,
-            null,
+            '',
             false,
             urlStr,
-            null,
+            '',
             SSDKContentTypes.auto,
           );
       } else if (platform == ShareSDKPlatforms.wechatTimeline ||
           platform == ShareSDKPlatforms.wechatSession) {
         params = SSDKMap()
           ..setWechat(
-              shareData["desc"],
-              shareData["title"],
+              shareData!["desc"],
+              shareData!["title"],
               urlStr,
-              shareData["thumbImage"],
-              null,
-              null,
-              null,
-              shareData["icon"],
-              null,
-              null,
-              null,
-              null,
-              null,
+              shareData!["thumbImage"],
+              '',
+              '',
+              '',
+              shareData!["icon"],
+              '',
+              '',
+              '',
+              '',
+              '',
               SSDKContentTypes.auto,
-              platform);
+              platform!);
       }
-      SharesdkPlugin.share(platform, params, (SSDKResponseState state,
-          Map userdata, Map contentEntity, SSDKError error) {
+      SharesdkPlugin.share(platform!, params!, (SSDKResponseState state,
+          dynamic userdata, dynamic contentEntity, SSDKError error) {
         if (state == SSDKResponseState.Success) {
           //分享成功
         } else if (state == SSDKResponseState.Fail) {

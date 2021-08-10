@@ -24,12 +24,12 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
   final String cateStr =
       Get.arguments == null ? null : Get.arguments['cateStr'];
   var newsDetailModel = NewsDetailModel().obs;
-  FocusNode focusNode;
-  TextEditingController textEditingController;
+  FocusNode? focusNode;
+  TextEditingController? textEditingController;
   var placeholder = '我来说下~'.obs; //输入框占位符
   var addOrReply = true.obs; //评论是新增还是回复
-  NewsCommentModel currentSelectComment; //当前选择的评论
-  ReplyModel currentSelectReply; //当前选择的回复
+  NewsCommentModel? currentSelectComment; //当前选择的评论
+  ReplyModel? currentSelectReply; //当前选择的回复
 
   @override
   void onInit() {
@@ -46,7 +46,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
   }
 
   @override
-  Future<List<NewsCommentModel>> loadData({int pageNum}) async {
+  Future<List<NewsCommentModel>?> loadData({int? pageNum}) async {
     NewsCommentListModel _model = await DioManager()
         .request<NewsCommentListModel>(
             DioManager.GET, Api.newsDetailCommentListUrl,
@@ -65,30 +65,30 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
     if (Get.isRegistered<NewsController>()) {
       for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
         NewModel newModel = Get.find<NewsController>().list[i];
-        if (newModel.articleId == newsDetailModel.value.article.articleId) {
+        if (newModel.articleId == newsDetailModel.value.article?.articleId) {
           Get.find<NewsController>().list.remove(newModel);
-          newModel.read = (int.parse(newModel.read) + 1).toString();
+          newModel.read = (int.parse(newModel.read!) + 1).toString();
           Get.find<NewsController>().list.insert(i, newModel);
         }
       }
     }
     //首页wow推荐资讯
     for (var i = 0;
-        i < Get.find<RecommendController>().newsListModel.value.list.length;
+        i < Get.find<RecommendController>().newsListModel.value.list!.length;
         i++) {
       NewModel newModel =
-          Get.find<RecommendController>().newsListModel.value.list[i];
-      if (newModel.articleId == newsDetailModel.value.article.articleId) {
+          Get.find<RecommendController>().newsListModel.value.list![i];
+      if (newModel.articleId == newsDetailModel.value.article!.articleId) {
         Get.find<RecommendController>()
             .newsListModel
             .value
-            .list
+            .list!
             .remove(newModel);
-        newModel.read = (int.parse(newModel.read) + 1).toString();
+        newModel.read = (int.parse(newModel.read!) + 1).toString();
         Get.find<RecommendController>()
             .newsListModel
             .value
-            .list
+            .list!
             .insert(i, newModel);
       }
     }
@@ -96,9 +96,9 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
     if (Get.isRegistered<CateNewsController>()) {
       for (var i = 0; i < Get.find<CateNewsController>().list.length; i++) {
         NewModel newModel = Get.find<CateNewsController>().list[i];
-        if (newModel.articleId == newsDetailModel.value.article.articleId) {
+        if (newModel.articleId == newsDetailModel.value.article?.articleId) {
           Get.find<CateNewsController>().list.remove(newModel);
-          newModel.read = (int.parse(newModel.read) + 1).toString();
+          newModel.read = (int.parse(newModel.read!) + 1).toString();
           Get.find<CateNewsController>().list.insert(i, newModel);
         }
       }
@@ -107,26 +107,26 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
   //资讯分享
   void share() {
-    if (newsDetailModel.value.article.articleId == null) {
+    if (newsDetailModel.value.article?.articleId == null) {
       return;
     }
     //分享数据
     Map<String, dynamic> shareParams = Map<String, dynamic>();
     //易观统计数据
     Map<String, dynamic> extraParams = Map<String, dynamic>();
-    shareParams['title'] = newsDetailModel.value.article.title;
+    shareParams['title'] = newsDetailModel.value.article!.title;
     shareParams['desc'] =
-        newsDetailModel.value.article.bodys.seoDescription.length > 0
-            ? newsDetailModel.value.article.bodys.seoDescription
-            : newsDetailModel.value.article.title;
-    if (newsDetailModel.value.article.imageUrl.contains('?')) {
+        newsDetailModel.value.article!.bodys!.seoDescription!.length > 0
+            ? newsDetailModel.value.article!.bodys!.seoDescription
+            : newsDetailModel.value.article!.title;
+    if (newsDetailModel.value.article!.imageUrl!.contains('?')) {
       shareParams['icon'] =
-          newsDetailModel.value.article.imageUrl.split('?').first;
+          newsDetailModel.value.article!.imageUrl!.split('?').first;
     }
 
     shareParams['url'] = CacheKey.SERVICE_URL_HOST +
         HtmlUrls.NewsDetailPage +
-        '?art_id=${newsDetailModel.value.article.articleId}';
+        '?art_id=${newsDetailModel.value.article!.articleId}';
     Get.bottomSheet(ShareMenuWidget(
       shareData: shareParams,
     ));
@@ -138,20 +138,20 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
       //已点赞，再次点击取消点赞
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.newsDetailUnPraiseUrl,
-          params: {'art_id': newsDetailModel.value.article.articleId});
-      if (result.result) {
-        newsDetailModel.value.article.praiseStatus = false;
-        newsDetailModel.value.article.articlePraise =
-            newsDetailModel.value.article.articlePraise - 1;
+          params: {'art_id': newsDetailModel.value.article!.articleId});
+      if (result.result!) {
+        newsDetailModel.value.article!.praiseStatus = false;
+        newsDetailModel.value.article!.articlePraise =
+            newsDetailModel.value.article!.articlePraise! - 1;
 
         //本地同步数据状态到上级资讯列表页面
         //首页资讯列表
         if (Get.isRegistered<NewsController>()) {
           for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
             NewModel newModel = Get.find<NewsController>().list[i];
-            if (newModel.articleId == newsDetailModel.value.article.articleId) {
+            if (newModel.articleId == newsDetailModel.value.article?.articleId) {
               Get.find<NewsController>().list.remove(newModel);
-              newModel.articlePraise = newModel.articlePraise - 1;
+              newModel.articlePraise = newModel.articlePraise! - 1;
               Get.find<NewsController>().list.insert(i, newModel);
             }
           }
@@ -159,21 +159,21 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
         //首页wow推荐资讯
         for (var i = 0;
-            i < Get.find<RecommendController>().newsListModel.value.list.length;
+            i < Get.find<RecommendController>().newsListModel.value.list!.length;
             i++) {
           NewModel newModel =
-              Get.find<RecommendController>().newsListModel.value.list[i];
-          if (newModel.articleId == newsDetailModel.value.article.articleId) {
+              Get.find<RecommendController>().newsListModel.value.list![i];
+          if (newModel.articleId == newsDetailModel.value.article!.articleId) {
             Get.find<RecommendController>()
                 .newsListModel
                 .value
-                .list
+                .list!
                 .remove(newModel);
-            newModel.articlePraise = newModel.articlePraise - 1;
+            newModel.articlePraise = newModel.articlePraise! - 1;
             Get.find<RecommendController>()
                 .newsListModel
                 .value
-                .list
+                .list!
                 .insert(i, newModel);
           }
         }
@@ -181,36 +181,36 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
         if (Get.isRegistered<CateNewsController>()) {
           for (var i = 0; i < Get.find<CateNewsController>().list.length; i++) {
             NewModel newModel = Get.find<CateNewsController>().list[i];
-            if (newModel.articleId == newsDetailModel.value.article.articleId) {
+            if (newModel.articleId == newsDetailModel.value.article?.articleId) {
               Get.find<CateNewsController>().list.remove(newModel);
-              newModel.articlePraise = newModel.articlePraise - 1;
+              newModel.articlePraise = newModel.articlePraise! - 1;
               Get.find<CateNewsController>().list.insert(i, newModel);
             }
           }
         }
       } else {
-        EasyLoading.showToast(result.message,
+        EasyLoading.showToast(result.message!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return newsDetailModel.value.article.praiseStatus;
+      return newsDetailModel.value.article!.praiseStatus!;
     } else {
       //未点赞，点击点赞
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.newsDetailPraiseUrl,
-          params: {'art_id': newsDetailModel.value.article.articleId});
-      if (result.result) {
-        newsDetailModel.value.article.praiseStatus = true;
-        newsDetailModel.value.article.articlePraise =
-            newsDetailModel.value.article.articlePraise + 1;
+          params: {'art_id': newsDetailModel.value.article!.articleId});
+      if (result.result!) {
+        newsDetailModel.value.article!.praiseStatus = true;
+        newsDetailModel.value.article!.articlePraise =
+            newsDetailModel.value.article!.articlePraise! + 1;
 
         //本地同步数据状态到上级资讯列表页面
         //首页资讯列表
         if (Get.isRegistered<NewsController>()) {
           for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
             NewModel newModel = Get.find<NewsController>().list[i];
-            if (newModel.articleId == newsDetailModel.value.article.articleId) {
+            if (newModel.articleId == newsDetailModel.value.article?.articleId) {
               Get.find<NewsController>().list.remove(newModel);
-              newModel.articlePraise = newModel.articlePraise + 1;
+              newModel.articlePraise = newModel.articlePraise! + 1;
               Get.find<NewsController>().list.insert(i, newModel);
             }
           }
@@ -218,21 +218,21 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
         //首页wow推荐资讯
         for (var i = 0;
-            i < Get.find<RecommendController>().newsListModel.value.list.length;
+            i < Get.find<RecommendController>().newsListModel.value.list!.length;
             i++) {
           NewModel newModel =
-              Get.find<RecommendController>().newsListModel.value.list[i];
-          if (newModel.articleId == newsDetailModel.value.article.articleId) {
+              Get.find<RecommendController>().newsListModel.value.list![i];
+          if (newModel.articleId == newsDetailModel.value.article!.articleId) {
             Get.find<RecommendController>()
                 .newsListModel
                 .value
-                .list
+                .list!
                 .remove(newModel);
-            newModel.articlePraise = newModel.articlePraise + 1;
+            newModel.articlePraise = newModel.articlePraise! + 1;
             Get.find<RecommendController>()
                 .newsListModel
                 .value
-                .list
+                .list!
                 .insert(i, newModel);
           }
         }
@@ -240,18 +240,18 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
         if (Get.isRegistered<CateNewsController>()) {
           for (var i = 0; i < Get.find<CateNewsController>().list.length; i++) {
             NewModel newModel = Get.find<CateNewsController>().list[i];
-            if (newModel.articleId == newsDetailModel.value.article.articleId) {
+            if (newModel.articleId == newsDetailModel.value.article?.articleId) {
               Get.find<CateNewsController>().list.remove(newModel);
-              newModel.articlePraise = newModel.articlePraise + 1;
+              newModel.articlePraise = newModel.articlePraise! + 1;
               Get.find<CateNewsController>().list.insert(i, newModel);
             }
           }
         }
       } else {
-        EasyLoading.showToast(result.message,
+        EasyLoading.showToast(result.message!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return newsDetailModel.value.article.praiseStatus;
+      return newsDetailModel.value.article!.praiseStatus!;
     }
   }
 
@@ -261,30 +261,30 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
       //已收藏，再次点击取消收藏
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.newsDetailUnFavorUrl,
-          params: {'art_id': newsDetailModel.value.article.articleId});
-      if (result.res) {
-        newsDetailModel.value.article.praiseStatus = false;
-        newsDetailModel.value.article.articlePraise =
-            newsDetailModel.value.article.articlePraise - 1;
+          params: {'art_id': newsDetailModel.value.article!.articleId});
+      if (result.res!) {
+        newsDetailModel.value.article!.praiseStatus = false;
+        newsDetailModel.value.article!.articlePraise =
+            newsDetailModel.value.article!.articlePraise! - 1;
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return newsDetailModel.value.article.praiseStatus;
+      return newsDetailModel.value.article!.praiseStatus!;
     } else {
       //未收藏，点击收藏
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.newsDetailFavorUrl,
-          params: {'art_id': newsDetailModel.value.article.articleId});
-      if (result.res) {
-        newsDetailModel.value.article.praiseStatus = true;
-        newsDetailModel.value.article.articlePraise =
-            newsDetailModel.value.article.articlePraise + 1;
+          params: {'art_id': newsDetailModel.value.article!.articleId});
+      if (result.res!) {
+        newsDetailModel.value.article!.praiseStatus = true;
+        newsDetailModel.value.article!.articlePraise =
+            newsDetailModel.value.article!.articlePraise! + 1;
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return newsDetailModel.value.article.praiseStatus;
+      return newsDetailModel.value.article!.praiseStatus!;
     }
   }
 
@@ -293,9 +293,9 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.POST, Api.newsDetailDeleteCommentUrl,
         params: {'cmt_id': model.id});
-    if (result.res) {
-      newsDetailModel.value.article.commentCount =
-          (int.parse(newsDetailModel.value.article.commentCount) - 1)
+    if (result.res!) {
+      newsDetailModel.value.article!.commentCount =
+          (int.parse(newsDetailModel.value.article!.commentCount!) - 1)
               .toString();
       list.remove(model);
 
@@ -304,10 +304,10 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
       if (Get.isRegistered<NewsController>()) {
         for (var i = 0; i < Get.find<NewsController>().list.length; i++) {
           NewModel newModel = Get.find<NewsController>().list[i];
-          if (newModel.articleId == newsDetailModel.value.article.articleId) {
+          if (newModel.articleId == newsDetailModel.value.article?.articleId) {
             Get.find<NewsController>().list.remove(newModel);
             newModel.commentCount =
-                (int.parse(newModel.commentCount) - 1).toString();
+                (int.parse(newModel.commentCount!) - 1).toString();
             Get.find<NewsController>().list.insert(i, newModel);
           }
         }
@@ -315,22 +315,22 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
       //首页wow推荐资讯
       for (var i = 0;
-          i < Get.find<RecommendController>().newsListModel.value.list.length;
+          i < Get.find<RecommendController>().newsListModel.value.list!.length;
           i++) {
         NewModel newModel =
-            Get.find<RecommendController>().newsListModel.value.list[i];
-        if (newModel.articleId == newsDetailModel.value.article.articleId) {
+            Get.find<RecommendController>().newsListModel.value.list![i];
+        if (newModel.articleId == newsDetailModel.value.article!.articleId) {
           Get.find<RecommendController>()
               .newsListModel
               .value
-              .list
+              .list!
               .remove(newModel);
           newModel.commentCount =
-              (int.parse(newModel.commentCount) - 1).toString();
+              (int.parse(newModel.commentCount!) - 1).toString();
           Get.find<RecommendController>()
               .newsListModel
               .value
-              .list
+              .list!
               .insert(i, newModel);
         }
       }
@@ -338,16 +338,16 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
       if (Get.isRegistered<CateNewsController>()) {
         for (var i = 0; i < Get.find<CateNewsController>().list.length; i++) {
           NewModel newModel = Get.find<CateNewsController>().list[i];
-          if (newModel.articleId == newsDetailModel.value.article.articleId) {
+          if (newModel.articleId == newsDetailModel.value.article?.articleId) {
             Get.find<CateNewsController>().list.remove(newModel);
             newModel.commentCount =
-                (int.parse(newModel.commentCount) - 1).toString();
+                (int.parse(newModel.commentCount!) - 1).toString();
             Get.find<CateNewsController>().list.insert(i, newModel);
           }
         }
       }
     } else {
-      EasyLoading.showToast(result.error,
+      EasyLoading.showToast(result.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
@@ -360,35 +360,35 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.newsDetailCommentUnPraiseUrl,
           params: {'cmt_id': model.id});
-      if (result.res) {
+      if (result.res!) {
         model.praiseStatus = false;
-        model.praiseNum = (int.parse(model.praiseNum) - 1).toString();
+        model.praiseNum = (int.parse(model.praiseNum!) - 1).toString();
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return model.praiseStatus;
+      return model.praiseStatus!;
     } else {
       //未点赞，为评论点赞
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.newsDetailCommentPraiseUrl,
           params: {'cmt_id': model.id});
-      if (result.res) {
+      if (result.res!) {
         model.praiseStatus = true;
-        model.praiseNum = (int.parse(model.praiseNum) + 1).toString();
+        model.praiseNum = (int.parse(model.praiseNum!) + 1).toString();
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return model.praiseStatus;
+      return model.praiseStatus!;
     }
   }
 
   //点击输入栏旁边的评论按钮
   void clickArticleCommentBtn() {
-    Get.focusScope.unfocus();
+    Get.focusScope!.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
-      Get.focusScope.requestFocus(focusNode);
+      Get.focusScope!.requestFocus(focusNode);
       placeholder.value = '我来说下~';
       addOrReply.value = true;
       currentSelectComment = null;
@@ -398,9 +398,9 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
   //评论点击
   void clickComment(NewsCommentModel model) {
-    Get.focusScope.unfocus();
+    Get.focusScope!.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
-      Get.focusScope.requestFocus(focusNode);
+      Get.focusScope!.requestFocus(focusNode);
       placeholder.value = '回复 ${model.nickname}:';
       addOrReply.value = false;
       currentSelectComment = model;
@@ -410,9 +410,9 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
   //回复评论点击
   void clickReplyComment(NewsCommentModel model, ReplyModel replyModel) {
-    Get.focusScope.unfocus();
+    Get.focusScope!.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
-      Get.focusScope.requestFocus(focusNode);
+      Get.focusScope!.requestFocus(focusNode);
       placeholder.value = '回复 ${replyModel.plName}:';
       addOrReply.value = false;
       currentSelectComment = model;
@@ -423,7 +423,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
   //发送评论
   Future sendComment(String input) async {
     if (CommonUtil.isBlank(input)) {
-      textEditingController.text = '';
+      textEditingController?.text = '';
       return;
     }
     if (CommonUtil.containsLink(input)) {
@@ -432,26 +432,26 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
       return;
     }
     Map<String, dynamic> params = Map<String, dynamic>();
-    params['art_id'] = newsDetailModel.value.article.articleId;
+    params['art_id'] = newsDetailModel.value.article!.articleId;
     params['content'] = input;
     if (!addOrReply.value) {
       //回复别人的评论
-      params['pid'] = currentSelectComment.id;
+      params['pid'] = currentSelectComment!.id!;
       if (currentSelectReply != null) {
-        params['reply_id'] = currentSelectReply.id;
+        params['reply_id'] = currentSelectReply!.id!;
       } else {
-        params['reply_id'] = currentSelectComment.id;
+        params['reply_id'] = currentSelectComment!.id!;
       }
     }
 
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.POST, Api.newsDetailAddCommentUrl,
         params: params);
-    if (result.result) {
-      newsDetailModel.value.article.commentCount =
-          (int.parse(newsDetailModel.value.article.commentCount) + 1)
+    if (result.result!) {
+      newsDetailModel.value.article!.commentCount =
+          (int.parse(newsDetailModel.value.article!.commentCount!) + 1)
               .toString();
-      String comment_type, commented_content_id;
+      String? comment_type, commented_content_id;
       if (addOrReply.value) {
         //添加新的评论
         comment_type = "资讯文章";
@@ -459,21 +459,21 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
         NewsCommentModel commentModel = NewsCommentModel();
         commentModel.avatar =
-            Get.find<UserController>().userInfo.value.member.headImg;
+            Get.find<UserController>().userInfo.value.member!.headImg;
         commentModel.content = input;
         commentModel.isSelf = true;
         commentModel.isVehicle =
-            (Get.find<UserController>().userInfo.value.member.isVehicle ==
+            (Get.find<UserController>().userInfo.value.member!.isVehicle ==
                 'true');
         commentModel.nickname =
-            Get.find<UserController>().userInfo.value.member.showName;
+            Get.find<UserController>().userInfo.value.member!.showName;
         commentModel.memberInfo =
-            Get.find<UserController>().userInfo.value.member.memberInfo;
+            Get.find<UserController>().userInfo.value.member!.memberInfo;
         commentModel.pubdate =
             DateUtil.formatDate(DateTime.now(), format: DateFormats.full);
         commentModel.id = result.list;
         commentModel.userId =
-            Get.find<UserController>().userInfo.value.member.memberId;
+            Get.find<UserController>().userInfo.value.member!.memberId;
         commentModel.isOfficial = false;
         commentModel.praiseNum = '0';
         commentModel.praiseStatus = false;
@@ -483,9 +483,9 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
         //回复别人的评论
         comment_type = "回复";
         if (currentSelectReply != null) {
-          commented_content_id = currentSelectReply.id;
+          commented_content_id = currentSelectReply!.id;
         } else {
-          commented_content_id = currentSelectComment.id;
+          commented_content_id = currentSelectComment!.id;
         }
 
         int index = list.indexOf(currentSelectComment);
@@ -494,27 +494,27 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
         ReplyModel replyModel = ReplyModel();
         replyModel.id = result.list;
         replyModel.plName =
-            Get.find<UserController>().userInfo.value.member.showName;
+            Get.find<UserController>().userInfo.value.member!.showName;
         replyModel.content = input;
         if (currentSelectReply != null) {
-          replyModel.replyName = currentSelectReply.plName;
-          replyModel.pid = currentSelectReply.id;
+          replyModel.replyName = currentSelectReply!.plName;
+          replyModel.pid = currentSelectReply!.id;
         } else {
-          replyModel.replyName = currentSelectComment.nickname;
-          replyModel.pid = currentSelectComment.id;
+          replyModel.replyName = currentSelectComment!.nickname;
+          replyModel.pid = currentSelectComment!.id;
         }
         replyModel.isOfficial = false;
-        currentSelectComment.replyData.add(replyModel);
-        list.insert(index, currentSelectComment);
+        currentSelectComment!.replyData!.add(replyModel);
+        list.insert(index, currentSelectComment!);
       }
 
       placeholder.value = '我来说下~';
       addOrReply.value = true;
       currentSelectComment = null;
       currentSelectReply = null;
-      textEditingController.text = '';
+      textEditingController?.text = '';
     } else {
-      EasyLoading.showToast(result.message,
+      EasyLoading.showToast(result.message!,
           toastPosition: EasyLoadingToastPosition.bottom);
       Future.delayed(Duration(seconds: 2)).then((value) {
         refresh();

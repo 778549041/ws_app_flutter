@@ -1,9 +1,9 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class CarDataModel {
-  String code;
-  String message;
-  CarData datas;
+  String? code;
+  String? message;
+  CarData? datas;
 
   CarDataModel({this.code, this.message}) : datas = CarData();
 
@@ -11,22 +11,22 @@ class CarDataModel {
     code = asT<String>(json['code'], '');
     message = asT<String>(json['message'], '');
     datas = CarData.fromJson(
-        asT<Map<String, dynamic>>(json['datas'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['datas'], Map<String, dynamic>())!);
   }
 }
 
 class CarData {
-  CarHeader rspBody;
-  String fcarColor;
-  String fcarColorURL;
-  String carType;
+  CarHeader? rspBody;
+  String? fcarColor;
+  String? fcarColorURL;
+  String? carType;
 
   CarData({this.fcarColor = '', this.fcarColorURL = '', this.carType})
       : rspBody = CarHeader();
 
   CarData.fromJson(Map<String, dynamic> json) {
     rspBody = CarHeader.fromJson(
-        asT<Map<String, dynamic>>(json['rspBody'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['rspBody'], Map<String, dynamic>())!);
     fcarColor = asT<String>(json['fcarColor'], '');
     fcarColorURL = asT<String>(json['fcarColorURL'], '');
     carType = asT<String>(json['carType']);
@@ -34,9 +34,9 @@ class CarData {
 }
 
 class CarHeader {
-  int chargingStatus;
-  int soc;
-  int rangMileage;
+  int? chargingStatus;
+  int? soc;
+  int? rangMileage;
 
   CarHeader({this.chargingStatus, this.soc = 0, this.rangMileage = 0});
 

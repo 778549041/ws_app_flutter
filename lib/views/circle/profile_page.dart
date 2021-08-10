@@ -22,7 +22,7 @@ class ProfilePage extends GetView<ProfileController> {
               children: <Widget>[
                 Obx(
                   () => RoundAvatar(
-                    imageUrl: controller.friendModel.value.member.avatar,
+                    imageUrl: controller.friendModel.value.member!.avatar!,
                     height: 80,
                     borderColor: Colors.transparent,
                     borderWidth: 0,
@@ -42,10 +42,10 @@ class ProfilePage extends GetView<ProfileController> {
                               () => Text(
                                 controller.friendModel.value.error != null
                                     ? '用户已注销'
-                                    : controller.friendModel.value.member.name
+                                    : controller.friendModel.value.member!.name!
                                                 .length >
                                             0
-                                        ? '昵称：${controller.friendModel.value.member.name.length > 11 ? controller.friendModel.value.member.name.substring(0, 10) : controller.friendModel.value.member.name}'
+                                        ? '昵称：${controller.friendModel.value.member!.name!.length > 11 ? controller.friendModel.value.member!.name!.substring(0, 10) : controller.friendModel.value.member!.name!}'
                                         : '无昵称',
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 15),
@@ -54,16 +54,16 @@ class ProfilePage extends GetView<ProfileController> {
                           ),
                           //销售员或者勋章标签
                           if (controller
-                              .friendModel.value.member.memberInfo.showTag)
+                              .friendModel.value.member!.memberInfo!.showTag!)
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
                               child: MedalWidget(
                                 medalBtnImage: controller.friendModel.value
-                                    .member.memberInfo.medalOrSaleImageName,
+                                    .member!.memberInfo!.medalOrSaleImageName!,
                                 medalToastImage: controller.friendModel.value
-                                    .member.memberInfo.medalOrSaleDescImageName,
-                                isSales: controller.friendModel.value.member
-                                        .memberInfo.isSales ==
+                                    .member!.memberInfo!.medalOrSaleDescImageName!,
+                                isSales: controller.friendModel.value.member!
+                                        .memberInfo!.isSales! ==
                                     1,
                               ),
                             ),
@@ -71,8 +71,8 @@ class ProfilePage extends GetView<ProfileController> {
                       ),
                       Obx(
                         () => Text(
-                          controller.friendModel.value.member.addr != null
-                              ? '地区：${controller.friendModel.value.member.addr}'
+                          controller.friendModel.value.member?.addr != null
+                              ? '地区：${controller.friendModel.value.member!.addr}'
                               : '地区：无',
                           style: TextStyle(fontSize: 15),
                         ),
@@ -105,7 +105,7 @@ class ProfilePage extends GetView<ProfileController> {
                     spacing: 10,
                     runSpacing: 10,
                     children: List.generate(
-                        controller.friendModel.value.member.interest.length,
+                        controller.friendModel.value.member!.interest!.length,
                         (index) {
                       return Container(
                         width: 80,
@@ -116,7 +116,7 @@ class ProfilePage extends GetView<ProfileController> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Text(
-                          controller.friendModel.value.member.interest[index],
+                          controller.friendModel.value.member!.interest![index],
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -158,7 +158,7 @@ class ProfilePage extends GetView<ProfileController> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           FriendCircleImgModel item =
-                              controller.friendCircleImgModel.value.list[index];
+                              controller.friendCircleImgModel.value.list![index];
                           return Container(
                             margin: const EdgeInsets.only(right: 5),
                             width: 50,
@@ -167,7 +167,7 @@ class ProfilePage extends GetView<ProfileController> {
                               children: <Widget>[
                                 NetImageWidget(
                                   imageUrl: item.type == '0'
-                                      ? item.savepath
+                                      ? item.savepath!
                                       : '${item.savepath}?vframe/jpg/offset/0',
                                   width: 50,
                                   height: 50,
@@ -186,7 +186,7 @@ class ProfilePage extends GetView<ProfileController> {
                           );
                         },
                         itemCount:
-                            controller.friendCircleImgModel.value.list.length,
+                            controller.friendCircleImgModel.value.list!.length,
                       ),
                     ),
                   ),
@@ -213,7 +213,7 @@ class ProfilePage extends GetView<ProfileController> {
             ),
             Obx(
               () => Offstage(
-                offstage: !controller.friendModel.value.member.isFriend,
+                offstage: !controller.friendModel.value.member!.isFriend!,
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: CustomButton(
@@ -232,11 +232,11 @@ class ProfilePage extends GetView<ProfileController> {
               () => Offstage(
                 offstage: (controller.friendModel.value.error != null ||
                     controller.userId ==
-                        controller.friendModel.value.member.memberId ||
+                        controller.friendModel.value.member!.memberId ||
                     controller.userId == '1'),
                 child: CustomButton(
                   backgroundColor: MainAppColor.mainBlueBgColor,
-                  title: controller.friendModel.value.member.isFriend
+                  title: controller.friendModel.value.member!.isFriend!
                       ? '发消息'
                       : '添加好友',
                   width: 200,

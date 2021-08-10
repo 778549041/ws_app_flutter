@@ -7,9 +7,7 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/login_textfield.dart';
 
 class ChangePwdPage extends GetView<ChangePwdController> {
-  final bool isForget = Get.arguments == null
-      ? false
-      : Get.arguments['isForget']; //区分是忘记密码还是修改密码，修改密码不能输入手机号
+  final bool isForget = Get.arguments['isForget']; //区分是忘记密码还是修改密码，修改密码不能输入手机号
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -21,7 +19,7 @@ class ChangePwdPage extends GetView<ChangePwdController> {
           children: <Widget>[
             LoginTextField(
               enabled: isForget ? true : false,
-              text: controller.phone,
+              text: controller.phone == null ? '' : controller.phone!,
               hintText: '请输入手机号',
               maxLength: 11,
               keyboardType: TextInputType.phone,

@@ -12,8 +12,8 @@ import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 
 class MainController extends BaseController {
   var selectedIndex = 0.obs;
-  DateTime _lastPressed;
-  PageController pageController;
+  DateTime? _lastPressed;
+  PageController? pageController;
 
   @override
   void onInit() async {
@@ -32,7 +32,7 @@ class MainController extends BaseController {
   //返回
   Future<bool> onWillPop() async {
     if (_lastPressed == null ||
-        DateTime.now().difference(_lastPressed) > Duration(seconds: 1)) {
+        DateTime.now().difference(_lastPressed!) > Duration(seconds: 1)) {
       //两次点击间隔超过1秒则重新计时
       _lastPressed = DateTime.now();
       return false;
@@ -58,6 +58,6 @@ class MainController extends BaseController {
 
   //tabbaritem点击
   void onItemTap(int index) async {
-    pageController.jumpToPage(index);
+    pageController?.jumpToPage(index);
   }
 }

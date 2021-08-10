@@ -22,7 +22,7 @@ class TextMsgState extends State<TextMsg> {
   bool isSend = true;
   TextEditingController inputController = new TextEditingController();
   FlutterPluginRecord recordPlugin = new FlutterPluginRecord();
-  OverlayEntry overlayEntry;
+  OverlayEntry? overlayEntry;
   String voiceIco = "assets/images/common/voice_volume_1.png";
   void initState() {
     print("widget.toUser${widget.toUser}");
@@ -41,15 +41,15 @@ class TextMsgState extends State<TextMsg> {
           TencentImSDKPlugin.v2TIMManager
               .getMessageManager()
               .sendSoundMessage(
-                soundPath: data.path,
-                receiver: (widget.type == 1 ? widget.toUser : null),
-                groupID: (widget.type == 2 ? widget.toUser : null),
-                duration: data.audioTimeLength.toInt(),
+                soundPath: data.path!,
+                receiver: (widget.type == 1 ? widget.toUser : ''),
+                groupID: (widget.type == 2 ? widget.toUser : ''),
+                duration: data.audioTimeLength!.toInt(),
               )
               .then((sendRes) {
             // 发送成功
             if (sendRes.code == 0) {
-              Get.find<ChatController>().addMessageIfNotExits(sendRes.data);
+              Get.find<ChatController>().addMessageIfNotExits(sendRes.data!);
               print('发送成功');
             }
           });
@@ -57,7 +57,7 @@ class TextMsgState extends State<TextMsg> {
       } else if (data.msg == "onStart") {}
     });
     recordPlugin.responseFromAmplitude.listen((data) {
-      var voiceData = double.parse(data.msg);
+      var voiceData = double.parse(data.msg!);
       setState(() {
         if (voiceData > 0 && voiceData < 0.1) {
           voiceIco = "assets/images/common/voice_volume_2.png";
@@ -77,7 +77,7 @@ class TextMsgState extends State<TextMsg> {
           voiceIco = "assets/images/common/voice_volume_1.png";
         }
         if (overlayEntry != null) {
-          overlayEntry.markNeedsBuild();
+          overlayEntry!.markNeedsBuild();
         }
       });
 
@@ -133,11 +133,11 @@ class TextMsgState extends State<TextMsg> {
           ),
         );
       });
-      Overlay.of(context).insert(overlayEntry);
+      Overlay.of(context)?.insert(overlayEntry!);
     }
   }
 
-  onSubmitted(String s, context) async {
+  onSubmitted(String? s, context) async {
     if (s == '' || s == null) {
       return;
     }
@@ -152,7 +152,7 @@ class TextMsgState extends State<TextMsg> {
 
     if (sendRes.code == 0) {
       print('发送成功');
-      Get.find<ChatController>().addMessageIfNotExits(sendRes.data);
+      Get.find<ChatController>().addMessageIfNotExits(sendRes.data!);
       inputController.clear();
     } else {
       print(sendRes.desc);
@@ -223,7 +223,7 @@ class TextMsgState extends State<TextMsg> {
                     }
                     try {
                       if (overlayEntry != null) {
-                        overlayEntry.remove();
+                        overlayEntry!.remove();
                         overlayEntry = null;
                       }
                     } catch (err) {}

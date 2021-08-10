@@ -7,8 +7,8 @@ class ActivitySearchController extends RefreshListController<ActivityModel> {
 
   @override
   void onInit() async {
+    super.onInit();
     pageSize = 9;
-    // super.onInit();
   }
 
   @override
@@ -17,7 +17,7 @@ class ActivitySearchController extends RefreshListController<ActivityModel> {
   }
 
   @override
-  Future<List<ActivityModel>> loadData({int pageNum}) async {
+  Future<List<ActivityModel>?> loadData({int? pageNum}) async {
     ActivityListModel _model = await DioManager().request<ActivityListModel>(
         DioManager.GET,
         'index.php/m/huodong-$pageNum-10-all.html?key=$searchKey');

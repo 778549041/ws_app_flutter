@@ -47,9 +47,9 @@ class AirConditionPage extends GetView<EletricController> {
       child: Obx(
         () => Offstage(
           offstage:
-              controller.carStatusModel.value.datas.sendingTime.length == '0',
+              controller.carStatusModel.value.datas?.sendingTime?.length == 0,
           child: Text(
-            '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
+            '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas!.sendingTime!))}',
             style: TextStyle(color: Color(0xFF999999), fontSize: 12),
           ),
         ),

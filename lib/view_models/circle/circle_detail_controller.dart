@@ -26,12 +26,12 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
       ? null
       : Get.arguments['commentId'] ?? ''; //需要置顶的评论id
   var momentDetailModel = SingleMomentModel().obs;
-  FocusNode focusNode;
-  TextEditingController textEditingController;
+  late FocusNode focusNode;
+  late TextEditingController textEditingController;
   var placeholder = '我来说下~'.obs; //输入框占位符
   var addOrReply = true.obs; //评论是新增还是回复
-  MomentCommentModel currentSelectComment; //当前选择的评论
-  MomentCommentReplyModel currentSelectReply; //当前选择的回复
+  MomentCommentModel? currentSelectComment; //当前选择的评论
+  MomentCommentReplyModel? currentSelectReply; //当前选择的回复
 
   @override
   void onInit() {
@@ -48,7 +48,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
   }
 
   @override
-  Future<List<MomentCommentModel>> loadData({int pageNum}) async {
+  Future<List<MomentCommentModel>?> loadData({int pageNum = 1}) async {
     MomentCommentListModel _model = await DioManager()
         .request<MomentCommentListModel>(
             DioManager.GET, Api.circleMomentDetailCommentListUrl,
@@ -69,32 +69,32 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
     //本地同步数据状态到其他圈子列表页面
     //wow推荐圈子
     for (var i = 0;
-        i < Get.find<RecommendController>().momentListModel.value.list.length;
+        i < Get.find<RecommendController>().momentListModel.value.list!.length;
         i++) {
       MomentModel momentModel =
-          Get.find<RecommendController>().momentListModel.value.list[i];
-      if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+          Get.find<RecommendController>().momentListModel.value.list![i];
+      if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
         Get.find<RecommendController>()
             .momentListModel
             .value
-            .list
+            .list!
             .remove(momentModel);
         momentModel.visitsNum =
-            (int.parse(momentModel.visitsNum) + 1).toString();
+            (int.parse(momentModel.visitsNum!) + 1).toString();
         Get.find<RecommendController>()
             .momentListModel
             .value
-            .list
+            .list!
             .insert(i, momentModel);
       }
     }
     //圈子列表
     for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
       MomentModel momentModel = Get.find<CircleController>().list[i];
-      if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+      if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
         Get.find<CircleController>().list.remove(momentModel);
         momentModel.visitsNum =
-            (int.parse(momentModel.visitsNum) + 1).toString();
+            (int.parse(momentModel.visitsNum!) + 1).toString();
         Get.find<CircleController>().list.insert(i, momentModel);
       }
     }
@@ -104,10 +104,10 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
           i < Get.find<CircleTopicListController>().list.length;
           i++) {
         MomentModel momentModel = Get.find<CircleTopicListController>().list[i];
-        if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+        if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
           Get.find<CircleTopicListController>().list.remove(momentModel);
           momentModel.visitsNum =
-              (int.parse(momentModel.visitsNum) + 1).toString();
+              (int.parse(momentModel.visitsNum!) + 1).toString();
           Get.find<CircleTopicListController>().list.insert(i, momentModel);
         }
       }
@@ -119,10 +119,10 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
           i++) {
         MomentModel momentModel =
             Get.find<SingleUserCircleController>().list[i];
-        if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+        if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
           Get.find<SingleUserCircleController>().list.remove(momentModel);
           momentModel.visitsNum =
-              (int.parse(momentModel.visitsNum) + 1).toString();
+              (int.parse(momentModel.visitsNum!) + 1).toString();
           Get.find<SingleUserCircleController>().list.insert(i, momentModel);
         }
       }
@@ -131,7 +131,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
 
   //资讯分享
   void share() {
-    if (momentDetailModel.value.list.circleId == null) {
+    if (momentDetailModel.value.list?.circleId == null) {
       return;
     }
     //分享数据
@@ -143,7 +143,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
     shareParams['thumbImage'] = '';
     shareParams['url'] = CacheKey.SERVICE_URL_HOST +
         HtmlUrls.CircleMomentDetailPage +
-        '?cid=${momentDetailModel.value.list.circleId}';
+        '?cid=${momentDetailModel.value.list?.circleId}';
     Get.bottomSheet(ShareMenuWidget(
       isCircle: true,
       shareData: shareParams,
@@ -155,38 +155,38 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.POST, Api.circleMomentDetailDeleteCommentUrl,
         params: {'cmt_id': model.id, 'c_id': circleId});
-    if (result.result) {
-      momentDetailModel.value.list.comment =
-          (int.parse(momentDetailModel.value.list.comment) - 1).toString();
+    if (result.result!) {
+      momentDetailModel.value.list!.comment =
+          (int.parse(momentDetailModel.value.list!.comment!) - 1).toString();
       list.remove(model);
 
       //本地同步数据状态到其他圈子列表页面
       //wow推荐圈子
       for (var i = 0;
-          i < Get.find<RecommendController>().momentListModel.value.list.length;
+          i < Get.find<RecommendController>().momentListModel.value.list!.length;
           i++) {
         MomentModel momentModel =
-            Get.find<RecommendController>().momentListModel.value.list[i];
-        if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+            Get.find<RecommendController>().momentListModel.value.list![i];
+        if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
           Get.find<RecommendController>()
               .momentListModel
               .value
-              .list
+              .list!
               .remove(momentModel);
-          momentModel.comment = (int.parse(momentModel.comment) - 1).toString();
+          momentModel.comment = (int.parse(momentModel.comment!) - 1).toString();
           Get.find<RecommendController>()
               .momentListModel
               .value
-              .list
+              .list!
               .insert(i, momentModel);
         }
       }
       //圈子列表
       for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
         MomentModel momentModel = Get.find<CircleController>().list[i];
-        if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+        if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
           Get.find<CircleController>().list.remove(momentModel);
-          momentModel.comment = (int.parse(momentModel.comment) - 1).toString();
+          momentModel.comment = (int.parse(momentModel.comment!) - 1).toString();
           Get.find<CircleController>().list.insert(i, momentModel);
         }
       }
@@ -197,10 +197,10 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
             i++) {
           MomentModel momentModel =
               Get.find<CircleTopicListController>().list[i];
-          if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+          if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
             Get.find<CircleTopicListController>().list.remove(momentModel);
             momentModel.comment =
-                (int.parse(momentModel.comment) - 1).toString();
+                (int.parse(momentModel.comment!) - 1).toString();
             Get.find<CircleTopicListController>().list.insert(i, momentModel);
           }
         }
@@ -212,16 +212,16 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
             i++) {
           MomentModel momentModel =
               Get.find<SingleUserCircleController>().list[i];
-          if (momentModel.circleId == momentDetailModel.value.list.circleId) {
+          if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
             Get.find<SingleUserCircleController>().list.remove(momentModel);
             momentModel.comment =
-                (int.parse(momentModel.comment) - 1).toString();
+                (int.parse(momentModel.comment!) - 1).toString();
             Get.find<SingleUserCircleController>().list.insert(i, momentModel);
           }
         }
       }
     } else {
-      EasyLoading.showToast(result.error,
+      EasyLoading.showToast(result.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
@@ -234,35 +234,35 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.circleMomentCommentUnPraiseUrl,
           params: {'cmt_id': model.id});
-      if (result.result) {
+      if (result.result!) {
         model.praiseStatus = false;
-        model.praiseNum = (int.parse(model.praiseNum) - 1).toString();
+        model.praiseNum = (int.parse(model.praiseNum!) - 1).toString();
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return model.praiseStatus;
+      return model.praiseStatus!;
     } else {
       //未点赞，为评论点赞
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.circleMomentCommentPraiseUrl,
           params: {'cmt_id': model.id});
-      if (result.result) {
+      if (result.result!) {
         model.praiseStatus = true;
-        model.praiseNum = (int.parse(model.praiseNum) + 1).toString();
+        model.praiseNum = (int.parse(model.praiseNum!) + 1).toString();
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
-      return model.praiseStatus;
+      return model.praiseStatus!;
     }
   }
 
   //点击输入栏旁边的评论按钮
   void clickArticleCommentBtn() {
-    Get.focusScope.unfocus();
+    Get.focusScope?.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
-      Get.focusScope.requestFocus(focusNode);
+      Get.focusScope?.requestFocus(focusNode);
       placeholder.value = '我来说下~';
       addOrReply.value = true;
       currentSelectComment = null;
@@ -272,9 +272,9 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
 
   //评论点击
   void clickComment(MomentCommentModel model) {
-    Get.focusScope.unfocus();
+    Get.focusScope?.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
-      Get.focusScope.requestFocus(focusNode);
+      Get.focusScope?.requestFocus(focusNode);
       placeholder.value = '回复 ${model.nickname}:';
       addOrReply.value = false;
       currentSelectComment = model;
@@ -285,9 +285,9 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
   //回复评论点击
   void clickReplyComment(
       MomentCommentModel model, MomentCommentReplyModel replyModel) {
-    Get.focusScope.unfocus();
+    Get.focusScope?.unfocus();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
-      Get.focusScope.requestFocus(focusNode);
+      Get.focusScope?.requestFocus(focusNode);
       placeholder.value = '回复 ${replyModel.plName}:';
       addOrReply.value = false;
       currentSelectComment = model;
@@ -307,24 +307,24 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
       return;
     }
     Map<String, dynamic> params = Map<String, dynamic>();
-    params['c_id'] = momentDetailModel.value.list.circleId;
+    params['c_id'] = momentDetailModel.value.list?.circleId;
     params['content'] = input;
     if (!addOrReply.value) {
       //回复别人的评论
-      params['pid'] = currentSelectComment.id;
+      params['pid'] = currentSelectComment!.id;
       if (currentSelectReply != null) {
-        params['reply_id'] = currentSelectReply.id;
+        params['reply_id'] = currentSelectReply!.id;
       } else {
-        params['reply_id'] = currentSelectComment.id;
+        params['reply_id'] = currentSelectComment!.id;
       }
     }
 
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.POST, Api.circleMomentDetailAddReplyForCommentUrl,
         params: params);
-    if (result.result) {
-      momentDetailModel.value.list.comment =
-          (int.parse(momentDetailModel.value.list.comment) + 1).toString();
+    if (result.result!) {
+      momentDetailModel.value.list!.comment =
+          (int.parse(momentDetailModel.value.list!.comment!) + 1).toString();
       String comment_type, commented_content_id;
       if (addOrReply.value) {
         //添加新的评论
@@ -333,21 +333,21 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
 
         MomentCommentModel commentModel = MomentCommentModel();
         commentModel.avatar =
-            Get.find<UserController>().userInfo.value.member.headImg;
+            Get.find<UserController>().userInfo.value.member!.headImg;
         commentModel.content = input;
         commentModel.isSelf = true;
         commentModel.isVehicle =
-            (Get.find<UserController>().userInfo.value.member.isVehicle ==
+            (Get.find<UserController>().userInfo.value.member!.isVehicle ==
                 'true');
         commentModel.nickname =
-            Get.find<UserController>().userInfo.value.member.showName;
+            Get.find<UserController>().userInfo.value.member!.showName;
         commentModel.memberInfo =
-            Get.find<UserController>().userInfo.value.member.memberInfo;
+            Get.find<UserController>().userInfo.value.member!.memberInfo;
         commentModel.pubdate =
             DateUtil.formatDate(DateTime.now(), format: DateFormats.full);
         commentModel.id = result.list;
         commentModel.userId =
-            Get.find<UserController>().userInfo.value.member.memberId;
+            Get.find<UserController>().userInfo.value.member!.memberId;
         commentModel.isOfficial = false;
         commentModel.praiseNum = '0';
         commentModel.praiseStatus = false;
@@ -357,9 +357,9 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
         //回复别人的评论
         comment_type = "回复";
         if (currentSelectReply != null) {
-          commented_content_id = currentSelectReply.id;
+          commented_content_id = currentSelectReply!.id!;
         } else {
-          commented_content_id = currentSelectComment.id;
+          commented_content_id = currentSelectComment!.id!;
         }
 
         int index = list.indexOf(currentSelectComment);
@@ -368,18 +368,18 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
         MomentCommentReplyModel replyModel = MomentCommentReplyModel();
         replyModel.id = result.list;
         replyModel.plName =
-            Get.find<UserController>().userInfo.value.member.showName;
+            Get.find<UserController>().userInfo.value.member!.showName;
         replyModel.content = input;
         if (currentSelectReply != null) {
-          replyModel.replyName = currentSelectReply.plName;
-          replyModel.pid = currentSelectReply.id;
+          replyModel.replyName = currentSelectReply!.plName;
+          replyModel.pid = currentSelectReply!.id;
         } else {
-          replyModel.replyName = currentSelectComment.nickname;
-          replyModel.pid = currentSelectComment.id;
+          replyModel.replyName = currentSelectComment!.nickname;
+          replyModel.pid = currentSelectComment!.id;
         }
         replyModel.isOfficial = false;
-        currentSelectComment.replyData.add(replyModel);
-        list.insert(index, currentSelectComment);
+        currentSelectComment?.replyData?.add(replyModel);
+        list.insert(index, currentSelectComment!);
       }
 
       placeholder.value = '我来说下~';
@@ -388,7 +388,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
       currentSelectReply = null;
       textEditingController.text = '';
     } else {
-      EasyLoading.showToast(result.message,
+      EasyLoading.showToast(result.message!,
           toastPosition: EasyLoadingToastPosition.bottom);
       Future.delayed(Duration(seconds: 2)).then((value) {
         refresh();

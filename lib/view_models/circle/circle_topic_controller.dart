@@ -13,7 +13,7 @@ class CircleTopicController extends RefreshListController<TopicModel> {
   }
 
   @override
-  Future<List<TopicModel>> loadData({int pageNum}) async {
+  Future<List<TopicModel>?> loadData({int pageNum = 1}) async {
     TopicListModel _model = await DioManager().request<TopicListModel>(
         DioManager.POST, Api.circleTopicListUrl,
         queryParamters: {"page": pageNum});

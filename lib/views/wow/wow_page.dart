@@ -30,7 +30,7 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, A
     NewsListPage(),
     ActivityListPage()
   ];
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   bool get wantKeepAlive => true;
@@ -79,7 +79,7 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, A
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController?.dispose();
     super.dispose();
   }
 

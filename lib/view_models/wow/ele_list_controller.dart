@@ -9,7 +9,7 @@ class EleListController extends ListController<ChargePileInfo> {
   final String serviceType = Get.arguments['serviceType'];
 
   @override
-  Future<List<ChargePileInfo>> loadData() async {
+  Future<List<ChargePileInfo>?> loadData() async {
     ChargePileListModel _model = await DioManager()
         .request<ChargePileListModel>(DioManager.GET, Api.mapAllCDZhanListUrl,
             queryParamters: {

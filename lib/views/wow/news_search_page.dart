@@ -74,7 +74,7 @@ class NewsSearchPage extends GetView<NewsSearchController> {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   color:
-                                      controller.searchTagList[index].selected
+                                      controller.searchTagList[index].selected!
                                           ? MainAppColor.mainBlueBgColor
                                           : Colors.transparent,
                                   border: Border.all(
@@ -82,10 +82,10 @@ class NewsSearchPage extends GetView<NewsSearchController> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Text(
-                                  controller.searchTagList[index].tagName,
+                                  controller.searchTagList[index].tagName!,
                                   style: TextStyle(
                                     color:
-                                        controller.searchTagList[index].selected
+                                        controller.searchTagList[index].selected!
                                             ? Colors.white
                                             : MainAppColor.mainBlueBgColor,
                                     fontSize: 15,

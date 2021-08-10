@@ -32,17 +32,17 @@ class UserController extends BaseController {
     UserInfo user =
         await DioManager().request<UserInfo>(DioManager.POST, Api.userInfoUrl);
     userInfo.value = user;
-    isLogin.value = (user.member.memberId.length != 0);
+    isLogin.value = (user.member!.memberId?.length != 0);
   }
 
   //修改用户信息
   Future<CommonModel> changeUserInfo(
-      {String name,
-      String gender,
-      String birthday,
-      String profession,
-      String area,
-      String addr}) async {
+      {String? name,
+      String? gender,
+      String? birthday,
+      String? profession,
+      String? area,
+      String? addr}) async {
     Map<String, String> _params = Map<String, String>();
     if (name != null && name.length > 0) {
       _params['contact[name]'] = name;
@@ -68,7 +68,7 @@ class UserController extends BaseController {
     if (obj.success != null) {
       await getUserInfo();
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
     return obj;
@@ -86,8 +86,8 @@ class UserController extends BaseController {
       SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
           .then((result) {
         if (result == true) {
-          SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, null,
-              (SSDKResponseState state, Map user, SSDKError error) async {
+          SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, Map(),
+              (SSDKResponseState state, dynamic user, SSDKError error) async {
             if (state == SSDKResponseState.Success) {
               ThirdLoginModel obj = await DioManager().request<ThirdLoginModel>(
                   DioManager.POST, Api.wechatAuthLoginOrCertifyUrl,
@@ -96,7 +96,7 @@ class UserController extends BaseController {
                     'access_token': user['credential']['token'],
                     'openid': user['rawData']['openid']
                   });
-              if (obj.data.binding == 'true') {
+              if (obj.data?.binding == 'true') {
                 //已绑定
                 certifyResult();
               }
@@ -118,7 +118,7 @@ class UserController extends BaseController {
   //认证结果
   void certifyResult() async {
     await Get.find<UserController>().getUserInfo();
-    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member?.isVehicle == 'true') {
       //认证成功
       if (Get.currentRoute == Routes.SELECTINTREST) {
         //如果当前路由是选择兴趣爱好,则跳转首页
@@ -153,7 +153,7 @@ class UserController extends BaseController {
       return false;
     }
     V2TimCallback _imLoginRes = await TencentImSDKPlugin.v2TIMManager
-        .login(userID: _model.data.user, userSig: _model.data.sig);
+        .login(userID: _model.data!.user!, userSig: _model.data!.sig!);
     return _imLoginRes.code == 0;
   }
 

@@ -12,7 +12,7 @@ class ReportPage extends GetView<ReportController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '举报',
-      rightActions: <Widget>[
+      rightItems: <Widget>[
         CustomButton(
           backgroundColor: Colors.transparent,
           height: 30,

@@ -20,7 +20,7 @@ class SystemMessageState extends State<SystemMessage> {
     super.initState();
   }
 
-  V2TimMessage message;
+  late V2TimMessage message;
   getMemberNickName(V2TimGroupMemberInfo e) {
     return e.friendRemark == null || e.friendRemark == ''
         ? e.nickName == null || e.nickName == ''
@@ -38,7 +38,7 @@ class SystemMessageState extends State<SystemMessage> {
   }
 
   getGroupChangeType(V2TimGroupChangeInfo info) {
-    int type = info.type;
+    int type = info.type!;
     var value = info.value;
     String s = '';
     if (type == GroupChangeInfoType.V2TIM_GROUP_INFO_CHANGE_TYPE_CUSTOM) {
@@ -64,36 +64,36 @@ class SystemMessageState extends State<SystemMessage> {
   }
 
   showGroupTips() {
-    int type = message.groupTipsElem.type;
-    List<V2TimGroupMemberInfo> memberlist = message.groupTipsElem.memberList;
-    V2TimGroupMemberInfo opUser = message.groupTipsElem.opMember;
-    List<V2TimGroupChangeInfo> groupChangeInfoList =
-        message.groupTipsElem.groupChangeInfoList;
+    int? type = message.groupTipsElem?.type;
+    List<V2TimGroupMemberInfo?>? memberlist = message.groupTipsElem?.memberList;
+    V2TimGroupMemberInfo? opUser = message.groupTipsElem?.opMember;
+    List<V2TimGroupChangeInfo?>? groupChangeInfoList =
+        message.groupTipsElem?.groupChangeInfoList;
 
     if (type == GroupTipsElemType.V2TIM_GROUP_TIPS_TYPE_JOIN) {
       //主动入群
       return Column(
-          children: memberlist
-              .map((e) => Text("用户${getMemberNickName(e)}加入了群聊"))
+          children: memberlist!
+              .map((e) => Text("用户${getMemberNickName(e!)}加入了群聊"))
               .toList());
     } else if (type == GroupTipsElemType.V2TIM_GROUP_TIPS_TYPE_INVITE) {
       //被邀请进群
       return Column(
-        children: memberlist
+        children: memberlist!
             .map((e) =>
-                Text("${getOpUserNick(opUser)}邀请了${getMemberNickName(e)}"))
+                Text("${getOpUserNick(opUser!)}邀请了${getMemberNickName(e!)}"))
             .toList(),
       );
     } else if (type ==
         GroupTipsElemType.V2TIM_GROUP_TIPS_TYPE_GROUP_INFO_CHANGE) {
       return Column(
-        children: groupChangeInfoList
+        children: groupChangeInfoList!
             .map((e) =>
-                Text("${getOpUserNick(opUser)}修改${getGroupChangeType(e)}"))
+                Text("${getOpUserNick(opUser!)}修改${getGroupChangeType(e!)}"))
             .toList(),
       );
     } else if (type == GroupTipsElemType.V2TIM_GROUP_TIPS_TYPE_QUIT) {
-      return Text("${getOpUserNick(opUser)}退出群聊");
+      return Text("${getOpUserNick(opUser!)}退出群聊");
     } else {
       return Text('系统消息$type');
     }

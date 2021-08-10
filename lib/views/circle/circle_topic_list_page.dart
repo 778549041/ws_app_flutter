@@ -45,7 +45,7 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
                                   width: Get.width,
                                   height: Get.width * 204 / 375,
                                   imageUrl: controller
-                                      .topicDetailModel.value.list.imageUrl,
+                                      .topicDetailModel.value.list!.imageUrl!,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -64,8 +64,8 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
                                             imageUrl: controller
                                                 .topicDetailModel
                                                 .value
-                                                .list
-                                                .adminUrl,
+                                                .list!
+                                                .adminUrl!,
                                             height: 40,
                                             borderWidth: 0,
                                             borderColor: Colors.transparent,
@@ -81,7 +81,7 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
                                             Obx(
                                               () => Text(
                                                 controller.topicDetailModel
-                                                    .value.list.title,
+                                                    .value.list!.title!,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
@@ -91,7 +91,7 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
                                             ),
                                             Obx(
                                               () => Text(
-                                                '${controller.topicDetailModel.value.list.totalNum}人参与',
+                                                '${controller.topicDetailModel.value.list!.totalNum!}人参与',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
@@ -123,7 +123,7 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
                                 ),
                                 Obx(() => ExpandableText(
                                       controller
-                                          .topicDetailModel.value.list.content,
+                                          .topicDetailModel.value.list!.content!,
                                       expandText: '[更多]',
                                       collapseText: '[收起]',
                                       linkColor: Color(0xFF1B7DF4),

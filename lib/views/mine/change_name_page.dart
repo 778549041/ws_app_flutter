@@ -8,9 +8,7 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
 
 class ChangeNamePage extends GetView<ChangeNameController> {
-  final bool isName = Get.arguments == null
-      ? false
-      : Get.arguments['isName']; //区分是修改昵称还是职业
+  final bool isName = Get.arguments['isName']; //区分是修改昵称还是职业
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -29,8 +27,8 @@ class ChangeNamePage extends GetView<ChangeNameController> {
               ],
               hintText: isName ? '1-15个字' : '',
               text: isName
-                  ? Get.find<UserController>().userInfo.value.member.showName
-                  : Get.find<UserController>().userInfo.value.member.profession,
+                  ? Get.find<UserController>().userInfo.value.member!.showName!
+                  : Get.find<UserController>().userInfo.value.member!.profession!,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.zero,
                   borderSide: BorderSide(color: Color(0xFFD6D6D6), width: 0.5)),

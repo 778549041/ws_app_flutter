@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -25,35 +26,35 @@ class MineInfoController extends GetxController {
 
   void initData() {
     UserInfo _userInfo = Get.find<UserController>().userInfo.value;
-    var _address = _userInfo.member.area;
-    if (_address.contains('mainland')) {
+    var _address = _userInfo.member?.area;
+    if (_address != null && _address.contains('mainland')) {
       _address = _address.split(':')[1];
     }
     data.assignAll([
       {"title": "", "content": ''},
-      {"title": "昵    称", "content": _userInfo.member.showName},
+      {"title": "昵    称", "content": _userInfo.member!.showName},
       {
         "title": "手 机 号",
-        "content": _userInfo.member.mobile != null
-            ? _userInfo.member.mobile.replaceFirst(RegExp(r'\d{4}'), '****', 3)
+        "content": _userInfo.member!.mobile != null
+            ? _userInfo.member!.mobile!.replaceFirst(RegExp(r'\d{4}'), '****', 3)
             : ''
       },
-      {"title": "性    别", "content": _userInfo.member.sex == '0' ? '女' : '男'},
+      {"title": "性    别", "content": _userInfo.member!.sex == '0' ? '女' : '男'},
       {
         "title": "出生日期",
-        "content": _userInfo.member.bYear.length > 0
-            ? (_userInfo.member.bYear +
+        "content": _userInfo.member!.bYear != null && _userInfo.member!.bYear!.length > 0
+            ? (_userInfo.member!.bYear! +
                 '-' +
-                (_userInfo.member.bMonth.length == 2
-                    ? _userInfo.member.bMonth
-                    : ('0' + _userInfo.member.bMonth)) +
+                (_userInfo.member!.bMonth != null && _userInfo.member!.bMonth!.length == 2
+                    ? _userInfo.member!.bMonth!
+                    : ('0' + _userInfo.member!.bMonth!)) +
                 '-' +
-                (_userInfo.member.bDay.length == 2
-                    ? _userInfo.member.bDay
-                    : ('0' + _userInfo.member.bDay)))
+                (_userInfo.member!.bDay != null && _userInfo.member!.bDay!.length == 2
+                    ? _userInfo.member!.bDay!
+                    : ('0' + _userInfo.member!.bDay!)))
             : ''
       },
-      {"title": "职    业", "content": _userInfo.member.profession},
+      {"title": "职    业", "content": _userInfo.member?.profession == null ? '' : _userInfo.member?.profession},
       {"title": "现 居 地", "content": _address},
       {"title": "设置兴趣爱好", "content": ''},
       {"title": "我的收货地址", "content": ''}
@@ -98,11 +99,11 @@ class MineInfoController extends GetxController {
 
   //上传头像
   Future uploadAvatar(ImageSource source) async {
-    var _image = await ImagePicker().getImage(source: source);
+    var _image = await ImagePicker().pickImage(source: source);
     if (_image == null) {
       return;
     }
-    List bytes = await _image.readAsBytes();
+    Uint8List bytes = await _image.readAsBytes();
     String bs64 = base64Encode(bytes);
     String bs64Image = "data:image/png;base64," + bs64;
     CommonModel _model = await DioManager().request<CommonModel>(
@@ -141,7 +142,7 @@ class MineInfoController extends GetxController {
   //选择性别
   void selectSex() {
     Pickers.showSinglePicker(
-      Get.context,
+      Get.context!,
       data: ['男', '女'],
       onConfirm: (data, position) async {
         await Get.find<UserController>().changeUserInfo(
@@ -158,7 +159,7 @@ class MineInfoController extends GetxController {
   //选择出生日期
   void selectBirth() {
     Pickers.showDatePicker(
-      Get.context,
+      Get.context!,
       onConfirm: (res) async {
         var birthday = '${res.year}-${res.month}-${res.day}';
         await Get.find<UserController>().changeUserInfo(birthday: birthday);

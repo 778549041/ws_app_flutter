@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class TextBannerListModel {
-  List<TextBannerModel> data;
+  List<TextBannerModel>? data;
 
   TextBannerListModel() : data = <TextBannerModel>[];
 
@@ -11,8 +11,8 @@ class TextBannerListModel {
       (json['data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            data.add(
-                TextBannerModel.fromJson(asT<Map<String, dynamic>>(element)));
+            data!.add(
+                TextBannerModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -21,16 +21,16 @@ class TextBannerListModel {
 }
 
 class TextBannerModel {
-  String id;
-  String status;
-  String type;
-  String memberLv;
-  String content;
-  String url;
-  String createtime;
-  String updatetime;
-  String isHeader;
-  TextBannerParams params;
+  String? id;
+  String? status;
+  String? type;
+  String? memberLv;
+  String? content;
+  String? url;
+  String? createtime;
+  String? updatetime;
+  String? isHeader;
+  TextBannerParams? params;
 
   TextBannerModel(
       {this.id = '',
@@ -55,13 +55,13 @@ class TextBannerModel {
     updatetime = asT<String>(json['updatetime'], '');
     isHeader = asT<String>(json['is_header'], '');
     params = TextBannerParams.fromJson(
-        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>())!);
   }
 }
 
 class TextBannerParams {
-  String type;
-  String detailId;
+  String? type;
+  String? detailId;
 
   TextBannerParams({this.type = '', this.detailId = ''});
 

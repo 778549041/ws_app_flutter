@@ -7,7 +7,7 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class UnbindPhoneController extends GetxController {
-  String code;
+  String? code;
   var tipMessage = ''.obs;
 
   @override
@@ -20,32 +20,32 @@ class UnbindPhoneController extends GetxController {
   Future<bool> sendCode() async {
     CommonModel obj = await DioManager().request<CommonModel>(
         DioManager.POST, Api.changedBindPhoneSendCodeUrl, params: {
-      'mobile': Get.find<UserController>().userInfo.value.member.mobile
+      'mobile': Get.find<UserController>().userInfo.value.member!.mobile
     });
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success,
+      EasyLoading.showToast(obj.success!,
           toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
     return true;
   }
 
   Future nextStep() async {
-    if (code.length == 0) {
+    if (code?.length == 0) {
       EasyLoading.showToast('请输入验证码',
           toastPosition: EasyLoadingToastPosition.bottom);
     }
     CommonModel _model = await DioManager().request<CommonModel>(
         DioManager.POST, Api.unbindPhoneUrl, params: {
-      'mobile': Get.find<UserController>().userInfo.value.member.mobile,
+      'mobile': Get.find<UserController>().userInfo.value.member!.mobile,
       'vcode': code
     });
     if (_model.success != null) {
       Get.toNamed(Routes.MINEBINDNEWPHONE);
     } else if (_model.error != null) {
-      tipMessage.value = _model.error;
+      tipMessage.value = _model.error!;
     }
   }
 }

@@ -14,7 +14,7 @@ class NetConnectController extends BaseController {
   var currentIndex = 0.obs;
   var isConnect = true.obs;
   var webTitle = ''.obs;
-  WebViewController webViewController;
+  WebViewController? webViewController;
 
   //检查网络状态
   _checkConnected() async {
@@ -29,8 +29,8 @@ class NetConnectController extends BaseController {
 
   //获取当前网页页面标题
   _loadTitle() async {
-    final String title = await webViewController?.getTitle();
-    webTitle.value = title;
+    final String? title = await webViewController?.getTitle();
+    webTitle.value = title == null ? '' : title;
   }
 
   //加载本地html文件
@@ -43,9 +43,7 @@ class NetConnectController extends BaseController {
 
   //调用js事件
   Future<void> _evaluateJavascript() async {
-    webViewController
-        ?.evaluateJavascript('callJS(\'visible\');')
-        ?.then((value) {
+    webViewController?.evaluateJavascript('callJS(\'visible\');').then((value) {
       print(value);
     });
   }
@@ -56,7 +54,8 @@ class NetConnectController extends BaseController {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      EasyLoading.showToast('未安装支付软件',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('未安装支付软件',
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
@@ -66,7 +65,8 @@ class NetConnectController extends BaseController {
     JavascriptChannel toastChannel = JavascriptChannel(
         name: 'Toaster',
         onMessageReceived: (JavascriptMessage message) {
-          EasyLoading.showToast(message.message,toastPosition: EasyLoadingToastPosition.bottom);
+          EasyLoading.showToast(message.message,
+              toastPosition: EasyLoadingToastPosition.bottom);
         });
     channels.add(toastChannel);
     return channels;
@@ -74,7 +74,7 @@ class NetConnectController extends BaseController {
 
   //返回上一层
   Future<void> goBack() async {
-    if (webViewController != null && await webViewController.canGoBack()) {
+    if (webViewController != null && await webViewController!.canGoBack()) {
       webViewController?.goBack();
     } else {
       Get.back();
@@ -82,7 +82,7 @@ class NetConnectController extends BaseController {
   }
 
   //加载失败点击按钮刷新页面
-  void onPressedReload({String url, String localHtml}) {
+  void onPressedReload({String? url, String? localHtml}) {
     if (webViewController == null) {
       return;
     }
@@ -92,7 +92,7 @@ class NetConnectController extends BaseController {
   }
 
   //加载页面
-  void loadWebPage({String url, String localHtml}) {
+  void loadWebPage({String? url, String? localHtml}) {
     if (url != null) {
       webViewController?.loadUrl(url, headers: {'Referer': url});
     }
@@ -114,8 +114,7 @@ class NetConnectController extends BaseController {
     }
     _loadTitle();
     //设置cookie
-    String cookie =
-        "document.cookie = '_SID=${CommonUtil.sid()}'";
+    String cookie = "document.cookie = '_SID=${CommonUtil.sid()}'";
     webViewController?.evaluateJavascript(cookie);
     // _evaluateJavascript();
   }

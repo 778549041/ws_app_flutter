@@ -39,7 +39,7 @@ class MineQRPage extends StatelessWidget {
                       imageUrl: Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
+                              .member!
                               .headImg ??
                           '',
                     ),
@@ -65,50 +65,50 @@ class MineQRPage extends StatelessWidget {
                           (Get.find<UserController>()
                                       .userInfo
                                       .value
-                                      .member
-                                      .showName
+                                      .member!
+                                      .showName!
                                       .length >
                                   11)
                               ? Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
-                                  .showName
+                                  .member!
+                                  .showName!
                                   .substring(0, 11)
                               : Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
-                                  .showName,
+                                  .member!
+                                  .showName!,
                           style: TextStyle(fontSize: 15),
                         )),
                     // 销售员或者勋章标签
                     if (Get.find<UserController>()
                         .userInfo
                         .value
-                        .member
-                        .memberInfo
-                        .showTag)
+                        .member!
+                        .memberInfo!
+                        .showTag!)
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: MedalWidget(
                           medalBtnImage: Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
-                              .memberInfo
-                              .medalOrSaleImageName,
+                              .member!
+                              .memberInfo!
+                              .medalOrSaleImageName!,
                           medalToastImage: Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
-                              .memberInfo
-                              .medalOrSaleDescImageName,
+                              .member!
+                              .memberInfo!
+                              .medalOrSaleDescImageName!,
                           isSales: Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
-                                  .memberInfo
+                                  .member!
+                                  .memberInfo!
                                   .isSales ==
                               1,
                         ),
@@ -117,15 +117,15 @@ class MineQRPage extends StatelessWidget {
                           offstage: Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
-                                  .sex
+                                  .member!
+                                  .sex!
                                   .length ==
                               0,
                           child: Image.asset(
                             Get.find<UserController>()
                                         .userInfo
                                         .value
-                                        .member
+                                        .member!
                                         .sex ==
                                     '0'
                                 ? 'assets/images/mine/woman.png'
@@ -146,7 +146,7 @@ class MineQRPage extends StatelessWidget {
                 imageUrl: Get.find<UserController>()
                     .userInfo
                     .value
-                    .member
+                    .member!
                     .memberQrcode,
               )
             ],

@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class CarConfigListModel {
-  List<CarConfigModel> data;
+  List<CarConfigModel>? data;
 
   CarConfigListModel() : data = <CarConfigModel>[];
 
@@ -11,8 +11,8 @@ class CarConfigListModel {
       (json['data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            data.add(
-                CarConfigModel.fromJson(asT<Map<String, dynamic>>(element)));
+            data?.add(
+                CarConfigModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -21,10 +21,10 @@ class CarConfigListModel {
 }
 
 class CarConfigModel {
-  String conf;
-  String price;
-  String version;
-  String imageName;
+  String? conf;
+  String? price;
+  String? version;
+  String? imageName;
 
   CarConfigModel(
       {this.conf = '', this.price = '', this.version = '', this.imageName});

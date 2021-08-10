@@ -36,7 +36,7 @@ import 'package:ws_app_flutter/models/wow/news_tag_model.dart';
 import 'package:ws_app_flutter/models/wow/text_banner.dart';
 
 class EntityFactory {
-  static T generateOBJ<T>(json) {
+  static T? generateOBJ<T>(json) {
     if (json == null) {
       return null;
     } else if (T.toString() == "SplashModel") {// 可以在这里加入任何需要并且可以转换的类型，例如下面

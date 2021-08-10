@@ -7,10 +7,10 @@ import 'package:ws_app_flutter/widgets/car/medal_toast_widget.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class MedalWidget extends StatelessWidget {
-  final String tag;
-  final String medalBtnImage;
-  final String medalToastImage;
-  final bool isSales;
+  final String? tag;
+  final String? medalBtnImage;
+  final String? medalToastImage;
+  final bool? isSales;
 
   MedalWidget(
       {this.tag, this.medalBtnImage, this.medalToastImage, this.isSales});
@@ -33,18 +33,18 @@ class MedalWidget extends StatelessWidget {
         if (Get.find<UserController>()
                     .userInfo
                     .value
-                    .member
-                    .memberInfo
+                    .member!
+                    .memberInfo!
                     .isSales ==
                 0 &&
-            Get.find<UserController>().userInfo.value.member.memberInfo.isEnd !=
+            Get.find<UserController>().userInfo.value.member!.memberInfo!.isEnd !=
                 1) {
           Get.toNamed(Routes.WEBVIEW, arguments: {
             'url': Get.find<UserController>()
                 .userInfo
                 .value
-                .member
-                .memberInfo
+                .member!
+                .memberInfo!
                 .hrefUrl
           });
         } else {

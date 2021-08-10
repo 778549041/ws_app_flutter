@@ -1,22 +1,22 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class BindModel {
-  String result;
-  BindData data;
+  String? result;
+  BindData? data;
 
   BindModel({this.result = ''}) : data = BindData();
 
   BindModel.fromJson(Map<String, dynamic> json) {
     result = asT<String>(json['result'], '');
     data = BindData.fromJson(
-        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>())!);
   }
 }
 
 class BindData {
-  bool isMobile;
-  bool isVehicle;
-  String msg;
+  bool? isMobile;
+  bool? isVehicle;
+  String? msg;
 
   BindData({this.isMobile = false, this.isVehicle = false, this.msg = ''});
 
@@ -28,10 +28,10 @@ class BindData {
 }
 
 class AppleBindModel {
-  bool result;
-  String message;
-  int code;
-  bool firstLogin;
+  bool? result;
+  String? message;
+  int? code;
+  bool? firstLogin;
 
   AppleBindModel(
       {this.result = false,

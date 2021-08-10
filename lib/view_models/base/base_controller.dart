@@ -23,12 +23,12 @@ class BaseController extends GetxController {
     viewState.value = ViewState.empty;
   }
 
-  void setError(e, stackTrace, {String message}) {
+  void setError(e, stackTrace, {String? message}) {
     ViewStateErrorType errorType = ViewStateErrorType.defaultError;
     if (e is DioError) {
-      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
-          e.type == DioErrorType.SEND_TIMEOUT ||
-          e.type == DioErrorType.RECEIVE_TIMEOUT) {
+      if (e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.sendTimeout ||
+          e.type == DioErrorType.receiveTimeout) {
         errorType = ViewStateErrorType.networkTimeOutError;
         message = e.error;
       } else {
@@ -60,8 +60,8 @@ class BaseController extends GetxController {
   void onError(ViewStateError viewStateError) {}
 
   /// 显示错误消息
-  showErrorMessage({String message}) {
-    if (viewStateError != null || message != null) {
+  showErrorMessage({String? message}) {
+    if (message != null) {
       Future.microtask(() {
         EasyLoading.showToast(message,toastPosition: EasyLoadingToastPosition.bottom);
       });
@@ -69,7 +69,7 @@ class BaseController extends GetxController {
   }
 
   //跳转前端页面
-  Future pushH5Page({Map<String, dynamic> args}) {
+  Future? pushH5Page({Map<String, dynamic>? args}) {
     return Get.toNamed(Routes.WEBVIEW, arguments: args);
   }
 

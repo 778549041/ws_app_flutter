@@ -1,9 +1,8 @@
+import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_qr_reader/qrcode_reader_view.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
-import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/views/qrcode_reader_view.dart';
 
 const flash_on = "FLASH ON";
 const flash_off = "FLASH OFF";
@@ -19,9 +18,11 @@ class ScanPageState extends State<ScanPage> {
   final GlobalKey<QrcodeReaderViewState> qrKey = GlobalKey(debugLabel: 'QR');
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      title: '扫码',
-      child: QrcodeReaderView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('扫码'),
+      ),
+      body: QrcodeReaderView(
         key: qrKey,
         onScan: onScan,
       ),
@@ -29,7 +30,7 @@ class ScanPageState extends State<ScanPage> {
   }
 
   Future onScan(String data) async {
-    if (data == null) {
+    if (data.length == 0) {
       EasyLoading.showToast('未扫描到结果',toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }

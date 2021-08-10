@@ -28,7 +28,7 @@ class ChatPage extends GetView<ChatController> {
                     () => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         V2TimMessage _item = controller.list[index];
-                        return SendMsg(_item, Key(_item.msgID));
+                        return SendMsg(_item, Key(_item.msgID!));
                       }, childCount: controller.list.length),
                     ),
                   ),

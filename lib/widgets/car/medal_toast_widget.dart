@@ -1,13 +1,13 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bubble/bubble_widget.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/widgets/global/bubble_widget.dart';
 
 class MedalToastWidget extends StatelessWidget {
-  final String imageName;
-  final bool isSales;
-  final Rect rect; //widget宽高
-  final Offset offset; //widget在屏幕上的坐标
+  final String? imageName;
+  final bool? isSales;
+  final Rect? rect; //widget宽高
+  final Offset? offset; //widget在屏幕上的坐标
 
   MedalToastWidget({this.imageName, this.isSales, this.rect, this.offset});
 
@@ -15,7 +15,7 @@ class MedalToastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double leftP, topP, arrowPadding,width,height;
     BubbleArrowDirection direction = BubbleArrowDirection.top;
-    if (isSales) {
+    if (isSales!) {
       leftP = (Get.width - 280) / 2;
       width = 280.0;
       height = 130.0;
@@ -24,15 +24,15 @@ class MedalToastWidget extends StatelessWidget {
       width = ScreenUtil.getInstance().getWidth(295);
       height = ScreenUtil.getInstance().getWidth(135);
     }
-    arrowPadding = offset.dx + rect.size.width / 2 - leftP - 15;
-    topP = offset.dy + rect.size.height / 2;
-    if (offset.dy + rect.size.height / 2 > Get.height / 2) {
+    arrowPadding = offset!.dx + rect!.size.width / 2 - leftP - 15;
+    topP = offset!.dy + rect!.size.height / 2;
+    if (offset!.dy + rect!.size.height / 2 > Get.height / 2) {
       direction = BubbleArrowDirection.bottom;
-      arrowPadding = width + leftP - offset.dx + rect.size.width / 2 - leftP - 10;
-      if (isSales) {
-        topP = offset.dy - 120 - 20;
+      arrowPadding = width + leftP - offset!.dx + rect!.size.width / 2 - leftP - 10;
+      if (isSales!) {
+        topP = offset!.dy - 120 - 20;
       } else {
-        topP = offset.dy - ScreenUtil.getInstance().getWidth(135) - 20;
+        topP = offset!.dy - ScreenUtil.getInstance().getWidth(135) - 20;
       }
     }
     return GestureDetector(
@@ -66,7 +66,7 @@ class MedalToastWidget extends StatelessWidget {
   }
 
   Widget _buildChild() {
-    if (isSales) {
+    if (isSales!) {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         decoration: BoxDecoration(
@@ -126,7 +126,7 @@ class MedalToastWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Image.asset(
-          imageName,
+          imageName!,
           fit: BoxFit.cover,
           width: ScreenUtil.getInstance().getWidth(295),
           height: ScreenUtil.getInstance().getWidth(135),

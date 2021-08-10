@@ -8,11 +8,11 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class ChangePwdController extends GetxController {
-  String phone, code, pwd, confirmPwd;
+  String? phone, code, pwd, confirmPwd;
 
   @override
   void onInit() {
-    String _mobile = Get.find<UserController>().userInfo.value.member.mobile;
+    String _mobile = Get.find<UserController>().userInfo.value.member!.mobile!;
     if (_mobile.length > 0) {
       phone = _mobile.replaceFirst(RegExp(r'\d{4}'), '****', 3);
     } else {
@@ -28,7 +28,7 @@ class ChangePwdController extends GetxController {
   //发送验证码
   Future<bool> sendCode(bool isForget) async {
     var _params = Map<String, dynamic>();
-    if (phone.length == 0) {
+    if (phone?.length == 0) {
       EasyLoading.showToast('请输入手机号',
           toastPosition: EasyLoadingToastPosition.bottom);
       return false;
@@ -37,7 +37,7 @@ class ChangePwdController extends GetxController {
       _params['account'] = phone;
     } else {
       _params['account'] =
-          Get.find<UserController>().userInfo.value.member.mobile;
+          Get.find<UserController>().userInfo.value.member!.mobile;
     }
     if (!RegexUtil.isMobileExact(_params['account'])) {
       EasyLoading.showToast('手机号格式错误',
@@ -48,27 +48,27 @@ class ChangePwdController extends GetxController {
         DioManager.POST, Api.changedPwdSendCodeUrl,
         params: _params);
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success,
+      EasyLoading.showToast(obj.success!,
           toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
     return true;
   }
 
   Future submitted(bool isForget) async {
-    if (code.length == 0) {
+    if (code?.length == 0) {
       EasyLoading.showToast('请输入验证码',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
-    if (pwd.length == 0) {
+    if (pwd?.length == 0) {
       EasyLoading.showToast('请输入新密码',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
-    if (confirmPwd.length == 0) {
+    if (confirmPwd?.length == 0) {
       EasyLoading.showToast('请再次输入新密码',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
@@ -88,7 +88,7 @@ class ChangePwdController extends GetxController {
       _params['account'] = phone;
     } else {
       _params['account'] =
-          Get.find<UserController>().userInfo.value.member.mobile;
+          Get.find<UserController>().userInfo.value.member!.mobile;
     }
     _params['vcode'] = code;
     _params['new_password'] = pwd;
@@ -100,7 +100,7 @@ class ChangePwdController extends GetxController {
     if (obj.success != null) {
       Get.back();
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }

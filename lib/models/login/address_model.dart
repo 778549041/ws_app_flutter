@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class AddressListModel {
-  List<AddressModel> list;
+  List<AddressModel>? list;
   AddressListModel({this.list});
 
   AddressListModel.fromJson(Map<String, dynamic> json) {
@@ -10,7 +10,7 @@ class AddressListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(AddressModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(AddressModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -19,9 +19,9 @@ class AddressListModel {
 }
 
 class AddressModel {
-  String fItemId;
-  String fParentId;
-  String fName;
+  String? fItemId;
+  String? fParentId;
+  String? fName;
 
   AddressModel({this.fItemId, this.fParentId, this.fName});
 

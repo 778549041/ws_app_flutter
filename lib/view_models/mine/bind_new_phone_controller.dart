@@ -9,7 +9,7 @@ import 'package:ws_app_flutter/view_models/mine/mine_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class BindNewPhoneController extends GetxController {
-  String phone, code;
+  String? phone, code;
   var tipMessage = ''.obs;
 
   @override
@@ -21,13 +21,13 @@ class BindNewPhoneController extends GetxController {
 
   //发送验证码
   Future<bool> sendCode() async {
-    if (phone.length == 0) {
+    if (phone?.length == 0) {
       EasyLoading.showToast('请输入手机号',
           toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     }
 
-    if (!RegexUtil.isMobileExact(phone)) {
+    if (!RegexUtil.isMobileExact(phone!)) {
       EasyLoading.showToast('手机号格式错误',
           toastPosition: EasyLoadingToastPosition.bottom);
       return false;
@@ -36,29 +36,29 @@ class BindNewPhoneController extends GetxController {
         DioManager.POST, Api.changedBindPhoneSendCodeUrl,
         params: {'mobile':phone});
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success,
+      EasyLoading.showToast(obj.success!,
           toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
     return true;
   }
 
   Future nextStep() async {
-    if (phone.length == 0) {
+    if (phone?.length == 0) {
       EasyLoading.showToast('请输入手机号',
           toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     }
 
-    if (!RegexUtil.isMobileExact(phone)) {
+    if (!RegexUtil.isMobileExact(phone!)) {
       EasyLoading.showToast('手机号格式错误',
           toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     }
 
-    if (code.length == 0) {
+    if (code?.length == 0) {
       EasyLoading.showToast('请输入验证码',
           toastPosition: EasyLoadingToastPosition.bottom);
     }
@@ -74,7 +74,7 @@ class BindNewPhoneController extends GetxController {
       await Get.find<UserController>().getUserInfo();
       Get.find<MineInfoController>().initData();
     } else if (_model.error != null) {
-      tipMessage.value = _model.error;
+      tipMessage.value = _model.error!;
     }
   }
 }

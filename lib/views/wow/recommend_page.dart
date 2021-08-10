@@ -40,7 +40,7 @@ class RecommendPage extends GetView<RecommendController> {
                   SliverToBoxAdapter(
                     child: RecommendBanner(),
                   ),
-                  if (controller.userInfo.value.member.isVehicle == 'true')
+                  if (controller.userInfo.value.member?.isVehicle == 'true')
                     SliverToBoxAdapter(
                       child: RecommendEle(),
                     ),
@@ -50,22 +50,22 @@ class RecommendPage extends GetView<RecommendController> {
                         return Container(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: CircleListItem(
-                            model: controller.momentListModel.value.list[index],
+                            model: controller.momentListModel.value.list![index],
                             pageName: 'recommendCircle',
                           ),
                         );
                       },
                           childCount:
-                              (controller.momentListModel.value.list.length > 3)
+                              (controller.momentListModel.value.list!.length > 3)
                                   ? 3
                                   : controller
-                                      .momentListModel.value.list.length),
+                                      .momentListModel.value.list!.length),
                     ),
                   ),
                   Obx(() => SliverToBoxAdapter(
                         child: Offstage(
                           offstage:
-                              controller.newsListModel.value.list.length == 0,
+                              controller.newsListModel.value.list!.length == 0,
                           child: SizedBox(
                             height: 10,
                           ),
@@ -75,18 +75,18 @@ class RecommendPage extends GetView<RecommendController> {
                     () => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         return NewsListItem(
-                          model: controller.newsListModel.value.list[index],
+                          model: controller.newsListModel.value.list![index],
                         );
                       },
                           childCount:
-                              controller.newsListModel.value.list.length),
+                              controller.newsListModel.value.list!.length),
                     ),
                   ),
                   Obx(
                     () => SliverToBoxAdapter(
                       child: Offstage(
                         offstage:
-                            controller.activityListModel.value.data.length == 0,
+                            controller.activityListModel.value.data!.length == 0,
                         child: Container(
                           padding: const EdgeInsets.only(
                               top: 10, left: 15, right: 15),
@@ -107,11 +107,11 @@ class RecommendPage extends GetView<RecommendController> {
                     () => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         return RecommendActItem(
-                          model: controller.activityListModel.value.data[index],
+                          model: controller.activityListModel.value.data![index],
                         );
                       },
                           childCount:
-                              controller.activityListModel.value.data.length),
+                              controller.activityListModel.value.data!.length),
                     ),
                   ),
                 ],

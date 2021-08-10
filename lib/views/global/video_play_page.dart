@@ -6,15 +6,15 @@ import 'package:video_player/video_player.dart';
 
 class VideoPalyPage extends StatefulWidget {
   final String videoUrl;
-  VideoPalyPage({@required this.videoUrl});
+  VideoPalyPage({required this.videoUrl});
 
   @override
   VideoPalyPageState createState() => VideoPalyPageState();
 }
 
 class VideoPalyPageState extends State<VideoPalyPage> {
-  VideoPlayerController _videoPlayerController;
-  ChewieController _chewieController;
+  VideoPlayerController? _videoPlayerController;
+  ChewieController? _chewieController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class VideoPalyPageState extends State<VideoPalyPage> {
         child: Stack(
           children: <Widget>[
             Chewie(
-              controller: _chewieController,
+              controller: _chewieController!,
             ),
             Positioned(
               //关闭按钮
@@ -50,7 +50,7 @@ class VideoPalyPageState extends State<VideoPalyPage> {
   void initState() {
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
     _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController,
+        videoPlayerController: _videoPlayerController!,
         allowFullScreen: false,
         // aspectRatio: 5 / 3,
         autoPlay: true,
@@ -60,8 +60,8 @@ class VideoPalyPageState extends State<VideoPalyPage> {
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
-    _chewieController.dispose();
+    _videoPlayerController?.dispose();
+    _chewieController?.dispose();
     super.dispose();
   }
 

@@ -3,7 +3,7 @@ import 'package:ws_app_flutter/models/mine/advanceMsgList.dart';
 
 class AdvanceMsgItem extends StatelessWidget {
   onPressed() {
-    list.onPressed();
+    list.onPressed!();
   }
 
   final AdvanceMsgList list;
@@ -25,13 +25,13 @@ class AdvanceMsgItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: IconButton(
-                icon: list.icon,
+                icon: list.icon!,
                 onPressed: onPressed,
               ),
             ),
             Container(
               child: Text(
-                list.name,
+                list.name!,
                 style: TextStyle(
                   fontSize: 12,
                   color: Color(0xff999999),

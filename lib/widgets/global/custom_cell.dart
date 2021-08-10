@@ -25,12 +25,12 @@ typedef _ClickCallBack = void Function();
 
 class CustomCell extends StatefulWidget {
   final String title;
-  final String leftImgPath; //左侧图片路径 ，默认隐藏 ,设置leftImgPath则 leftWidget失效
-  final Widget leftWidget; //左侧widget ，默认隐藏
+  final String? leftImgPath; //左侧图片路径 ，默认隐藏 ,设置leftImgPath则 leftWidget失效
+  final Widget? leftWidget; //左侧widget ，默认隐藏
   final String text;
-  final Widget rightWidget; //右侧widget ，默认隐藏
+  final Widget? rightWidget; //右侧widget ，默认隐藏
   final bool hiddenArrow; //隐藏箭头，默认不隐藏
-  final _ClickCallBack clickCallBack;
+  final _ClickCallBack? clickCallBack;
   final double titleWidth; //标题宽度
   final TextStyle titleStyle;
   final TextStyle textStyle;
@@ -43,8 +43,8 @@ class CustomCell extends StatefulWidget {
   final TextAlign textAlign; //默认靠右
 
   const CustomCell({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.leftImgPath,
     this.leftWidget,
     this.text: '',
@@ -100,12 +100,12 @@ class _CustomCellState extends State<CustomCell> {
                 children: <Widget>[
                   widget.leftImgPath != null
                       ? Image.asset(
-                          widget.leftImgPath,
+                          widget.leftImgPath!,
                           width: widget.leftImgWH,
                           height: widget.leftImgWH,
                         )
                       : (widget.leftWidget != null
-                          ? widget.leftWidget
+                          ? widget.leftWidget!
                           : Container()),
                   SizedBox(
                       width: (widget.leftImgPath != null ||
@@ -128,7 +128,9 @@ class _CustomCellState extends State<CustomCell> {
                     textAlign: widget.textAlign,
                     border: InputBorder.none,
                   )),
-                  widget.rightWidget != null ? widget.rightWidget : Container(),
+                  widget.rightWidget != null
+                      ? widget.rightWidget!
+                      : Container(),
                   Offstage(
                     offstage: _hiddenArrow,
                     child: Image.asset(
@@ -141,7 +143,7 @@ class _CustomCellState extends State<CustomCell> {
           ),
           onTap: () {
             if (widget.clickCallBack != null) {
-              widget.clickCallBack();
+              widget.clickCallBack!();
             }
           },
         ));

@@ -14,7 +14,7 @@ class ActivityController extends RefreshListController<ActivityModel> {
   }
 
   @override
-  Future<List<ActivityModel>> loadData({int pageNum}) async {
+  Future<List<ActivityModel>?> loadData({int pageNum = 1}) async {
     ActivityListModel _model = await DioManager().request<ActivityListModel>(
         DioManager.GET,
         'index.php/m/huodong-$pageNum-10-${condition.value}.html?key=');
@@ -26,17 +26,17 @@ class ActivityController extends RefreshListController<ActivityModel> {
     ActivityListModel _model = await DioManager().request<ActivityListModel>(
         DioManager.GET,
         'index.php/m/huodong-$pageNum-10-$condition.html?key=');
-    if (_model.list.isEmpty) {
+    if (_model.list != null && _model.list!.isEmpty) {
         refreshController.refreshCompleted(resetFooterState: true);
         list.clear();
         setEmpty();
       } else {
         onCompleted(_model.list);
         list.clear();
-        list.addAll(_model.list);
+        list.addAll(_model.list!);
         refreshController.refreshCompleted();
         // 小于分页的数量,禁止上拉加载更多
-        if (_model.list.length < pageSize) {
+        if (_model.list!.length < pageSize) {
           refreshController.loadNoData();
         } else {
           //防止上次上拉加载更多失败,需要重置状态

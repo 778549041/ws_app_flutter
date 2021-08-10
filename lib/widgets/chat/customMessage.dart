@@ -12,7 +12,7 @@ class CustomMessage extends StatefulWidget {
 }
 
 class CustomMessageState extends State<CustomMessage> {
-  V2TimMessage message;
+  V2TimMessage? message;
   @override
   void initState() {
     this.message = widget.message;
@@ -21,7 +21,7 @@ class CustomMessageState extends State<CustomMessage> {
 
   Widget showMessage() {
     Widget res;
-    String data = message.customElem.data;
+    String data = message!.customElem!.data!;
     try {
       var version = json.decode(data)['version'];
       String text = json.decode(data)['text'];

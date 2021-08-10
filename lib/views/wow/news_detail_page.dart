@@ -1,3 +1,4 @@
+import 'package:html/dom.dart' as dom;
 import 'package:flustars/flustars.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
   Widget build(BuildContext context) {
     return BasePage(
       title: '资讯',
-      rightActions: <Widget>[
+      rightItems: <Widget>[
         CustomButton(
           backgroundColor: Colors.transparent,
           image: 'assets/images/wow/icon_share.png',
@@ -57,7 +58,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15, 25, 15, 5),
                           child: Obx(() => Text(
-                                controller.newsDetailModel.value.article.title,
+                                controller.newsDetailModel.value.article!.title!,
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               )),
@@ -71,7 +72,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                                 () => Text(
                                   DateUtil.formatDateMs(
                                       int.parse(controller.newsDetailModel.value
-                                              .article.pubtime) *
+                                              .article!.pubtime!) *
                                           1000,
                                       format: DateFormats.h_m),
                                   style: TextStyle(
@@ -81,7 +82,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                               ),
                               Obx(
                                 () => Text(
-                                  '${controller.newsDetailModel.value.article.read}人浏览',
+                                  '${controller.newsDetailModel.value.article?.read}人浏览',
                                   style: TextStyle(
                                       color: MainAppColor.secondaryTextColor,
                                       fontSize: 12),
@@ -95,10 +96,10 @@ class NewsDetailPageState extends State<NewsDetailPage>
                           child: Obx(
                             () => Html(
                               data: controller
-                                  .newsDetailModel.value.article.bodys.content,
+                                  .newsDetailModel.value.article!.bodys!.content!,
                               onImageError: (exception, stackTrace) {},
-                              onImageTap: (url) {},
-                              onLinkTap: (url) {},
+                              onImageTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {},
+                              onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {},
                             ),
                           ),
                         ),
@@ -162,7 +163,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                 Obx(
                   () => LikeButton(
                     isLiked:
-                        controller.newsDetailModel.value.article.praiseStatus,
+                        controller.newsDetailModel.value.article!.praiseStatus!,
                     size: 15,
                     countPostion: CountPostion.bottom,
                     circleColor: CircleColor(
@@ -179,8 +180,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
                       );
                     },
                     likeCount:
-                        controller.newsDetailModel.value.article.articlePraise,
-                    countBuilder: (int count, bool isLiked, String text) {
+                        controller.newsDetailModel.value.article!.articlePraise!,
+                    countBuilder: (int? count, bool isLiked, String text) {
                       return Text(
                         text,
                         style: TextStyle(color: Colors.black, fontSize: 12),
@@ -202,7 +203,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                     imageW: 17,
                     imagePosition: XJImagePosition.XJImagePositionTop,
                     title:
-                        controller.newsDetailModel.value.article.commentCount,
+                        controller.newsDetailModel.value.article!.commentCount!,
                     fontSize: 12,
                     onPressed: () => controller.clickArticleCommentBtn(),
                   ),
@@ -213,7 +214,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                 Obx(
                   () => LikeButton(
                     isLiked:
-                        controller.newsDetailModel.value.article.collectStatus,
+                        controller.newsDetailModel.value.article!.collectStatus!,
                     size: 15,
                     countPostion: CountPostion.bottom,
                     circleColor: CircleColor(
@@ -230,8 +231,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
                       );
                     },
                     likeCount: int.parse(
-                        controller.newsDetailModel.value.article.collection),
-                    countBuilder: (int count, bool isLiked, String text) {
+                        controller.newsDetailModel.value.article!.collection!),
+                    countBuilder: (int? count, bool isLiked, String text) {
                       return Text(
                         text,
                         style: TextStyle(color: Colors.black, fontSize: 12),
@@ -250,17 +251,17 @@ class NewsDetailPageState extends State<NewsDetailPage>
   }
 
   Widget _buildCommentRow(NewsCommentModel model) {
-    String _nickName = model.nickname;
+    String _nickName = model.nickname!;
     if (_nickName.length > 11) {
       _nickName = _nickName.substring(0, 11);
     }
 
     String _accountType = '';
-    if (model.memberInfo.isSales == 1) {
+    if (model.memberInfo!.isSales == 1) {
       _accountType = '特约店销售顾问';
-    } else if (model.isOfficial) {
+    } else if (model.isOfficial!) {
       _accountType = '官方账号';
-    } else if (model.isVehicle) {
+    } else if (model.isVehicle!) {
       _accountType = '认证车主';
     } else {
       _accountType = '普通用户';
@@ -286,14 +287,14 @@ class NewsDetailPageState extends State<NewsDetailPage>
                       child: Stack(
                         children: <Widget>[
                           RoundAvatar(
-                            imageUrl: model.avatar,
+                            imageUrl: model.avatar!,
                             height: 40,
                           ),
                           Positioned(
                             bottom: 0,
                             right: 0,
                             child: Offstage(
-                                offstage: !model.isVehicle,
+                                offstage: !model.isVehicle!,
                                 child: Image.asset(
                                   'assets/images/mine/vip_tag.png',
                                   width: 18,
@@ -318,21 +319,21 @@ class NewsDetailPageState extends State<NewsDetailPage>
                                   _nickName,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: model.isOfficial
+                                      color: model.isOfficial!
                                           ? Color(0xFF2673FB)
                                           : Colors.black,
                                       fontSize: 15),
                                 )),
                                 //销售员或者勋章标签
-                                if (model.memberInfo.showTag)
+                                if (model.memberInfo!.showTag!)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: MedalWidget(
                                       medalBtnImage:
-                                          model.memberInfo.medalOrSaleImageName,
+                                          model.memberInfo!.medalOrSaleImageName!,
                                       medalToastImage: model
-                                          .memberInfo.medalOrSaleDescImageName,
-                                      isSales: model.memberInfo.isSales == 1,
+                                          .memberInfo!.medalOrSaleDescImageName!,
+                                      isSales: model.memberInfo!.isSales == 1,
                                     ),
                                   ),
                               ],
@@ -355,12 +356,12 @@ class NewsDetailPageState extends State<NewsDetailPage>
                 children: <Widget>[
                   //时间
                   Text(
-                    model.pubdate,
+                    model.pubdate!,
                     style: TextStyle(fontSize: 12, color: Colors.grey[400]),
                   ),
                   //删除按钮
                   Offstage(
-                    offstage: !model.isSelf,
+                    offstage: !model.isSelf!,
                     child: CustomButton(
                       backgroundColor: Colors.transparent,
                       width: 50,
@@ -422,8 +423,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
                           : 'assets/images/wow/news_detail_praise.png',
                     );
                   },
-                  likeCount: int.parse(model.praiseNum),
-                  countBuilder: (int count, bool isLiked, String text) {
+                  likeCount: int.parse(model.praiseNum!),
+                  countBuilder: (int? count, bool isLiked, String text) {
                     return Text(
                       text,
                       style: TextStyle(color: Colors.black, fontSize: 12),
@@ -442,14 +443,14 @@ class NewsDetailPageState extends State<NewsDetailPage>
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                ReplyModel replyModel = model.replyData[index];
+                ReplyModel replyModel = model.replyData![index];
                 return GestureDetector(
                   onTap: () => controller.clickReplyComment(model, replyModel),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: RichText(
                       text: TextSpan(children: <InlineSpan>[
-                        if (replyModel.isOfficial)
+                        if (replyModel.isOfficial!)
                           WidgetSpan(
                             child: Image.asset(
                                 'assets/images/wow/ve_offical_tag.png'),
@@ -479,7 +480,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
                   ),
                 );
               },
-              itemCount: model.replyData.length,
+              itemCount: model.replyData!.length,
             ),
           ),
           // Offstage(
@@ -505,12 +506,12 @@ class NewsDetailPageState extends State<NewsDetailPage>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
@@ -518,8 +519,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (MediaQuery.of(Get.context).viewInsets.bottom == 0) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (MediaQuery.of(Get.context!).viewInsets.bottom == 0) {
         //关闭键盘
         print('关闭键盘');
         controller.placeholder.value = '我来说下~';

@@ -9,16 +9,16 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/list_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
-class ShopListController extends ListController {
+class ShopListController extends ListController<ShopAddressModel> {
   @override
-  Future<List> loadData() async {
+  Future<List<ShopAddressModel>?> loadData() async {
     ShopAddressListModel _model = await DioManager()
         .request<ShopAddressListModel>(
             DioManager.POST, Api.mineTakeGoodsAddressListUrl);
     return _model.list;
   }
 
-  void editAction({ShopAddressModel model}) {
+  void editAction({ShopAddressModel? model}) {
     if (model == null) {
       Get.toNamed(Routes.MINEADDSHOP);
     } else {
@@ -40,7 +40,7 @@ class ShopListController extends ListController {
             if (_model.success != null) {
               list.remove(model);
             } else if (_model.error != null) {
-              EasyLoading.showToast(_model.error,
+              EasyLoading.showToast(_model.error!,
                   toastPosition: EasyLoadingToastPosition.bottom);
             }
           },

@@ -14,14 +14,13 @@ class AddShopController extends GetxController {
 
   @override
   void onInit() {
-    final ShopAddressModel shopModel =
-        Get.arguments == null ? null : Get.arguments['model']; //修改地址传过来的参数
+    final ShopAddressModel shopModel = Get.arguments['model']; //修改地址传过来的参数
     if (shopModel != null) {
       model.value = shopModel;
-      isDefault.value = shopModel.isDefault;
-      area.value = (shopModel.area.contains('mainland')
-          ? shopModel.area.split(':')[1]
-          : shopModel.area);
+      isDefault.value = shopModel.isDefault!;
+      area.value = (shopModel.area!.contains('mainland')
+          ? shopModel.area!.split(':')[1]
+          : shopModel.area!);
     } else {
       area.value = '请选城市';
     }
@@ -31,31 +30,35 @@ class AddShopController extends GetxController {
   //选择地址
   void selectAddress() async {
     Pickers.showAddressPicker(
-      Get.context,
+      Get.context!,
       initTown: '',
       addAllItem: false,
       onConfirm: (province, city, town) {
-        area.value = province + '/' + city + '/' + town;
+        if (town == null) {
+          area.value = province + '/' + city;
+        } else {
+          area.value = province + '/' + city + '/' + town;
+        }
       },
     );
   }
 
   Future submitted() async {
-    if (model.value.name.length == 0 ||
-        model.value.mobile.length == 0 ||
+    if (model.value.name?.length == 0 ||
+        model.value.mobile?.length == 0 ||
         area.value.length == 0 ||
-        model.value.addr.length == 0) {
+        model.value.addr?.length == 0) {
       EasyLoading.showToast('信息不完善',
           toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     }
-    if (!RegexUtil.isMobileExact(model.value.mobile)) {
+    if (!RegexUtil.isMobileExact(model.value.mobile!)) {
       EasyLoading.showToast('手机号格式错误',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     Map<String, dynamic> _params = Map<String, String>();
-    if (model.value.addrId.length > 0) {
+    if (model.value.addrId != null && model.value.addrId!.length > 0) {
       _params['maddr[addr_id]'] = model.value.addrId;
     }
     _params['maddr[name]'] = model.value.name;

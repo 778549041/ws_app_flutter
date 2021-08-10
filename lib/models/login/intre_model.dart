@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class IntresModel {
-  List<IntresData> list;
+  List<IntresData>? list;
   IntresModel() : list = <IntresData>[];
 
   IntresModel.fromJson(Map<String, dynamic> json) {
@@ -10,7 +10,7 @@ class IntresModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(IntresData.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(IntresData.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -19,9 +19,9 @@ class IntresModel {
 }
 
 class IntresData {
-  String name;
-  String interestId;
-  bool selected;
+  String? name;
+  String? interestId;
+  bool? selected;
 
   IntresData({this.name = '', this.interestId = '', this.selected = false});
 

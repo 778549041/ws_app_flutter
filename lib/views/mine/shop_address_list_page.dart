@@ -43,7 +43,7 @@ class ShopAddressListPage extends GetView<ShopListController> {
 
   Widget _buildItem(ShopAddressModel model) {
     var _address = model.area;
-    if (_address.contains('mainland')) {
+    if (_address != null && _address.contains('mainland')) {
       _address = _address.split(':')[1];
     }
     return Container(
@@ -69,7 +69,7 @@ class ShopAddressListPage extends GetView<ShopListController> {
                       children: <Widget>[
                         Flexible(
                           child: Text(
-                            model.name,
+                            model.name!,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 18),
@@ -79,7 +79,7 @@ class ShopAddressListPage extends GetView<ShopListController> {
                           width: 5,
                         ),
                         Text(
-                          model.mobile.replaceFirst(RegExp(r'\d{4}'), '****', 3),
+                          model.mobile!.replaceFirst(RegExp(r'\d{4}'), '****', 3),
                           style:
                               TextStyle(color: Color(0xFFADADAD), fontSize: 15),
                         ),
@@ -87,7 +87,7 @@ class ShopAddressListPage extends GetView<ShopListController> {
                           width: 5,
                         ),
                         Offstage(
-                          offstage: !model.isDefault,
+                          offstage: !model.isDefault!,
                           child: Image.asset(
                             'assets/images/mine/mine_shop_addre_default.png',
                             width: 32,
@@ -97,7 +97,7 @@ class ShopAddressListPage extends GetView<ShopListController> {
                       ],
                     ),
                     Text(
-                      _address + ' ' + model.addr,
+                      _address! + ' ' + model.addr!,
                       style: TextStyle(fontSize: 15),
                     ),
                   ],

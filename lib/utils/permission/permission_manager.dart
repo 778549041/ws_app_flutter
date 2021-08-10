@@ -9,13 +9,13 @@ class PermissionManager {
   Future<bool> requestPermission(Permission permission) async {
     var status = await permission.status;
     if (status.isGranted) {
+      return true;
+    }
+    Map<Permission, PermissionStatus> statuses = await [permission].request();
+    status = statuses[permission]!;
+    if (status.isGranted) {
       //如果用户已授权
       return true;
-    } else if (status.isUndetermined) {
-      //第一次授权
-      Map<Permission, PermissionStatus> statuses = await [permission].request();
-      status = statuses[permission];
-      return status.isGranted;
     } else {
       //没有权限
       String _permissionCHName = '';

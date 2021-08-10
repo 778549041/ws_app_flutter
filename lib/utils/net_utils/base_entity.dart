@@ -2,10 +2,10 @@ import 'package:ws_app_flutter/utils/net_utils/entity_factory.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class BaseEntity<T> {
-  int code;
-  String message;
-  String result;
-  T data;
+  int? code;
+  String? message;
+  String? result;
+  T? data;
 
   BaseEntity({this.code, this.message, this.result, this.data});
 
@@ -19,9 +19,9 @@ class BaseEntity<T> {
 }
 
 class BaseListEntity<T> {
-  int code;
-  String message;
-  List<T> data;
+  int? code;
+  String? message;
+  List<T>? data;
 
   BaseListEntity({this.code, this.message, this.data});
 
@@ -32,7 +32,7 @@ class BaseListEntity<T> {
       (json['data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            mData.add(EntityFactory.generateOBJ<T>(element));
+            mData.add(EntityFactory.generateOBJ<T>(element)!);
           });
         }
       });
@@ -45,7 +45,7 @@ class BaseListEntity<T> {
 }
 
 class ErrorEntity {
-  int code;
-  String message;
+  int? code;
+  String? message;
   ErrorEntity({this.code, this.message});
 }

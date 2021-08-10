@@ -54,7 +54,7 @@ class MineController extends BaseController {
       //我的好友
       Get.find<UserController>().requestIMInfoAndLogin().then((value) {
         if (value) {
-          Get.toNamed(Routes.MINEFRIENDS).then((value) async {
+          Get.toNamed(Routes.MINEFRIENDS)?.then((value) async {
             requestFavorData();
             await Get.find<UserController>().requestNewMessage();
           });
@@ -64,7 +64,7 @@ class MineController extends BaseController {
       //每日签到
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.DaylySignPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -72,17 +72,17 @@ class MineController extends BaseController {
       //常见问题
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.FAQPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 4) {
       //认证信息
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+      if (Get.find<UserController>().userInfo.value.member?.isVehicle ==
           'true') {
         pushH5Page(args: {
           'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CarOwnerCertifyInfoPage,
-        }).then((value) async {
+        })?.then((value) async {
           requestFavorData();
           await Get.find<UserController>().requestNewMessage();
         });
@@ -93,7 +93,7 @@ class MineController extends BaseController {
       //检查报告
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CheckReportPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -101,7 +101,7 @@ class MineController extends BaseController {
       //e路无忧
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MyServicePackagePage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -109,7 +109,7 @@ class MineController extends BaseController {
       //中奖记录
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.WinrecordPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -117,19 +117,19 @@ class MineController extends BaseController {
       //兑换订单
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ExchangeOrderPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 9) {
       //设置
-      Get.toNamed(Routes.SETTING).then((value) async {
+      Get.toNamed(Routes.SETTING)?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1000) {
       //扫一扫
-      Get.toNamed(Routes.SCAN).then((value) async {
+      Get.toNamed(Routes.SCAN)?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -140,7 +140,7 @@ class MineController extends BaseController {
       //消息中心
       Get.find<UserController>().requestIMInfoAndLogin().then((value) {
         if (value) {
-          Get.toNamed(Routes.MSGCENTER).then((value) async {
+          Get.toNamed(Routes.MSGCENTER)?.then((value) async {
             requestFavorData();
             await Get.find<UserController>().requestNewMessage();
           });
@@ -148,15 +148,15 @@ class MineController extends BaseController {
       });
     } else if (actionTag == 1003) {
       //个人信息
-      Get.toNamed(Routes.MINEINFO).then((value) async {
+      Get.toNamed(Routes.MINEINFO)?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1005) {
       //圈子
       Get.toNamed(Routes.SINGLECIRCLELIST, arguments: {
-        'memberId': Get.find<UserController>().userInfo.value.member.memberId
-      }).then((value) async {
+        'memberId': Get.find<UserController>().userInfo.value.member?.memberId
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -164,7 +164,7 @@ class MineController extends BaseController {
       //收藏
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MyFavortePage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -172,7 +172,7 @@ class MineController extends BaseController {
       //活动
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MyActivityPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });
@@ -180,7 +180,7 @@ class MineController extends BaseController {
       //积分
       pushH5Page(args: {
         'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.IntegralDetailPage,
-      }).then((value) async {
+      })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });

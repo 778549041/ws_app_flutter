@@ -23,7 +23,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
   }
 
   @override
-  Future<List<ShopModel>> loadData({int pageNum}) async {
+  Future<List<ShopModel>?> loadData({int pageNum = 1}) async {
     if (pageNum == 1) {
       await _requestKVData();
     }
@@ -73,18 +73,18 @@ class EnjoyController extends RefreshListController<ShopModel> {
           .request<CJUrlModel>(DioManager.GET, Api.enjoyCDJUrl);
       String topage = '', urllk = '', actid;
       if (_model.code == 0) {
-        if (_model.data.activityAdventuresUrl != null) {
+        if (_model.data?.activityAdventuresUrl != null) {
           topage = "dzp";
-          urllk = _model.data.activityAdventuresUrl;
-        } else if (_model.data.activityMachineUrl != null) {
+          urllk = _model.data!.activityAdventuresUrl!;
+        } else if (_model.data?.activityMachineUrl != null) {
           topage = "sgj";
-          urllk = _model.data.activityMachineUrl;
-        } else if (_model.data.activityScratchUrl != null) {
+          urllk = _model.data!.activityMachineUrl!;
+        } else if (_model.data?.activityScratchUrl != null) {
           topage = "ggk";
-          urllk = _model.data.activityScratchUrl;
-        } else if (_model.data.activityShakeUrl != null) {
+          urllk = _model.data!.activityScratchUrl!;
+        } else if (_model.data?.activityShakeUrl != null) {
           topage = "yyy";
-          urllk = _model.data.activityShakeUrl;
+          urllk = _model.data!.activityShakeUrl!;
         }
         actid = urllk.split('?')[1];
         pushH5Page(args: {
@@ -103,7 +103,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
               rightText: '好的',
               content: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+                child: Text(_model.message!, style: TextStyle(fontSize: 16.0)),
               ),
             ),
             barrierDismissible: false);
@@ -112,7 +112,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
       //许心愿
       CommonModel _model = await DioManager()
           .request<CommonModel>(DioManager.GET, Api.enjoyXXYUrl);
-      if (_model.result) {
+      if (_model.result!) {
         pushH5Page(args: {
           'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.WishPage,
         });
@@ -125,7 +125,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
               rightText: '好的',
               content: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+                child: Text(_model.message!, style: TextStyle(fontSize: 16.0)),
               ),
             ),
             barrierDismissible: false);
@@ -143,7 +143,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
     pushH5Page(args: {
       'url': CacheKey.SERVICE_URL_HOST +
           HtmlUrls.ProductDetailPage +
-          '?product_id=${model.product.productId}&source=1',
+          '?product_id=${model.product!.productId}&source=1',
     });
   }
 }

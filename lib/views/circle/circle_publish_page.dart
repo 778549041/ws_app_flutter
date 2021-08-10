@@ -11,7 +11,6 @@ class CirclePublishPage extends GetView<CirclePublishController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '发圈子',
-      isBack: false,
       leftItem: CustomButton(
         backgroundColor: Colors.transparent,
         width: 30,
@@ -20,7 +19,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
         titleColor: Colors.white,
         onPressed: () => Get.back(),
       ),
-      rightActions: <Widget>[
+      rightItems: <Widget>[
         CustomButton(
           backgroundColor: Colors.transparent,
           height: 30,
@@ -95,7 +94,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                       child: Row(
                         children: <Widget>[
                           Text(
-                            controller.topicModel.value.title,
+                            controller.topicModel.value.title!,
                             style: TextStyle(
                                 fontSize: 15, color: Color(0xFF7A7A7A)),
                           ),

@@ -14,9 +14,9 @@ class NewsSearchController extends RefreshListController<NewModel> {
 
   @override
   void onInit() async {
+    super.onInit();
     pageSize = 5;
     await newsSearchTagData();
-    // super.onInit();
   }
 
   @override
@@ -25,7 +25,7 @@ class NewsSearchController extends RefreshListController<NewModel> {
   }
 
   @override
-  Future<List<NewModel>> loadData({int pageNum}) async {
+  Future<List<NewModel>?> loadData({int? pageNum}) async {
     String _url = '';
     Map<String, dynamic> _params = Map<String, dynamic>();
     if (searchType.value == 0) {
@@ -49,8 +49,8 @@ class NewsSearchController extends RefreshListController<NewModel> {
   Future newsSearchTagData() async {
     NewsTagListModel _model = await DioManager()
         .request<NewsTagListModel>(DioManager.GET, Api.newsSearchTagUrl);
-    _data.addAll(_model.list);
-    searchTagList.assignAll(_model.list);
+    _data.addAll(_model.list!);
+    searchTagList.assignAll(_model.list!);
   }
 
   Future inputSearch(String input) async {
@@ -68,7 +68,7 @@ class NewsSearchController extends RefreshListController<NewModel> {
         _data[i].selected = false;
       }
       searchTagList.add(_data[i]);
-      selectedTag.value = _data[i].tagId;
+      selectedTag.value = _data[i].tagId!;
       searchType.value = 2;
       refresh();
     }

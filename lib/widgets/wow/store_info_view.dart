@@ -10,7 +10,7 @@ class StoreInfoView extends StatelessWidget {
   final NearStoreModel info;
   final VoidCallback mapNavCallback;
 
-  StoreInfoView({this.info, this.mapNavCallback});
+  StoreInfoView({required this.info, required this.mapNavCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class StoreInfoView extends StatelessWidget {
                 Container(
                   width: ScreenUtil.getInstance().screenWidth - 126.5,
                   child: Text(
-                    info.fShopName,
+                    info.fShopName!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -118,7 +118,7 @@ class StoreInfoView extends StatelessWidget {
                         margin: EdgeInsets.only(left: 5),
                         width: ScreenUtil.getInstance().screenWidth - 50,
                         child: Text(
-                          info.fShopAddr,
+                          info.fShopAddr!,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 13, color: Colors.grey),
@@ -143,7 +143,7 @@ class StoreInfoView extends StatelessWidget {
               blurRadius: 6,
               spreadRadius: 4,
               shadowColorA: 20,
-              onPressed: mapNavCallback != null ? mapNavCallback : null,
+              onPressed: mapNavCallback,
             ),
           ),
         ],

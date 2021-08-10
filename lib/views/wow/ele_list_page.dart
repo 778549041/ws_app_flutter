@@ -24,7 +24,7 @@ class EleListPage extends GetView<EleListController> {
                     Container(
                       margin: EdgeInsets.only(top: 0),
                       child: Text(
-                        info.connectorName,
+                        info.connectorName!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.black, fontSize: 18),
@@ -33,7 +33,7 @@ class EleListPage extends GetView<EleListController> {
                     Container(
                       margin: EdgeInsets.only(top: 8),
                       child: Text(
-                        info.connectorID,
+                        info.connectorID!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.grey, fontSize: 13),
@@ -51,8 +51,8 @@ class EleListPage extends GetView<EleListController> {
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Text(
-                              (info.parkNo != null && info.parkNo.length > 0)
-                                  ? info.parkNo
+                              (info.parkNo != null && info.parkNo!.length > 0)
+                                  ? info.parkNo!
                                   : '无',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -125,7 +125,7 @@ class EleListPage extends GetView<EleListController> {
                     Container(
                       margin: EdgeInsets.only(top: 5),
                       child: Text(
-                        _getDesc(info.connectorType),
+                        _getDesc(info.connectorType!),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.grey, fontSize: 13.0),

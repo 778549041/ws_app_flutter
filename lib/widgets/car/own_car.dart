@@ -37,25 +37,25 @@ class OwnCarWidget extends GetView<EletricController> {
             _buildEletricView(),
             Obx(() => Offstage(
                   offstage: controller
-                          .carStatusModel.value.datas.sendingTime.length ==
+                          .carStatusModel.value.datas?.sendingTime?.length ==
                       '0',
                   child: Text(
-                    '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
+                    '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas!.sendingTime!))}',
                     style: TextStyle(color: Color(0xFF999999), fontSize: 12),
                   ),
                 )),
             Container(
               margin: const EdgeInsets.only(top: 10),
               child: Text(
-                controller.carDataModel.value.datas.fcarColor,
+                controller.carDataModel.value.datas!.fcarColor!,
                 style: TextStyle(fontSize: 22),
               ),
             ),
-            if (controller.carDataModel.value.datas.fcarColorURL.length > 0)
+            if (controller.carDataModel.value.datas!.fcarColorURL!.length > 0)
               Container(
                 margin: const EdgeInsets.only(top: 10),
                 child: CachedNetworkImage(
-                    imageUrl: controller.carDataModel.value.datas.fcarColorURL),
+                    imageUrl: controller.carDataModel.value.datas!.fcarColorURL!),
               ),
             _buildCarControlView(),
             Container(
@@ -115,7 +115,7 @@ class OwnCarWidget extends GetView<EletricController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AutoSizeText(
-                    controller.carStatusModel.value.datas.soc1,
+                    controller.carStatusModel.value.datas!.soc1!,
                     style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                     maxLines: 1,
                   ),
@@ -141,7 +141,7 @@ class OwnCarWidget extends GetView<EletricController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AutoSizeText(
-                    controller.carStatusModel.value.datas.rangMileage
+                    controller.carStatusModel.value.datas!.rangMileage
                         .toString(),
                     style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                     maxLines: 1,
@@ -225,7 +225,7 @@ class OwnCarWidget extends GetView<EletricController> {
                 ),
                 Flexible(
                     child: Obx(() => Text(
-                          controller.carStatusModel.value.datas.carLaunchStr,
+                          controller.carStatusModel.value.datas!.carLaunchStr!,
                           style: TextStyle(color: Color(0xFF999999)),
                           maxLines: 1,
                         ))),
@@ -303,10 +303,10 @@ class OwnCarWidget extends GetView<EletricController> {
                       Obx(() => RichText(
                               text: TextSpan(
                                   text: controller
-                                      .carStatusModel.value.datas.doorOpenStr,
+                                      .carStatusModel.value.datas!.doorOpenStr!,
                                   style: TextStyle(
                                       color: controller.carStatusModel.value
-                                                  .datas.allDoorStatus !=
+                                                  .datas?.allDoorStatus !=
                                               2
                                           ? Color(0xFFFF6F6F)
                                           : Color(0xFF999999)),
@@ -316,10 +316,10 @@ class OwnCarWidget extends GetView<EletricController> {
                                     style: TextStyle(color: Color(0xFF999999))),
                                 TextSpan(
                                   text: controller
-                                      .carStatusModel.value.datas.lockOpenStr,
+                                      .carStatusModel.value.datas!.lockOpenStr!,
                                   style: TextStyle(
                                       color: controller.carStatusModel.value
-                                                  .datas.allLockStatus !=
+                                                  .datas?.allLockStatus !=
                                               2
                                           ? Color(0xFFFF6F6F)
                                           : Color(0xFF999999)),
@@ -379,7 +379,7 @@ class OwnCarWidget extends GetView<EletricController> {
                                 height: 30,
                                 radius: 15,
                                 backgroundColor: controller.carStatusModel.value
-                                        .datas.airOpenStatus
+                                        .datas!.airOpenStatus!
                                     ? Colors.green
                                     : Color(0xFF1B7DF4),
                                 disabled: (controller.currentCmdType != 1 &&
@@ -392,8 +392,8 @@ class OwnCarWidget extends GetView<EletricController> {
                                 imageH: 20,
                                 imageW: 20,
                                 onPressed: () {
-                                  if (controller.carStatusModel.value.datas
-                                      .airOpenStatus) {
+                                  if (controller.carStatusModel.value.datas!
+                                      .airOpenStatus!) {
                                     controller.sendControlCmd(1, 2);
                                   } else {
                                     controller.sendControlCmd(1, 1);
@@ -414,10 +414,10 @@ class OwnCarWidget extends GetView<EletricController> {
                         Flexible(
                             child: Obx(() => Text(
                                   controller
-                                      .carStatusModel.value.datas.airOpenStr,
+                                      .carStatusModel.value.datas!.airOpenStr!,
                                   style: TextStyle(
                                       color: controller.carStatusModel.value
-                                              .datas.airOpenStatus
+                                              .datas!.airOpenStatus!
                                           ? Colors.green
                                           : Color(0xFF999999)),
                                   maxLines: 1,
@@ -466,10 +466,10 @@ class OwnCarWidget extends GetView<EletricController> {
                   child: Obx(() => RichText(
                           text: TextSpan(
                               text: controller
-                                  .carStatusModel.value.datas.warnLightStr,
+                                  .carStatusModel.value.datas!.warnLightStr!,
                               style: TextStyle(
-                                  color: controller.carStatusModel.value.datas
-                                              .warnningLightStatus ==
+                                  color: controller.carStatusModel.value.datas!
+                                              .warnningLightStatus! ==
                                           '1'
                                       ? Color(0xFFFF6F6F)
                                       : Color(0xFF999999)),
@@ -479,10 +479,10 @@ class OwnCarWidget extends GetView<EletricController> {
                                 style: TextStyle(color: Color(0xFF999999))),
                             TextSpan(
                               text: controller
-                                  .carStatusModel.value.datas.positionLightStr,
+                                  .carStatusModel.value.datas!.positionLightStr!,
                               style: TextStyle(
-                                  color: controller.carStatusModel.value.datas
-                                              .positionLightStatus ==
+                                  color: controller.carStatusModel.value.datas!
+                                              .positionLightStatus! ==
                                           '1'
                                       ? Color(0xFFFF6F6F)
                                       : Color(0xFF999999)),
@@ -554,7 +554,7 @@ class OwnCarWidget extends GetView<EletricController> {
       });
     } else if (index == 1) {
       //违章查询
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
           'true') {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ViolationPage
@@ -564,23 +564,23 @@ class OwnCarWidget extends GetView<EletricController> {
       }
     } else if (index == 2) {
       //预约保养
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
           'true') {
         CommonModel _model = await DioManager().request<CommonModel>(
             DioManager.POST, Api.reservationMaintainUrl,
             params: {
               'unionId':
-                  Get.find<UserController>().userInfo.value.member.unionid,
-              'vin': Get.find<UserController>().userInfo.value.member.fVIN
+                  Get.find<UserController>().userInfo.value.member!.unionid!,
+              'vin': Get.find<UserController>().userInfo.value.member!.fVIN!
             });
-        if (_model.datas != null && _model.datas.length > 0) {
+        if (_model.datas != null && _model.datas!.length > 0) {
           Get.toNamed(Routes.WEBVIEW, arguments: {
             'url': _model.datas,
             'title': '预约保养',
             'hasNav': true,
           });
         } else {
-          EasyLoading.showToast(_model.message,
+          EasyLoading.showToast(_model.message!,
               toastPosition: EasyLoadingToastPosition.bottom);
         }
       } else {

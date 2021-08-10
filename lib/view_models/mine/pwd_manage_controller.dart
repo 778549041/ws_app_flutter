@@ -2,15 +2,14 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 
 class PwdManageController extends GetxController {
-  List<String> data;
+  List<String> data = [
+    "设置账号密码",
+    "找回账号密码",
+    "管理积分支付密码",
+  ];
 
   @override
   void onInit() {
-    data = [
-      "设置账号密码",
-      "找回账号密码",
-      "管理积分支付密码",
-    ];
     super.onInit();
   }
 

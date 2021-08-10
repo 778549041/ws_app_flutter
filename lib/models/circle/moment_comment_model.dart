@@ -2,8 +2,8 @@ import 'package:ws_app_flutter/models/common/common_member.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class MomentCommentListModel {
-  int totalPage;
-  List<MomentCommentModel> data;
+  int? totalPage;
+  List<MomentCommentModel>? data;
 
   MomentCommentListModel({this.totalPage, this.data});
 
@@ -14,8 +14,8 @@ class MomentCommentListModel {
       (json['data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            data.add(MomentCommentModel.fromJson(
-                asT<Map<String, dynamic>>(element)));
+            data?.add(MomentCommentModel.fromJson(
+                asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -24,20 +24,20 @@ class MomentCommentListModel {
 }
 
 class MomentCommentModel {
-  String avatar; //评论用户的头像
-  String cType; //0 纯文本 1 图片 2 视频
-  String content; //评论内容
-  String id; //评论id
-  bool isOfficial; //是否是官方
-  bool isSelf; //判断是否为自己，true为是，false为否
-  bool isVehicle; //是否是车主
-  String nickname; //评论用户的昵称
-  String praiseNum; //点赞数
-  bool praiseStatus; //判断用户是否给评论点赞，true已点赞，false未点赞
-  String pubdate; //评论时间
-  String userId; //评论用户的id
-  CommonMemberModel memberInfo;
-  List<MomentCommentReplyModel> replyData; //评论回复数组
+  String? avatar; //评论用户的头像
+  String? cType; //0 纯文本 1 图片 2 视频
+  String? content; //评论内容
+  String? id; //评论id
+  bool? isOfficial; //是否是官方
+  bool? isSelf; //判断是否为自己，true为是，false为否
+  bool? isVehicle; //是否是车主
+  String? nickname; //评论用户的昵称
+  String? praiseNum; //点赞数
+  bool? praiseStatus; //判断用户是否给评论点赞，true已点赞，false未点赞
+  String? pubdate; //评论时间
+  String? userId; //评论用户的id
+  CommonMemberModel? memberInfo;
+  List<MomentCommentReplyModel>? replyData; //评论回复数组
 
   MomentCommentModel(
       {this.avatar,
@@ -69,14 +69,14 @@ class MomentCommentModel {
     pubdate = asT<String>(json['pubdate']);
     userId = asT<String>(json['user_id']);
     memberInfo = CommonMemberModel.fromJson(
-        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
     replyData = <MomentCommentReplyModel>[];
     if (json['reply_data'] != null) {
       (json['reply_data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            replyData.add(MomentCommentReplyModel.fromJson(
-                asT<Map<String, dynamic>>(element)));
+            replyData?.add(MomentCommentReplyModel.fromJson(
+                asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -85,13 +85,13 @@ class MomentCommentModel {
 }
 
 class MomentCommentReplyModel {
-  String cType; //0 纯文本 1 图片 2 视频
-  String content; //评论内容
-  String id; //评论id
-  bool isOfficial; //是否是官方
-  String plName; //当前评论用户昵称
-  String replyName; //被回复人昵称
-  String pid; //当前圈子id
+  String? cType; //0 纯文本 1 图片 2 视频
+  String? content; //评论内容
+  String? id; //评论id
+  bool? isOfficial; //是否是官方
+  String? plName; //当前评论用户昵称
+  String? replyName; //被回复人昵称
+  String? pid; //当前圈子id
 
   MomentCommentReplyModel(
       {this.cType,

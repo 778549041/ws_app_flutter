@@ -32,7 +32,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
   Widget build(BuildContext context) {
     return BasePage(
       title: '圈子正文',
-      rightActions: <Widget>[
+      rightItems: <Widget>[
         CustomButton(
           backgroundColor: Colors.transparent,
           image: 'assets/images/wow/icon_share.png',
@@ -108,7 +108,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                 Obx(
                   () => LikeButton(
                     isLiked:
-                        controller.momentDetailModel.value.list.praiseStatus,
+                        controller.momentDetailModel.value.list!.praiseStatus,
                     size: 15,
                     countPostion: CountPostion.bottom,
                     circleColor: CircleColor(
@@ -125,15 +125,15 @@ class CircleDetailPageState extends State<CircleDetailPage>
                       );
                     },
                     likeCount: int.parse(
-                        controller.momentDetailModel.value.list.praise),
-                    countBuilder: (int count, bool isLiked, String text) {
+                        controller.momentDetailModel.value.list!.praise!),
+                    countBuilder: (int? count, bool isLiked, String text) {
                       return Text(
                         text,
                         style: TextStyle(color: Colors.black, fontSize: 12),
                       );
                     },
                     onTap: (isLiked) => CircleActionUtil().clickLikeButton(
-                        isLiked, controller.momentDetailModel.value.list),
+                        isLiked, controller.momentDetailModel.value.list!),
                   ),
                 ),
                 SizedBox(
@@ -147,7 +147,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                     imageH: 15,
                     imageW: 17,
                     imagePosition: XJImagePosition.XJImagePositionTop,
-                    title: controller.momentDetailModel.value.list.comment,
+                    title: controller.momentDetailModel.value.list!.comment!,
                     fontSize: 12,
                     onPressed: () => controller.clickArticleCommentBtn(),
                   ),
@@ -161,21 +161,21 @@ class CircleDetailPageState extends State<CircleDetailPage>
   }
 
   Widget _buildDetailContent() {
-    MomentModel model = controller.momentDetailModel.value.list;
-    String _nickName = model.nickname;
+    MomentModel? model = controller.momentDetailModel.value.list;
+    String _nickName = model!.nickname!;
     if (_nickName.length > 11) {
       _nickName = _nickName.substring(0, 11);
     }
 
     String _accountType = '';
     if (model.classify == '1') {
-      if (model.memberInfo.isSales == 1) {
+      if (model.memberInfo?.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else {
         _accountType = '官方账号';
       }
     } else {
-      if (model.memberInfo.isSales == 1) {
+      if (model.memberInfo?.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else if (model.userType == 2) {
         _accountType = '认证车主';
@@ -203,11 +203,11 @@ class CircleDetailPageState extends State<CircleDetailPage>
                       children: <Widget>[
                         //头像
                         GestureDetector(
-                          onTap: () => controller.clickAvatar(model.memberId),
+                          onTap: () => controller.clickAvatar(model.memberId!),
                           child: Stack(
                             children: <Widget>[
                               RoundAvatar(
-                                imageUrl: model.avatar,
+                                imageUrl: model.avatar!,
                                 height: 40,
                               ),
                               Positioned(
@@ -243,16 +243,16 @@ class CircleDetailPageState extends State<CircleDetailPage>
                                           fontSize: 15),
                                     )),
                                     //销售员或者勋章标签
-                                    if (model.memberInfo.showTag)
+                                    if (model.memberInfo!.showTag!)
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: MedalWidget(
                                           medalBtnImage: model
-                                              .memberInfo.medalOrSaleImageName,
-                                          medalToastImage: model.memberInfo
-                                              .medalOrSaleDescImageName,
+                                              .memberInfo!.medalOrSaleImageName!,
+                                          medalToastImage: model.memberInfo!
+                                              .medalOrSaleDescImageName!,
                                           isSales:
-                                              model.memberInfo.isSales == 1,
+                                              model.memberInfo?.isSales == 1,
                                         ),
                                       ),
                                   ],
@@ -276,7 +276,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                       children: <Widget>[
                         //加好友按钮
                         Offstage(
-                          offstage: model.friendsRelation == 2 || model.isSelf,
+                          offstage: model.friendsRelation == 2 || model.isSelf!,
                           child: Padding(
                             padding: EdgeInsets.only(right: 5),
                             child: CustomButton(
@@ -296,7 +296,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                         ),
                         //举报按钮
                         Offstage(
-                          offstage: model.isSelf,
+                          offstage: model.isSelf!,
                           child: CustomButton(
                             backgroundColor: Colors.transparent,
                             width: 73,
@@ -317,9 +317,9 @@ class CircleDetailPageState extends State<CircleDetailPage>
                 ],
               ),
               //圈子文本内容
-              if (model.topicTitle.length +
-                      model.content.length +
-                      model.params.name.length >
+              if (model.topicTitle!.length +
+                      model.content!.length +
+                      model.params!.name!.length >
                   0)
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -344,7 +344,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                             ),
                           ),
                           TextSpan(
-                              text: model.params.name,
+                              text: model.params?.name,
                               style: TextStyle(
                                 color: Color(0xFF2673FB),
                                 fontSize: 15,
@@ -353,9 +353,9 @@ class CircleDetailPageState extends State<CircleDetailPage>
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   CommonUtil.serviceControlPushPage(
-                                      type: model.params.type,
-                                      detailId: model.params.detailId,
-                                      url: model.params.url,
+                                      type: model.params?.type,
+                                      detailId: model.params?.detailId,
+                                      url: model.params?.url,
                                       hasNav: false);
                                 }),
                         ]),
@@ -366,9 +366,9 @@ class CircleDetailPageState extends State<CircleDetailPage>
                 GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: model.fileList.length,
+                    itemCount: model.fileList?.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: (model.fileList.length > 1) ? 2 : 1,
+                      crossAxisCount: (model.fileList != null && model.fileList!.length > 1) ? 2 : 1,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 8,
                     ),
@@ -377,9 +377,9 @@ class CircleDetailPageState extends State<CircleDetailPage>
                         onTap: () {
                           Get.to(
                               () => GalleryPhotoPage(
-                                    heroName: (model.fileList[index].savepath +
+                                    heroName: (model.fileList![index].savepath! +
                                         'circleDetailPage'),
-                                    galleryItems: model.fileList,
+                                    galleryItems: model.fileList!,
                                     initialIndex: index,
                                     backgroundDecoration: const BoxDecoration(
                                         color: Colors.black),
@@ -387,10 +387,10 @@ class CircleDetailPageState extends State<CircleDetailPage>
                               transition: Transition.fadeIn);
                         },
                         child: Hero(
-                          tag: (model.fileList[index].savepath +
+                          tag: (model.fileList![index].savepath! +
                               'circleDetailPage'),
                           child: CachedNetworkImage(
-                            imageUrl: model.fileList[index].savepath,
+                            imageUrl: model.fileList![index].savepath!,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -404,7 +404,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                     onTap: () {
                       Get.to(
                           () => VideoPalyPage(
-                                videoUrl: model.fileList[0].savepath,
+                                videoUrl: model.fileList![0].savepath!,
                               ),
                           transition: Transition.fadeIn);
                     },
@@ -413,7 +413,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                       children: <Widget>[
                         CachedNetworkImage(
                           imageUrl:
-                              '${model.fileList[0].savepath}?vframe/jpg/offset/0',
+                              '${model.fileList![0].savepath!}?vframe/jpg/offset/0',
                           fit: BoxFit.cover,
                         ),
                         Image.asset('assets/images/circle/circle_play.png',
@@ -448,17 +448,17 @@ class CircleDetailPageState extends State<CircleDetailPage>
   }
 
   Widget _buildCommentRow(MomentCommentModel model) {
-    String _nickName = model.nickname;
+    String _nickName = model.nickname!;
     if (_nickName.length > 11) {
       _nickName = _nickName.substring(0, 11);
     }
 
     String _accountType = '';
-    if (model.memberInfo.isSales == 1) {
+    if (model.memberInfo?.isSales == 1) {
       _accountType = '特约店销售顾问';
-    } else if (model.isOfficial) {
+    } else if (model.isOfficial!) {
       _accountType = '官方账号';
-    } else if (model.isVehicle) {
+    } else if (model.isVehicle!) {
       _accountType = '认证车主';
     } else {
       _accountType = '普通用户';
@@ -480,18 +480,18 @@ class CircleDetailPageState extends State<CircleDetailPage>
                   children: <Widget>[
                     //头像
                     GestureDetector(
-                      onTap: () => controller.clickAvatar(model.userId),
+                      onTap: () => controller.clickAvatar(model.userId!),
                       child: Stack(
                         children: <Widget>[
                           RoundAvatar(
-                            imageUrl: model.avatar,
+                            imageUrl: model.avatar!,
                             height: 40,
                           ),
                           Positioned(
                             bottom: 0,
                             right: 0,
                             child: Offstage(
-                                offstage: !model.isVehicle,
+                                offstage: !model.isVehicle!,
                                 child: Image.asset(
                                   'assets/images/mine/vip_tag.png',
                                   width: 18,
@@ -516,21 +516,21 @@ class CircleDetailPageState extends State<CircleDetailPage>
                                   _nickName,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: model.isOfficial
+                                      color: model.isOfficial!
                                           ? Color(0xFF2673FB)
                                           : Colors.black,
                                       fontSize: 15),
                                 )),
                                 //销售员或者勋章标签
-                                if (model.memberInfo.showTag)
+                                if (model.memberInfo!.showTag!)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: MedalWidget(
                                       medalBtnImage:
-                                          model.memberInfo.medalOrSaleImageName,
+                                          model.memberInfo!.medalOrSaleImageName!,
                                       medalToastImage: model
-                                          .memberInfo.medalOrSaleDescImageName,
-                                      isSales: model.memberInfo.isSales == 1,
+                                          .memberInfo!.medalOrSaleDescImageName!,
+                                      isSales: model.memberInfo!.isSales == 1,
                                     ),
                                   ),
                               ],
@@ -553,12 +553,12 @@ class CircleDetailPageState extends State<CircleDetailPage>
                 children: <Widget>[
                   //时间
                   Text(
-                    model.pubdate,
+                    model.pubdate!,
                     style: TextStyle(fontSize: 12, color: Colors.grey[400]),
                   ),
                   //删除按钮
                   Offstage(
-                    offstage: !model.isSelf,
+                    offstage: !model.isSelf!,
                     child: CustomButton(
                       backgroundColor: Colors.transparent,
                       width: 50,
@@ -620,8 +620,8 @@ class CircleDetailPageState extends State<CircleDetailPage>
                           : 'assets/images/wow/news_detail_praise.png',
                     );
                   },
-                  likeCount: int.parse(model.praiseNum),
-                  countBuilder: (int count, bool isLiked, String text) {
+                  likeCount: int.parse(model.praiseNum!),
+                  countBuilder: (int? count, bool isLiked, String text) {
                     return Text(
                       text,
                       style: TextStyle(color: Colors.black, fontSize: 12),
@@ -640,14 +640,14 @@ class CircleDetailPageState extends State<CircleDetailPage>
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                MomentCommentReplyModel replyModel = model.replyData[index];
+                MomentCommentReplyModel replyModel = model.replyData![index];
                 return GestureDetector(
                   onTap: () => controller.clickReplyComment(model, replyModel),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: RichText(
                       text: TextSpan(children: <InlineSpan>[
-                        if (replyModel.isOfficial)
+                        if (replyModel.isOfficial!)
                           WidgetSpan(
                             child: Image.asset(
                                 'assets/images/wow/ve_offical_tag.png'),
@@ -677,7 +677,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                   ),
                 );
               },
-              itemCount: model.replyData.length,
+              itemCount: model.replyData!.length,
             ),
           ),
           // Offstage(
@@ -703,12 +703,12 @@ class CircleDetailPageState extends State<CircleDetailPage>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
@@ -716,8 +716,8 @@ class CircleDetailPageState extends State<CircleDetailPage>
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (MediaQuery.of(Get.context).viewInsets.bottom == 0) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (MediaQuery.of(Get.context!).viewInsets.bottom == 0) {
         //关闭键盘
         print('关闭键盘');
         controller.placeholder.value = '我来说下~';

@@ -7,14 +7,14 @@ class RoundAvatar extends StatelessWidget {
   final Color borderColor;
   final String placeHolder;
   final String imageUrl;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   RoundAvatar({
     this.height = 60.0,
     this.borderWidth = 2.0,
     this.borderColor = Colors.white,
     this.placeHolder = 'assets/images/mine/ic_people.png',
-    @required this.imageUrl,
+    required this.imageUrl,
     this.onPressed,
   });
 
@@ -39,7 +39,7 @@ class RoundAvatar extends StatelessWidget {
         child: ClipOval(
           child: this.imageUrl.length > 0
               ? CachedNetworkImage(
-                  imageUrl: this.imageUrl ?? '',
+                  imageUrl: this.imageUrl,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => _buildPlaceholder(),
                   errorWidget: (context, url, error) => _buildPlaceholder(),

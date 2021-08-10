@@ -12,7 +12,7 @@ class MineFriendsPage extends GetView<ConversationController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '我的好友',
-      rightActions: <Widget>[
+      rightItems: <Widget>[
         CustomButton(
           backgroundColor: Colors.transparent,
           width: 40,
@@ -44,9 +44,9 @@ class MineFriendsPage extends GetView<ConversationController> {
             () => SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  V2TimConversation _item = controller.list[index];
+                  V2TimConversation? _item = controller.list[index];
                   return ConversationRow(
-                    conversation: _item,
+                    conversation: _item!,
                   );
                 },
                 childCount: controller.list.length,

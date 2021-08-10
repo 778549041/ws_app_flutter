@@ -28,7 +28,7 @@ class SoundMessageState extends State<SoundMessage> {
   }
 
   play() {
-    String url = widget.message.soundElem.url;
+    String? url = widget.message.soundElem?.url;
     if (url != null) {
       setState(() {
         isPlay = !isPlay;
@@ -41,6 +41,7 @@ class SoundMessageState extends State<SoundMessage> {
   void deactivate() {
     print("sound message deactivate call ${widget.message.msgID}");
     recordPlugin.dispose();
+    super.deactivate();
   }
 
   @override
@@ -57,7 +58,7 @@ class SoundMessageState extends State<SoundMessage> {
             Expanded(
               child: Container(),
             ),
-            Text(" ${widget.message.soundElem.duration} s")
+            Text(" ${widget.message.soundElem!.duration!} s")
           ],
         ),
       ),

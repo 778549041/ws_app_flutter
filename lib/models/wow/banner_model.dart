@@ -1,8 +1,8 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class BannerModel {
-  CarouselHead carouselHead;
-  List<HeadLine> headlines;
+  CarouselHead? carouselHead;
+  List<HeadLine>? headlines;
 
   BannerModel()
       : carouselHead = CarouselHead(),
@@ -10,14 +10,13 @@ class BannerModel {
 
   BannerModel.fromJson(Map<String, dynamic> json) {
     carouselHead = CarouselHead.fromJson(asT<Map<String, dynamic>>(
-        json['carousel_head'], Map<String, dynamic>()));
+        json['carousel_head'], Map<String, dynamic>())!);
     headlines = <HeadLine>[];
     if (json['headlines'] != null) {
       (json['headlines'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            headlines
-                .add(HeadLine.fromJson(asT<Map<String, dynamic>>(element)));
+            headlines?.add(HeadLine.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -26,8 +25,8 @@ class BannerModel {
 }
 
 class HeadLine {
-  String articleId;
-  String title;
+  String? articleId;
+  String? title;
 
   HeadLine({this.articleId = '', this.title = ''});
 
@@ -38,28 +37,28 @@ class HeadLine {
 }
 
 class CarouselHead {
-  Banner banner;
+  Banner? banner;
 
   CarouselHead() : banner = Banner();
 
   CarouselHead.fromJson(Map<String, dynamic> json) {
     banner = Banner.fromJson(
-        asT<Map<String, dynamic>>(json['banner'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['banner'], Map<String, dynamic>())!);
   }
 }
 
 class Banner {
-  String carouselId;
-  String carouselType;
-  String createtime;
-  String figureType;
-  String lastModify;
-  String opId;
-  String opName;
-  String screen;
-  String showType;
-  String status;
-  List<BannerItem> items;
+  String? carouselId;
+  String? carouselType;
+  String? createtime;
+  String? figureType;
+  String? lastModify;
+  String? opId;
+  String? opName;
+  String? screen;
+  String? showType;
+  String? status;
+  List<BannerItem>? items;
 
   Banner(
       {this.carouselId = '',
@@ -90,7 +89,7 @@ class Banner {
       (json['items'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            items.add(BannerItem.fromJson(asT<Map<String, dynamic>>(element)));
+            items?.add(BannerItem.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -99,13 +98,13 @@ class Banner {
 }
 
 class BannerItem {
-  String imageUrl;
-  String link;
-  BannerParams params;
-  String isHeader;
-  String title;
-  String pOrder;
-  String name;
+  String? imageUrl;
+  String? link;
+  BannerParams? params;
+  String? isHeader;
+  String? title;
+  String? pOrder;
+  String? name;
 
   BannerItem(
       {this.imageUrl = '',
@@ -120,7 +119,7 @@ class BannerItem {
     imageUrl = asT<String>(json['image_url'], '');
     link = asT<String>(json['link'], '');
     params = BannerParams.fromJson(
-        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>())!);
     isHeader = asT<String>(json['is_header'], '');
     title = asT<String>(json['title'], '');
     pOrder = asT<String>(json['p_order'], '');
@@ -129,9 +128,9 @@ class BannerItem {
 }
 
 class BannerParams {
-  String type; //跳转方式
-  String url; //h5跳转链接
-  String detailId; //跳转原生页面携带参数
+  String? type; //跳转方式
+  String? url; //h5跳转链接
+  String? detailId; //跳转原生页面携带参数
 
   BannerParams({this.type = '', this.url = '', this.detailId = ''});
 

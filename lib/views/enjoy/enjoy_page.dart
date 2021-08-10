@@ -70,8 +70,8 @@ class EnjoyPage extends GetView<EnjoyController> {
                           imageUrl: Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
-                              .headImg,
+                              .member!
+                              .headImg!,
                           borderWidth: 0,
                           borderColor: Colors.transparent,
                           height: 40,
@@ -83,7 +83,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                           offstage: !(Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
+                                  .member!
                                   .isVehicle ==
                               'true'),
                           child: Image.asset(
@@ -103,21 +103,21 @@ class EnjoyPage extends GetView<EnjoyController> {
                       (Get.find<UserController>()
                                   .userInfo
                                   .value
-                                  .member
-                                  .showName
+                                  .member!
+                                  .showName!
                                   .length >
                               11)
                           ? Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
-                              .showName
+                              .member!
+                              .showName!
                               .substring(0, 11)
                           : Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
-                              .showName,
+                              .member!
+                              .showName!,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     )),
@@ -126,29 +126,29 @@ class EnjoyPage extends GetView<EnjoyController> {
               if (Get.find<UserController>()
                   .userInfo
                   .value
-                  .member
-                  .memberInfo
-                  .showTag)
+                  .member!
+                  .memberInfo!
+                  .showTag!)
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: MedalWidget(
                     medalBtnImage: Get.find<UserController>()
                         .userInfo
                         .value
-                        .member
-                        .memberInfo
-                        .medalOrSaleImageName,
+                        .member!
+                        .memberInfo!
+                        .medalOrSaleImageName!,
                     medalToastImage: Get.find<UserController>()
                         .userInfo
                         .value
-                        .member
-                        .memberInfo
-                        .medalOrSaleDescImageName,
+                        .member!
+                        .memberInfo!
+                        .medalOrSaleDescImageName!,
                     isSales: Get.find<UserController>()
                             .userInfo
                             .value
-                            .member
-                            .memberInfo
+                            .member!
+                            .memberInfo!
                             .isSales ==
                         1,
                   ),
@@ -168,8 +168,8 @@ class EnjoyPage extends GetView<EnjoyController> {
                     title: TextUtil.formatComma3(Get.find<UserController>()
                         .userInfo
                         .value
-                        .member
-                        .integral),
+                        .member!
+                        .integral!),
                     titleColor: Colors.white,
                     fontSize: 12,
                     onPressed: () => controller.buttonAction(1002),
@@ -215,7 +215,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                         top: 15, left: 2, right: 2, bottom: 18),
                     child: GestureDetector(
                       onTap: () => controller.pushH5Page(args: {
-                        'url': controller.futcModel.value.list.url,
+                        'url': controller.futcModel.value.list!.url,
                       }),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -223,7 +223,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                               width: Get.width - 34,
                               height: (Get.width - 34) * 220 / 341,
                               imageUrl:
-                                  controller.futcModel.value.list.imageUrl,
+                                  controller.futcModel.value.list?.imageUrl,
                               fit: BoxFit.contain,
                             )),
                       ),
@@ -339,7 +339,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                     right: 0,
                     top: 0,
                     child: Offstage(
-                      offstage: !model.typeVip,
+                      offstage: !model.typeVip!,
                       child: Image.asset(
                         'assets/images/enjoy/icon_car_owner.png',
                         width: 40,
@@ -353,14 +353,14 @@ class EnjoyPage extends GetView<EnjoyController> {
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(
-                model.name,
+                model.name!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 10),
               ),
             ),
             Offstage(
-              offstage: int.parse(model.deduction) == 0,
+              offstage: int.parse(model.deduction!) == 0,
               child: Row(
                 children: <Widget>[
                   Image.asset(
@@ -370,7 +370,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                   ),
                   Flexible(
                     child: Text(
-                      TextUtil.formatComma3(model.deduction),
+                      TextUtil.formatComma3(model.deduction!),
                       style: TextStyle(color: Color(0xFFE30052), fontSize: 12),
                     ),
                   ),
@@ -383,7 +383,7 @@ class EnjoyPage extends GetView<EnjoyController> {
               ),
             ),
             Offstage(
-              offstage: int.parse(model.integral) == 0,
+              offstage: int.parse(model.integral!) == 0,
               child: Row(
                 children: <Widget>[
                   Image.asset(
@@ -393,7 +393,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                   ),
                   Flexible(
                     child: Text(
-                      TextUtil.formatComma3(model.integral),
+                      TextUtil.formatComma3(model.integral!),
                       style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 12),
                     ),
                   ),

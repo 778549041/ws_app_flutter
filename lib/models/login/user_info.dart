@@ -3,67 +3,67 @@ import 'package:ws_app_flutter/models/common/common_member.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class UserInfo {
-  int huodongData;
-  Member member;
-  bool memberVip;
+  int? huodongData;
+  Member? member;
+  bool? memberVip;
 
   UserInfo({this.huodongData = 0, this.memberVip = false}) : member = Member();
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     huodongData = asT<int>(json['huodong_data'], 0);
     member = Member.fromJson(
-        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>())!);
     memberVip = asT<bool>(json['member_vip'], false);
   }
 }
 
 class Member {
-  String nextExperience;
-  String unionid;
-  String fcreateDate;
-  String isVehicle;
-  String memberQrcode;
-  bool binding;
-  String nextLvDiscount;
-  String experience;
-  String fName;
-  String memberLv;
-  String memberCur;
-  String bMonth;
-  String localUname;
-  String fLicPlate;
-  String bYear;
-  String fVIN;
-  String lvDiscount;
-  String integral;
-  String fPurchaseDate;
-  String fCarColor;
-  String addr;
-  String levelname;
-  String fPhoneNum;
-  String email;
-  String memberId;
-  String profession;
-  String area;
-  String isReceive;
-  String uname;
-  String lvIngoreExperience;
-  String openid;
-  String sex;
-  String headImg;
-  String mobile;
-  String avatar;
-  String memberReceive;
-  String loginAccount;
-  String bDay;
-  String name;
-  String nextLevelname;
-  String isDisplay;
-  String lvChannelprice;
-  List<String> interest;
-  String regtime;
-  CommonMemberModel memberInfo;
-  String showName;
+  String? nextExperience;
+  String? unionid;
+  String? fcreateDate;
+  String? isVehicle;
+  String? memberQrcode;
+  bool? binding;
+  String? nextLvDiscount;
+  String? experience;
+  String? fName;
+  String? memberLv;
+  String? memberCur;
+  String? bMonth;
+  String? localUname;
+  String? fLicPlate;
+  String? bYear;
+  String? fVIN;
+  String? lvDiscount;
+  String? integral;
+  String? fPurchaseDate;
+  String? fCarColor;
+  String? addr;
+  String? levelname;
+  String? fPhoneNum;
+  String? email;
+  String? memberId;
+  String? profession;
+  String? area;
+  String? isReceive;
+  String? uname;
+  String? lvIngoreExperience;
+  String? openid;
+  String? sex;
+  String? headImg;
+  String? mobile;
+  String? avatar;
+  String? memberReceive;
+  String? loginAccount;
+  String? bDay;
+  String? name;
+  String? nextLevelname;
+  String? isDisplay;
+  String? lvChannelprice;
+  List<String>? interest;
+  String? regtime;
+  CommonMemberModel? memberInfo;
+  String? showName;
 
   Member(
       {this.addr = '',
@@ -137,7 +137,7 @@ class Member {
       (json['interest'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            interest.add(asT<String>(element));
+            interest?.add(asT<String>(element)!);
           });
         }
       });
@@ -154,7 +154,7 @@ class Member {
     memberCur = asT<String>(json['member_cur'], '');
     memberId = asT<String>(json['member_id'], '');
     memberInfo = CommonMemberModel.fromJson(
-        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
     memberLv = asT<String>(json['member_lv'], '');
     memberQrcode = asT<String>(json['member_qrcode'], '');
     memberReceive = asT<String>(json['member_receive'], '');
@@ -173,7 +173,7 @@ class Member {
   }
 
   String _showName() {
-    String _showName = name.length > 0 ? name : mobile;
+    String _showName = (name != null && name!.length > 0) ? name! : mobile!;
     if (RegexUtil.isMobileExact(_showName)) {
       _showName = _showName.replaceFirst(RegExp(r'\d{4}'), '****', 3);
     }

@@ -9,13 +9,13 @@ class DZInfoView extends StatelessWidget {
   final VoidCallback jumpListCallback;
   final VoidCallback mapNavCallback;
 
-  DZInfoView({this.info, this.jumpListCallback, this.mapNavCallback});
+  DZInfoView({required this.info, required this.jumpListCallback, required this.mapNavCallback});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: jumpListCallback != null ? jumpListCallback : null,
+      onTap: jumpListCallback,
       child: Container(
         width: ScreenUtil.getInstance().screenWidth,
         color: Colors.transparent,
@@ -32,7 +32,7 @@ class DZInfoView extends StatelessWidget {
                   Container(
                     width: ScreenUtil.getInstance().screenWidth - 126.5,
                     child: Text(
-                      info.stationName,
+                      info.stationName!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -151,7 +151,7 @@ class DZInfoView extends StatelessWidget {
                             children: <TextSpan>[
                               TextSpan(
                                 text: NumUtil.getNumByValueDouble(
-                                        double.parse(info.price), 2)
+                                        double.parse(info.price!), 2)
                                     .toString(),
                                 style: TextStyle(
                                   color: Color(0xFF0045D0),
@@ -178,7 +178,7 @@ class DZInfoView extends StatelessWidget {
                               children: <TextSpan>[
                                 TextSpan(
                                   text: NumUtil.getNumByValueDouble(
-                                          double.parse(info.servicePrice), 2)
+                                          double.parse(info.servicePrice!), 2)
                                       .toString(),
                                   style: TextStyle(
                                     color: Color(0xFF0045D0),
@@ -212,7 +212,7 @@ class DZInfoView extends StatelessWidget {
                           margin: EdgeInsets.only(left: 5),
                           width: ScreenUtil.getInstance().screenWidth - 50,
                           child: Text(
-                            info.address,
+                            info.address!,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 13, color: Colors.grey),
@@ -234,8 +234,8 @@ class DZInfoView extends StatelessWidget {
                           margin: EdgeInsets.only(left: 5),
                           width: ScreenUtil.getInstance().screenWidth - 50,
                           child: Text(
-                            (info.parkFee != null && info.parkFee.length > 0)
-                                ? info.parkFee
+                            (info.parkFee != null && info.parkFee!.length > 0)
+                                ? info.parkFee!
                                 : '无',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -261,7 +261,7 @@ class DZInfoView extends StatelessWidget {
                 blurRadius: 6,
                 spreadRadius: 4,
                 shadowColorA: 20,
-                onPressed: mapNavCallback != null ? mapNavCallback : null,
+                onPressed: mapNavCallback,
               ),
             ),
           ],

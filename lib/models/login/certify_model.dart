@@ -1,9 +1,9 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class CertifyModel {
-  bool result;
-  String message;
-  int code;
+  bool? result;
+  String? message;
+  int? code;
 
   CertifyModel({this.result = false, this.message = '', this.code = 0});
 

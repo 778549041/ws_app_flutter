@@ -12,7 +12,7 @@ class ComplaintController extends GetxController {
   final String store = Get.arguments['store'];
   final String name = Get.arguments['name'];
   final String vincode = Get.arguments['vincode'];
-  String storeid, inputStr;
+  String? storeid, inputStr;
 
   @override
   void onReady() {
@@ -25,7 +25,7 @@ class ComplaintController extends GetxController {
       {'title': '车架号', 'content': vincode},
       {
         'title': '手机号',
-        'content': Get.find<UserController>().userInfo.value.member.mobile
+        'content': Get.find<UserController>().userInfo.value.member!.mobile
       },
       {'title': '', 'content': ''},
       {'title': '', 'content': ''},
@@ -34,7 +34,7 @@ class ComplaintController extends GetxController {
   }
 
   Future submitAction() async {
-    if (inputStr == null || inputStr.length == 0) {
+    if (inputStr == null || inputStr?.length == 0) {
       EasyLoading.showToast('请输入申述内容',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
@@ -46,17 +46,17 @@ class ComplaintController extends GetxController {
       'store': store,
       'name': name,
       'vin': vincode,
-      'mobile': Get.find<UserController>().userInfo.value.member.mobile,
+      'mobile': Get.find<UserController>().userInfo.value.member!.mobile,
       'content': inputStr,
     });
     if (_model.success != null) {
-      EasyLoading.showToast(_model.success,
+      EasyLoading.showToast(_model.success!,
           toastPosition: EasyLoadingToastPosition.bottom);
       Future.delayed(Duration(seconds: 1), () {
         Get.back();
       });
     } else if (_model.error != null) {
-      EasyLoading.showToast(_model.error,
+      EasyLoading.showToast(_model.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }

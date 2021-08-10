@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class CompleteInfoController extends BaseController {
-  TextEditingController nameController;
-  TextEditingController professionController;
+  late TextEditingController nameController;
+  late TextEditingController professionController;
   var userInfo = UserInfo().obs;
 
   var phone = ''.obs; //手机号
@@ -21,10 +21,10 @@ class CompleteInfoController extends BaseController {
   void onInit() {
     userInfo.value = Get.find<UserController>().userInfo.value;
     nameController =
-        TextEditingController(text: userInfo.value.member.name ?? '');
+        TextEditingController(text: userInfo.value.member?.name ?? '');
     professionController = TextEditingController();
-    phone.value =
-        userInfo.value.member.mobile.replaceFirst(RegExp(r'\d{4}'), '****', 3);
+    phone.value = userInfo.value.member!.mobile!
+        .replaceFirst(RegExp(r'\d{4}'), '****', 3);
     super.onInit();
   }
 
@@ -37,7 +37,7 @@ class CompleteInfoController extends BaseController {
   //选择性别
   void selectSex() {
     Pickers.showSinglePicker(
-      Get.context,
+      Get.context!,
       data: ['男', '女'],
       onConfirm: (data, position) {
         sex.value = data;
@@ -48,7 +48,7 @@ class CompleteInfoController extends BaseController {
   //选择出生日期
   void selectBirth() {
     Pickers.showDatePicker(
-      Get.context,
+      Get.context!,
       onConfirm: (res) {
         birthday.value = '${res.year}-${res.month}-${res.day}';
       },
@@ -58,11 +58,15 @@ class CompleteInfoController extends BaseController {
   //选择地址
   void selectAddress() async {
     Pickers.showAddressPicker(
-      Get.context,
+      Get.context!,
       initTown: '',
       addAllItem: false,
       onConfirm: (province, city, town) {
-        addr.value = province + '/' + city + '/' + town;
+        if (town == null) {
+          addr.value = province + '/' + city;
+        } else {
+          addr.value = province + '/' + city + '/' + town;
+        }
       },
     );
   }

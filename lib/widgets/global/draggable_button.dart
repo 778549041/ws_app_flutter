@@ -29,7 +29,7 @@ class _DefaultHeroTag {
 
 class DraggableButton extends StatefulWidget {
   DraggableButton({
-    Key key,
+    Key? key,
     this.child,
     this.tooltip,
     this.foregroundColor,
@@ -37,33 +37,27 @@ class DraggableButton extends StatefulWidget {
     this.heroTag = const _DefaultHeroTag(),
     this.elevation = 6.0,
     this.highlightElevation = 12.0,
-    @required this.onPressed,
+    required this.onPressed,
     this.mini = false,
     this.shape = const CircleBorder(),
     this.clipBehavior = Clip.none,
     this.materialTapTargetSize,
     this.isExtended = false,
-    this.appContext,
+    required this.appContext,
     this.appBarHeight = 0,
     this.bottomBarHeight = 0,
     this.data = 'dfab',
     this.offset = _kDefaultOffset,
-  })  : assert(elevation != null),
-        assert(highlightElevation != null),
-        assert(mini != null),
-        assert(shape != null),
-        assert(isExtended != null),
-        assert(appContext != null),
-        _sizeConstraints = mini ? _kMiniSizeConstraints : _kSizeConstraints,
+  })  : _sizeConstraints = mini ? _kMiniSizeConstraints : _kSizeConstraints,
         super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
-  final String tooltip;
+  final String? tooltip;
 
-  final Color foregroundColor;
+  final Color? foregroundColor;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   final Object heroTag;
 
@@ -81,7 +75,7 @@ class DraggableButton extends StatefulWidget {
 
   final bool isExtended;
 
-  final MaterialTapTargetSize materialTapTargetSize;
+  final MaterialTapTargetSize? materialTapTargetSize;
 
   final BuildContext appContext;
 
@@ -100,7 +94,7 @@ class DraggableButton extends StatefulWidget {
 }
 
 class _DraggableButtonState extends State<DraggableButton> {
-  Offset dynamicOffset;
+  Offset? dynamicOffset;
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +119,8 @@ class _DraggableButtonState extends State<DraggableButton> {
         mini: widget.mini);
 
     return Positioned(
-        left: dynamicOffset.dx,
-        top: dynamicOffset.dy,
+        left: dynamicOffset!.dx,
+        top: dynamicOffset!.dy,
         child: Draggable(
           data: widget.data,
           child: _floatingActionButton,

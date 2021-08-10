@@ -1,6 +1,6 @@
 class Emoji {
-  String name;
-  int unicode;
+  String? name;
+  int? unicode;
 
   Emoji({this.name, this.unicode});
 

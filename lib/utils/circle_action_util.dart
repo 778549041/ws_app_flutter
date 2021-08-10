@@ -20,7 +20,7 @@ class CircleActionUtil {
       EasyLoading.showToast('已向该好友发送邀请，等待对方确认',
           toastPosition: EasyLoadingToastPosition.bottom);
     } else {
-      EasyLoading.showToast(res.error,
+      EasyLoading.showToast(res.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
@@ -34,15 +34,15 @@ class CircleActionUtil {
       //本地同步数据状态到其他圈子列表页面
       //wow推荐圈子
       for (var i = 0;
-          i < Get.find<RecommendController>().momentListModel.value.list.length;
+          i < Get.find<RecommendController>().momentListModel.value.list!.length;
           i++) {
         MomentModel momentModel =
-            Get.find<RecommendController>().momentListModel.value.list[i];
+            Get.find<RecommendController>().momentListModel.value.list![i];
         if (momentModel.circleId == model.circleId) {
           Get.find<RecommendController>()
               .momentListModel
               .value
-              .list
+              .list!
               .remove(momentModel);
         }
       }
@@ -78,7 +78,7 @@ class CircleActionUtil {
         }
       }
     } else {
-      EasyLoading.showToast(res.error,
+      EasyLoading.showToast(res.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
@@ -90,7 +90,7 @@ class CircleActionUtil {
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.circleMomentUnPraiseUrl,
           params: {'cid': model.circleId});
-      if (result.res) {
+      if (result.res!) {
         //本地同步数据状态到其他圈子列表页面
         //wow推荐圈子
         for (var i = 0;
@@ -98,23 +98,23 @@ class CircleActionUtil {
                 Get.find<RecommendController>()
                     .momentListModel
                     .value
-                    .list
+                    .list!
                     .length;
             i++) {
           MomentModel momentModel =
-              Get.find<RecommendController>().momentListModel.value.list[i];
+              Get.find<RecommendController>().momentListModel.value.list![i];
           if (momentModel.circleId == model.circleId) {
             Get.find<RecommendController>()
                 .momentListModel
                 .value
-                .list
+                .list!
                 .remove(momentModel);
             momentModel.praiseStatus = false;
-            momentModel.praise = (int.parse(momentModel.praise) - 1).toString();
+            momentModel.praise = (int.parse(momentModel.praise!) - 1).toString();
             Get.find<RecommendController>()
                 .momentListModel
                 .value
-                .list
+                .list!
                 .insert(i, momentModel);
           }
         }
@@ -124,7 +124,7 @@ class CircleActionUtil {
           if (momentModel.circleId == model.circleId) {
             Get.find<CircleController>().list.remove(momentModel);
             momentModel.praiseStatus = false;
-            momentModel.praise = (int.parse(momentModel.praise) - 1).toString();
+            momentModel.praise = (int.parse(momentModel.praise!) - 1).toString();
             Get.find<CircleController>().list.insert(i, momentModel);
           }
         }
@@ -139,7 +139,7 @@ class CircleActionUtil {
               Get.find<CircleTopicListController>().list.remove(momentModel);
               momentModel.praiseStatus = false;
               momentModel.praise =
-                  (int.parse(momentModel.praise) - 1).toString();
+                  (int.parse(momentModel.praise!) - 1).toString();
               Get.find<CircleTopicListController>().list.insert(i, momentModel);
             }
           }
@@ -155,7 +155,7 @@ class CircleActionUtil {
               Get.find<SingleUserCircleController>().list.remove(momentModel);
               momentModel.praiseStatus = false;
               momentModel.praise =
-                  (int.parse(momentModel.praise) - 1).toString();
+                  (int.parse(momentModel.praise!) - 1).toString();
               Get.find<SingleUserCircleController>()
                   .list
                   .insert(i, momentModel);
@@ -164,7 +164,7 @@ class CircleActionUtil {
         }
         return !isLiked;
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
         return true;
       }
@@ -173,7 +173,7 @@ class CircleActionUtil {
       CommonModel result = await DioManager().request<CommonModel>(
           DioManager.POST, Api.circleMomentPraiseUrl,
           params: {'cid': model.circleId});
-      if (result.res) {
+      if (result.res!) {
         //本地同步数据状态到其他圈子列表页面
         //wow推荐圈子
         for (var i = 0;
@@ -181,23 +181,23 @@ class CircleActionUtil {
                 Get.find<RecommendController>()
                     .momentListModel
                     .value
-                    .list
+                    .list!
                     .length;
             i++) {
           MomentModel momentModel =
-              Get.find<RecommendController>().momentListModel.value.list[i];
+              Get.find<RecommendController>().momentListModel.value.list![i];
           if (momentModel.circleId == model.circleId) {
             Get.find<RecommendController>()
                 .momentListModel
                 .value
-                .list
+                .list!
                 .remove(momentModel);
             momentModel.praiseStatus = true;
-            momentModel.praise = (int.parse(momentModel.praise) + 1).toString();
+            momentModel.praise = (int.parse(momentModel.praise!) + 1).toString();
             Get.find<RecommendController>()
                 .momentListModel
                 .value
-                .list
+                .list!
                 .insert(i, momentModel);
           }
         }
@@ -207,7 +207,7 @@ class CircleActionUtil {
           if (momentModel.circleId == model.circleId) {
             Get.find<CircleController>().list.remove(momentModel);
             momentModel.praiseStatus = true;
-            momentModel.praise = (int.parse(momentModel.praise) + 1).toString();
+            momentModel.praise = (int.parse(momentModel.praise!) + 1).toString();
             Get.find<CircleController>().list.insert(i, momentModel);
           }
         }
@@ -222,7 +222,7 @@ class CircleActionUtil {
               Get.find<CircleTopicListController>().list.remove(momentModel);
               momentModel.praiseStatus = true;
               momentModel.praise =
-                  (int.parse(momentModel.praise) + 1).toString();
+                  (int.parse(momentModel.praise!) + 1).toString();
               Get.find<CircleTopicListController>().list.insert(i, momentModel);
             }
           }
@@ -238,7 +238,7 @@ class CircleActionUtil {
               Get.find<SingleUserCircleController>().list.remove(momentModel);
               momentModel.praiseStatus = true;
               momentModel.praise =
-                  (int.parse(momentModel.praise) + 1).toString();
+                  (int.parse(momentModel.praise!) + 1).toString();
               Get.find<SingleUserCircleController>()
                   .list
                   .insert(i, momentModel);
@@ -247,7 +247,7 @@ class CircleActionUtil {
         }
         return !isLiked;
       } else {
-        EasyLoading.showToast(result.error,
+        EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
         return false;
       }

@@ -1,18 +1,18 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class CommonModel {
-  String success;
-  String error;
-  String redirect;
-  bool result;
-  String code;
-  String message;
-  String imageId;
-  bool status;
-  String datas;
-  bool res;
-  String list;
-  String id;
+  String? success;
+  String? error;
+  String? redirect;
+  bool? result;
+  String? code;
+  String? message;
+  String? imageId;
+  bool? status;
+  String? datas;
+  bool? res;
+  String? list;
+  String? id;
 
   CommonModel(
       {this.success,

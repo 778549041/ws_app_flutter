@@ -18,24 +18,24 @@ class LoginTextField extends StatefulWidget {
   final bool enabled;
   final String text;
   final String hintText;
-  final String labelText; //top提示文字
-  final TextEditingController controller;
+  final String? labelText; //top提示文字
+  final TextEditingController? controller;
   final TextInputType keyboardType;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool isPwd; //是否是密码，默认不是
-  final Widget leftWidget; //左侧widget ，默认隐藏
-  final Widget rightWidget; //右侧widget ，默认隐藏
+  final Widget? leftWidget; //左侧widget ，默认隐藏
+  final Widget? rightWidget; //右侧widget ，默认隐藏
   final int maxLength; //最大长度，默认20
   final bool isShowDeleteBtn; //是否显示右侧删除按钮，默认不显示
-  final List<TextInputFormatter> inputFormatters;
-  final _InputCallBack inputCallBack;
-  final String pwdOpen; //自定义密码图片路径 睁眼
-  final String pwdClose; //自定义密码图片路径 闭眼
-  final InputBorder border; //边框样式
+  final List<TextInputFormatter>? inputFormatters;
+  final _InputCallBack? inputCallBack;
+  final String? pwdOpen; //自定义密码图片路径 睁眼
+  final String? pwdClose; //自定义密码图片路径 闭眼
+  final InputBorder? border; //边框样式
   final bool isDense; //是否紧凑显示，默认false
 
   const LoginTextField({
-    Key key,
+    Key? key,
     this.enabled = true,
     this.text: '',
     this.keyboardType: TextInputType.text,
@@ -61,12 +61,12 @@ class LoginTextField extends StatefulWidget {
 }
 
 class _LoginTextFieldState extends State<LoginTextField> {
-  TextEditingController _textController;
-  FocusNode _focusNode;
-  bool _isShowDelete;
-  bool _isHideenPwdBtn; //是否隐藏 右侧密码明文切换按钮 ，密码样式才显示（isPwd =true），
-  bool _pwdShow; //控制密码 明文切换
-  Widget _pwdImg; //自定义密码图片
+  TextEditingController? _textController;
+  FocusNode? _focusNode;
+  late bool _isShowDelete;
+  late bool _isHideenPwdBtn; //是否隐藏 右侧密码明文切换按钮 ，密码样式才显示（isPwd =true），
+  late bool _pwdShow; //控制密码 明文切换
+  late Widget _pwdImg; //自定义密码图片
 
   @override
   void initState() {
@@ -74,20 +74,20 @@ class _LoginTextFieldState extends State<LoginTextField> {
 
     _textController =
         widget.controller != null ? widget.controller : TextEditingController();
-    _textController.text = widget.text;
+    _textController!.text = widget.text;
     _focusNode = widget.focusNode != null ? widget.focusNode : FocusNode();
     _isHideenPwdBtn = !widget.isPwd;
     _pwdShow = widget.isPwd;
 
-    _isShowDelete = _focusNode.hasFocus && _textController.text.isNotEmpty;
-    _textController.addListener(() {
+    _isShowDelete = _focusNode!.hasFocus && _textController!.text.isNotEmpty;
+    _textController!.addListener(() {
       setState(() {
-        _isShowDelete = _textController.text.isNotEmpty && _focusNode.hasFocus;
+        _isShowDelete = _textController!.text.isNotEmpty && _focusNode!.hasFocus;
       });
     });
-    _focusNode.addListener(() {
+    _focusNode!.addListener(() {
       setState(() {
-        _isShowDelete = _textController.text.isNotEmpty && _focusNode.hasFocus;
+        _isShowDelete = _textController!.text.isNotEmpty && _focusNode!.hasFocus;
       });
     });
   }
@@ -95,10 +95,10 @@ class _LoginTextFieldState extends State<LoginTextField> {
   @override
   Widget build(BuildContext context) {
     if (widget.pwdOpen != null && widget.pwdClose != null) {
-      if (widget.pwdOpen.isNotEmpty && widget.pwdClose.isNotEmpty) {
+      if (widget.pwdOpen!.isNotEmpty && widget.pwdClose!.isNotEmpty) {
         _pwdImg = _pwdShow
-            ? ImageIcon(AssetImage(widget.pwdClose))
-            : ImageIcon(AssetImage(widget.pwdOpen));
+            ? ImageIcon(AssetImage(widget.pwdClose!))
+            : ImageIcon(AssetImage(widget.pwdOpen!));
       } else {
         _pwdImg = Icon(_pwdShow ? Icons.visibility_off : Icons.visibility);
       }
@@ -143,13 +143,13 @@ class _LoginTextFieldState extends State<LoginTextField> {
           obscureText: _pwdShow,
           onChanged: (value) {
             if (widget.inputCallBack != null) {
-              widget.inputCallBack(_textController.text);
+              widget.inputCallBack!(_textController!.text);
             }
           },
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: (<Widget?>[
             Offstage(
               offstage: !widget.isShowDeleteBtn,
               child: _isShowDelete
@@ -160,9 +160,9 @@ class _LoginTextFieldState extends State<LoginTextField> {
                         size: 20,
                       ),
                       onPressed: () {
-                        _textController.text = "";
+                        _textController!.text = "";
                         if (widget.inputCallBack != null) {
-                          widget.inputCallBack(_textController.text);
+                          widget.inputCallBack!(_textController!.text);
                         }
                       })
                   : Text(""),
@@ -181,7 +181,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
                   },
                 )),
             widget.rightWidget != null ? widget.rightWidget : Container(),
-          ],
+          ]) as List<Widget>,
         ),
       ],
     );

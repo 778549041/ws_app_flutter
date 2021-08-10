@@ -16,12 +16,12 @@ class CateNewsController extends RefreshListController<NewModel> {
   }
 
   @override
-  Future<List<NewModel>> loadData({int pageNum}) async {
+  Future<List<NewModel>?> loadData({int? pageNum}) async {
     return await _requestRecommendNewsList(pageNum);
   }
 
   //资讯数据
-  Future _requestRecommendNewsList(int pageNum) async {
+  Future _requestRecommendNewsList(int? pageNum) async {
     NewsListModel obj = await DioManager().request<NewsListModel>(
         DioManager.POST, Api.newsListDataUrl,
         queryParamters: {"page": pageNum, 'node_id': model.value.nodeId});

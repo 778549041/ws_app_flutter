@@ -7,7 +7,7 @@ import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 
 class PayConfirmController extends GetxController {
-  String input;
+  String? input;
   final String lastInput = Get.arguments['lastInput'];
 
   @override

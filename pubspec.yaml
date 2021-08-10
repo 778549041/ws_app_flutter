@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,121 +27,130 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
 
   #Get 状态管理，路由，依赖管理，国际化以及主题变更
-  get: ^3.26.0
+  get: ^4.1.4
   #网络请求
-  dio: ^3.0.10
+  dio: ^4.0.0
   #本地数据存储
-  shared_preferences: ^0.5.7+3
+  shared_preferences: ^2.0.5
   #权限申请
-  permission_handler: ^5.1.0+2
+  permission_handler: ^6.1.3
   #包信息
   package_info: ^2.0.0
   #设备信息
   device_info: ^2.0.0
   #Flutter 常用工具类库 https://github.com/Sky24n/flustars
-  flustars: ^0.3.3
+  flustars: ^2.0.1
   #网络监测
-  connectivity: ^3.0.2
+  connectivity: ^3.0.3
   #uuid
-  uuid: ^2.2.2
+  uuid: ^3.0.4
 
-  #tabbar
-  persistent_bottom_nav_bar: ^4.0.2
-  #闪屏页
-  # flutter_native_splash: any
+  # 丰富的UI组件库
+  getwidget: ^2.0.3
+  # 悬浮搜索框
+  material_floating_search_bar: ^0.3.4
+  # 搜索下拉框
+  dropdown_search: ^0.6.3
+  # 蒙版指引
+  showcaseview: ^1.1.0
+  # 牛批的tabbar(凸起)
+  convex_bottom_bar: ^3.0.0
   #官方webview插件
-  # webview_flutter: 
-  #   path: plugins/webview_flutter
+  webview_flutter: ^2.0.10
   #loading组件
-  flutter_spinkit: ^4.1.2+1
+  flutter_spinkit: ^5.0.0
   #圆形、直线进度条
   percent_indicator: ^3.0.1
   #网络图片加载组件 类似SDWebImage
-  cached_network_image: ^2.3.3
+  cached_network_image: ^3.1.0
   #上下拉刷新
-  pull_to_refresh: ^1.6.4
+  pull_to_refresh: ^2.0.0
   #轮播图
-  flutter_swiper: ^1.1.6
+  flutter_swiper_null_safety: ^1.0.2
   # 类iOS侧滑菜单
-  flutter_slidable: ^0.5.7
+  flutter_slidable: ^0.6.0
   # 谁用谁闪亮
   # shimmer: ^1.1.2
   # 通讯录列表
   azlistview: ^2.0.0-nullsafety.0
+  alphabet_list_scroll_view: ^2.0.0
   #图片选择器
-  image_picker: ^0.6.7+22
-  wechat_assets_picker: any
+  image_picker: ^0.8.3
+  wechat_assets_picker: ^5.1.3
   #类似微信拍摄的相机
-  # wechat_camera_picker: ^2.0.0-nullsafety.4
+  wechat_camera_picker: ^2.1.1
   #图片浏览查看
-  photo_view: ^0.11.1
+  photo_view: ^0.12.0
   #图片保存到本地相册
-  image_gallery_saver: ^1.6.8
+  image_gallery_saver: ^1.6.9
   #视频播放器
-  chewie: ^0.12.2
-  video_player: ^1.0.1
+  chewie: ^1.0.0
+  video_player: ^2.1.1
   # 验证码输入框1`
   pin_code_text_field: ^1.8.0
+  # 牛批的密码输入框
+  pin_code_fields: ^7.3.0
   #选择器
-  flutter_picker: ^2.0.1
+  flutter_picker: ^2.0.2
   flutter_pickers: ^2.0.1
   #loading、toast
-  flutter_easyloading: ^2.2.2
+  flutter_easyloading: ^3.0.0
   # 小红点 https://pub.flutter-io.cn/packages/badges
-  badges: ^1.2.0
+  badges: ^2.0.1
   # 处理键盘事件 https://pub.flutter-io.cn/packages/keyboard_actions
-  keyboard_actions: ^3.3.1+1
-  # gif图片
-  flutter_gifimage: ^1.0.1
+  keyboard_actions: ^3.4.3
   # 吸顶头部
-  flutter_sticky_header: ^0.5.0
-  # 图片加载loading
-  loading: ^1.0.2
+  flutter_sticky_header: ^0.6.0
+  # 拖拽排序组件
+  reorderables: ^0.4.1
   # 录音插件
-  flutter_plugin_record: ^0.3.5
+  flutter_plugin_record: ^1.0.1
   # 文件选择器
-  file_picker: ^2.1.7
+  file_picker: ^3.0.4
   # 视频压缩
-  video_compress: ^3.0.0
+  video_compress: ^3.1.0
   # 图片压缩
-  flutter_native_image: ^0.0.5+3
+  flutter_native_image: ^0.0.6+1
+  flutter_image_compress: ^1.1.0
   # 加载html文本
-  flutter_html: 
-    path: plugins/flutter_html
+  flutter_html: ^2.1.1
   # 点赞按钮
-  like_button: ^2.0.0
+  like_button: ^2.0.2
   # 列表滚动到指定行
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   # 文本展开收起
-  expandable_text: ^1.3.2
+  expandable_text: ^2.0.0
   auto_size_text: ^3.0.0-nullsafety.0
   # 列表动画
   flutter_staggered_animations: ^1.0.0
   # 气泡组件
-  flutter_bubble: ^0.0.1
   # bubble: any
 
+  # 地理定位插件
+  geolocator: ^7.3.1
   #打开第三方应用
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.9
   #分享
-  sharesdk_plugin: ^1.2.9
+  sharesdk_plugin: ^1.3.0
   #扫码
-  flutter_qr_reader: 1.0.3
+  flutter_qr_reader: ^1.0.5
   #极光推送
-  jpush_flutter: ^0.6.3
+  jpush_flutter: ^2.1.5
   #高德地图
-  amap_map_fluttify: ^0.30.1
+  amap_flutter_map: ^2.0.1
+  #高德定位插件
+  amap_flutter_location: ^2.0.0
   #腾讯云IM
-  tencent_im_sdk_plugin: ^1.0.20
+  tencent_im_sdk_plugin: ^3.3.0
   #bugly
-  flutter_bugly: ^0.3.1
-  #易观方舟flutter插件
-  argo_flutter_plugin: ^1.0.0
+  flutter_bugly: ^0.3.3
+  # #易观方舟flutter插件
+  # argo_flutter_plugin: ^1.0.0
   #七牛云插件
-  qiniu_flutter_sdk: ^0.2.0
+  qiniu_flutter_sdk: ^0.3.0
 
 dev_dependencies:
   flutter_test:

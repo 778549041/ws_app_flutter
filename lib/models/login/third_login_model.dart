@@ -1,28 +1,28 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class ThirdLoginModel {
-  ThirdLoginData data;
+  ThirdLoginData? data;
   ThirdLoginModel() : data = ThirdLoginData();
 
   ThirdLoginModel.fromJson(Map<String, dynamic> json) {
     data = ThirdLoginData.fromJson(
-        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>())!);
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.data != null) {
-      data['data'] = this.data.toJson();
+      data['data'] = this.data?.toJson();
     }
     return data;
   }
 }
 
 class ThirdLoginData {
-  String binding;
-  bool wxUsed;
-  bool isVehicle;
-  String memberId;
-  String msg;
+  String? binding;
+  bool? wxUsed;
+  bool? isVehicle;
+  String? memberId;
+  String? msg;
 
   ThirdLoginData(
       {this.binding = '',

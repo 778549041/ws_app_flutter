@@ -1,7 +1,9 @@
+///json转model数据类型、数组保护
+
 import 'dart:convert';
 import 'dart:developer';
 
-void tryCatch(Function f) {
+void tryCatch(Function? f) {
   try {
     f?.call();
   } catch (e, stack) {
@@ -12,16 +14,16 @@ void tryCatch(Function f) {
 
 class FFConvert {
   FFConvert._();
-
-  static T Function<T>(dynamic value) convert = <T>(dynamic value) {
+  static T? Function<T extends Object?>(dynamic value) convert =
+      <T>(dynamic value) {
     if (value == null) {
       return null;
     }
-    return json.decode(value.toString()) as T;
+    return json.decode(value.toString()) as T?;
   };
 }
 
-T asT<T>(dynamic value, [T defaultValue]) {
+T? asT<T extends Object?>(dynamic value, [T? defaultValue]) {
   if (value is T) {
     return value;
   }
@@ -42,7 +44,7 @@ T asT<T>(dynamic value, [T defaultValue]) {
       } else {
         return FFConvert.convert<T>(value);
       }
-    }
+    } else {}
   } catch (e, stackTrace) {
     log('asT<$T>', error: e, stackTrace: stackTrace);
     return defaultValue;

@@ -22,23 +22,23 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final TextInputType keyboardType; //键盘类型，默认文字
   final TextInputAction inputAction;//提交按钮类型
-  final FocusNode focusNode;
-  final Widget leftWidget; //左侧widget ，默认隐藏
-  final Widget rightWidget; //右侧widget ，默认隐藏
-  final int maxLines; //最大行数，默认显示一行，自动换行，最多展示_maxLines 行
+  final FocusNode? focusNode;
+  final Widget? leftWidget; //左侧widget ，默认隐藏
+  final Widget? rightWidget; //右侧widget ，默认隐藏
+  final int? maxLines; //最大行数，默认显示一行，自动换行，最多展示_maxLines 行
   final int maxLength; //最大长度，默认_maxLength
   final bool showMaxLength; //是否显示右侧最大长度文字，默认不显示
   final bool enabled; //是否可编辑，默认true
-  final List<TextInputFormatter> inputFormatters;
-  final _InputCallBack inputCallBack;
-  final _InputCallBack submitCallBack;
+  final List<TextInputFormatter>? inputFormatters;
+  final _InputCallBack? inputCallBack;
+  final _InputCallBack? submitCallBack;
   final TextStyle textStyle;
   final TextStyle hintTextStyle;
   final TextAlign textAlign; //对齐方式，默认左对齐
   final InputBorder border; //边框样式，默认无边框
 
   const CustomTextField({
-    Key key,
+    Key? key,
     this.text: '',
     this.keyboardType: TextInputType.text,
     this.inputAction: TextInputAction.done,
@@ -64,15 +64,15 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  TextEditingController _textController;
-  FocusNode _focusNode;
+  TextEditingController? _textController;
+  FocusNode? _focusNode;
 
   @override
   void initState() {
     super.initState();
 
     _textController = TextEditingController();
-    _textController.text = widget.text;
+    _textController!.text = widget.text;
     _focusNode = widget.focusNode != null ? widget.focusNode : FocusNode();
   }
 
@@ -109,12 +109,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           border: widget.border),
       onChanged: (value) {
         if (widget.inputCallBack != null) {
-          widget.inputCallBack(_textController.text);
+          widget.inputCallBack!(_textController!.text);
         }
       },
       onSubmitted: (value) {
         if (widget.submitCallBack != null) {
-          widget.submitCallBack(_textController.text);
+          widget.submitCallBack!(_textController!.text);
         }
       },
     );

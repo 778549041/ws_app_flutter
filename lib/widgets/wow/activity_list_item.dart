@@ -10,7 +10,7 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class ActivityListItem extends StatelessWidget {
   final ActivityModel model;
-  ActivityListItem({@required this.model});
+  ActivityListItem({required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,9 @@ class ActivityListItem extends StatelessWidget {
     }
 
     DateTime _endTime =
-        DateUtil.getDateTimeByMs(int.parse(model.toTime) * 1000);
+        DateUtil.getDateTimeByMs(int.parse(model.toTime!) * 1000);
     DateTime _beginTime =
-        DateUtil.getDateTimeByMs(int.parse(model.fromTime) * 1000);
+        DateUtil.getDateTimeByMs(int.parse(model.fromTime!) * 1000);
     DateTime _nowTime = DateTime.now();
 
     if (_beginTime.difference(_nowTime).inDays > 0) {
@@ -52,7 +52,7 @@ class ActivityListItem extends StatelessWidget {
       onTap: () {
         String _url = '';
         if (model.isCustom == 'true') {
-          _url = model.url;
+          _url = model.url!;
         } else {
           _url = CacheKey.SERVICE_URL_HOST +
               HtmlUrls.ActivityDetailsPage +
@@ -79,13 +79,13 @@ class ActivityListItem extends StatelessWidget {
           //   ),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-            color: model.isBgClear ? Colors.transparent : Color(0xFFF3F3F3),
+            color: model.isBgClear! ? Colors.transparent : Color(0xFFF3F3F3),
             child: Column(
               children: <Widget>[
                 Stack(
                   children: <Widget>[
                     CachedNetworkImage(
-                      imageUrl: (model.imgUrl.split('?')).first,
+                      imageUrl: (model.imgUrl!.split('?')).first,
                       width: Get.width - 30,
                       height: (Get.width - 30) * 200 / 345,
                     ),
@@ -104,7 +104,7 @@ class ActivityListItem extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                              model.name,
+                              model.name!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style:
@@ -155,7 +155,7 @@ class ActivityListItem extends StatelessWidget {
                               fontSize: 12,
                             ),
                           ),
-                          if (model.store.address.length > 0)
+                          if (model.store?.address != null && model.store!.address!.length > 0)
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Row(
@@ -166,7 +166,7 @@ class ActivityListItem extends StatelessWidget {
                                     height: 13,
                                   ),
                                   Text(
-                                    model.store.address,
+                                    model.store!.address!,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(

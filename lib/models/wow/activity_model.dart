@@ -1,8 +1,8 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class ActivityListModel {
-  List<ActivityModel> list;
-  Pager pager;
+  List<ActivityModel>? list;
+  Pager? pager;
 
   ActivityListModel()
       : list = <ActivityModel>[],
@@ -14,19 +14,19 @@ class ActivityListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(
-                ActivityModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(
+                ActivityModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
     }
     pager = Pager.fromJson(
-        asT<Map<String, dynamic>>(json['pager'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['pager'], Map<String, dynamic>())!);
   }
 }
 
 class RecommendActivityListModel {
-  List<ActivityModel> data;
+  List<ActivityModel>? data;
 
   RecommendActivityListModel() : data = <ActivityModel>[];
 
@@ -36,8 +36,8 @@ class RecommendActivityListModel {
       (json['data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            data.add(
-                ActivityModel.fromJson(asT<Map<String, dynamic>>(element)));
+            data?.add(
+                ActivityModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -46,34 +46,34 @@ class RecommendActivityListModel {
 }
 
 class ActivityModel {
-  String id;
-  bool ifpub;
-  String memberLv;
-  String introduce;
-  String url;
-  String imageUrl;
-  String createtime;
-  String updatetime;
-  String fromTime;
-  String toTime;
-  String isHeader;
-  String apply;
-  String auth;
-  String desc;
-  String huodongId;
-  String imgUrl;
-  String isOnline;
-  String imageId;
-  int status;
-  String isPub;
-  String isVote;
-  String lastModify;
-  String limit;
-  String name;
-  String ordernum;
-  String isCustom;
-  ActivityAddress store;
-  bool isBgClear;
+  String? id;
+  bool? ifpub;
+  String? memberLv;
+  String? introduce;
+  String? url;
+  String? imageUrl;
+  String? createtime;
+  String? updatetime;
+  String? fromTime;
+  String? toTime;
+  String? isHeader;
+  String? apply;
+  String? auth;
+  String? desc;
+  String? huodongId;
+  String? imgUrl;
+  String? isOnline;
+  String? imageId;
+  int? status;
+  String? isPub;
+  String? isVote;
+  String? lastModify;
+  String? limit;
+  String? name;
+  String? ordernum;
+  String? isCustom;
+  ActivityAddress? store;
+  bool? isBgClear;
 
   ActivityModel(
       {this.apply = '',
@@ -140,9 +140,9 @@ class ActivityModel {
 }
 
 class Pager {
-  int total;
-  String current;
-  int token;
+  int? total;
+  String? current;
+  int? token;
 
   Pager({this.current, this.token, this.total});
 
@@ -154,10 +154,10 @@ class Pager {
 }
 
 class ActivityAddress {
-  String address;
-  String region;
-  String lat;
-  String lng;
+  String? address;
+  String? region;
+  String? lat;
+  String? lng;
 
   ActivityAddress(
       {this.address = '', this.lat = '', this.lng = '', this.region = ''});

@@ -26,7 +26,7 @@ class PhonePage extends StatelessWidget {
             Center(
               child: Text(
                 TextUtil.formatDigitPatternEnd(
-                    Get.find<UserController>().userInfo.value.member.mobile),
+                    Get.find<UserController>().userInfo.value.member!.mobile!),
                 style: TextStyle(fontSize: 30),
               ),
             ),

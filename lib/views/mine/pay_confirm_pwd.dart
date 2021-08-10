@@ -29,7 +29,7 @@ class PayPwdConfirmPage extends GetView<PayConfirmController> {
               hideCharacter: true,
               maskCharacter: "*",
               pinBoxDecoration: (borderColor, pinBoxColor,
-                  {borderWidth, radius}) {
+                  {borderWidth = 0, radius = 0}) {
                 return BoxDecoration(
                     border: Border.all(
                       color: Color(0xFFADADAD),

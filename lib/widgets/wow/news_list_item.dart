@@ -8,7 +8,7 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class NewsListItem extends StatelessWidget {
   final NewModel model;
-  NewsListItem({@required this.model});
+  NewsListItem({required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,13 @@ class NewsListItem extends StatelessWidget {
           //   ),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-            color: model.isBgClear ? Colors.transparent : Color(0xFFF3F3F3),
+            color: model.isBgClear! ? Colors.transparent : Color(0xFFF3F3F3),
             child: Column(
               children: <Widget>[
                 Stack(
                   children: <Widget>[
                     CachedNetworkImage(
-                      imageUrl: model.imageUrl,
+                      imageUrl: model.imageUrl!,
                       width: Get.width - 30,
                       height: (Get.width - 30) * 200 / 345,
                     ),
@@ -55,7 +55,7 @@ class NewsListItem extends StatelessWidget {
                       bottom: 5,
                       right: 10,
                       child: Text(
-                        model.title,
+                        model.title!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white, fontSize: 16),
@@ -74,7 +74,7 @@ class NewsListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        DateUtil.formatDateMs(int.parse(model.pubtime) * 1000,
+                        DateUtil.formatDateMs(int.parse(model.pubtime!) * 1000,
                             format: DateFormats.y_mo_d),
                         style: TextStyle(
                           color: Color(0xFF666666),
@@ -92,7 +92,7 @@ class NewsListItem extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Text(
-                              model.read,
+                              model.read!,
                               style: TextStyle(
                                   color: Color(0xFF666666), fontSize: 12),
                             ),

@@ -1,8 +1,8 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class ShopListModel {
-  List<ShopModel> dataList;
-  Pager pager;
+  List<ShopModel>? dataList;
+  Pager? pager;
 
   ShopListModel()
       : dataList = <ShopModel>[],
@@ -14,24 +14,23 @@ class ShopListModel {
       (json['data_list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            dataList
-                .add(ShopModel.fromJson(asT<Map<String, dynamic>>(element)));
+            dataList?.add(ShopModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
     }
     pager = Pager.fromJson(
-        asT<Map<String, dynamic>>(json['pager'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['pager'], Map<String, dynamic>())!);
   }
 }
 
 class ShopModel {
-  String deduction;
-  String integral;
-  String name;
-  String image;
-  Product product;
-  bool typeVip;
+  String? deduction;
+  String? integral;
+  String? name;
+  String? image;
+  Product? product;
+  bool? typeVip;
 
   ShopModel(
       {this.deduction = '',
@@ -47,13 +46,13 @@ class ShopModel {
     name = asT<String>(json['name']);
     image = asT<String>(json['image']);
     product = Product.fromJson(
-        asT<Map<String, dynamic>>(json['product'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['product'], Map<String, dynamic>())!);
     typeVip = asT<bool>(json['type_vip']);
   }
 }
 
 class Product {
-  String productId;
+  String? productId;
 
   Product({this.productId = ''});
 
@@ -63,8 +62,8 @@ class Product {
 }
 
 class Pager {
-  int current;
-  int total;
+  int? current;
+  int? total;
 
   Pager({this.current = 0, this.total = 0});
 

@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class ShopAddressListModel {
-  List<ShopAddressModel> list;
+  List<ShopAddressModel>? list;
 
   ShopAddressListModel() : list = <ShopAddressModel>[];
 
@@ -11,8 +11,8 @@ class ShopAddressListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(
-                ShopAddressModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(
+                ShopAddressModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -21,19 +21,19 @@ class ShopAddressListModel {
 }
 
 class ShopAddressModel {
-  String addr; //详细地址
-  String addrId; //id
-  String area; //省市区
-  String day; //
-  String email;
-  bool isDefault; //是否默认地址
-  String memberId;
-  String mobile; //电话
-  String name; //名字
-  String province;
-  String tel;
-  String time;
-  String updatetime;
+  String? addr; //详细地址
+  String? addrId; //id
+  String? area; //省市区
+  String? day; //
+  String? email;
+  bool? isDefault; //是否默认地址
+  String? memberId;
+  String? mobile; //电话
+  String? name; //名字
+  String? province;
+  String? tel;
+  String? time;
+  String? updatetime;
 
   ShopAddressModel(
       {this.addr = '',

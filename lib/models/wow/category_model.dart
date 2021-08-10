@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class CategoryListModel {
-  List<CategoryModel> list;
+  List<CategoryModel>? list;
 
   CategoryListModel() : list = <CategoryModel>[];
 
@@ -11,8 +11,8 @@ class CategoryListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(
-                CategoryModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(
+                CategoryModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -21,9 +21,9 @@ class CategoryListModel {
 }
 
 class CategoryModel {
-  String nodeName;
-  String nodeId;
-  String image;
+  String? nodeName;
+  String? nodeId;
+  String? image;
 
   CategoryModel({this.nodeName = '', this.nodeId = '', this.image = ''});
 

@@ -8,7 +8,7 @@ import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 
 class RecommendActItem extends GetView<RecommendController> {
   final ActivityModel model;
-  RecommendActItem({@required this.model});
+  RecommendActItem({required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class RecommendActItem extends GetView<RecommendController> {
             Padding(
               padding: const EdgeInsets.only(top: 5, left: 5, bottom: 5),
               child: CachedNetworkImage(
-                imageUrl: model.imageUrl,
+                imageUrl: model.imageUrl!,
                 width: 95,
                 height: 95,
                 fit: BoxFit.cover,
@@ -42,7 +42,7 @@ class RecommendActItem extends GetView<RecommendController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      model.introduce,
+                      model.introduce!,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -52,8 +52,8 @@ class RecommendActItem extends GetView<RecommendController> {
                     ),
                     Text(
                       (model.fromTime == model.toTime)
-                          ? '活动时间：${DateUtil.formatDateMs(int.parse(model.fromTime) * 1000, format: DateFormats.y_mo_d)}'
-                          : '活动时间：${DateUtil.formatDateMs(int.parse(model.fromTime) * 1000, format: DateFormats.y_mo_d)}~${DateUtil.formatDateMs(int.parse(model.toTime) * 1000, format: DateFormats.y_mo_d)}',
+                          ? '活动时间：${DateUtil.formatDateMs(int.parse(model.fromTime!) * 1000, format: DateFormats.y_mo_d)}'
+                          : '活动时间：${DateUtil.formatDateMs(int.parse(model.fromTime!) * 1000, format: DateFormats.y_mo_d)}~${DateUtil.formatDateMs(int.parse(model.toTime!) * 1000, format: DateFormats.y_mo_d)}',
                       style: TextStyle(
                         color: Color(0xFF666666),
                         fontSize: 11,

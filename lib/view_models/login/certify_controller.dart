@@ -16,7 +16,7 @@ class CertifyController extends GetxController {
   List<AddressModel> provincedata = [];
   List<AddressModel> citydata = [];
   List<StoreModel> storedata = [];
-  String province, city, store, storeid, name, vincode;
+  String? province, city, store, storeid, name, vincode;
 
   @override
   void onInit() {
@@ -52,25 +52,25 @@ class CertifyController extends GetxController {
     AddressListModel _model = await DioManager().request<AddressListModel>(
         DioManager.POST, Api.certifyFillFormProvinceUrl,
         params: {'province': '1'});
-    provincedata.addAll(_model.list);
+    provincedata.addAll(_model.list!);
   }
 
   //获取城市数据
-  Future getCityData({String cityid}) async {
+  Future getCityData({String? cityid}) async {
     AddressListModel _model = await DioManager().request<AddressListModel>(
         DioManager.POST, Api.certifyFillFormProvinceUrl,
         params: {'city': cityid});
     citydata.clear();
-    citydata.addAll(_model.list);
+    citydata.addAll(_model.list!);
   }
 
   //获取特约店数据
-  Future getStoreData(String cityid) async {
+  Future getStoreData(String? cityid) async {
     StoreListModel _model = await DioManager().request<StoreListModel>(
         DioManager.POST, Api.certifyFillFormStoreUrl,
         params: {'shop': cityid});
     storedata.clear();
-    storedata.addAll(_model.list);
+    storedata.addAll(_model.list!);
     if (storedata.length == 0) {
       storedata.add(StoreModel(fAppID: '0', fAdminShopName: '暂无特约店'));
     }
@@ -81,7 +81,7 @@ class CertifyController extends GetxController {
     List<String> datas = [];
     if (index == 0) {
       provincedata.forEach((element) {
-        datas.add(element.fName);
+        datas.add(element.fName!);
       });
     } else if (index == 1) {
       if (province == null) {
@@ -90,7 +90,7 @@ class CertifyController extends GetxController {
         return;
       }
       citydata.forEach((element) {
-        datas.add(element.fName);
+        datas.add(element.fName!);
       });
     } else if (index == 2) {
       if (city == null) {
@@ -99,12 +99,12 @@ class CertifyController extends GetxController {
         return;
       }
       storedata.forEach((element) {
-        datas.add(element.fAdminShopName);
+        datas.add(element.fAdminShopName!);
       });
     }
 
     Pickers.showSinglePicker(
-      Get.context,
+      Get.context!,
       data: datas,
       pickerStyle: DefaultPickerStyle(),
       onConfirm: (data, position) async {
@@ -183,7 +183,7 @@ class CertifyController extends GetxController {
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
-    if (vincode == null || vincode.length != 17) {
+    if (vincode == null || vincode!.length != 17) {
       EasyLoading.showToast('您输入的车架号长度有误，请输入17位VE-1车架号哦！',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
@@ -201,7 +201,7 @@ class CertifyController extends GetxController {
               rightText: '申诉',
               content: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+                child: Text(_model.message!, style: TextStyle(fontSize: 16.0)),
               ),
               onConfirm: () {
                 Get.toNamed(Routes.COMPLAINT, arguments: {
@@ -214,14 +214,14 @@ class CertifyController extends GetxController {
               },
             ),
             barrierDismissible: false);
-      } else if (_model.error.contains('href')) {
+      } else if (_model.error!.contains('href')) {
         Get.dialog(
             BaseDialog(
               title: '认证失败',
               rightText: '确定',
               content: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(_model.message, style: TextStyle(fontSize: 16.0)),
+                child: Text(_model.message!, style: TextStyle(fontSize: 16.0)),
               ),
               onConfirm: () {
                 Get.toNamed(Routes.WEBVIEW,
@@ -237,7 +237,7 @@ class CertifyController extends GetxController {
               leftText: '确定',
               content: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(_model.error, style: TextStyle(fontSize: 16.0)),
+                child: Text(_model.error!, style: TextStyle(fontSize: 16.0)),
               ),
             ),
             barrierDismissible: false);

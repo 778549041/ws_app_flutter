@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:loading/indicator/ball_pulse_indicator.dart';
-import 'package:loading/loading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:video_player/video_player.dart';
 
@@ -17,15 +16,15 @@ class VideoMessage extends StatefulWidget {
 }
 
 class VideoMessageState extends State<VideoMessage> {
-  VideoPlayerController _controller;
+  VideoPlayerController? _controller;
 
   @override
   void initState() {
     super.initState();
     try {
-      if (widget.message.videoElem.videoUrl == null) {
+      if (widget.message.videoElem?.videoUrl == null) {
         _controller = VideoPlayerController.file(
-          File(widget.message.videoElem.videoPath),
+          File(widget.message.videoElem!.videoPath!),
         )..initialize().then((_) {
             setState(() {});
           }).catchError((err) {
@@ -33,7 +32,7 @@ class VideoMessageState extends State<VideoMessage> {
           });
       } else {
         _controller = VideoPlayerController.network(
-          widget.message.videoElem.videoUrl,
+          widget.message.videoElem!.videoUrl!,
         )..initialize().then((_) {
             setState(() {});
           }).catchError((err) {
@@ -44,13 +43,13 @@ class VideoMessageState extends State<VideoMessage> {
       print("视频初始化发生异常");
     }
 
-    if (!_controller.hasListeners) {
-      _controller.addListener(() {
+    if (!_controller!.hasListeners) {
+      _controller!.addListener(() {
         print(
-            "播放着 ${_controller.value.isPlaying} ${_controller.value.position} ${_controller.value.duration} ${_controller.value.duration == _controller.value.position}");
-        if (_controller.value.position == _controller.value.duration) {
-          print("到头了 ${_controller.value.isPlaying}");
-          if (!_controller.value.isPlaying) {
+            "播放着 ${_controller!.value.isPlaying} ${_controller!.value.position} ${_controller!.value.duration} ${_controller!.value.duration == _controller!.value.position}");
+        if (_controller!.value.position == _controller!.value.duration) {
+          print("到头了 ${_controller!.value.isPlaying}");
+          if (!_controller!.value.isPlaying) {
             setState(() {});
           }
         }
@@ -59,28 +58,29 @@ class VideoMessageState extends State<VideoMessage> {
   }
 
   getUlr() {
-    if (widget.message.videoElem.videoUrl == null) {
-      return widget.message.videoElem.videoPath;
+    if (widget.message.videoElem?.videoUrl == null) {
+      return widget.message.videoElem!.videoPath;
     } else {
-      return widget.message.videoElem.videoUrl;
+      return widget.message.videoElem!.videoUrl;
     }
   }
 
   void deactivate() {
     print("video message deactivate call ${widget.message.msgID}");
-    _controller.dispose();
+    _controller!.dispose();
+    super.deactivate();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _controller.value.initialized
+    return _controller!.value.isInitialized
         ? Container(
             child: Stack(
               children: [
                 Positioned(
                   child: AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
+                    aspectRatio: _controller!.value.aspectRatio,
+                    child: VideoPlayer(_controller!),
                   ),
                 ),
                 Positioned(
@@ -89,26 +89,26 @@ class VideoMessageState extends State<VideoMessage> {
                       onTap: () {
                         try {
                           setState(() {});
-                          if (_controller.value.isPlaying) {
-                            _controller.pause();
+                          if (_controller!.value.isPlaying) {
+                            _controller!.pause();
                           } else {
-                            if (_controller.value.position ==
-                                _controller.value.duration) {
-                              _controller.seekTo(Duration(
+                            if (_controller!.value.position ==
+                                _controller!.value.duration) {
+                              _controller!.seekTo(Duration(
                                   seconds: 0,
                                   microseconds: 0,
                                   milliseconds: 0));
                             }
-                            _controller.play();
+                            _controller!.play();
                             setState(() {});
                           }
                         } catch (err) {
-                          EasyLoading.showToast(err,
+                          EasyLoading.showToast(err.toString(),
                               toastPosition: EasyLoadingToastPosition.bottom);
                         }
                       },
                       child: Icon(
-                        _controller.value.isPlaying
+                        _controller!.value.isPlaying
                             ? Icons.pause_circle_outline
                             : Icons.play_circle_outline,
                         color: Colors.white,
@@ -125,8 +125,7 @@ class VideoMessageState extends State<VideoMessage> {
             ),
           )
         : Container(
-            child: Loading(
-              indicator: BallPulseIndicator(),
+            child: SpinKitCircle(
               size: 100.0,
               color: Color(0xFF006fff),
             ),

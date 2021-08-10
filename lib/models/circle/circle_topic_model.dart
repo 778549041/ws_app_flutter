@@ -1,8 +1,8 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class TopicListModel {
-  int totalPage;
-  List<TopicModel> list;
+  int? totalPage;
+  List<TopicModel>? list;
 
   TopicListModel({this.totalPage = 0}) : list = <TopicModel>[];
 
@@ -12,7 +12,7 @@ class TopicListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(TopicModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(TopicModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -22,25 +22,25 @@ class TopicListModel {
 }
 
 class SingleTopicodel {
-  TopicModel list;
+  TopicModel? list;
 
   SingleTopicodel() : list = TopicModel();
 
   SingleTopicodel.fromJson(Map<String, dynamic> json) {
     list = TopicModel.fromJson(
-        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>())!);
   }
 }
 
 class TopicModel {
-  String topicId;
-  String title;
-  String content;
-  String imageUrl;
-  String adminUrl;
-  int totalNum;
-  int join;
-  bool showAll;
+  String? topicId;
+  String? title;
+  String? content;
+  String? imageUrl;
+  String? adminUrl;
+  int? totalNum;
+  int? join;
+  bool? showAll;
 
   TopicModel(
       {this.topicId = '',

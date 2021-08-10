@@ -23,7 +23,7 @@ class CircleTopicListController extends RefreshListController<MomentModel> {
   }
 
   @override
-  Future<List<MomentModel>> loadData({int pageNum}) async {
+  Future<List<MomentModel>?> loadData({int pageNum = 1}) async {
     return await requestCircleListData(pageNum);
   }
 

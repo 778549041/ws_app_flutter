@@ -24,7 +24,7 @@ class PayAuthPage extends GetView<PayAuthController> {
             ),
             LoginTextField(
               enabled: false,
-              text: controller.phone,
+              text: controller.phone!,
               border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFD6D6D6), width: 0.5)),
               inputCallBack: (value) {

@@ -9,7 +9,7 @@ class SingleUserCircleController extends RefreshListController<MomentModel> {
       Get.arguments == null ? null : Get.arguments['memberId']; //用户id
 
   @override
-  Future<List<MomentModel>> loadData({int pageNum}) async {
+  Future<List<MomentModel>?> loadData({int pageNum = 1}) async {
     return await requestCircleListData(pageNum);
   }
 

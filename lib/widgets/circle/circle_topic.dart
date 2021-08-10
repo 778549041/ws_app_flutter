@@ -74,14 +74,14 @@ class CircleTopicItem extends GetView<CircleTopicController> {
 
   Widget _buildTopicItem(TopicModel model) {
     return GestureDetector(
-      onTap: () => controller.pushToTopicLst(model.topicId),
+      onTap: () => controller.pushToTopicLst(model.topicId!),
       child: Container(
         margin: EdgeInsets.only(right: 5),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: Stack(
             children: <Widget>[
-              CachedNetworkImage(imageUrl: model.imageUrl),
+              CachedNetworkImage(imageUrl: model.imageUrl!),
               Positioned(
                 left: 0,
                 right: 0,
@@ -95,7 +95,7 @@ class CircleTopicItem extends GetView<CircleTopicController> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        model.title,
+                        model.title!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white, fontSize: 12),

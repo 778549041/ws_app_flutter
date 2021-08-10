@@ -55,7 +55,7 @@ class SettingController extends BaseController {
   Future deleteUser() async {
     CommonModel _model = await DioManager()
         .request<CommonModel>(DioManager.GET, Api.unbindVechileUrl);
-    if (_model.result) {
+    if (_model.result!) {
       Future.delayed(Duration(seconds: 1)).then((_) {
         Get.offAllNamed(Routes.LOGIN);
       });

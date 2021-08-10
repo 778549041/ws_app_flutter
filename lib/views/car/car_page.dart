@@ -60,7 +60,7 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildHeader() {
-    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member?.isVehicle == 'true') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -76,8 +76,8 @@ class CarPage extends GetView<CarController> {
                             imageUrl: Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .headImg,
+                                .member!
+                                .headImg!,
                             borderWidth: 0,
                             borderColor: Colors.transparent,
                             height: 40,
@@ -89,7 +89,7 @@ class CarPage extends GetView<CarController> {
                             offstage: !(Get.find<UserController>()
                                     .userInfo
                                     .value
-                                    .member
+                                    .member!
                                     .isVehicle ==
                                 'true'),
                             child: Image.asset(
@@ -109,21 +109,21 @@ class CarPage extends GetView<CarController> {
                         (Get.find<UserController>()
                                     .userInfo
                                     .value
-                                    .member
-                                    .showName
+                                    .member!
+                                    .showName!
                                     .length >
                                 11)
                             ? Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .showName
+                                .member!
+                                .showName!
                                 .substring(0, 11)
                             : Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .showName,
+                                .member!
+                                .showName!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       )),
@@ -132,30 +132,30 @@ class CarPage extends GetView<CarController> {
                 if (Get.find<UserController>()
                     .userInfo
                     .value
-                    .member
-                    .memberInfo
-                    .showTag)
+                    .member!
+                    .memberInfo!
+                    .showTag!)
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: MedalWidget(
                       medalBtnImage: Get.find<UserController>()
                           .userInfo
                           .value
-                          .member
-                          .memberInfo
-                          .medalOrSaleImageName,
+                          .member!
+                          .memberInfo!
+                          .medalOrSaleImageName!,
                       medalToastImage: Get.find<UserController>()
                           .userInfo
                           .value
-                          .member
-                          .memberInfo
-                          .medalOrSaleDescImageName,
+                          .member!
+                          .memberInfo!
+                          .medalOrSaleDescImageName!,
                       isSales: Get.find<UserController>()
                               .userInfo
                               .value
-                              .member
-                              .memberInfo
-                              .isSales ==
+                              .member!
+                              .memberInfo!
+                              .isSales! ==
                           1,
                     ),
                   ),
@@ -172,8 +172,8 @@ class CarPage extends GetView<CarController> {
                   title: TextUtil.formatComma3(Get.find<UserController>()
                       .userInfo
                       .value
-                      .member
-                      .integral),
+                      .member!
+                      .integral!),
                   titleColor: Colors.white,
                   fontSize: 12,
                   onPressed: () => controller.buttonAction(1006),
@@ -223,7 +223,7 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildBody() {
-    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle == 'true') {
       return OwnCarWidget();
     } else {
       return UnOwnCarWidget();

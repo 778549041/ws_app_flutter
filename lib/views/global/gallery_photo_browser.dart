@@ -16,8 +16,8 @@ import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
 
 class GalleryPhotoPage extends StatefulWidget {
-  final LoadingBuilder loadingBuilder;
-  final Decoration backgroundDecoration;
+  final LoadingBuilder? loadingBuilder;
+  final BoxDecoration? backgroundDecoration;
   final String heroName;
   final dynamic minScale;
   final dynamic maxScale;
@@ -31,9 +31,9 @@ class GalleryPhotoPage extends StatefulWidget {
       this.backgroundDecoration,
       this.minScale,
       this.maxScale,
-      this.initialIndex,
-      @required this.heroName,
-      @required this.galleryItems,
+      this.initialIndex = 0,
+      required this.heroName,
+      required this.galleryItems,
       this.scrollDirection = Axis.horizontal})
       : pageController = PageController(initialPage: initialIndex);
 
@@ -42,7 +42,7 @@ class GalleryPhotoPage extends StatefulWidget {
 }
 
 class GalleryPhotoPageState extends State<GalleryPhotoPage> {
-  int currentIndex;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +121,7 @@ class GalleryPhotoPageState extends State<GalleryPhotoPage> {
           PhotoViewControllerValue controllerValue) {
         Get.back();
       },
-      imageProvider: CachedNetworkImageProvider(item.savepath),
+      imageProvider: CachedNetworkImageProvider(item.savepath!),
 //      initialScale: PhotoViewComputedScale.contained,
 //      minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),
 //      maxScale: PhotoViewComputedScale.covered * 1.1,

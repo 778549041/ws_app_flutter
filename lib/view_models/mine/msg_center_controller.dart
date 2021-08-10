@@ -9,7 +9,7 @@ import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class MsgCenterController extends BaseController {
-  MsgModel msgModel;
+  MsgModel? msgModel;
 
   @override
   void onInit() {

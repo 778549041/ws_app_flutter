@@ -14,12 +14,12 @@ enum ViewStateErrorType {
 }
 
 class ViewStateError {
-  ViewStateErrorType _errorType;
-  String message;
-  String errorMessage;
+  ViewStateErrorType _errorType = ViewStateErrorType.defaultError;
+  String? message;
+  String? errorMessage;
 
   ViewStateError(this._errorType, {this.message, this.errorMessage}) {
-    _errorType ??= ViewStateErrorType.defaultError;
+    _errorType;
     message ??= errorMessage;
   }
 

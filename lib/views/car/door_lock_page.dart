@@ -51,9 +51,9 @@ class DoorLockPage extends GetView<EletricController> {
       child: Obx(
         () => Offstage(
           offstage:
-              controller.carStatusModel.value.datas.sendingTime.length == '0',
+              controller.carStatusModel.value.datas?.sendingTime?.length == 0,
           child: Text(
-            '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
+            '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas!.sendingTime!))}',
             style: TextStyle(color: Color(0xFF999999), fontSize: 12),
           ),
         ),
@@ -67,7 +67,7 @@ class DoorLockPage extends GetView<EletricController> {
       child: Stack(
         children: <Widget>[
           NetImageWidget(
-            imageUrl: controller.carStatusModel.value.datas.fCarColorUrl,
+            imageUrl: controller.carStatusModel.value.datas!.fCarColorUrl!,
             placeholder: 'assets/images/chekong/all_door_open.png',
             width: Get.width,
             height: Get.width * 1297 / 1080,
@@ -81,7 +81,7 @@ class DoorLockPage extends GetView<EletricController> {
             width: 35,
             child: Offstage(
               offstage:
-                  !(controller.carStatusModel.value.datas.carOverStatus == '1'),
+                  !(controller.carStatusModel.value.datas?.carOverStatus == '1'),
               child: _buildLockTag(0, '前机盖开'),
             ),
           ),
@@ -94,8 +94,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 100,
             child: Offstage(
               offstage:
-                  !(controller.carStatusModel.value.datas.doorLfStatus == '2' &&
-                      controller.carStatusModel.value.datas.doorlockLfStatus ==
+                  !(controller.carStatusModel.value.datas?.doorLfStatus == '2' &&
+                      controller.carStatusModel.value.datas?.doorlockLfStatus ==
                           '1'),
               child: _buildLockTag(1, '左前锁开'),
             ),
@@ -107,8 +107,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 35,
             height: 80,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorLfStatus == '1' &&
-                      controller.carStatusModel.value.datas.doorlockLfStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorLfStatus == '1' &&
+                      controller.carStatusModel.value.datas?.doorlockLfStatus ==
                           '2'),
               child: _buildLockTag(0, '左前锁开'),
             ),
@@ -121,8 +121,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 100,
             height: 35,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorLbStatus == '2' &&
-                      controller.carStatusModel.value.datas.doorlockLbStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorLbStatus == '2' &&
+                      controller.carStatusModel.value.datas?.doorlockLbStatus ==
                           '1'),
               child: _buildLockTag(1, '左后锁开'),
             ),
@@ -134,8 +134,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 35,
             height: 80,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorLbStatus == '1' &&
-                      controller.carStatusModel.value.datas.doorlockLbStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorLbStatus == '1' &&
+                      controller.carStatusModel.value.datas?.doorlockLbStatus ==
                           '1'),
               child: _buildLockTag(0, '左后锁开'),
             ),
@@ -148,8 +148,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 100,
             height: 35,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorRfStatus == '2' &&
-                      controller.carStatusModel.value.datas.doorlockRfStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorRfStatus == '2' &&
+                      controller.carStatusModel.value.datas?.doorlockRfStatus ==
                           '1'),
               child: _buildLockTag(1, '右前锁开'),
             ),
@@ -161,8 +161,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 35,
             height: 80,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorRfStatus == '1' &&
-                      controller.carStatusModel.value.datas.doorlockRfStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorRfStatus == '1' &&
+                      controller.carStatusModel.value.datas?.doorlockRfStatus ==
                           '1'),
               child: _buildLockTag(0, '右前锁开'),
             ),
@@ -175,8 +175,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 100,
             height: 35,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorRbStatus == '2' &&
-                      controller.carStatusModel.value.datas.doorlockRbStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorRbStatus == '2' &&
+                      controller.carStatusModel.value.datas?.doorlockRbStatus ==
                           '1'),
               child: _buildLockTag(1, '右后锁开'),
             ),
@@ -188,8 +188,8 @@ class DoorLockPage extends GetView<EletricController> {
             width: 35,
             height: 80,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.doorRbStatus == '1' &&
-                      controller.carStatusModel.value.datas.doorlockRbStatus ==
+              offstage: !(controller.carStatusModel.value.datas?.doorRbStatus == '1' &&
+                      controller.carStatusModel.value.datas?.doorlockRbStatus ==
                           '1'),
               child: _buildLockTag(0, '右后锁开'),
             ),
@@ -201,7 +201,7 @@ class DoorLockPage extends GetView<EletricController> {
             left: (Get.width - 35) / 2,
             width: 35,
             child: Offstage(
-              offstage: !(controller.carStatusModel.value.datas.trunkStatus == '1'),
+              offstage: !(controller.carStatusModel.value.datas?.trunkStatus == '1'),
               child: _buildLockTag(0, '后备箱开'),
             ),
           ),
@@ -322,7 +322,7 @@ class DoorLockPage extends GetView<EletricController> {
     Color boxColor = Color(0xFFCCCCCC);
     if (index == 0) {
       title = '车门';
-      if (controller.carStatusModel.value.datas.allDoorStatus != 2) {
+      if (controller.carStatusModel.value.datas?.allDoorStatus != 2) {
         content = '开';
         boxColor = Color(0xFFFF6F6F);
       } else {
@@ -331,7 +331,7 @@ class DoorLockPage extends GetView<EletricController> {
       }
     } else if (index == 1) {
       title = '门锁';
-      if (controller.carStatusModel.value.datas.allLockStatus != 2) {
+      if (controller.carStatusModel.value.datas?.allLockStatus != 2) {
         content = '开';
         boxColor = Color(0xFFFF6F6F);
       } else {
@@ -340,7 +340,7 @@ class DoorLockPage extends GetView<EletricController> {
       }
     } else if (index == 2) {
       title = '后备箱';
-      if (controller.carStatusModel.value.datas.trunkStatus != '2') {
+      if (controller.carStatusModel.value.datas?.trunkStatus != '2') {
         content = '开';
         boxColor = Color(0xFFFF6F6F);
       } else {
@@ -349,7 +349,7 @@ class DoorLockPage extends GetView<EletricController> {
       }
     } else if (index == 3) {
       title = '前机盖';
-      if (controller.carStatusModel.value.datas.carOverStatus != '2') {
+      if (controller.carStatusModel.value.datas?.carOverStatus != '2') {
         content = '开';
         boxColor = Color(0xFFFF6F6F);
       } else {

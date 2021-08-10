@@ -30,10 +30,10 @@ class RecommendEle extends GetView<EletricController> {
           _buildEletricView(),
           Obx(() => Offstage(
                 offstage:
-                    controller.carStatusModel.value.datas.sendingTime.length ==
+                    controller.carStatusModel.value.datas?.sendingTime?.length ==
                         '0',
                 child: Text(
-                  '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas.sendingTime))}',
+                  '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas!.sendingTime!))}',
                   style: TextStyle(color: Color(0xFF999999), fontSize: 12),
                 ),
               )),
@@ -76,7 +76,7 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AutoSizeText(
-                  controller.carStatusModel.value.datas.soc1,
+                  controller.carStatusModel.value.datas!.soc1!,
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                   maxLines: 1,
                 ),
@@ -107,7 +107,7 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AutoSizeText(
-                  controller.carStatusModel.value.datas.rangMileage.toString(),
+                  controller.carStatusModel.value.datas!.rangMileage.toString(),
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                   maxLines: 1,
                 ),
@@ -188,7 +188,7 @@ class RecommendEle extends GetView<EletricController> {
                 ),
                 Flexible(
                     child: Obx(() => Text(
-                          controller.carStatusModel.value.datas.carLaunchStr,
+                          controller.carStatusModel.value.datas!.carLaunchStr!,
                           style: TextStyle(color: Color(0xFF999999)),
                           maxLines: 1,
                         ))),
@@ -266,10 +266,10 @@ class RecommendEle extends GetView<EletricController> {
                       Obx(() => RichText(
                               text: TextSpan(
                                   text: controller
-                                      .carStatusModel.value.datas.doorOpenStr,
+                                      .carStatusModel.value.datas!.doorOpenStr!,
                                   style: TextStyle(
                                       color: controller.carStatusModel.value
-                                                  .datas.allDoorStatus ==
+                                                  .datas?.allDoorStatus ==
                                               1
                                           ? Color(0xFFFF6F6F)
                                           : Color(0xFF999999)),
@@ -279,10 +279,10 @@ class RecommendEle extends GetView<EletricController> {
                                     style: TextStyle(color: Color(0xFF999999))),
                                 TextSpan(
                                   text: controller
-                                      .carStatusModel.value.datas.lockOpenStr,
+                                      .carStatusModel.value.datas!.lockOpenStr!,
                                   style: TextStyle(
                                       color: controller.carStatusModel.value
-                                                  .datas.allLockStatus ==
+                                                  .datas?.allLockStatus ==
                                               1
                                           ? Color(0xFFFF6F6F)
                                           : Color(0xFF999999)),
@@ -342,7 +342,7 @@ class RecommendEle extends GetView<EletricController> {
                                 height: 30,
                                 radius: 15,
                                 backgroundColor: controller.carStatusModel.value
-                                        .datas.airOpenStatus
+                                        .datas!.airOpenStatus!
                                     ? Colors.green
                                     : Color(0xFF1B7DF4),
                                 disabled: (controller.currentCmdType != 1 &&
@@ -355,8 +355,7 @@ class RecommendEle extends GetView<EletricController> {
                                 imageH: 20,
                                 imageW: 20,
                                 onPressed: () {
-                                  if (controller.carStatusModel.value.datas
-                                      .airOpenStatus) {
+                                  if (controller.carStatusModel.value.datas!.airOpenStatus!) {
                                     controller.sendControlCmd(1, 2);
                                   } else {
                                     controller.sendControlCmd(1, 1);
@@ -377,10 +376,9 @@ class RecommendEle extends GetView<EletricController> {
                         Flexible(
                             child: Obx(() => Text(
                                   controller
-                                      .carStatusModel.value.datas.airOpenStr,
+                                      .carStatusModel.value.datas!.airOpenStr!,
                                   style: TextStyle(
-                                      color: controller.carStatusModel.value
-                                              .datas.airOpenStatus
+                                      color: controller.carStatusModel.value.datas!.airOpenStatus!
                                           ? Colors.green
                                           : Color(0xFF999999)),
                                   maxLines: 1,
@@ -456,7 +454,7 @@ class RecommendEle extends GetView<EletricController> {
   Future buttonAction(int index) async {
     if (index == 0) {
       //里程信息
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
           'true') {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MilesInfoPage
@@ -468,7 +466,7 @@ class RecommendEle extends GetView<EletricController> {
       //e路无忧
       CommonModel _model = await DioManager()
           .request<CommonModel>(DioManager.GET, Api.ePushJudgeUrl);
-      if (_model.status) {
+      if (_model.status!) {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ServicePackageIntroduction
         });
@@ -482,7 +480,7 @@ class RecommendEle extends GetView<EletricController> {
       Get.toNamed(Routes.NEARDZMAP);
     } else if (index == 3) {
       //一键救援
-      if (Get.find<UserController>().userInfo.value.member.isVehicle ==
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
           'true') {
         //拨号
         if (await canLaunch('tel:400-830-8999')) {

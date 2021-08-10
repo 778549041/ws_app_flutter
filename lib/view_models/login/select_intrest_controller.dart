@@ -21,9 +21,9 @@ class SelectIntreController extends BaseController {
   void onReady() async {
     IntresModel obj = await DioManager()
         .request<IntresModel>(DioManager.GET, Api.intrestListUrl);
-    allIntres.addAll(obj.list);
+    allIntres.addAll(obj.list!);
     selectIntres
-        .addAll(Get.find<UserController>().userInfo.value.member.interest);
+        .addAll(Get.find<UserController>().userInfo.value.member!.interest!);
     for (var select in selectIntres) {
       for (var item in allIntres) {
         if (item.name == select) {
@@ -37,14 +37,14 @@ class SelectIntreController extends BaseController {
 
   //选择事件
   void selectItem(int index) {
-    if (allIntres[index].selected) {
+    if (allIntres[index].selected!) {
       allIntres[index].selected = false;
       selectIntres.remove(allIntres[index].name);
       update();
     } else {
       if (selectIntres.length < 5) {
         allIntres[index].selected = true;
-        selectIntres.add(allIntres[index].name);
+        selectIntres.add(allIntres[index].name!);
         update();
       } else {
         EasyLoading.showToast('最多选择五个',
@@ -56,7 +56,7 @@ class SelectIntreController extends BaseController {
   //跳过
   void jumpToNext() {
     print('object');
-    if (Get.find<UserController>().userInfo.value.member.isVehicle == 'false') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle == 'false') {
       Get.dialog(
           BaseDialog(
             title: '提示',

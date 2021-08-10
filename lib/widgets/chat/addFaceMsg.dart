@@ -8,7 +8,7 @@ class FaceMsg extends StatelessWidget {
   final String toUser;
   final int type;
 
-  Future<int> openPanel(context) {
+  Future<int?> openPanel(context) {
     close() {
       Navigator.pop(context);
     }

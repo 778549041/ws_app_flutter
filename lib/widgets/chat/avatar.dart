@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
-  String avtarUrl = '';
-  double width = 0;
-  double height = 0;
-  double radius = 0;
-  Avatar({avtarUrl, width, height, radius}) {
-    this.avtarUrl = avtarUrl;
-    this.width = width.toDouble();
-    this.height = height.toDouble();
-    this.radius = radius.toDouble();
-  }
+  final String avtarUrl;
+  final double width;
+  final double height;
+  final double radius;
+
+  Avatar({
+    this.avtarUrl = '',
+    this.width = 0,
+    this.height = 0,
+    this.radius = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,29 +29,15 @@ class Avatar extends StatelessWidget {
                 width: width,
                 height: height,
                 errorBuilder: (BuildContext context, Object exception,
-                    StackTrace stackTrace) {
+                    StackTrace? stackTrace) {
                   print("图片渲染失败");
                   return Container(
                     width: width,
                     height: height,
                     decoration: BoxDecoration(
-                        border: Border(
-                      bottom: BorderSide(
-                        width: 1,
-                        color: Color(0xFFededed),
-                      ),
-                      top: BorderSide(
-                        width: 1,
-                        color: Color(0xFFededed),
-                      ),
-                      left: BorderSide(
-                        width: 1,
-                        color: Color(0xFFededed),
-                      ),
-                      right: BorderSide(
-                        width: 1,
-                        color: Color(0xFFededed),
-                      ),
+                        border: Border.all(
+                      width: 1,
+                      color: Color(0xFFededed),
                     )),
                   );
                 },

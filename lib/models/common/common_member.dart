@@ -1,23 +1,23 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class CommonMemberModel {
-  String avatar;
-  String isOfficial;
-  int isSales;
-  String isVehicle;
-  String memberLv;
-  String nickname;
-  int medal;
-  int userType;
-  String hrefUrl;
-  int isEnd;
-  int vehicleControlBind; //是否绑定车控功能
-  int vehicleControlPin; //是否设置了pin码
-  int isVehicleControl; //是否有车控功能
-  String memberIdStr; //加密的用户id字符串
-  String medalOrSaleImageName; //销售员或者勋章标签图标
-  String medalOrSaleDescImageName; //销售员或者勋章详情图片
-  bool showTag; //是否展示标签
+  String? avatar;
+  String? isOfficial;
+  int? isSales;
+  String? isVehicle;
+  String? memberLv;
+  String? nickname;
+  int? medal;
+  int? userType;
+  String? hrefUrl;
+  int? isEnd;
+  int? vehicleControlBind; //是否绑定车控功能
+  int? vehicleControlPin; //是否设置了pin码
+  int? isVehicleControl; //是否有车控功能
+  String? memberIdStr; //加密的用户id字符串
+  String? medalOrSaleImageName; //销售员或者勋章标签图标
+  String? medalOrSaleDescImageName; //销售员或者勋章详情图片
+  bool? showTag; //是否展示标签
 
   CommonMemberModel(
       {this.avatar = '',
@@ -91,6 +91,6 @@ class CommonMemberModel {
   }
 
   bool _getShowTag() {
-    return (this.isSales == 1 || this.medal > 0);
+    return (this.isSales == 1 || this.medal! > 0);
   }
 }

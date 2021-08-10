@@ -8,12 +8,12 @@ class CircleSearchController extends RefreshListController<MomentModel> {
 
   @override
   void onInit() {
+    super.onInit();
     pageSize = 10;
-    // super.onInit();
   }
 
   @override
-  Future<List<MomentModel>> loadData({int pageNum}) async {
+  Future<List<MomentModel>?> loadData({int pageNum = 1}) async {
     return await requestCircleListData(pageNum);
   }
 

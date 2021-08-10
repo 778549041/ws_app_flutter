@@ -1,31 +1,31 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class SplashModel {
-  String result;
-  SplashData data;
+  String? result;
+  SplashData? data;
 
   SplashModel({this.result = ''}) : data = SplashData();
 
   SplashModel.fromJson(Map<String, dynamic> json) {
     result = asT<String>(json['result'], '');
     data = SplashData.fromJson(
-        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>())!);
   }
 }
 
 class SplashData {
-  String termsType;
-  String showType;
-  String createtime;
-  String appType;
-  String lastModify;
-  String size;
-  String logoId;
-  String pOrder;
-  String imageId;
-  String url;
-  String desc;
-  String status;
+  String? termsType;
+  String? showType;
+  String? createtime;
+  String? appType;
+  String? lastModify;
+  String? size;
+  String? logoId;
+  String? pOrder;
+  String? imageId;
+  String? url;
+  String? desc;
+  String? status;
 
   SplashData(
       {this.termsType = '',

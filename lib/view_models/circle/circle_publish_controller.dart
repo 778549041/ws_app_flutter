@@ -6,8 +6,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:qiniu_sdk_base/qiniu_sdk_base.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
@@ -16,14 +16,11 @@ import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
-import 'package:ws_app_flutter/widgets/global/custom_sheet.dart';
-// ignore: implementation_imports
-import 'package:photo_manager/src/plugin.dart';
 
 class CirclePublishController extends GetxController {
-  TextEditingController textEditingController;
-  FocusNode focusNode;
-  String publishText;
+  late TextEditingController textEditingController;
+  late FocusNode focusNode;
+  String? publishText;
   var topicModel = TopicModel().obs;
   var selectedAssets = <AssetEntity>[].obs;
   var isVideo = false.obs;
@@ -43,19 +40,20 @@ class CirclePublishController extends GetxController {
 
   //点击发布按钮
   Future publishMoment() async {
-    Get.focusScope.unfocus();
-    if ((selectedAssets == null || selectedAssets.length == 0) &&
-        publishText.length == 0) {
+    Get.focusScope?.unfocus();
+    if ((selectedAssets.length == 0) && publishText?.length == 0) {
       //无任何内容
       EasyLoading.showToast('发布内容不能为空',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
-    if (publishText.length > 0 && CommonUtil.isBlank(publishText)) {
+    if (publishText != null &&
+        publishText!.length > 0 &&
+        CommonUtil.isBlank(publishText)) {
       textEditingController.text = '';
       return;
     }
-    if (publishText.length > 0) {
+    if (publishText != null && publishText!.length > 0) {
       publishContentIsLegal();
     } else {
       if (isVideo.value) {
@@ -78,8 +76,8 @@ class CirclePublishController extends GetxController {
     CommonModel model = await DioManager().request<CommonModel>(
         DioManager.POST, Api.circlePublishContentValidateUrl,
         params: {'content': publishText});
-    if (model.result) {
-      if (selectedAssets == null || selectedAssets.length == 0) {
+    if (model.result!) {
+      if (selectedAssets.length == 0) {
         //发布纯文本
         publishOnlyText();
       } else if (isVideo.value) {
@@ -90,7 +88,7 @@ class CirclePublishController extends GetxController {
         publishImage();
       }
     } else {
-      EasyLoading.showToast(model.message,
+      EasyLoading.showToast(model.message!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
@@ -100,7 +98,7 @@ class CirclePublishController extends GetxController {
     Map<String, dynamic> params = Map<String, dynamic>();
     params['type'] = '0';
     params['content'] = publishText;
-    if (topicModel.value != null) {
+    if (topicModel.value.topicId != null) {
       params['topic_id'] = topicModel.value.topicId;
     }
     await publishNetWork(params);
@@ -115,7 +113,7 @@ class CirclePublishController extends GetxController {
     params['type'] = '1';
     params['content'] = publishText;
     params['cover_id'] = imgIDStr;
-    if (topicModel.value != null) {
+    if (topicModel.value.topicId != null) {
       params['topic_id'] = topicModel.value.topicId;
     }
 
@@ -127,16 +125,16 @@ class CirclePublishController extends GetxController {
     EasyLoading.show(status: '文件上传中...');
     List<String> imgUrlList = [];
     for (var item in selectedAssets) {
-      File compressedFile;
+      late File compressedFile;
       if (item.type == AssetType.image) {
-        String filePath = (await item.file).path;
+        String filePath = (await item.file)!.path;
         compressedFile =
             await FlutterNativeImage.compressImage(filePath, quality: 70);
       } else if (item.type == AssetType.video) {
         // File file = await item.file;
         // MediaInfo info = await VideoCompress.compressVideo(file.path);
         // compressedFile = info.file;
-        compressedFile = await item.file;
+        compressedFile = (await item.file)!;
       }
 
       var result = await Storage().putFile(
@@ -150,7 +148,7 @@ class CirclePublishController extends GetxController {
                       deadline: DateUtil.getNowDateMs() + 3600)),
           options: PutOptions(controller: PutController()));
       print(result);
-      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result.key);
+      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result.key!);
     }
     EasyLoading.dismiss();
     return imgUrlList;
@@ -165,7 +163,7 @@ class CirclePublishController extends GetxController {
     params['type'] = '2';
     params['content'] = publishText;
     params['cover_id'] = imgIDStr;
-    if (topicModel.value != null) {
+    if (topicModel.value.topicId != null) {
       params['topic_id'] = topicModel.value.topicId;
     }
 
@@ -178,8 +176,8 @@ class CirclePublishController extends GetxController {
         DioManager.POST, Api.circlePublishMomentUrl,
         params: params);
     if (receive.list == 'true') {
-      if (receive.message != null && receive.message.length > 0) {
-        EasyLoading.showToast(receive.message,
+      if (receive.message != null && receive.message!.length > 0) {
+        EasyLoading.showToast(receive.message!,
             toastPosition: EasyLoadingToastPosition.bottom);
       } else {
         EasyLoading.showToast('发布成功',
@@ -199,9 +197,9 @@ class CirclePublishController extends GetxController {
   //点击选择的图片进行预览
   Future clickItem(int index, AssetEntity assetEntity) async {
     await AssetPickerViewer.pushToViewer(
-      Get.context,
+      Get.context!,
       currentIndex: index,
-      assets: selectedAssets,
+      previewAssets: selectedAssets,
       themeData: AssetPicker.themeData(Colors.black),
       specialPickerType: assetEntity.type == AssetType.video
           ? SpecialPickerType.wechatMoment
@@ -228,66 +226,35 @@ class CirclePublishController extends GetxController {
     if (await containsVideo(selectedAssets)) {
       totalCount = 9;
     }
-    List<AssetEntity> result = await AssetPicker.pickAssets(Get.context,
+    List<AssetEntity>? result = await AssetPicker.pickAssets(Get.context!,
         maxAssets: (totalCount),
         specialPickerType: SpecialPickerType.wechatMoment,
-        customItemBuilder: (context) {
+        specialItemBuilder: (context) {
       return CustomButton(
         backgroundColor: Colors.red,
-        onPressed: () {
-          Get.bottomSheet(
-            CustomSheet(
-              dataArr: ['拍摄照片', '拍摄视频'],
-              clickCallback: (selectIndex, selectText) async {
-                if (selectIndex == 0) {
-                  return;
-                }
-                if (selectIndex == 1) {
-                  var _image =
-                      await ImagePicker().getImage(source: ImageSource.camera);
-                  if (_image == null) {
-                    return;
-                  }
-                  Plugin _plugin = Plugin();
-                  AssetEntity entity =
-                      await _plugin.saveImageWithPath(_image.path);
-                  if (await containsVideo(selectedAssets)) {
-                    //如果之前选择了视频
-                    selectedAssets.assignAll([entity]);
-                  } else if (selectedAssets.length < 9) {
-                    //如果已选图片数量小于9张
-                    selectedAssets.add(entity);
-                  }
-                  isVideo.value = false;
-                  Get.back();
-                } else if (selectIndex == 2) {
-                  var _video = await ImagePicker().getVideo(
-                      source: ImageSource.camera,
-                      maxDuration: Duration(seconds: 15));
-                  if (_video == null) {
-                    return;
-                  }
-                  File _videoFile = File(_video.path);
-                  Plugin _plugin = Plugin();
-                  AssetEntity entity = await _plugin.saveVideo(_videoFile);
-                  selectedAssets.assignAll([entity]);
-                  isVideo.value = true;
-                  Get.back();
-                }
-              },
-            ), //设置圆角
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-            ),
-            // 抗锯齿
-            clipBehavior: Clip.antiAlias,
-          );
+        onPressed: () async {
+          final AssetEntity? _entity =
+              await CameraPicker.pickFromCamera(context, enableRecording: true);
+          if (_entity != null) {
+            if (_entity.type == AssetType.video) {
+              selectedAssets.add(_entity);
+              isVideo.value = true;
+              Get.back();
+            } else {
+              if (await containsVideo(selectedAssets)) {
+                //如果之前选择了视频
+                selectedAssets.assignAll([_entity]);
+              } else if (selectedAssets.length < 9) {
+                //如果已选图片数量小于9张
+                selectedAssets.add(_entity);
+              }
+              isVideo.value = false;
+              Get.back();
+            }
+          }
         },
       );
-    }, customItemPosition: CustomItemPosition.prepend);
+    }, specialItemPosition: SpecialItemPosition.prepend);
     if (result == null) {
       return;
     }
@@ -322,7 +289,7 @@ class CirclePublishController extends GetxController {
 
   //选择话题
   void clickSelectTopic() {
-    Get.toNamed(Routes.TOPICLIST).then((value) {
+    Get.toNamed(Routes.TOPICLIST)?.then((value) {
       topicModel.value = value;
     });
   }

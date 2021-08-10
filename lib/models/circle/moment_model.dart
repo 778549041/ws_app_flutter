@@ -2,9 +2,9 @@ import 'package:ws_app_flutter/models/common/common_member.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class MomentListModel {
-  bool isLogin;
-  List<MomentModel> list;
-  int totalPage;
+  bool? isLogin;
+  List<MomentModel>? list;
+  int? totalPage;
 
   MomentListModel({this.isLogin, this.totalPage}) : list = <MomentModel>[];
 
@@ -15,7 +15,7 @@ class MomentListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(MomentModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(MomentModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -25,47 +25,47 @@ class MomentListModel {
 }
 
 class SingleMomentModel {
-  MomentModel list;
+  MomentModel? list;
 
   SingleMomentModel() : list = MomentModel();
 
   SingleMomentModel.fromJson(Map<String, dynamic> json) {
     list = MomentModel.fromJson(
-        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>())!);
   }
 }
 
 class MomentModel {
-  String circleId;
-  int userType;
-  String visitsNum;
-  String hrefType;
-  String isGood;
-  MomentParams params;
-  CommonMemberModel memberInfo;
-  String classify;
-  String topicId;
-  String topicTitle;
-  String memberId;
-  String content;
-  String type;
-  String comment;
-  String examine;
-  String praise;
-  bool praiseStatus;
-  String avatar;
-  String nickname;
-  bool isSelf;
-  List<FileModel> fileList;
-  String pubtime;
-  int friendsRelation;
+  String? circleId;
+  int? userType;
+  String? visitsNum;
+  String? hrefType;
+  String? isGood;
+  MomentParams? params;
+  CommonMemberModel? memberInfo;
+  String? classify;
+  String? topicId;
+  String? topicTitle;
+  String? memberId;
+  String? content;
+  String? type;
+  String? comment;
+  String? examine;
+  String? praise;
+  bool? praiseStatus;
+  String? avatar;
+  String? nickname;
+  bool? isSelf;
+  List<FileModel>? fileList;
+  String? pubtime;
+  int? friendsRelation;
 
-  bool showAll;
-  bool showAllComment;
-  bool onlyBottomRadius;
-  String source;
-  bool isInTopicPage;
-  bool isDetail;
+  bool? showAll;
+  bool? showAllComment;
+  bool? onlyBottomRadius;
+  String? source;
+  bool? isInTopicPage;
+  bool? isDetail;
 
   MomentModel(
       {this.circleId,
@@ -105,9 +105,9 @@ class MomentModel {
     hrefType = asT<String>(json['href_type']);
     isGood = asT<String>(json['is_good']);
     params = MomentParams.fromJson(
-        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['params'], Map<String, dynamic>())!);
     memberInfo = CommonMemberModel.fromJson(
-        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
     classify = asT<String>(json['classify']);
     topicId = asT<String>(json['topic_id']);
     topicTitle = asT<String>(json['topic_title'], '');
@@ -126,8 +126,7 @@ class MomentModel {
       (json['file_list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            fileList
-                .add(FileModel.fromJson(asT<Map<String, dynamic>>(element)));
+            fileList?.add(FileModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -138,10 +137,10 @@ class MomentModel {
 }
 
 class MomentParams {
-  String name;
-  String type;
-  String url;
-  String detailId;
+  String? name;
+  String? type;
+  String? url;
+  String? detailId;
 
   MomentParams({this.name = '', this.type, this.url, this.detailId});
 
@@ -154,7 +153,7 @@ class MomentParams {
 }
 
 class FileModel {
-  String savepath;
+  String? savepath;
 
   FileModel({this.savepath});
 

@@ -18,24 +18,24 @@ class CircleListItem extends StatelessWidget {
   final MomentModel model;
   final String pageName;
 
-  CircleListItem({@required this.model, @required this.pageName});
+  CircleListItem({required this.model, required this.pageName});
 
   @override
   Widget build(BuildContext context) {
-    String _nickName = model.nickname;
+    String _nickName = model.nickname!;
     if (_nickName.length > 11) {
       _nickName = _nickName.substring(0, 11);
     }
 
     String _accountType = '';
     if (model.classify == '1') {
-      if (model.memberInfo.isSales == 1) {
+      if (model.memberInfo!.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else {
         _accountType = '官方账号';
       }
     } else {
-      if (model.memberInfo.isSales == 1) {
+      if (model.memberInfo!.isSales == 1) {
         _accountType = '特约店销售顾问';
       } else if (model.userType == 2) {
         _accountType = '认证车主';
@@ -76,7 +76,7 @@ class CircleListItem extends StatelessWidget {
                             child: Stack(
                               children: <Widget>[
                                 RoundAvatar(
-                                  imageUrl: model.avatar,
+                                  imageUrl: model.avatar!,
                                   height: 40,
                                 ),
                                 Positioned(
@@ -112,17 +112,17 @@ class CircleListItem extends StatelessWidget {
                                             fontSize: 15),
                                       )),
                                       //销售员或者勋章标签
-                                      if (model.memberInfo.showTag)
+                                      if (model.memberInfo!.showTag!)
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(left: 5),
                                           child: MedalWidget(
-                                            medalBtnImage: model.memberInfo
+                                            medalBtnImage: model.memberInfo!
                                                 .medalOrSaleImageName,
-                                            medalToastImage: model.memberInfo
+                                            medalToastImage: model.memberInfo!
                                                 .medalOrSaleDescImageName,
                                             isSales:
-                                                model.memberInfo.isSales == 1,
+                                                model.memberInfo!.isSales == 1,
                                           ),
                                         ),
                                     ],
@@ -147,7 +147,7 @@ class CircleListItem extends StatelessWidget {
                           //加好友按钮
                           Offstage(
                             offstage:
-                                model.friendsRelation == 2 || model.isSelf,
+                                model.friendsRelation == 2 || model.isSelf!,
                             child: Padding(
                               padding: EdgeInsets.only(right: 5),
                               child: CustomButton(
@@ -167,7 +167,7 @@ class CircleListItem extends StatelessWidget {
                           ),
                           //删除按钮
                           Offstage(
-                            offstage: !model.isSelf,
+                            offstage: !model.isSelf!,
                             child: CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 50,
@@ -197,7 +197,7 @@ class CircleListItem extends StatelessWidget {
                           ),
                           //举报按钮
                           Offstage(
-                            offstage: model.isSelf,
+                            offstage: model.isSelf!,
                             child: CustomButton(
                               backgroundColor: Colors.transparent,
                               width: 73,
@@ -218,16 +218,15 @@ class CircleListItem extends StatelessWidget {
                   ],
                 ),
                 //圈子文本内容
-                if (model.topicTitle.length +
-                        model.content.length +
-                        model.params.name.length >
-                    0)
+                if (model.topicTitle != null ||
+                    model.content != null ||
+                    model.params?.name != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: RichText(
                       maxLines: 5,
                       text: TextSpan(
-                          text: model.topicTitle,
+                          text: model.topicTitle != null ? model.topicTitle! : '',
                           style: TextStyle(
                             color: Color(0xFF2673FB),
                             fontSize: 15,
@@ -236,18 +235,18 @@ class CircleListItem extends StatelessWidget {
                             ..onTap = () {
                               print('点击话题');
                               Get.toNamed(Routes.CIRCLTOPICLIST,
-                                  arguments: {'topcid': model.topicId});
+                                  arguments: {'topcid': model.topicId!});
                             },
                           children: [
                             TextSpan(
-                              text: model.content,
+                              text: model.content != null ? model.content! : '',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
                               ),
                             ),
                             TextSpan(
-                                text: model.params.name,
+                                text: model.params?.name != null ? model.params!.name : '',
                                 style: TextStyle(
                                   color: Color(0xFF2673FB),
                                   fontSize: 15,
@@ -257,9 +256,9 @@ class CircleListItem extends StatelessWidget {
                                   ..onTap = () {
                                     print('点击跳转链接');
                                     CommonUtil.serviceControlPushPage(
-                                        type: model.params.type,
-                                        detailId: model.params.detailId,
-                                        url: model.params.url,
+                                        type: model.params!.type,
+                                        detailId: model.params!.detailId,
+                                        url: model.params!.url,
                                         hasNav: false);
                                   }),
                           ]),
@@ -270,9 +269,9 @@ class CircleListItem extends StatelessWidget {
                   GridView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: model.fileList.length,
+                      itemCount: model.fileList!.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: (model.fileList.length > 1) ? 2 : 1,
+                        crossAxisCount: (model.fileList!.length > 1) ? 2 : 1,
                         mainAxisSpacing: 8,
                         crossAxisSpacing: 8,
                       ),
@@ -282,9 +281,9 @@ class CircleListItem extends StatelessWidget {
                             Get.to(
                                 () => GalleryPhotoPage(
                                       heroName:
-                                          (model.fileList[index].savepath +
+                                          (model.fileList![index].savepath! +
                                               pageName),
-                                      galleryItems: model.fileList,
+                                      galleryItems: model.fileList!,
                                       initialIndex: index,
                                       backgroundDecoration: const BoxDecoration(
                                           color: Colors.black),
@@ -292,9 +291,9 @@ class CircleListItem extends StatelessWidget {
                                 transition: Transition.fadeIn);
                           },
                           child: Hero(
-                            tag: (model.fileList[index].savepath + pageName),
+                            tag: (model.fileList![index].savepath! + pageName),
                             child: CachedNetworkImage(
-                              imageUrl: model.fileList[index].savepath,
+                              imageUrl: model.fileList![index].savepath!,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -308,7 +307,7 @@ class CircleListItem extends StatelessWidget {
                       onTap: () {
                         Get.to(
                             () => VideoPalyPage(
-                                  videoUrl: model.fileList[0].savepath,
+                                  videoUrl: model.fileList![0].savepath!,
                                 ),
                             transition: Transition.fadeIn);
                       },
@@ -317,7 +316,7 @@ class CircleListItem extends StatelessWidget {
                         children: <Widget>[
                           CachedNetworkImage(
                             imageUrl:
-                                '${model.fileList[0].savepath}?vframe/jpg/offset/0',
+                                '${model.fileList![0].savepath!}?vframe/jpg/offset/0',
                             fit: BoxFit.cover,
                           ),
                           Image.asset('assets/images/circle/circle_play.png',
@@ -333,7 +332,7 @@ class CircleListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        model.pubtime.substring(0, 10),
+                        model.pubtime!.substring(0, 10),
                         style: TextStyle(
                           color: Color(0xFF666666),
                           fontSize: 12,
@@ -350,7 +349,7 @@ class CircleListItem extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Text(
-                              model.visitsNum,
+                              model.visitsNum!,
                               style: TextStyle(
                                   color: Color(0xFF666666), fontSize: 12),
                             ),
@@ -363,7 +362,7 @@ class CircleListItem extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Text(
-                              model.comment,
+                              model.comment!,
                               style: TextStyle(
                                   color: Color(0xFF666666), fontSize: 12),
                             ),
@@ -385,9 +384,9 @@ class CircleListItem extends StatelessWidget {
                                     : 'assets/images/wow/new_list_praise.png',
                               );
                             },
-                            likeCount: int.parse(model.praise),
+                            likeCount: int.parse(model.praise!),
                             countBuilder:
-                                (int count, bool isLiked, String text) {
+                                (int? count, bool isLiked, String text) {
                               return Text(
                                 text,
                                 style: TextStyle(

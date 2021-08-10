@@ -160,7 +160,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                               height: 90,
                               borderWidth: 3,
                               imageUrl:
-                                  controller.userInfo.value.member.headImg ??
+                                  controller.userInfo.value.member?.headImg ??
                                       '',
                             ),
                           ),
@@ -185,7 +185,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                       children: <Widget>[
                         Obx(
                           () => Text(
-                            controller.userInfo.value.member.name ?? '',
+                            controller.userInfo.value.member?.name ?? '',
                             style: TextStyle(color: Colors.black, fontSize: 15),
                           ),
                         ),

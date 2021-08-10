@@ -75,7 +75,7 @@ class LoginPage extends GetView<LoginController> {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.phone,
                     onFieldSubmitted: (value) {
-                      Get.focusScope.requestFocus(controller.pwdFocus);
+                      Get.focusScope?.requestFocus(controller.pwdFocus);
                     },
                     decoration: InputDecoration(
                       prefixIcon: Image.asset(

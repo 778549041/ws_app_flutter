@@ -7,7 +7,7 @@ class BatteryView extends StatelessWidget {
   final bool isCharging;
 
   BatteryView(
-      {this.percent,
+      {this.percent = 100,
       this.width = 40,
       this.height = 15,
       this.isCharging = false});
@@ -44,7 +44,7 @@ class BatteryViewPainter extends CustomPainter {
   final double mPaintStrokeWidth;
 
   BatteryViewPainter(
-      {this.percent, this.mStrokeWidth = 1.0, this.mPaintStrokeWidth = 1.5})
+      {this.percent = 100, this.mStrokeWidth = 1.0, this.mPaintStrokeWidth = 1.5})
       : mPaint = Paint()..strokeWidth = mPaintStrokeWidth;
 
   @override

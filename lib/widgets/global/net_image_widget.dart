@@ -4,39 +4,38 @@ import 'package:flutter/material.dart';
 class NetImageWidget extends StatelessWidget {
   final double width;
   final double height;
-  final String imageUrl;
-  final String placeholder;
+  final String? imageUrl;
+  final String? placeholder;
   final BoxFit fit;
 
   NetImageWidget(
-      {this.width,
-      this.height,
+      {this.width = double.infinity,
+      this.height = double.infinity,
       this.imageUrl,
       this.placeholder,
-      this.fit = BoxFit.cover})
-      : assert(imageUrl != null);
+      this.fit = BoxFit.cover});
 
   Widget _buildPlaceholder() {
     if (placeholder != null) {
       return Image.asset(
-        placeholder,
+        placeholder!,
         width: width,
         height: height,
         fit: fit,
       );
     } else {
       return Container(
-        width: width ?? double.infinity,
-        height: height ?? double.infinity,
+        width: width,
+        height: height,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return imageUrl.length > 0
+    return imageUrl != null
         ? CachedNetworkImage(
-            imageUrl: imageUrl,
+            imageUrl: imageUrl!,
             width: width,
             height: height,
             placeholder: (context, url) => _buildPlaceholder(),

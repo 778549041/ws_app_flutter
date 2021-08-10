@@ -1,9 +1,9 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class NewsListModel {
-  List<NewModel> list;
-  int totalPage;
-  String contentName;
+  List<NewModel>? list;
+  int? totalPage;
+  String? contentName;
 
   NewsListModel({this.totalPage, this.contentName}) : list = <NewModel>[];
 
@@ -13,7 +13,7 @@ class NewsListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(NewModel.fromJson(asT<Map<String, dynamic>>(element)));
+            list!.add(NewModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -24,20 +24,20 @@ class NewsListModel {
 }
 
 class NewModel {
-  String articleId;
-  int articlePraise;
-  String title;
-  String pubtime;
-  String imageUrl;
-  String commentCount;
-  bool collectStatus;
-  String collection;
-  String read;
-  bool isBgClear;
-  HtmlBody bodys;
-  bool praiseStatus;
-  bool isLogin;
-  String uptime;
+  String? articleId;
+  int? articlePraise;
+  String? title;
+  String? pubtime;
+  String? imageUrl;
+  String? commentCount;
+  bool? collectStatus;
+  String? collection;
+  String? read;
+  bool? isBgClear;
+  HtmlBody? bodys;
+  bool? praiseStatus;
+  bool? isLogin;
+  String? uptime;
 
   NewModel(
       {this.articleId,
@@ -67,7 +67,7 @@ class NewModel {
     read = asT<String>(json['read']);
     isBgClear = false;
     bodys = HtmlBody.fromJson(
-        asT<Map<String, dynamic>>(json['bodys'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['bodys'], Map<String, dynamic>())!);
     isLogin = asT<bool>(json['is_login']);
     praiseStatus = asT<bool>(json['praise_status']);
     uptime = asT<String>(json['uptime']);
@@ -75,20 +75,20 @@ class NewModel {
 }
 
 class NewsDetailModel {
-  NewModel article;
+  NewModel? article;
 
   NewsDetailModel() : article = NewModel();
 
   NewsDetailModel.fromJson(Map<String, dynamic> json) {
     article = NewModel.fromJson(
-        asT<Map<String, dynamic>>(json['article'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['article'], Map<String, dynamic>())!);
   }
 }
 
 class HtmlBody {
-  String content;
-  String seoDescription;
-  String seotitle;
+  String? content;
+  String? seoDescription;
+  String? seotitle;
 
   HtmlBody({this.content = '', this.seoDescription = '', this.seotitle = ''});
 

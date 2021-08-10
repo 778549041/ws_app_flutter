@@ -8,7 +8,6 @@ class PwdManagePage extends GetView<PwdManageController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '管理密码',
-      rightActions: [],
       child: ListView.builder(
           padding: const EdgeInsets.only(top: 0),
           itemCount: 3,

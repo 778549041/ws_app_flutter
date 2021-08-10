@@ -7,19 +7,19 @@ import 'package:ws_app_flutter/view_models/mine/mine_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class ChangeAreaController extends GetxController {
-  TextEditingController controller;
+  TextEditingController? controller;
   var area = ''.obs;
   var address = ''.obs;
 
   @override
   void onInit() {
     UserInfo _userInfo = Get.find<UserController>().userInfo.value;
-    area.value = _userInfo.member.area;
-    if (_userInfo.member.area.contains('mainland')) {
-      area.value = _userInfo.member.area.split(':')[1];
+    area.value = _userInfo.member?.area == null ? '' : _userInfo.member!.area!;
+    if (_userInfo.member!.area!.contains('mainland')) {
+      area.value = _userInfo.member!.area!.split(':')[1];
     }
 
-    address.value = _userInfo.member.addr;
+    address.value = _userInfo.member?.addr == null ? '' : _userInfo.member!.addr!;
     controller = TextEditingController(text: address.value);
     super.onInit();
   }
@@ -36,11 +36,15 @@ class ChangeAreaController extends GetxController {
   //选择地址
   void selectAddress() async {
     Pickers.showAddressPicker(
-      Get.context,
+      Get.context!,
       addAllItem: false,
       initTown: '',
       onConfirm: (province, city, town) {
-        area.value = province + '/' + city + '/' + town;
+        if (town == null) {
+          area.value = province + '/' + city;
+        } else {
+          area.value = province + '/' + city + '/' + town;
+        }
       },
     );
   }

@@ -33,8 +33,8 @@ class UnbindPhonePage extends GetView<UnbindPhoneController> {
                 text: Get.find<UserController>()
                     .userInfo
                     .value
-                    .member
-                    .mobile
+                    .member!
+                    .mobile!
                     .replaceFirst(RegExp(r'\d{4}'), '****', 3),
                 maxLength: 11,
                 keyboardType: TextInputType.phone,

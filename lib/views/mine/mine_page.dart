@@ -150,7 +150,7 @@ class MinePage extends GetView<MineController> {
                     imageUrl: Get.find<UserController>()
                             .userInfo
                             .value
-                            .member
+                            .member!
                             .headImg ??
                         '',
                   ),
@@ -176,30 +176,30 @@ class MinePage extends GetView<MineController> {
                         (Get.find<UserController>()
                                     .userInfo
                                     .value
-                                    .member
-                                    .showName
+                                    .member!
+                                    .showName!
                                     .length >
                                 11)
                             ? Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .showName
+                                .member!
+                                .showName!
                                 .substring(0, 11)
                             : Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .showName,
+                                .member!
+                                .showName!,
                         style: TextStyle(fontSize: 15),
                       )),
                   // 销售员或者勋章标签
                   if (Get.find<UserController>()
                       .userInfo
                       .value
-                      .member
-                      .memberInfo
-                      .showTag)
+                      .member!
+                      .memberInfo!
+                      .showTag!)
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
                       child: MedalWidget(
@@ -207,20 +207,20 @@ class MinePage extends GetView<MineController> {
                         medalBtnImage: Get.find<UserController>()
                             .userInfo
                             .value
-                            .member
-                            .memberInfo
-                            .medalOrSaleImageName,
+                            .member!
+                            .memberInfo!
+                            .medalOrSaleImageName!,
                         medalToastImage: Get.find<UserController>()
                             .userInfo
                             .value
-                            .member
-                            .memberInfo
-                            .medalOrSaleDescImageName,
+                            .member!
+                            .memberInfo!
+                            .medalOrSaleDescImageName!,
                         isSales: Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .memberInfo
+                                .member!
+                                .memberInfo!
                                 .isSales ==
                             1,
                       ),
@@ -229,15 +229,15 @@ class MinePage extends GetView<MineController> {
                         offstage: Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .sex
+                                .member!
+                                .sex!
                                 .length ==
                             0,
                         child: Image.asset(
                           Get.find<UserController>()
                                       .userInfo
                                       .value
-                                      .member
+                                      .member!
                                       .sex ==
                                   '0'
                               ? 'assets/images/mine/woman.png'
@@ -290,8 +290,8 @@ class MinePage extends GetView<MineController> {
                             TextUtil.formatComma3(Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member
-                                .integral),
+                                .member!
+                                .integral!),
                             style: TextStyle(fontSize: 12),
                           )),
                       title: '积分',
@@ -305,7 +305,7 @@ class MinePage extends GetView<MineController> {
     );
   }
 
-  Widget _buildFourBtn(int index, Widget child, {String title, String image}) {
+  Widget _buildFourBtn(int index, Widget child, {String? title, String? image}) {
     return GestureDetector(
       onTap: () => controller.pushAction(index),
       child: Container(
@@ -317,14 +317,14 @@ class MinePage extends GetView<MineController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              title,
+              title!,
               style: TextStyle(fontSize: 12),
             ),
             SizedBox(
               height: 5,
             ),
             Image.asset(
-              image,
+              image!,
               width: 36,
               height: 36,
             ),

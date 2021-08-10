@@ -1,7 +1,7 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class NearStoreListModel {
-  List<NearStoreModel> data;
+  List<NearStoreModel>? data;
 
   NearStoreListModel() : data = <NearStoreModel>[];
 
@@ -11,8 +11,8 @@ class NearStoreListModel {
       (json['data'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            data.add(
-                NearStoreModel.fromJson(asT<Map<String, dynamic>>(element)));
+            data?.add(
+                NearStoreModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -21,13 +21,13 @@ class NearStoreListModel {
 }
 
 class NearStoreModel {
-  String fSalesPhone;
-  String fShopAddr;
-  String fShopName;
-  String fShopLat;
-  String fShopLng;
-  String block;
-  String slow;
+  String? fSalesPhone;
+  String? fShopAddr;
+  String? fShopName;
+  String? fShopLat;
+  String? fShopLng;
+  String? block;
+  String? slow;
 
   NearStoreModel(
       {this.fSalesPhone,

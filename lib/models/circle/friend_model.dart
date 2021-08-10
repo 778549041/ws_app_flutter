@@ -5,20 +5,20 @@ import 'package:ws_app_flutter/models/common/common_member.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class FriendModel {
-  String error;
-  FriendMember member;
+  String? error;
+  FriendMember? member;
 
   FriendModel({this.error}) : member = FriendMember();
 
   FriendModel.fromJson(Map<String, dynamic> json) {
     error = asT<String>(json['error'], '');
     member = FriendMember.fromJson(
-        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>())!);
   }
 }
 
 class AddFriendListModel {
-  List<FriendMember> list;
+  List<FriendMember>? list;
 
   AddFriendListModel() : list = <FriendMember>[];
 
@@ -28,7 +28,8 @@ class AddFriendListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list.add(FriendMember.fromJson(asT<Map<String, dynamic>>(element)));
+            list?.add(
+                FriendMember.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -37,7 +38,7 @@ class AddFriendListModel {
 }
 
 class FriendListModel {
-  List<FriendMember> memberList;
+  List<FriendMember>? memberList;
 
   FriendListModel() : memberList = <FriendMember>[];
 
@@ -47,8 +48,8 @@ class FriendListModel {
       (json['memberList'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            memberList
-                .add(FriendMember.fromJson(asT<Map<String, dynamic>>(element)));
+            memberList?.add(
+                FriendMember.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -57,18 +58,18 @@ class FriendListModel {
 }
 
 class FriendMember extends ISuspensionBean {
-  String addr;
-  String avatar;
-  List<String> interest;
-  bool isFriend;
-  String name;
-  String sex;
-  String memberId;
-  CommonMemberModel memberInfo;
-  int friendsRelation;
-  String mobile;
-  String nickname;
-  String groupName;
+  String? addr;
+  String? avatar;
+  List<String>? interest;
+  bool? isFriend;
+  String? name;
+  String? sex;
+  String? memberId;
+  CommonMemberModel? memberInfo;
+  int? friendsRelation;
+  String? mobile;
+  String? nickname;
+  String? groupName;
 
   FriendMember(
       {this.addr = '',
@@ -92,7 +93,7 @@ class FriendMember extends ISuspensionBean {
       (json['interest'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            interest.add(asT<String>(element));
+            interest?.add(asT<String>(element)!);
           });
         }
       });
@@ -102,7 +103,7 @@ class FriendMember extends ISuspensionBean {
     sex = asT<String>(json['sex']);
     memberId = asT<String>(json['member_id']);
     memberInfo = CommonMemberModel.fromJson(
-        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>()));
+        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
     friendsRelation = asT<int>(json['friends_relation']);
     mobile = asT<String>(json['mobile']);
     nickname = asT<String>(json['nickname']);
@@ -110,7 +111,7 @@ class FriendMember extends ISuspensionBean {
   }
 
   @override
-  String getSuspensionTag() => groupName;
+  String getSuspensionTag() => groupName!;
 
   @override
   String toString() {

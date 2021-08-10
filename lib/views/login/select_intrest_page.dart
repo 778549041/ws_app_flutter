@@ -92,22 +92,22 @@ class SelectIntrestPage extends StatelessWidget {
                                   height: 30,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: controller.allIntres[index].selected
+                                    color: controller.allIntres[index].selected!
                                         ? Color(0xFF4245E5)
                                         : Colors.transparent,
                                     border: Border.all(
                                         width:
-                                            controller.allIntres[index].selected
+                                            controller.allIntres[index].selected!
                                                 ? 0
                                                 : 1,
                                         color: Colors.black),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Text(
-                                    controller.allIntres[index].name,
+                                    controller.allIntres[index].name!,
                                     style: TextStyle(
                                       color:
-                                          controller.allIntres[index].selected
+                                          controller.allIntres[index].selected!
                                               ? Colors.white
                                               : Colors.black,
                                       fontSize: 15,
@@ -186,20 +186,20 @@ class SelectIntrestPage extends StatelessWidget {
                           height: 30,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: controller.allIntres[index].selected
+                            color: controller.allIntres[index].selected!
                                 ? Color(0xFF4245E5)
                                 : Colors.transparent,
                             border: Border.all(
-                                width: controller.allIntres[index].selected
+                                width: controller.allIntres[index].selected!
                                     ? 0
                                     : 1,
                                 color: Colors.black),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Text(
-                            controller.allIntres[index].name,
+                            controller.allIntres[index].name!,
                             style: TextStyle(
-                              color: controller.allIntres[index].selected
+                              color: controller.allIntres[index].selected!
                                   ? Colors.white
                                   : Colors.black,
                               fontSize: 15,

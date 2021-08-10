@@ -20,8 +20,8 @@ abstract class ListController<T> extends BaseController {
   // 下拉刷新
   Future refresh({bool init = false}) async {
     try {
-      List<T> data = await loadData();
-      if (data.isEmpty) {
+      List<T>? data = await loadData();
+      if (data == null || data.isEmpty) {
         list.clear();
         setEmpty();
       } else {
@@ -37,7 +37,7 @@ abstract class ListController<T> extends BaseController {
   }
 
   // 加载数据
-  Future<List<T>> loadData();
+  Future<List<T>?> loadData();
 
-  onCompleted(List<T> data) {}
+  onCompleted(List<T>? data) {}
 }

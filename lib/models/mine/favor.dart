@@ -1,8 +1,8 @@
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class FavorModel {
-  int circleNum;
-  int collectionNum;
+  int? circleNum;
+  int? collectionNum;
 
   FavorModel({this.circleNum = 0, this.collectionNum = 0});
 

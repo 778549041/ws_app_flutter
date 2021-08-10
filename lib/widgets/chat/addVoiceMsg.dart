@@ -12,8 +12,8 @@ class VoiceMsg extends StatefulWidget {
 }
 
 class VoiceMsgState extends State<VoiceMsg> {
-  String toUser;
-  int type;
+  String? toUser;
+  int? type;
   bool keybordshow = true;
   toggleKeyBord() {
     setState(() {

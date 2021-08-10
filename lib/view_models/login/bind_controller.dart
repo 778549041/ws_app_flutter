@@ -21,10 +21,10 @@ class BindController extends BaseController {
   var pwdBtnTitle = '获取验证码'.obs; //密码框按钮文本
   var enabled = true.obs; //验证码按钮是否能点击
   var errorMsg = ''.obs; //错误信息
-  TimerUtil _timerUtil; //验证码倒计时
-  TextEditingController nameController;
-  TextEditingController pwdController;
-  FocusNode pwdFocus;
+  TimerUtil? _timerUtil; //验证码倒计时
+  late TextEditingController nameController;
+  late TextEditingController pwdController;
+  late FocusNode pwdFocus;
 
   @override
   void onInit() {
@@ -55,10 +55,10 @@ class BindController extends BaseController {
         params: {'mobile': _phoneNumber});
     doCountDown();
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success,
+      EasyLoading.showToast(obj.success!,
           toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
@@ -93,10 +93,10 @@ class BindController extends BaseController {
       BindModel obj = await DioManager().request<BindModel>(
           DioManager.POST, Api.bindPhoneUrl,
           params: _params);
-      errorMsg.value = obj.data.msg;
+      errorMsg.value = obj.data!.msg!;
       if (obj.result == 'success') {
         await Get.find<UserController>().getUserInfo();
-        if (obj.data.isMobile) {
+        if (obj.data!.isMobile!) {
           //首页
           Get.toNamed(Routes.HOME);
         } else {
@@ -110,10 +110,10 @@ class BindController extends BaseController {
       AppleBindModel obj = await DioManager().request<AppleBindModel>(
           DioManager.POST, Api.appleBindPhoneUrl,
           params: _params);
-      errorMsg.value = obj.message;
-      if (obj.result) {
+      errorMsg.value = obj.message!;
+      if (obj.result!) {
         await Get.find<UserController>().getUserInfo();
-        if (!obj.firstLogin) {
+        if (!obj.firstLogin!) {
           //首页
           Get.toNamed(Routes.HOME);
         } else {
@@ -127,7 +127,7 @@ class BindController extends BaseController {
   //倒计时
   void doCountDown() {
     _timerUtil = TimerUtil(mTotalTime: 59 * 1000);
-    _timerUtil.setOnTimerTickCallback((int tick) {
+    _timerUtil!.setOnTimerTickCallback((int tick) {
       double _tick = tick / 1000;
       int _count = _tick.toInt();
       pwdBtnTitle.value = '$_count重新获取';
@@ -137,6 +137,6 @@ class BindController extends BaseController {
         pwdBtnTitle.value = '获取验证码';
       }
     });
-    _timerUtil.startCountDown();
+    _timerUtil!.startCountDown();
   }
 }

@@ -1,8 +1,7 @@
-import 'package:amap_map_fluttify/amap_map_fluttify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_picker/flutter_picker.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
@@ -27,8 +26,8 @@ class CarController extends BaseController {
   var carImageList = <String>[].obs;
   var carColorList = [].obs;
   List<String> _carConfigImageList = <String>[];
-  SwiperController swiperController;
-  SwiperController colorSwiperController;
+  late SwiperController swiperController;
+  late SwiperController colorSwiperController;
 
   @override
   void onInit() {
@@ -40,7 +39,7 @@ class CarController extends BaseController {
   @override
   void onReady() {
     //非车主
-    if (Get.find<UserController>().userInfo.value.member.isVehicle != 'true') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle != 'true') {
       refreshLocation(reloadLocation: true);
       requestCarConfigData();
     }
@@ -56,12 +55,13 @@ class CarController extends BaseController {
     } else {
       hasPermission = (await Permission.location.status).isGranted;
     }
-    if (hasPermission) {
-      final _location = await AmapLocation.instance.fetchLocation();
-      await _requestNearStoreData(
-          _location.latLng.longitude, _location.latLng.latitude, _location.city,
-          reloadLocation: reloadLocation);
-    }
+    //TODO
+    // if (hasPermission) {
+    //   final _location = await AmapLocation.instance.fetchLocation();
+    //   await _requestNearStoreData(
+    //       _location.latLng.longitude, _location.latLng.latitude, _location.city,
+    //       reloadLocation: reloadLocation);
+    // }
     locationSuccess.value = hasPermission;
   }
 
@@ -85,16 +85,16 @@ class CarController extends BaseController {
   void requestCarConfigData() async {
     carConfigList.value = await DioManager()
         .request<CarConfigListModel>(DioManager.POST, Api.carConfigUrl);
-    currentConfig.value = carConfigList.value.data[0];
+    currentConfig.value = carConfigList.value.data![0];
     _carConfigImageList.clear();
-    carConfigList.value.data.forEach((element) {
-      _carConfigImageList.add(_selectConfigImage(element.conf));
+    carConfigList.value.data!.forEach((element) {
+      _carConfigImageList.add(_selectConfigImage(element.conf!));
     });
     _matchingCarImageAndColorData();
   }
 
   String _selectConfigImage(String config) {
-    String _imageName;
+    late String _imageName;
     if (config == "出行版") {
       _imageName = "assets/images/car/select_ve_plus_cx.png";
     } else if (config == "舒适版") {
@@ -111,7 +111,7 @@ class CarController extends BaseController {
 
   //根据车型匹配车辆图片和颜色数据
   void _matchingCarImageAndColorData() {
-    String _version = currentConfig.value.version;
+    String _version = currentConfig.value.version!;
     if (_version == "VE-1") {
       carImageList.assignAll([
         "assets/images/car/car_ve_white_black.png",
@@ -247,7 +247,7 @@ class CarController extends BaseController {
           scale: 2.0,
         )),
       )),
-      selecteds: [carConfigList.value.data.indexOf(currentConfig.value)],
+      selecteds: [carConfigList.value.data!.indexOf(currentConfig.value)],
       itemExtent: 35,
       cancelText: '取消',
       cancelTextStyle: TextStyle(color: Colors.black, fontSize: 15),
@@ -258,10 +258,10 @@ class CarController extends BaseController {
         style: TextStyle(color: Color(0xFFADADAD), fontSize: 15),
       ),
       onConfirm: (picker, selecteds) {
-        currentConfig.value = carConfigList.value.data[selecteds[0]];
+        currentConfig.value = carConfigList.value.data![selecteds[0]];
         _matchingCarImageAndColorData();
       },
-    ).showModal(Get.context);
+    ).showModal(Get.context!);
   }
 
   //切换车图
@@ -298,7 +298,7 @@ class CarController extends BaseController {
       Get.toNamed(Routes.DZINTRODUCE);
     } else if (index == 1001) {
       //车辆配置
-      String _typeStr;
+      late String _typeStr;
       if (currentConfig.value.conf == "出行版") {
         _typeStr = "0";
       } else if (currentConfig.value.conf == "舒适版") {
@@ -324,13 +324,13 @@ class CarController extends BaseController {
       //商城下订
       CommonModel _model = await DioManager()
           .request<CommonModel>(DioManager.POST, Api.mallReservationOrderUrl);
-      if (_model.redirect != null && _model.redirect.length > 0) {
+      if (_model.redirect != null && _model.redirect!.length > 0) {
         pushH5Page(args: {
           'url': _model.redirect,
           'hasNav': true,
         });
       } else if (_model.message != null) {
-        EasyLoading.showToast(_model.message,
+        EasyLoading.showToast(_model.message!,
             toastPosition: EasyLoadingToastPosition.bottom);
       }
     } else if (index == 1004) {

@@ -7,15 +7,15 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class PayAuthController extends GetxController {
-  String phone, code;
+  String? phone, code;
 
   @override
   void onInit() {
     phone = Get.find<UserController>()
         .userInfo
         .value
-        .member
-        .mobile
+        .member!
+        .mobile!
         .replaceFirst(RegExp(r'\d{4}'), '****', 3);
     code = '';
     super.onInit();
@@ -25,20 +25,20 @@ class PayAuthController extends GetxController {
   Future<bool> sendCode() async {
     CommonModel obj = await DioManager().request<CommonModel>(
         DioManager.POST, Api.changedServicePwdAuthSendCodeUrl, params: {
-      'mobile': Get.find<UserController>().userInfo.value.member.mobile
+      'mobile': Get.find<UserController>().userInfo.value.member!.mobile
     });
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success,
+      EasyLoading.showToast(obj.success!,
           toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
     return true;
   }
 
   Future submitted() async {
-    if (code.length == 0) {
+    if (code?.length == 0) {
       EasyLoading.showToast('请输入验证码',
           toastPosition: EasyLoadingToastPosition.bottom);
       return;
@@ -46,13 +46,13 @@ class PayAuthController extends GetxController {
 
     CommonModel obj = await DioManager().request<CommonModel>(
         DioManager.POST, Api.changedServicePwdAuthSubmitUrl, params: {
-      'mobile': Get.find<UserController>().userInfo.value.member.mobile,
+      'mobile': Get.find<UserController>().userInfo.value.member!.mobile,
       'vcode': code
     });
     if (obj.success != null) {
       Get.toNamed(Routes.PAYCHANGEPWD);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error,
+      EasyLoading.showToast(obj.error!,
           toastPosition: EasyLoadingToastPosition.bottom);
     }
   }

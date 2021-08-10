@@ -58,7 +58,7 @@ class CertifyPage extends GetView<CertifyController> {
 
   Widget _buildInputRow(int index) {
     return FormInputCell(
-      maxLength: index == 4 ? 17 : null,
+      maxLength: index == 4 ? 17 : 0,
       title: controller.data[index]['title'],
       text: controller.data[index]['content'],
       hintText: controller.data[index]['placeholder'],

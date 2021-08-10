@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -34,7 +34,7 @@ class RecommendBanner extends GetView<RecommendController> {
               child: Obx(() => Swiper(
                   //是否自动播放
                   autoplay: controller
-                          .bannerModel.value.carouselHead.banner.items.length >
+                          .bannerModel.value.carouselHead!.banner!.items!.length >
                       1,
                   //自动播放延迟
                   autoplayDelay: 3000,
@@ -60,22 +60,22 @@ class RecommendBanner extends GetView<RecommendController> {
                   onTap: (int index) {
                     //点击事件，返回下标
                     BannerItem item = controller
-                        .bannerModel.value.carouselHead.banner.items[index];
+                        .bannerModel.value.carouselHead!.banner!.items![index];
                     CommonUtil.serviceControlPushPage(
-                        type: item.params.type,
-                        detailId: item.params.detailId,
-                        url: item.params.url,
+                        type: item.params?.type,
+                        detailId: item.params?.detailId,
+                        url: item.params?.url,
                         hasNav: item.isHeader == 'true');
                   },
                   itemCount: controller
-                      .bannerModel.value.carouselHead.banner.items.length,
+                      .bannerModel.value.carouselHead!.banner!.items!.length,
                   itemBuilder: (context, index) {
                     BannerItem item = controller
-                        .bannerModel.value.carouselHead.banner.items[index];
+                        .bannerModel.value.carouselHead!.banner!.items![index];
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: CachedNetworkImage(
-                        imageUrl: item.imageUrl,
+                        imageUrl: item.imageUrl!,
                         width: Get.width - 30,
                         height: (Get.width - 30) * 295 / 345,
                         fit: BoxFit.cover,
@@ -96,8 +96,8 @@ class RecommendBanner extends GetView<RecommendController> {
                     Obx(() => Swiper(
                         //是否自动播放
                         autoplay:
-                            controller.textBannerModel.value.data.length > 1,
-                        loop: controller.textBannerModel.value.data.length > 1,
+                            controller.textBannerModel.value.data!.length > 1,
+                        loop: controller.textBannerModel.value.data!.length > 1,
                         //自动播放延迟
                         autoplayDelay: 3000,
                         scrollDirection: Axis.vertical,
@@ -108,23 +108,23 @@ class RecommendBanner extends GetView<RecommendController> {
                         onTap: (int index) {
                           //点击事件，返回下标
                           TextBannerModel item =
-                              controller.textBannerModel.value.data[index];
+                              controller.textBannerModel.value.data![index];
                           CommonUtil.serviceControlPushPage(
-                              type: item.params.type,
-                              detailId: item.params.detailId,
+                              type: item.params?.type,
+                              detailId: item.params?.detailId,
                               url: item.url,
                               hasNav: item.isHeader == 'true');
                         },
-                        itemCount: controller.textBannerModel.value.data.length,
+                        itemCount: controller.textBannerModel.value.data!.length,
                         itemBuilder: (context, index) {
                           TextBannerModel item =
-                              controller.textBannerModel.value.data[index];
+                              controller.textBannerModel.value.data![index];
                           return Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                item.content,
+                                item.content!,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

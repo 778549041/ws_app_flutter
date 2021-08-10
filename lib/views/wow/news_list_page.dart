@@ -40,7 +40,7 @@ class NewsListPage extends GetView<NewsController> {
                     () => SliverGrid(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         CategoryModel _model =
-                            controller.categoryListModel.value.list[index];
+                            controller.categoryListModel.value.list![index];
                         return GestureDetector(
                           onTap: () => controller.clickCategory(_model),
                           child: Container(
@@ -52,7 +52,7 @@ class NewsListPage extends GetView<NewsController> {
                               child: Stack(
                                 children: <Widget>[
                                   CachedNetworkImage(
-                                    imageUrl: _model.image,
+                                    imageUrl: _model.image!,
                                     fit: BoxFit.cover,
                                     width: (Get.width - 35) / 2,
                                     height: (Get.width - 35) * 6 / 17,
@@ -69,7 +69,7 @@ class NewsListPage extends GetView<NewsController> {
                                               bottomRight: Radius.circular(5))),
                                       child: Center(
                                         child: Text(
-                                          _model.nodeName,
+                                          _model.nodeName!,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 12),
@@ -84,7 +84,7 @@ class NewsListPage extends GetView<NewsController> {
                         );
                       },
                           childCount:
-                              controller.categoryListModel.value.list.length),
+                              controller.categoryListModel.value.list!.length),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 5,

@@ -9,7 +9,7 @@ import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class SplashController extends BaseController {
-  TimerUtil _timerUtil;
+  TimerUtil? _timerUtil;
 
   var splashModel = SplashModel().obs;
   var count = 3.obs;
@@ -18,7 +18,7 @@ class SplashController extends BaseController {
   @override
   void onInit() {
     super.onInit();
-    firstLaunch.value = SpUtil.getBool(CacheKey.FIRSTLAUNCH, defValue: true);
+    firstLaunch.value = SpUtil.getBool(CacheKey.FIRSTLAUNCH, defValue: true)!;
   }
 
   @override
@@ -37,18 +37,18 @@ class SplashController extends BaseController {
 
   void doCountDown() {
     _timerUtil = TimerUtil(mTotalTime: 3 * 1000);
-    _timerUtil.setOnTimerTickCallback((int tick) {
+    _timerUtil!.setOnTimerTickCallback((int tick) {
       double _tick = tick / 1000;
       count.value = _tick.toInt();
       if (_tick == 0) {
         goMain();
       }
     });
-    _timerUtil.startCountDown();
+    _timerUtil!.startCountDown();
   }
 
   void goMain() {
-    if (_timerUtil != null) _timerUtil.cancel();
+    if (_timerUtil != null) _timerUtil!.cancel();
     if (Get.find<UserController>().isLogin.value) {
       Get.offAllNamed(Routes.HOME);
       Get.find<UserController>().requestIMInfoAndLogin();

@@ -20,7 +20,7 @@ class RecommendController extends RefreshListController {
   var activityListModel = RecommendActivityListModel().obs;
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List> loadData({int? pageNum}) async {
     await _requestImageBannerData();
     await _requestTextBannerData();
     await _requestCircleData();

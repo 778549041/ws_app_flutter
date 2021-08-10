@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class LoginTypeSwitchWidget extends StatefulWidget {
-  final Function(int, String) slideAction;
+  final Function(int, String)? slideAction;
   final List<String> list;
   final double width;
   final double height;
 
-  LoginTypeSwitchWidget({this.slideAction, this.list, this.width, this.height});
+  LoginTypeSwitchWidget({this.slideAction, required this.list, this.width = 0, this.height = 0});
   @override
   LoginTypeSwitchWidgetState createState() => LoginTypeSwitchWidgetState();
 }
 
 class LoginTypeSwitchWidgetState extends State<LoginTypeSwitchWidget> {
-  ScrollController _controller;
+  ScrollController? _controller;
   int _currentIndex = 0;
 
   @override
@@ -36,16 +36,17 @@ class LoginTypeSwitchWidgetState extends State<LoginTypeSwitchWidget> {
                 _currentIndex = (index == 3) ? 1 : index;
               });
               if (index == 3) {
-                _controller.jumpTo(offset);
-                _controller.animateTo(itemWidth, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+                _controller?.jumpTo(offset);
+                _controller?.animateTo(itemWidth, duration: Duration(milliseconds: 300), curve: Curves.easeIn);
               } else {
-                _controller.animateTo(offset,
+                _controller?.animateTo(offset,
                     duration: Duration(milliseconds: 300),
                     curve: Curves.easeIn);
               }
-
-              widget.slideAction(index % widget.list.length,
+              if (widget.slideAction != null) {
+                widget.slideAction!(index % widget.list.length,
                   widget.list[index % widget.list.length]);
+              }
             },
             child: Container(
               child: Text(
@@ -72,7 +73,7 @@ class LoginTypeSwitchWidgetState extends State<LoginTypeSwitchWidget> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 

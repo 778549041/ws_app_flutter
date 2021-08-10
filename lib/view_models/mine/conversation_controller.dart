@@ -7,7 +7,7 @@ import 'package:tencent_im_sdk_plugin/models/v2_tim_conversation_result.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_value_callback.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 
-class ConversationController extends ListController<V2TimConversation> {
+class ConversationController extends ListController<V2TimConversation?> {
   @override
   void onReady() {
     super.onReady();
@@ -15,12 +15,12 @@ class ConversationController extends ListController<V2TimConversation> {
 
   //获取会话列表数据
   @override
-  Future<List<V2TimConversation>> loadData() async {
+  Future<List<V2TimConversation?>?> loadData() async {
     V2TimValueCallback<V2TimConversationResult> data = await TencentImSDKPlugin
         .v2TIMManager
         .getConversationManager()
-        .getConversationList(count: 100, nextSeq: 0);
-    return data.data.conversationList;
+        .getConversationList(count: 100, nextSeq: '0');
+    return data.data?.conversationList;
   }
 
   //删除某个会话
@@ -34,7 +34,7 @@ class ConversationController extends ListController<V2TimConversation> {
       if (value.code == 0) {
         EasyLoading.showToast('删除成功',
             toastPosition: EasyLoadingToastPosition.bottom);
-        list.removeWhere((element) => element.conversationID == conversitionId);
+        list.removeWhere((element) => element?.conversationID == conversitionId);
       } else {
         EasyLoading.showToast('删除失败 ${value.code} ${value.desc}',
             toastPosition: EasyLoadingToastPosition.bottom);

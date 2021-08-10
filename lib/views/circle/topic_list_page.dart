@@ -13,7 +13,6 @@ class TopicListPage extends GetView<TopicController> {
   Widget build(BuildContext context) {
     return BasePage(
       title: '选择话题',
-      isBack: false,
       leftItem: CustomButton(
         backgroundColor: Colors.transparent,
         width: 30,
@@ -44,7 +43,7 @@ class TopicListPage extends GetView<TopicController> {
                           Row(
                             children: <Widget>[
                               NetImageWidget(
-                                imageUrl: item.imageUrl,
+                                imageUrl: item.imageUrl!,
                                 width: 148,
                                 height: 104,
                                 fit: BoxFit.cover,
@@ -57,7 +56,7 @@ class TopicListPage extends GetView<TopicController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      item.title,
+                                      item.title!,
                                       style: TextStyle(fontSize: 17),
                                     ),
                                     Text(

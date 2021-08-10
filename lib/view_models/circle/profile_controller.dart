@@ -15,7 +15,7 @@ class ProfileController extends GetxController {
   final String userId = Get.arguments == null ? null : Get.arguments['user_id'];
   var friendModel = FriendModel().obs;
   var friendCircleImgModel = FriendCircleImgListModel().obs;
-  IMInfoModel imInfoModel;
+  IMInfoModel? imInfoModel;
 
   @override
   void onInit() {
@@ -69,13 +69,13 @@ class ProfileController extends GetxController {
               CommonModel result = await DioManager().request<CommonModel>(
                   DioManager.GET, 'm/friends-delFriend-${userId}.html');
               if (result.success != null) {
-                EasyLoading.showToast(result.success,
+                EasyLoading.showToast(result.success!,
                     toastPosition: EasyLoadingToastPosition.bottom);
                 Future.delayed(Duration(seconds: 2)).then((value) {
                   Get.back();
                 });
               } else {
-                EasyLoading.showToast(result.error,
+                EasyLoading.showToast(result.error!,
                     toastPosition: EasyLoadingToastPosition.bottom);
               }
             },
@@ -83,11 +83,11 @@ class ProfileController extends GetxController {
           barrierDismissible: false);
     } else if (index == 1002) {
       //添加好友、发消息
-      if (friendModel.value.member.isFriend) {
+      if (friendModel.value.member!.isFriend!) {
         Get.find<UserController>().requestIMInfoAndLogin().then((value) {
           Get.toNamed(Routes.CHAT, arguments: {
-            'userId': imInfoModel.data.user,
-            'showName': friendModel.value.member.name
+            'userId': imInfoModel!.data!.user,
+            'showName': friendModel.value.member!.name
           });
         });
       } else {
@@ -98,7 +98,7 @@ class ProfileController extends GetxController {
           EasyLoading.showToast('已向该好友发送邀请，等待对方确认',
               toastPosition: EasyLoadingToastPosition.bottom);
         } else {
-          EasyLoading.showToast(result.error,
+          EasyLoading.showToast(result.error!,
               toastPosition: EasyLoadingToastPosition.bottom);
         }
       }

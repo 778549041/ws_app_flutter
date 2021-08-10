@@ -17,16 +17,16 @@ class MsgBody extends StatelessWidget {
   EdgeInsetsGeometry padding = EdgeInsets.only(
     right: 12,
   );
-  int type = 1;
-  String name;
-  String message;
-  V2TimMessage msgobj;
+  final int type;
+  final String name;
+  final String message;
+  final V2TimMessage? msgobj;
 
   MsgBody({
-    messageText,
-    type,
-    name,
-    message,
+    this.type = 1,
+    this.name = '',
+    this.message = '',
+    this.msgobj,
   }) {
     if (type != 1) {
       this.textDirection = TextDirection.ltr;
@@ -35,15 +35,10 @@ class MsgBody extends StatelessWidget {
         left: 12,
       );
     }
-
-    this.type = type;
-    this.message = messageText;
-    this.name = name;
-    this.msgobj = message;
   }
   String getMessageTime() {
     String time = '';
-    int timestamp = msgobj.timestamp * 1000;
+    int timestamp = msgobj!.timestamp! * 1000;
     DateTime timeDate = DateTime.fromMillisecondsSinceEpoch(timestamp);
     DateTime now = DateTime.now();
 
@@ -60,10 +55,10 @@ class MsgBody extends StatelessWidget {
   Widget getHandleBar() {
     Widget wid = new Container();
 
-    if (msgobj.isSelf) {
-      if (msgobj.status == MessageStatus.V2TIM_MSG_STATUS_SEND_SUCC) {
-        if (msgobj.isPeerRead &&
-            (msgobj.groupID == null || msgobj.groupID == '')) {
+    if (msgobj!.isSelf!) {
+      if (msgobj!.status! == MessageStatus.V2TIM_MSG_STATUS_SEND_SUCC) {
+        if (msgobj!.isPeerRead! &&
+            (msgobj!.groupID == null || msgobj!.groupID == '')) {
           //c2c消息已读
           wid = Text(
             "已读",
@@ -73,8 +68,8 @@ class MsgBody extends StatelessWidget {
             ),
           );
         }
-        if (msgobj.isPeerRead == false &&
-            (msgobj.groupID == null || msgobj.groupID == '')) {
+        if (msgobj!.isPeerRead == false &&
+            (msgobj!.groupID == null || msgobj!.groupID == '')) {
           //c2c未读
           wid = Text(
             "未读",
@@ -85,7 +80,7 @@ class MsgBody extends StatelessWidget {
           );
         }
       }
-      if (msgobj.status == MessageStatus.V2TIM_MSG_STATUS_SEND_FAIL) {
+      if (msgobj!.status! == MessageStatus.V2TIM_MSG_STATUS_SEND_FAIL) {
         wid = Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,7 +117,7 @@ class MsgBody extends StatelessWidget {
           ],
         );
       }
-      if (msgobj.status == MessageStatus.V2TIM_MSG_STATUS_SENDING) {
+      if (msgobj!.status! == MessageStatus.V2TIM_MSG_STATUS_SENDING) {
         wid = Text(
           "发送中...",
           style: TextStyle(
@@ -180,25 +175,25 @@ class MsgBody extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: msgobj.elemType ==
+                  child: msgobj!.elemType ==
                           MessageElemType.V2TIM_ELEM_TYPE_IMAGE //图片
-                      ? ImageMessage(msgobj)
-                      : msgobj.elemType ==
+                      ? ImageMessage(msgobj!)
+                      : msgobj!.elemType ==
                               MessageElemType.V2TIM_ELEM_TYPE_FACE //表情
                           ? Container(
-                              child: Text("表情 ${msgobj.faceElem.data}"),
+                              child: Text("表情 ${msgobj!.faceElem!.data!}"),
                             )
-                          : msgobj.elemType ==
+                          : msgobj!.elemType ==
                                   MessageElemType.V2TIM_ELEM_TYPE_SOUND //语音
-                              ? SoundMessage(msgobj)
-                              : msgobj.elemType ==
+                              ? SoundMessage(msgobj!)
+                              : msgobj!.elemType ==
                                       MessageElemType.V2TIM_ELEM_TYPE_VIDEO //视频
-                                  ? VideoMessage(msgobj)
-                                  : msgobj.elemType ==
+                                  ? VideoMessage(msgobj!)
+                                  : msgobj!.elemType ==
                                           MessageElemType
                                               .V2TIM_ELEM_TYPE_CUSTOM //自定义消息
-                                      ? CustomMessage(msgobj)
-                                      : msgobj.elemType == 1 //文字
+                                      ? CustomMessage(msgobj!)
+                                      : msgobj!.elemType == 1 //文字
                                           ? Text(
                                               message,
                                               textAlign: textAlign,
@@ -209,16 +204,16 @@ class MsgBody extends StatelessWidget {
                                                     : Color(0xff000000),
                                               ),
                                             )
-                                          : msgobj.elemType ==
+                                          : msgobj!.elemType ==
                                                   MessageElemType
                                                       .V2TIM_ELEM_TYPE_GROUP_TIPS //系统消息
-                                              ? SystemMessage(msgobj)
-                                              : msgobj.elemType ==
+                                              ? SystemMessage(msgobj!)
+                                              : msgobj!.elemType ==
                                                       MessageElemType
                                                           .V2TIM_ELEM_TYPE_FILE //文件消息
-                                                  ? FileMessage(msgobj)
+                                                  ? FileMessage(msgobj!)
                                                   : Text(
-                                                      "未解析消息${msgobj.elemType}",
+                                                      "未解析消息${msgobj!.elemType}",
                                                       textAlign: textAlign,
                                                       style: TextStyle(
                                                         fontSize: 16,
