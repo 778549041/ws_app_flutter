@@ -16,7 +16,7 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (_shouldRetry(err)) {
       try {
-        LogUtil.v('网络连接上，重新请求');
+        LogUtil.d('网络连接上，重新请求');
         return requestRetrier.scheduleRequestRetry(err.requestOptions);
       } catch (e) {
         return e;

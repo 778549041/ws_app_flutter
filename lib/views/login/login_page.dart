@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
 import 'package:ws_app_flutter/widgets/global/count_down_btn.dart';
@@ -264,7 +264,7 @@ class LoginPage extends GetView<LoginController> {
                           titleColor: Colors.white.withOpacity(0.6),
                           fontSize: 14,
                           onPressed: () => controller.pushH5Page(args: {
-                            'url': CacheKey.SERVICE_URL_HOST +
+                            'url': Env.envConfig.serviceUrl +
                                 HtmlUrls.UnderstandVEPage,
                             'hasNav': true,
                           }),
@@ -283,7 +283,7 @@ class LoginPage extends GetView<LoginController> {
                           titleColor: Colors.white.withOpacity(0.6),
                           fontSize: 14,
                           onPressed: () => controller.pushH5Page(args: {
-                            'url': CacheKey.SERVICE_URL_HOST +
+                            'url': Env.envConfig.serviceUrl +
                                 HtmlUrls.CarPartsPage,
                           }),
                         ),
@@ -301,7 +301,7 @@ class LoginPage extends GetView<LoginController> {
                           titleColor: Colors.white.withOpacity(0.6),
                           fontSize: 14,
                           onPressed: () => controller.pushH5Page(args: {
-                            'url': CacheKey.SERVICE_URL_HOST +
+                            'url': Env.envConfig.serviceUrl +
                                 HtmlUrls.TestDrivePage,
                           }),
                         ),

@@ -20,9 +20,11 @@ class ShopListController extends ListController<ShopAddressModel> {
 
   void editAction({ShopAddressModel? model}) {
     if (model == null) {
-      Get.toNamed(Routes.MINEADDSHOP);
+      Get.toNamed(Routes.MINEADDSHOP,
+          arguments: {'addnew': true});
     } else {
-      Get.toNamed(Routes.MINEADDSHOP, arguments: {'model': model});
+      Get.toNamed(Routes.MINEADDSHOP,
+          arguments: {'model': model, 'addnew': false});
     }
   }
 

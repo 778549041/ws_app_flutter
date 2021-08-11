@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,20 +18,6 @@ class MainTabBarPage extends GetView<MainController> {
     MinePage(),
   ];
 
-  final List<String> _normalImageName = [
-    'assets/images/tabbar/tab_wow_normal.png',
-    'assets/images/tabbar/tab_circle_normal.png',
-    'assets/images/tabbar/tab_car_normal.png',
-    'assets/images/tabbar/tab_enjoy_normal.png',
-    'assets/images/tabbar/tab_mine_normal.png'
-  ];
-  final List<String> _selectedImageName = [
-    'assets/images/tabbar/tab_wow_selected.png',
-    'assets/images/tabbar/tab_circle_selected.png',
-    'assets/images/tabbar/tab_car_selected.png',
-    'assets/images/tabbar/tab_enjoy_selected.png',
-    'assets/images/tabbar/tab_mine_selected.png'
-  ];
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
@@ -45,29 +32,35 @@ class MainTabBarPage extends GetView<MainController> {
             onPageChanged: (value) => controller.onChangeValue(value),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: Container(
-            height: 54,
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            width: Get.width,
-            child: Row(
-              children: List.generate(
-                  _allPages.length,
-                  (index) => SizedBox(
-                        height: 49,
-                        width: Get.width / 5,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          child: Obx(
-                            () => controller.selectedIndex.value == index
-                                ? Image.asset(_selectedImageName[index])
-                                : Image.asset(_normalImageName[index]),
-                          ),
-                          onTap: () => controller.onItemTap(index),
-                        ),
-                      )),
-            ),
-          ),
+        bottomNavigationBar: ConvexAppBar(
+          style: TabStyle.react,
+          items: [
+            TabItem<Image>(
+                icon: Image.asset('assets/images/tabbar/tab_wow_normal.png'),
+                activeIcon:
+                    Image.asset('assets/images/tabbar/tab_wow_selected.png')),
+            TabItem<Image>(
+                icon: Image.asset('assets/images/tabbar/tab_circle_normal.png'),
+                activeIcon: Image.asset(
+                    'assets/images/tabbar/tab_circle_selected.png')),
+            TabItem<Image>(
+                icon: Image.asset('assets/images/tabbar/tab_car_normal.png'),
+                activeIcon:
+                    Image.asset('assets/images/tabbar/tab_car_selected.png')),
+            TabItem<Image>(
+                icon: Image.asset('assets/images/tabbar/tab_enjoy_normal.png'),
+                activeIcon:
+                    Image.asset('assets/images/tabbar/tab_enjoy_selected.png')),
+            TabItem<Image>(
+                icon: Image.asset('assets/images/tabbar/tab_mine_normal.png'),
+                activeIcon:
+                    Image.asset('assets/images/tabbar/tab_mine_selected.png')),
+          ],
+          backgroundColor: Colors.white,
+          curveSize: 0,
+          top: 0,
+          initialActiveIndex: 0,
+          onTap: (index) => controller.onItemTap(index),
         ),
       ),
       value: SystemUiOverlayStyle.light,

@@ -1,4 +1,4 @@
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/login/msg_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
@@ -22,8 +22,8 @@ class MsgCenterController extends BaseController {
     DioManager().request(DioManager.GET, Api.clearUnReadMessageUrl,
         queryParamters: {'type': msgType});
     String _url = msgType == 2
-        ? (CacheKey.SERVICE_URL_HOST + HtmlUrls.InteractiveMessagePage)
-        : (CacheKey.SERVICE_URL_HOST + HtmlUrls.SystemMessagePage);
+        ? (Env.envConfig.serviceUrl + HtmlUrls.InteractiveMessagePage)
+        : (Env.envConfig.serviceUrl + HtmlUrls.SystemMessagePage);
     pushH5Page(args: {
       'url': _url,
     });

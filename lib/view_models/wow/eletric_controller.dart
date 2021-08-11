@@ -1,6 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/car/car_status_model.dart';
 import 'package:ws_app_flutter/models/car/control_cmd_model.dart';
@@ -17,6 +17,7 @@ class EletricController extends BaseController {
   TimerUtil? _statusTimer;
   TimerUtil? _cmdResultTimer;
   String? _vin;
+  String? _mobile;
   var carDataModel = CarDataModel().obs; //电量信息数据
   var carStatusModel = CarStatusModel().obs; //车辆状态数据
   var charging = true.obs; //充电状态
@@ -30,7 +31,10 @@ class EletricController extends BaseController {
 
   @override
   void onInit() {
-    _vin = Get.find<UserController>().userInfo.value.member!.fVIN!;
+    _vin =
+        Get.find<UserController>().userInfo.value.member!.memberInfo!.FVINStr;
+    _mobile =
+        Get.find<UserController>().userInfo.value.member!.memberInfo!.mobileStr;
     super.onInit();
   }
 
@@ -42,7 +46,7 @@ class EletricController extends BaseController {
 
   //添加（重置）所有定时器
   void addAllTimer() {
-    if (Get.find<UserController>().userInfo.value.member?.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       //如果是车主才请求电量信息数据和车辆状态数据
       addStatusTimer();
     }
@@ -120,14 +124,16 @@ class EletricController extends BaseController {
     } else {
       charging.value = false;
     }
-    progressValue.value = carDataModel.value.datas?.rspBody?.soc != null ? (carDataModel.value.datas!.rspBody!.soc! / 100) : 0;
+    progressValue.value = carDataModel.value.datas?.rspBody?.soc != null
+        ? (carDataModel.value.datas!.rspBody!.soc! / 100)
+        : 0;
   }
 
   //车辆状态查询
   Future requestCarStatusData() async {
     carStatusModel.value = await DioManager().request<CarStatusModel>(
         DioManager.POST, 'wsapp/vehicle/getVehicleAllStatus',
-        params: {'carVin': _vin});
+        params: {'carVin': _vin, 'mobile': _mobile});
     if (carStatusModel.value.datas?.chargingStatus == '1') {
       charging.value = true;
     } else {
@@ -165,7 +171,7 @@ class EletricController extends BaseController {
     ControlCmdModel cmdResultModel = await DioManager()
         .request<ControlCmdModel>(
             DioManager.POST, 'wsapp/vehicle/getCommandStateVal',
-            params: {'carVin': _vin});
+            params: {'carVin': _vin, 'mobile': _mobile});
     currentCmdTitle.value = cmdResultModel.datas!.loadingTitle!;
     currentCmdType.value = cmdResultModel.datas!.cmdType!;
     if (cmdResultModel.datas?.value == '0') {
@@ -217,11 +223,13 @@ class EletricController extends BaseController {
     showLoadingView.value = true;
 
     CommonModel model = await DioManager().request<CommonModel>(
-        DioManager.POST, 'wsapp/vehicle/sendVehicleCmd', params: {
-      'carVin': _vin,
-      'controlType': controlType,
-      'cmdType': cmdType
-    });
+        DioManager.POST, 'wsapp/vehicle/sendVehicleCmd',
+        params: {
+          'carVin': _vin,
+          'mobile': _mobile,
+          'controlType': controlType,
+          'cmdType': cmdType
+        });
     if (model.code != '200') {
       currentCmdStatus.value = 2;
       Future.delayed(Duration(seconds: 3)).then((value) {
@@ -246,8 +254,12 @@ class EletricController extends BaseController {
     showLoadingView.value = true;
 
     CommonModel model = await DioManager().request<CommonModel>(
-        DioManager.POST, 'wsapp/vehicle/sendSetCmd',
-        params: {'carVin': _vin, 'controlType': controlType, 'value': value});
+        DioManager.POST, 'wsapp/vehicle/sendSetCmd', params: {
+      'carVin': _vin,
+      'mobile': _mobile,
+      'controlType': controlType,
+      'value': value
+    });
     if (model.code != '200') {
       currentCmdStatus.value = 2;
       Future.delayed(Duration(seconds: 3)).then((value) {
@@ -266,7 +278,7 @@ class EletricController extends BaseController {
 
     CommonModel model = await DioManager().request<CommonModel>(
         DioManager.POST, 'wsapp/vehicle/sendAirTimingOpenDuration',
-        params: {'carVin': _vin, 'value': value});
+        params: {'carVin': _vin, 'value': value, 'mobile': _mobile});
     if (model.code == '200') {
       currentCmdStatus.value = 4;
     } else {
@@ -287,6 +299,7 @@ class EletricController extends BaseController {
         DioManager.POST, 'wsapp/vehicle/cancelTiming',
         params: {
           'carVin': _vin,
+          'mobile': _mobile,
         });
     if (model.code == '200') {
       currentCmdStatus.value = 4;
@@ -320,7 +333,7 @@ class EletricController extends BaseController {
       if (Get.find<UserController>().userInfo.value.member?.isVehicle ==
           'true') {
         Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.BatteryDiagonisPage
+          'url': Env.envConfig.serviceUrl + HtmlUrls.BatteryDiagonisPage
         });
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');

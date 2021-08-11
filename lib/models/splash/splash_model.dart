@@ -4,12 +4,12 @@ class SplashModel {
   String? result;
   SplashData? data;
 
-  SplashModel({this.result = ''}) : data = SplashData();
+  SplashModel({this.result,this.data});
 
   SplashModel.fromJson(Map<String, dynamic> json) {
-    result = asT<String>(json['result'], '');
-    data = SplashData.fromJson(
-        asT<Map<String, dynamic>>(json['data'], Map<String, dynamic>())!);
+    result = asT<String?>(json['result']);
+    data = json['data'] == null ? null : SplashData.fromJson(
+        asT<Map<String, dynamic>>(json['data'])!);
   }
 }
 
@@ -28,31 +28,31 @@ class SplashData {
   String? status;
 
   SplashData(
-      {this.termsType = '',
-      this.showType = '',
-      this.createtime = '',
-      this.appType = '',
-      this.lastModify = '',
-      this.size = '',
-      this.logoId = '',
-      this.pOrder = '',
-      this.imageId = '',
-      this.url = '',
-      this.desc = '',
-      this.status = ''});
+      {this.termsType,
+      this.showType,
+      this.createtime,
+      this.appType,
+      this.lastModify,
+      this.size,
+      this.logoId,
+      this.pOrder,
+      this.imageId,
+      this.url,
+      this.desc,
+      this.status});
 
   SplashData.fromJson(Map<String, dynamic> json) {
-    termsType = asT<String>(json['terms_type'], '');
-    showType = asT<String>(json['show_type'], '');
-    createtime = asT<String>(json['createtime'], '');
-    appType = asT<String>(json['app_type'], '');
-    lastModify = asT<String>(json['last_modify'], '');
-    size = asT<String>(json['size'], '');
-    logoId = asT<String>(json['logo_id'], '');
-    pOrder = asT<String>(json['p_order'], '');
-    imageId = asT<String>(json['image_id'], '');
-    url = asT<String>(json['url'], '');
-    desc = asT<String>(json['desc'], '');
-    status = asT<String>(json['status'], '');
+    termsType = asT<String?>(json['terms_type']);
+    showType = asT<String?>(json['show_type']);
+    createtime = asT<String?>(json['createtime']);
+    appType = asT<String?>(json['app_type']);
+    lastModify = asT<String?>(json['last_modify']);
+    size = asT<String?>(json['size']);
+    logoId = asT<String?>(json['logo_id']);
+    pOrder = asT<String?>(json['p_order']);
+    imageId = asT<String?>(json['image_id']);
+    url = asT<String?>(json['url']);
+    desc = asT<String?>(json['desc']);
+    status = asT<String?>(json['status']);
   }
 }

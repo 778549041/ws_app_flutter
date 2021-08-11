@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
@@ -53,17 +53,17 @@ class EnjoyController extends RefreshListController<ShopModel> {
     } else if (index == 1002) {
       //点击积分
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.IntegralDetailPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralDetailPage,
       });
     } else if (index == 1003) {
       //积分规则
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.IntegralRulePage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralRulePage,
       });
     } else if (index == 1004) {
       //换保养
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST +
+        'url': Env.envConfig.serviceUrl +
             HtmlUrls.PointGalleryPage +
             '?cat_id=6087&source=2',
       });
@@ -88,7 +88,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
         }
         actid = urllk.split('?')[1];
         pushH5Page(args: {
-          'url': CacheKey.SERVICE_URL_HOST +
+          'url': Env.envConfig.serviceUrl +
               HtmlUrls.LuckyDrawPage +
               topage +
               topage +
@@ -114,7 +114,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
           .request<CommonModel>(DioManager.GET, Api.enjoyXXYUrl);
       if (_model.result!) {
         pushH5Page(args: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.WishPage,
+          'url': Env.envConfig.serviceUrl + HtmlUrls.WishPage,
         });
       } else if (_model.code == '1001') {
         CommonUtil.userNotVechileToast('认证车主才可以参与此活动哦，先去认证成为车主吧！');
@@ -134,14 +134,14 @@ class EnjoyController extends RefreshListController<ShopModel> {
       //更多
       pushH5Page(args: {
         'url':
-            CacheKey.SERVICE_URL_HOST + HtmlUrls.PointGalleryPage + '?source=3',
+            Env.envConfig.serviceUrl + HtmlUrls.PointGalleryPage + '?source=3',
       });
     }
   }
 
   Future pushDetailH5(ShopModel model) async {
     pushH5Page(args: {
-      'url': CacheKey.SERVICE_URL_HOST +
+      'url': Env.envConfig.serviceUrl +
           HtmlUrls.ProductDetailPage +
           '?product_id=${model.product!.productId}&source=1',
     });

@@ -136,7 +136,7 @@ class GalleryPhotoPageState extends State<GalleryPhotoPage> {
         options: Options(responseType: ResponseType.bytes));
     final result =
         await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
-    LogUtil.v(result);
+    LogUtil.d(result);
     if (GetPlatform.isIOS) {
       if (result['isSuccess']) {
         EasyLoading.showToast('保存成功',toastPosition: EasyLoadingToastPosition.bottom);

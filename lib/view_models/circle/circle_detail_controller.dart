@@ -1,7 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/circle/moment_comment_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
@@ -141,7 +141,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
     shareParams['title'] = '这里有一个好玩的话题，来看看？';
     shareParams['desc'] = '喜欢VE-1的朋友都在这里，分享用车趣事，发布爱车美图，快来一起玩吧！';
     shareParams['thumbImage'] = '';
-    shareParams['url'] = CacheKey.SERVICE_URL_HOST +
+    shareParams['url'] = Env.envConfig.serviceUrl +
         HtmlUrls.CircleMomentDetailPage +
         '?cid=${momentDetailModel.value.list?.circleId}';
     Get.bottomSheet(ShareMenuWidget(

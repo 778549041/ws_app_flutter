@@ -4,7 +4,7 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
@@ -311,14 +311,14 @@ class CarController extends BaseController {
         _typeStr = "4";
       }
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST +
+        'url': Env.envConfig.serviceUrl +
             HtmlUrls.CarConfigDetailPage +
             '?type=$_typeStr',
       });
     } else if (index == 1002) {
       //预约试驾
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.TestDrivePage + '?source=2',
+        'url': Env.envConfig.serviceUrl + HtmlUrls.TestDrivePage + '?source=2',
       });
     } else if (index == 1003) {
       //商城下订
@@ -339,12 +339,12 @@ class CarController extends BaseController {
     } else if (index == 1006) {
       //点击积分
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.IntegralDetailPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralDetailPage,
       });
     } else if (index == 1007) {
       //点击了解VE-1
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.UnderstandVEPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.UnderstandVEPage,
         'hasNav': true,
       });
     } else if (index == 1008) {

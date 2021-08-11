@@ -3,9 +3,10 @@ import 'dart:convert';
 // import 'package:common_utils/common_utils.dart';
 // import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/utils/net_utils/base_entity.dart';
 import 'package:ws_app_flutter/utils/net_utils/entity_factory.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
@@ -29,7 +30,7 @@ class DioManager {
   DioManager._internal() {
     if (dio == null) {
       BaseOptions options = BaseOptions(
-          baseUrl: CacheKey.SERVICE_URL_HOST,
+          baseUrl: Env.envConfig.serviceUrl,
           connectTimeout: 30000,
           // 响应流上前后两次接受到数据的间隔，单位为毫秒。
           receiveTimeout: 30000,
@@ -55,13 +56,24 @@ class DioManager {
       //   );
       // }
       if (kDebugMode) {
-        dio!.interceptors.add(LogInterceptor(
-          responseBody: true,
-          error: true,
-          requestHeader: false,
-          responseHeader: false,
-          request: false,
-          requestBody: true,
+        dio!.interceptors.add(InterceptorsWrapper(
+          onRequest: (
+            RequestOptions options,
+            RequestInterceptorHandler handler,
+          ) {
+            LogUtil.d('请求地址: ${options.baseUrl + options.path}');
+            LogUtil.d('POST请求参数: ${options.data}');
+            LogUtil.d('GET请求参数: ${options.queryParameters}');
+            handler.next(options);
+          },
+          onResponse: (Response response, ResponseInterceptorHandler handler) {
+            LogUtil.d('接口返回数据: ${response.data}');
+            handler.next(response);
+          },
+          onError: (DioError error, ErrorInterceptorHandler handler) {
+            LogUtil.d('错误信息: ${error.message}');
+            handler.next(error);
+          },
         ));
       }
     }
@@ -72,8 +84,8 @@ class DioManager {
   /// [path]：请求地址
   /// [shouldLoading]：是否显示loading框,默认不显示
   /// [loadingMessage]：loading信息
-  /// [params]：请求参数
-  /// [queryParamters]：请求参数
+  /// [params]：POST请求参数
+  /// [queryParamters]：GET请求参数
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future request<T>(String method, String path,
       {bool shouldLoading = false,
@@ -112,8 +124,8 @@ class DioManager {
   /// [path]：请求地址
   /// [shouldLoading]：是否显示loading框,默认不显示
   /// [loadingMessage]：loading信息
-  /// [params]：请求参数
-  /// [queryParamters]：请求参数
+  /// [params]：POST请求参数
+  /// [queryParamters]：GET请求参数
   /// [cancelToken] 请求统一标识，用于取消网络请求
   Future requestList<T>(String method, String path,
       {bool shouldLoading = false,

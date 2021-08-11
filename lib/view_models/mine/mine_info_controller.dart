@@ -129,7 +129,7 @@ class MineInfoController extends GetxController {
     } else if (index == 4) {
       selectBirth();
     } else if (index == 5) {
-      Get.toNamed(Routes.MINECHANGENAME);
+      Get.toNamed(Routes.MINECHANGENAME,arguments: {'isName': false});
     } else if (index == 6) {
       Get.toNamed(Routes.MINECHANGEAREA);
     } else if (index == 7) {

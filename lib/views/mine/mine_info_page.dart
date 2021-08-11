@@ -14,6 +14,7 @@ class MineInfoPage extends GetView<MineInfoController> {
       title: '个人信息',
       bgColor: Colors.transparent,
       child: CustomScrollView(
+        shrinkWrap: true,
         slivers: [
           Obx(() => SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
@@ -74,7 +75,7 @@ class MineInfoPage extends GetView<MineInfoController> {
           top: 20,
           left: 0,
           right: 0,
-          bottom: 0,
+          bottom: -5,
           child: Container(
             decoration: BoxDecoration(
                 color: Color(0xFFF3F3F3),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -550,14 +550,14 @@ class OwnCarWidget extends GetView<EletricController> {
     if (index == 0) {
       //爱车配件
       Get.toNamed(Routes.WEBVIEW, arguments: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CarPartsPage
+        'url': Env.envConfig.serviceUrl + HtmlUrls.CarPartsPage
       });
     } else if (index == 1) {
       //违章查询
       if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
           'true') {
         Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ViolationPage
+          'url': Env.envConfig.serviceUrl + HtmlUrls.ViolationPage
         });
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');

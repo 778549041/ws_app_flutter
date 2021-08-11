@@ -1,7 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/wow/news_comment_model.dart';
@@ -124,7 +124,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
           newsDetailModel.value.article!.imageUrl!.split('?').first;
     }
 
-    shareParams['url'] = CacheKey.SERVICE_URL_HOST +
+    shareParams['url'] = Env.envConfig.serviceUrl +
         HtmlUrls.NewsDetailPage +
         '?art_id=${newsDetailModel.value.article!.articleId}';
     Get.bottomSheet(ShareMenuWidget(

@@ -110,12 +110,23 @@ class SplashPage extends GetView<SplashController> {
                               () => RoundAvatar(
                                 height: 90,
                                 borderWidth: 3,
-                                imageUrl: Get.find<UserController>()
+                                imageUrl: (Get.find<UserController>()
+                                                .userInfo
+                                                .value
+                                                .member ==
+                                            null ||
+                                        Get.find<UserController>()
+                                                .userInfo
+                                                .value
+                                                .member!
+                                                .headImg ==
+                                            null)
+                                    ? ''
+                                    : Get.find<UserController>()
                                         .userInfo
                                         .value
                                         .member!
-                                        .headImg ??
-                                    '',
+                                        .headImg!,
                               ),
                             ),
                             Positioned(
@@ -133,12 +144,20 @@ class SplashPage extends GetView<SplashController> {
                       ),
                       Obx(
                         () => Text(
-                          Get.find<UserController>()
+                          (Get.find<UserController>().userInfo.value.member ==
+                                      null ||
+                                  Get.find<UserController>()
+                                          .userInfo
+                                          .value
+                                          .member!
+                                          .name ==
+                                      null)
+                              ? ''
+                              : Get.find<UserController>()
                                   .userInfo
                                   .value
                                   .member!
-                                  .name ??
-                              '',
+                                  .name!,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

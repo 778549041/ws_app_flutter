@@ -17,8 +17,10 @@ import 'package:tencent_im_sdk_plugin/models/v2_tim_user_full_info.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_value_callback.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/global.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/third_config.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
@@ -98,13 +100,9 @@ class MyAppState extends State<MyApp> {
   //ShareSDK初始化
   void _initShareSDK() {
     ShareSDKRegister register = ShareSDKRegister();
-    register.setupWechat(CacheKey.WECHAT_APPKEY, CacheKey.WECHAT_APPSECRET,
-        CacheKey.UNIVERSAL_LINKS);
-    register.setupSinaWeibo(
-        CacheKey.SINA_APPKEY,
-        CacheKey.SINA_APPSECRET,
-        CacheKey.SERVICE_URL_HOST + CacheKey.SINA_REDIRECT_URI,
-        CacheKey.UNIVERSAL_LINKS);
+    register.setupWechat(WECHAT_APPKEY, WECHAT_APPSECRET, UNIVERSAL_LINKS);
+    register.setupSinaWeibo(SINA_APPKEY, SINA_APPSECRET,
+        Env.envConfig.serviceUrl + SINA_REDIRECT_URI, UNIVERSAL_LINKS);
     SharesdkPlugin.regist(register);
   }
 
@@ -153,7 +151,7 @@ class MyAppState extends State<MyApp> {
     //获取registrationID
     jpush.getRegistrationID().then((registrationID) {
       print(registrationID);
-      SpUtil.putString(CacheKey.REGISTRATIONID, registrationID);
+      SpUtil.putString(REGISTRATIONID, registrationID);
     });
     //iOS点击推送启动应用拿到推送消息
     jpush.getLaunchAppNotification().then((Map<dynamic, dynamic> message) {
@@ -172,7 +170,7 @@ class MyAppState extends State<MyApp> {
     V2TIMManager timManager = TencentImSDKPlugin.v2TIMManager;
     //初始化SDK
     V2TimValueCallback<bool> initRes = await timManager.initSDK(
-      sdkAppID: CacheKey.TIMSDK_APPID,
+      sdkAppID: TIMSDK_APPID,
       loglevel: LogLevel.V2TIM_LOG_DEBUG,
       listener: V2TimSDKListener(
         //连接中

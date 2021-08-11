@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -54,7 +54,7 @@ class ActivityListItem extends StatelessWidget {
         if (model.isCustom == 'true') {
           _url = model.url!;
         } else {
-          _url = CacheKey.SERVICE_URL_HOST +
+          _url = Env.envConfig.serviceUrl +
               HtmlUrls.ActivityDetailsPage +
               '?is_online=${model.isOnline}&is_vote=${model.isVote}&activity_id=${model.huodongId}';
         }

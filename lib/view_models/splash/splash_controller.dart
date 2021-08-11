@@ -18,7 +18,7 @@ class SplashController extends BaseController {
   @override
   void onInit() {
     super.onInit();
-    firstLaunch.value = SpUtil.getBool(CacheKey.FIRSTLAUNCH, defValue: true)!;
+    firstLaunch.value = SpUtil.getBool(FIRSTLAUNCH, defValue: true)!;
   }
 
   @override
@@ -26,7 +26,7 @@ class SplashController extends BaseController {
     super.onReady();
     if (firstLaunch.value) {
       //首次安装应用,引导页
-      SpUtil.putBool(CacheKey.FIRSTLAUNCH, false);
+      SpUtil.putBool(FIRSTLAUNCH, false);
     } else {
       SplashModel obj = await DioManager()
           .request<SplashModel>(DioManager.POST, Api.aDImageDataUrl);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
@@ -83,7 +83,7 @@ class ShareMenuWidget extends StatelessWidget {
     SSDKMap? params;
     String urlStr = shareData!['url'];
     if (!urlStr.contains('http')) {
-      urlStr = CacheKey.SERVICE_URL_HOST + 'htmlrouter/dist' + urlStr;
+      urlStr = Env.envConfig.serviceUrl + 'htmlrouter/dist' + urlStr;
     }
     if (index == 0) {
       platform = ShareSDKPlatforms.wechatTimeline;

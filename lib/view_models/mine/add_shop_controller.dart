@@ -14,15 +14,16 @@ class AddShopController extends GetxController {
 
   @override
   void onInit() {
-    final ShopAddressModel shopModel = Get.arguments['model']; //修改地址传过来的参数
-    if (shopModel != null) {
+    final isAdd = Get.arguments['addnew'];
+    if (isAdd) {
+      area.value = '请选城市';
+    } else {
+      final ShopAddressModel shopModel = Get.arguments['model']; //修改地址传过来的参数
       model.value = shopModel;
       isDefault.value = shopModel.isDefault!;
       area.value = (shopModel.area!.contains('mainland')
           ? shopModel.area!.split(':')[1]
           : shopModel.area!);
-    } else {
-      area.value = '请选城市';
     }
     super.onInit();
   }

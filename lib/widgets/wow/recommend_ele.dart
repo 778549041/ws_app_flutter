@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
@@ -457,7 +457,7 @@ class RecommendEle extends GetView<EletricController> {
       if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
           'true') {
         Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MilesInfoPage
+          'url': Env.envConfig.serviceUrl + HtmlUrls.MilesInfoPage
         });
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
@@ -468,11 +468,11 @@ class RecommendEle extends GetView<EletricController> {
           .request<CommonModel>(DioManager.GET, Api.ePushJudgeUrl);
       if (_model.status!) {
         Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ServicePackageIntroduction
+          'url': Env.envConfig.serviceUrl + HtmlUrls.ServicePackageIntroduction
         });
       } else {
         Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ServicePackage
+          'url': Env.envConfig.serviceUrl + HtmlUrls.ServicePackage
         });
       }
     } else if (index == 2) {

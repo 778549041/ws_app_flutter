@@ -32,7 +32,7 @@ class UserController extends BaseController {
     UserInfo user =
         await DioManager().request<UserInfo>(DioManager.POST, Api.userInfoUrl);
     userInfo.value = user;
-    isLogin.value = (user.member!.memberId?.length != 0);
+    isLogin.value = (user.member != null);
   }
 
   //修改用户信息
@@ -101,7 +101,7 @@ class UserController extends BaseController {
                 certifyResult();
               }
             } else {
-              LogUtil.v(error);
+              LogUtil.d(error);
             }
           });
         } else {
@@ -118,7 +118,7 @@ class UserController extends BaseController {
   //认证结果
   void certifyResult() async {
     await Get.find<UserController>().getUserInfo();
-    if (Get.find<UserController>().userInfo.value.member?.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       //认证成功
       if (Get.currentRoute == Routes.SELECTINTREST) {
         //如果当前路由是选择兴趣爱好,则跳转首页

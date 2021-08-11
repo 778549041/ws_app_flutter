@@ -7,7 +7,8 @@ import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:qiniu_sdk_base/qiniu_sdk_base.dart';
 import 'package:get/get.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
+import 'package:ws_app_flutter/global/third_config.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
@@ -84,15 +85,15 @@ class ReportController extends GetxController {
       var result = await Storage().putFile(
           compressedFile,
           Auth(
-                  accessKey: CacheKey.QINIU_ACCESS_KEY,
-                  secretKey: CacheKey.QINIU_SECRET_KEY)
+                  accessKey: QINIU_ACCESS_KEY,
+                  secretKey: QINIU_SECRET_KEY)
               .generateUploadToken(
                   putPolicy: PutPolicy(
-                      scope: CacheKey.QINIU_SPACE_NAME,
+                      scope: Env.envConfig.qiniuSpaceName,
                       deadline: DateUtil.getNowDateMs() + 3600)),
           options: PutOptions(controller: PutController()));
       print(result);
-      imgUrlList.add(CacheKey.QINIU_SERVICE_HOST + result.key!);
+      imgUrlList.add(Env.envConfig.qiniuServiceUrl + result.key!);
     }
     EasyLoading.dismiss();
     return imgUrlList;

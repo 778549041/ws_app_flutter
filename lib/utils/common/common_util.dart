@@ -16,10 +16,10 @@ import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 class CommonUtil {
   //获取uuid
   static String sid() {
-    String? sid = SpUtil.getString(CacheKey.SID_KEY);
+    String? sid = SpUtil.getString(SID_KEY);
     if (ObjectUtil.isEmptyString(sid)) {
       sid = Uuid().v1();
-      SpUtil.putString(CacheKey.SID_KEY, sid);
+      SpUtil.putString(SID_KEY, sid);
     }
     //b55b8c00-85d7-11ea-af6d-09351c0892b3
     return sid!;

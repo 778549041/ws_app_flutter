@@ -60,7 +60,7 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildHeader() {
-    if (Get.find<UserController>().userInfo.value.member?.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -223,7 +223,7 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildBody() {
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle == 'true') {
+    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       return OwnCarWidget();
     } else {
       return UnOwnCarWidget();

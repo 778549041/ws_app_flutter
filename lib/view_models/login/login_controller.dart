@@ -174,7 +174,7 @@ class LoginController extends BaseController {
 
   //微信登录
   void wechatLogin() {
-    LogUtil.v('微信登录');
+    LogUtil.d('微信登录');
     if (!aggree.value) {
       EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
       return;
@@ -215,7 +215,7 @@ class LoginController extends BaseController {
               Get.find<UserController>().requestIMInfoAndLogin();
             }
           } else {
-            LogUtil.v(error);
+            LogUtil.d(error);
           }
         });
       } else {
@@ -226,7 +226,7 @@ class LoginController extends BaseController {
 
   //苹果登录
   void appleLogin() {
-    LogUtil.v('苹果登录');
+    LogUtil.d('苹果登录');
     if (!aggree.value) {
       EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
       return;
@@ -258,7 +258,7 @@ class LoginController extends BaseController {
           }
         }
       } else {
-        LogUtil.v(error);
+        LogUtil.d(error);
       }
     });
   }

@@ -1,4 +1,4 @@
-import 'package:ws_app_flutter/global/cache_key.dart';
+import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -63,7 +63,7 @@ class MineController extends BaseController {
     } else if (actionTag == 2) {
       //每日签到
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.DaylySignPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.DaylySignPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -71,7 +71,7 @@ class MineController extends BaseController {
     } else if (actionTag == 3) {
       //常见问题
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.FAQPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.FAQPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -81,7 +81,7 @@ class MineController extends BaseController {
       if (Get.find<UserController>().userInfo.value.member?.isVehicle ==
           'true') {
         pushH5Page(args: {
-          'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CarOwnerCertifyInfoPage,
+          'url': Env.envConfig.serviceUrl + HtmlUrls.CarOwnerCertifyInfoPage,
         })?.then((value) async {
           requestFavorData();
           await Get.find<UserController>().requestNewMessage();
@@ -92,7 +92,7 @@ class MineController extends BaseController {
     } else if (actionTag == 5) {
       //检查报告
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.CheckReportPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.CheckReportPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -100,7 +100,7 @@ class MineController extends BaseController {
     } else if (actionTag == 6) {
       //e路无忧
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MyServicePackagePage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.MyServicePackagePage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -108,7 +108,7 @@ class MineController extends BaseController {
     } else if (actionTag == 7) {
       //中奖记录
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.WinrecordPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.WinrecordPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -116,7 +116,7 @@ class MineController extends BaseController {
     } else if (actionTag == 8) {
       //兑换订单
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.ExchangeOrderPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.ExchangeOrderPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -163,7 +163,7 @@ class MineController extends BaseController {
     } else if (actionTag == 1006) {
       //收藏
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MyFavortePage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.MyFavortePage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -171,7 +171,7 @@ class MineController extends BaseController {
     } else if (actionTag == 1007) {
       //活动
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.MyActivityPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.MyActivityPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
@@ -179,7 +179,7 @@ class MineController extends BaseController {
     } else if (actionTag == 1008) {
       //积分
       pushH5Page(args: {
-        'url': CacheKey.SERVICE_URL_HOST + HtmlUrls.IntegralDetailPage,
+        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralDetailPage,
       })?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();

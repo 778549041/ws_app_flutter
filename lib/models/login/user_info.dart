@@ -7,13 +7,13 @@ class UserInfo {
   Member? member;
   bool? memberVip;
 
-  UserInfo({this.huodongData = 0, this.memberVip = false}) : member = Member();
+  UserInfo({this.huodongData = 0, this.memberVip = false,this.member});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    huodongData = asT<int>(json['huodong_data'], 0);
-    member = Member.fromJson(
-        asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>())!);
-    memberVip = asT<bool>(json['member_vip'], false);
+    huodongData = asT<int?>(json['huodong_data']);
+    member = json['member'] == null ? null : Member.fromJson(
+        asT<Map<String, dynamic>>(json['member'])!);
+    memberVip = asT<bool?>(json['member_vip']);
   }
 }
 
@@ -21,7 +21,7 @@ class Member {
   String? nextExperience;
   String? unionid;
   String? fcreateDate;
-  String? isVehicle;
+  bool? isVehicle;
   String? memberQrcode;
   bool? binding;
   String? nextLvDiscount;
@@ -86,7 +86,7 @@ class Member {
       this.integral = '',
       this.isDisplay = '',
       this.isReceive = '',
-      this.isVehicle = '',
+      this.isVehicle = false,
       this.levelname = '',
       this.localUname = '',
       this.loginAccount = '',
@@ -114,24 +114,24 @@ class Member {
         interest = <String>[];
 
   Member.fromJson(Map<String, dynamic> json) {
-    addr = asT<String>(json['addr'], '');
-    area = asT<String>(json['area'], '');
-    avatar = asT<String>(json['avatar'], '');
-    bDay = asT<String>(json['b_day'], '');
-    bMonth = asT<String>(json['b_month'], '');
-    bYear = asT<String>(json['b_year'], '');
-    binding = asT<bool>(json['binding'], false);
-    email = asT<String>(json['email'], '');
-    experience = asT<String>(json['experience'], '');
-    fCarColor = asT<String>(json['FCarColor'], '');
-    fLicPlate = asT<String>(json['FLicPlate'], '');
-    fName = asT<String>(json['FName'], '');
-    fPhoneNum = asT<String>(json['FPhoneNum'], '');
-    fPurchaseDate = asT<String>(json['FPurchaseDate'], '');
-    fVIN = asT<String>(json['FVIN'], '');
-    fcreateDate = asT<String>(json['fcreateDate'], '');
-    headImg = asT<String>(json['head_img'], '');
-    integral = asT<String>(json['integral'], '');
+    addr = asT<String?>(json['addr']);
+    area = asT<String?>(json['area']);
+    avatar = asT<String?>(json['avatar']);
+    bDay = asT<String?>(json['b_day']);
+    bMonth = asT<String?>(json['b_month']);
+    bYear = asT<String?>(json['b_year']);
+    binding = asT<bool?>(json['binding'], false);
+    email = asT<String?>(json['email']);
+    experience = asT<String?>(json['experience']);
+    fCarColor = asT<String?>(json['FCarColor']);
+    fLicPlate = asT<String?>(json['FLicPlate']);
+    fName = asT<String?>(json['FName']);
+    fPhoneNum = asT<String?>(json['FPhoneNum']);
+    fPurchaseDate = asT<String?>(json['FPurchaseDate']);
+    fVIN = asT<String?>(json['FVIN']);
+    fcreateDate = asT<String?>(json['fcreateDate']);
+    headImg = asT<String?>(json['head_img']);
+    integral = asT<String?>(json['integral']);
     interest = <String>[];
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
@@ -142,38 +142,42 @@ class Member {
         }
       });
     }
-    isDisplay = asT<String>(json['is_display'], '');
-    isReceive = asT<String>(json['is_receive'], '');
-    isVehicle = asT<String>(json['is_vehicle'], '');
-    levelname = asT<String>(json['levelname'], '');
-    localUname = asT<String>(json['local_uname'], '');
-    loginAccount = asT<String>(json['login_account'], '');
-    lvChannelprice = asT<String>(json['lv_channelprice'], '');
-    lvDiscount = asT<String>(json['lv_discount'], '');
-    lvIngoreExperience = asT<String>(json['lv_ingore_experience'], '');
-    memberCur = asT<String>(json['member_cur'], '');
-    memberId = asT<String>(json['member_id'], '');
-    memberInfo = CommonMemberModel.fromJson(
-        asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
-    memberLv = asT<String>(json['member_lv'], '');
-    memberQrcode = asT<String>(json['member_qrcode'], '');
-    memberReceive = asT<String>(json['member_receive'], '');
-    mobile = asT<String>(json['mobile'], '');
-    nextExperience = asT<String>(json['next_experience'], '');
-    nextLevelname = asT<String>(json['next_levelname'], '');
-    nextLvDiscount = asT<String>(json['next_lv_discount'], '');
-    openid = asT<String>(json['openid'], '');
-    profession = asT<String>(json['profession'], '');
-    regtime = asT<String>(json['regtime'], '');
-    sex = asT<String>(json['sex'], '');
-    uname = asT<String>(json['uname'], '');
-    name = asT<String>(json['name'], '');
-    unionid = asT<String>(json['unionid'], '');
+    isDisplay = asT<String?>(json['is_display']);
+    isReceive = asT<String?>(json['is_receive']);
+    isVehicle = asT<bool?>(json['is_vehicle']);
+    levelname = asT<String?>(json['levelname']);
+    localUname = asT<String?>(json['local_uname']);
+    loginAccount = asT<String?>(json['login_account']);
+    lvChannelprice = asT<String?>(json['lv_channelprice']);
+    lvDiscount = asT<String?>(json['lv_discount']);
+    lvIngoreExperience = asT<String?>(json['lv_ingore_experience']);
+    memberCur = asT<String?>(json['member_cur']);
+    memberId = asT<String?>(json['member_id']);
+    memberInfo = CommonMemberModel.fromJson(asT<Map<String, dynamic>>(
+        json['member_info'], Map<String, dynamic>())!);
+    memberLv = asT<String?>(json['member_lv']);
+    memberQrcode = asT<String?>(json['member_qrcode']);
+    memberReceive = asT<String?>(json['member_receive']);
+    mobile = asT<String?>(json['mobile']);
+    nextExperience = asT<String?>(json['next_experience']);
+    nextLevelname = asT<String?>(json['next_levelname']);
+    nextLvDiscount = asT<String?>(json['next_lv_discount']);
+    openid = asT<String?>(json['openid']);
+    profession = asT<String?>(json['profession']);
+    regtime = asT<String?>(json['regtime']);
+    sex = asT<String?>(json['sex']);
+    uname = asT<String?>(json['uname']);
+    name = asT<String?>(json['name']);
+    unionid = asT<String?>(json['unionid']);
     showName = _showName();
   }
 
   String _showName() {
-    String _showName = (name != null && name!.length > 0) ? name! : mobile!;
+    String _showName = (name != null && name!.length > 0)
+        ? name!
+        : (mobile != null && mobile!.length > 0)
+            ? mobile!
+            : '';
     if (RegexUtil.isMobileExact(_showName)) {
       _showName = _showName.replaceFirst(RegExp(r'\d{4}'), '****', 3);
     }
