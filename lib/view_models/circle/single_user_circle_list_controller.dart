@@ -5,8 +5,7 @@ import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
 class SingleUserCircleController extends RefreshListController<MomentModel> {
-  final String memberId =
-      Get.arguments == null ? null : Get.arguments['memberId']; //用户id
+  final String memberId = Get.arguments['memberId']; //用户id
 
   @override
   Future<List<MomentModel>?> loadData({int pageNum = 1}) async {

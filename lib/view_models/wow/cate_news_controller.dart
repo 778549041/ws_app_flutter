@@ -6,13 +6,12 @@ import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
 class CateNewsController extends RefreshListController<NewModel> {
-  var model = CategoryModel().obs;
+  final CategoryModel model = Get.arguments['model'];
 
   @override
   void onInit() {
-    model.value = (Get.arguments == null ? null : Get.arguments['model']);
-    pageSize = 5;
     super.onInit();
+    pageSize = 5;
   }
 
   @override
@@ -24,7 +23,7 @@ class CateNewsController extends RefreshListController<NewModel> {
   Future _requestRecommendNewsList(int? pageNum) async {
     NewsListModel obj = await DioManager().request<NewsListModel>(
         DioManager.POST, Api.newsListDataUrl,
-        queryParamters: {"page": pageNum, 'node_id': model.value.nodeId});
+        queryParamters: {"page": pageNum, 'node_id': model.nodeId});
     return obj.list;
   }
 }

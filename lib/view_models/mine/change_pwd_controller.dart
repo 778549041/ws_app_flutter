@@ -9,6 +9,7 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class ChangePwdController extends GetxController {
   String? phone, code, pwd, confirmPwd;
+  final bool isForget = Get.arguments['isForget']; //区分是忘记密码还是修改密码，修改密码不能输入手机号
 
   @override
   void onInit() {
@@ -26,7 +27,7 @@ class ChangePwdController extends GetxController {
   }
 
   //发送验证码
-  Future<bool> sendCode(bool isForget) async {
+  Future<bool> sendCode() async {
     var _params = Map<String, dynamic>();
     if (phone?.length == 0) {
       EasyLoading.showToast('请输入手机号',
@@ -57,7 +58,7 @@ class ChangePwdController extends GetxController {
     return true;
   }
 
-  Future submitted(bool isForget) async {
+  Future submitted() async {
     if (code?.length == 0) {
       EasyLoading.showToast('请输入验证码',
           toastPosition: EasyLoadingToastPosition.bottom);

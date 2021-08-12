@@ -7,7 +7,7 @@ import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
 class CircleTopicListController extends RefreshListController<MomentModel> {
-  final String topcId = Get.arguments == null ? null : Get.arguments['topcid'];
+  final String topcId = Get.arguments['topcid'];
   var topicDetailModel = SingleTopicodel().obs;
 
   @override

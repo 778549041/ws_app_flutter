@@ -11,8 +11,8 @@ class NewsController extends RefreshListController<NewModel> {
 
   @override
   void onInit() {
-    pageSize = 5;
     super.onInit();
+    pageSize = 5;
   }
 
   @override

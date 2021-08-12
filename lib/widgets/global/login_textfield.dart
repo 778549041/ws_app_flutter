@@ -149,7 +149,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: (<Widget?>[
+          children: (<Widget>[
             Offstage(
               offstage: !widget.isShowDeleteBtn,
               child: _isShowDelete
@@ -180,8 +180,8 @@ class _LoginTextFieldState extends State<LoginTextField> {
                     });
                   },
                 )),
-            widget.rightWidget != null ? widget.rightWidget : Container(),
-          ]) as List<Widget>,
+            widget.rightWidget != null ? widget.rightWidget! : Container(),
+          ]),
         ),
       ],
     );

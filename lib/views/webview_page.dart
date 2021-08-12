@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 
 class WebViewPage extends GetView<NetConnectController> {
-  final String url = Get.arguments['url']; //前端页面地址
-  final String title = Get.arguments['title']; //页面标题
-  final bool hasNav = Get.arguments['hasNav'] ?? false; //是否需要导航栏，默认不需要
-  final String localHtml = Get.arguments['localHtml']; //本地html文件
+  final String? url = Get.arguments['url']; //前端页面地址
+  final String? title = Get.arguments['title']; //页面标题
+  final bool? hasNav = Get.arguments['hasNav']; //是否需要导航栏，默认不需要
+  final String? localHtml = Get.arguments['localHtml']; //本地html文件
 
   //无网络加载失败显示UI
   Widget _buildWebViewFailedWidget() {
@@ -58,10 +58,10 @@ class WebViewPage extends GetView<NetConnectController> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      showAppBar: hasNav,
+      showAppBar: hasNav ?? false,
       titleWidget: title != null
           ? Text(
-              title,
+              title!,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.white, fontSize: 22),

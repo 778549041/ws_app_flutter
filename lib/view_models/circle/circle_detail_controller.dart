@@ -20,11 +20,8 @@ import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/widgets/wow/share_menu.dart';
 
 class CircleDetailController extends RefreshListController<MomentCommentModel> {
-  final String circleId =
-      Get.arguments == null ? null : Get.arguments['circle_id']; //圈子id
-  final String commentId = Get.arguments == null
-      ? null
-      : Get.arguments['commentId'] ?? ''; //需要置顶的评论id
+  final String? circleId = Get.arguments['circle_id']; //圈子id
+  final String? commentId = Get.arguments['commentId'] ?? ''; //需要置顶的评论id
   var momentDetailModel = SingleMomentModel().obs;
   late FocusNode focusNode;
   late TextEditingController textEditingController;

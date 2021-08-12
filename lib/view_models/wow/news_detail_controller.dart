@@ -19,10 +19,8 @@ import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/widgets/wow/share_menu.dart';
 
 class NewsDetailController extends RefreshListController<NewsCommentModel> {
-  final String articleId =
-      Get.arguments == null ? null : Get.arguments['article_id'];
-  final String cateStr =
-      Get.arguments == null ? null : Get.arguments['cateStr'];
+  final String articleId = Get.arguments['article_id'];
+  final String? cateStr = Get.arguments['cateStr'];
   var newsDetailModel = NewsDetailModel().obs;
   FocusNode? focusNode;
   TextEditingController? textEditingController;
@@ -33,10 +31,10 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
   @override
   void onInit() {
+    super.onInit();
     pageSize = 10;
     focusNode = FocusNode();
     textEditingController = TextEditingController();
-    super.onInit();
   }
 
   @override

@@ -12,7 +12,7 @@ import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class ProfileController extends GetxController {
-  final String userId = Get.arguments == null ? null : Get.arguments['user_id'];
+  final String userId = Get.arguments['user_id'];
   var friendModel = FriendModel().obs;
   var friendCircleImgModel = FriendCircleImgListModel().obs;
   IMInfoModel? imInfoModel;

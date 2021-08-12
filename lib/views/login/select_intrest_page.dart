@@ -6,12 +6,10 @@ import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class SelectIntrestPage extends StatelessWidget {
-  final bool fromComplete = Get.arguments == null
-      ? false
-      : Get.arguments['fromComplete']; //区分是完善信息还是添加兴趣爱好
+  final bool? fromComplete = Get.arguments['fromComplete']; //区分是完善信息还是添加兴趣爱好
   @override
   Widget build(BuildContext context) {
-    if (fromComplete) {
+    if (fromComplete != null) {
       return Scaffold(
         body: WillPopScope(
           onWillPop: () async => false,
@@ -130,7 +128,7 @@ class SelectIntrestPage extends StatelessWidget {
                         title: '保存',
                         titleColor: Colors.white,
                         onPressed: () {
-                          Get.find<SelectIntreController>().saveIntres(fromComplete);
+                          Get.find<SelectIntreController>().saveIntres(fromComplete!);
                         },
                         fontSize: 20,
                       ),
@@ -222,7 +220,7 @@ class SelectIntrestPage extends StatelessWidget {
                 title: '保存',
                 titleColor: Colors.white,
                 onPressed: () {
-                  Get.find<SelectIntreController>().saveIntres(fromComplete);
+                  Get.find<SelectIntreController>().saveIntres(false);
                 },
                 fontSize: 20,
               ),

@@ -1,4 +1,6 @@
 // 环境配置
+import 'package:flutter/foundation.dart';
+
 class EnvConfig {
   ///注意debug模式和release模式切换时需要修改,默认为debug测试模式
   //APP基础配置(接口域名，第三方平台key)
@@ -30,8 +32,6 @@ class EnvConfig {
 
 // 获取的配置信息
 class Env {
-  // 获取到当前环境
-  static const appEnv = String.fromEnvironment(EnvName.envKey);
   // 开发环境
   static final EnvConfig _debugConfig = EnvConfig(
     serviceUrl: 'https://app.ocarplay.com/',
@@ -41,7 +41,7 @@ class Env {
     live800Key: 'live800_7mg9mgm6zdrz',
     live800Secret: 'ar8zp6qhfd822ho',
     scoketIP: '119.3.248.18:9502',
-      );
+  );
   // 发布环境
   static final EnvConfig _releaseConfig = EnvConfig(
     serviceUrl: 'https://wsapp.ghac.cn/',
@@ -51,28 +51,16 @@ class Env {
     live800Key: 'live800_acl02myiizan',
     live800Secret: 'aj24dqfpyvleh3g',
     scoketIP: '139.9.80.244:9502',
-      );
+  );
 
   static EnvConfig get envConfig => _getEnvConfig();
 
   // 根据不同环境返回对应的环境配置
   static EnvConfig _getEnvConfig() {
-    switch (appEnv) {
-      case EnvName.debug:
-        return _debugConfig;
-      case EnvName.release:
-        return _releaseConfig;
-      default:
-        return _debugConfig;
+    if (kDebugMode) {
+      return _debugConfig;
+    } else {
+      return _releaseConfig;
     }
   }
-}
-
-// 声明的环境
-abstract class EnvName {
-  // 环境key
-  static const String envKey = "DART_DEFINE_APP_ENV";
-  // 环境value
-  static const String debug = "debug";
-  static const String release = "release";
 }

@@ -15,7 +15,7 @@ class PwdManageController extends GetxController {
 
   void listItemClick(int index) {
     if (index == 0 || index == 1) {
-      Get.toNamed(Routes.CHANGEPWD);
+      Get.toNamed(Routes.CHANGEPWD,arguments: {'isForget':true});
     } else if (index == 2) {
       Get.toNamed(Routes.PAYAUTH);
     }

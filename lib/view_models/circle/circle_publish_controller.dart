@@ -29,8 +29,10 @@ class CirclePublishController extends GetxController {
   @override
   void onInit() {
     publishText = '';
-    topicModel.value =
-        Get.arguments == null ? null : Get.arguments['model']; //修改地址传过来的参数
+    final TopicModel? topic = Get.arguments['model'];//修改地址传过来的参数
+    if (topic != null) {
+      topicModel.value = topic;
+    }
     super.onInit();
   }
 
