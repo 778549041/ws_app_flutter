@@ -68,7 +68,7 @@ class EletricController extends BaseController {
     //电量信息，车辆状态
     _statusTimer = TimerUtil(mInterval: 60 * 1000);
     _statusTimer!.setOnTimerTickCallback((millisUntilFinished) {
-      // requestElectricityData();
+      requestElectricityData();
       requestCarStatusData();
     });
     _statusTimer!.startTimer();
@@ -126,7 +126,7 @@ class EletricController extends BaseController {
     }
     progressValue.value = carDataModel.value.datas?.rspBody?.soc != null
         ? (carDataModel.value.datas!.rspBody!.soc! / 100)
-        : 0;
+        : 100;
   }
 
   //车辆状态查询
@@ -134,14 +134,14 @@ class EletricController extends BaseController {
     carStatusModel.value = await DioManager().request<CarStatusModel>(
         DioManager.POST, 'wsapp/vehicle/getVehicleAllStatus',
         params: {'carVin': _vin, 'mobile': _mobile});
-    if (carStatusModel.value.datas?.chargingStatus == '1') {
-      charging.value = true;
-    } else {
-      charging.value = false;
-    }
-    if (int.parse(carStatusModel.value.datas!.soc1!) <= 100) {
-      progressValue.value = int.parse(carStatusModel.value.datas!.soc1!) / 100;
-    }
+    // if (carStatusModel.value.datas?.chargingStatus == '1') {
+    //   charging.value = true;
+    // } else {
+    //   charging.value = false;
+    // }
+    // if (int.parse(carStatusModel.value.datas!.soc1!) <= 100) {
+    //   progressValue.value = int.parse(carStatusModel.value.datas!.soc1!) / 100;
+    // }
     if (carStatusModel.value.datas?.allDoorStatus == 2 &&
         carStatusModel.value.datas?.allLockStatus != 2) {
       openLock.value = false;

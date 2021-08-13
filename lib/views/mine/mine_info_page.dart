@@ -94,11 +94,10 @@ class MineInfoPage extends GetView<MineInfoController> {
                     height: 90,
                     borderWidth: 3,
                     imageUrl: Get.find<UserController>()
-                            .userInfo
-                            .value
-                            .member!
-                            .headImg ??
-                        '',
+                        .userInfo
+                        .value
+                        .member
+                        ?.headImg,
                   ),
                 ),
                 Positioned(

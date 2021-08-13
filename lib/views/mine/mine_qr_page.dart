@@ -37,11 +37,10 @@ class MineQRPage extends StatelessWidget {
                       height: 90,
                       borderWidth: 3,
                       imageUrl: Get.find<UserController>()
-                              .userInfo
-                              .value
-                              .member!
-                              .headImg ??
-                          '',
+                          .userInfo
+                          .value
+                          .member
+                          ?.headImg,
                     ),
                   ),
                   Positioned(

@@ -118,9 +118,11 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 72),
+              margin: EdgeInsets.only(
+                  top: ScreenUtil.getInstance().statusBarHeight + 72),
               width: Get.width,
-              height: Get.height - (ScreenUtil.getInstance().statusBarHeight + 72),
+              height:
+                  Get.height - (ScreenUtil.getInstance().statusBarHeight + 72),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -160,8 +162,7 @@ class CompleteInfoPage extends GetView<CompleteInfoController> {
                               height: 90,
                               borderWidth: 3,
                               imageUrl:
-                                  controller.userInfo.value.member?.headImg ??
-                                      '',
+                                  controller.userInfo.value.member?.headImg,
                             ),
                           ),
                           Positioned(

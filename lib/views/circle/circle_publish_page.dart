@@ -36,7 +36,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
           Obx(
             () => Container(
               margin: EdgeInsets.only(
-                  bottom: controller.topicModel.value.topicId == '' ? 50 : 83),
+                  bottom: controller.topicModel.value.topicId == null ? 50 : 83),
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
                 child: Column(
@@ -82,7 +82,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
               children: <Widget>[
                 Obx(
                   () => Offstage(
-                    offstage: controller.topicModel.value.topicId == '',
+                    offstage: controller.topicModel.value.topicId == null,
                     child: Container(
                       height: 23,
                       margin: const EdgeInsets.only(left: 15, bottom: 10),
@@ -94,7 +94,7 @@ class CirclePublishPage extends GetView<CirclePublishController> {
                       child: Row(
                         children: <Widget>[
                           Text(
-                            controller.topicModel.value.title!,
+                            controller.topicModel.value.title == null ? '' : controller.topicModel.value.title!,
                             style: TextStyle(
                                 fontSize: 15, color: Color(0xFF7A7A7A)),
                           ),

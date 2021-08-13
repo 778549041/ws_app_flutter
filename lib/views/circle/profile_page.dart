@@ -22,7 +22,7 @@ class ProfilePage extends GetView<ProfileController> {
               children: <Widget>[
                 Obx(
                   () => RoundAvatar(
-                    imageUrl: controller.friendModel.value.member!.avatar!,
+                    imageUrl: controller.friendModel.value.member?.avatar,
                     height: 80,
                     borderColor: Colors.transparent,
                     borderWidth: 0,
@@ -42,9 +42,9 @@ class ProfilePage extends GetView<ProfileController> {
                               () => Text(
                                 controller.friendModel.value.error != null
                                     ? '用户已注销'
-                                    : controller.friendModel.value.member!.name!
-                                                .length >
-                                            0
+                                    : controller.friendModel.value.member
+                                                ?.name !=
+                                            null
                                         ? '昵称：${controller.friendModel.value.member!.name!.length > 11 ? controller.friendModel.value.member!.name!.substring(0, 10) : controller.friendModel.value.member!.name!}'
                                         : '无昵称',
                                 overflow: TextOverflow.ellipsis,
@@ -59,12 +59,15 @@ class ProfilePage extends GetView<ProfileController> {
                               padding: const EdgeInsets.only(left: 5),
                               child: MedalWidget(
                                 medalBtnImage: controller.friendModel.value
-                                    .member!.memberInfo!.medalOrSaleImageName!,
-                                medalToastImage: controller.friendModel.value
-                                    .member!.memberInfo!.medalOrSaleDescImageName!,
-                                isSales: controller.friendModel.value.member!
-                                        .memberInfo!.isSales! ==
-                                    1,
+                                    .member?.memberInfo?.medalOrSaleImageName,
+                                medalToastImage: controller
+                                    .friendModel
+                                    .value
+                                    .member
+                                    ?.memberInfo
+                                    ?.medalOrSaleDescImageName,
+                                isSales: controller.friendModel.value.member
+                                    ?.memberInfo?.isSales,
                               ),
                             ),
                         ],
@@ -72,7 +75,7 @@ class ProfilePage extends GetView<ProfileController> {
                       Obx(
                         () => Text(
                           controller.friendModel.value.member?.addr != null
-                              ? '地区：${controller.friendModel.value.member!.addr}'
+                              ? '地区：${controller.friendModel.value.member!.addr!}'
                               : '地区：无',
                           style: TextStyle(fontSize: 15),
                         ),
@@ -157,8 +160,8 @@ class ProfilePage extends GetView<ProfileController> {
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          FriendCircleImgModel item =
-                              controller.friendCircleImgModel.value.list![index];
+                          FriendCircleImgModel item = controller
+                              .friendCircleImgModel.value.list![index];
                           return Container(
                             margin: const EdgeInsets.only(right: 5),
                             width: 50,

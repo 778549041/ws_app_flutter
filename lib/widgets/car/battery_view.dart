@@ -61,13 +61,13 @@ class BatteryViewPainter extends CustomPainter {
     double batteryHeadRight = size.width;
     double batteryHeadBottom = batteryHeadTop + (size.height / 2);
 
-    // //电量位置
-    // double electricQuantityTotalWidth = size.width - 5 * mStrokeWidth;
-    // double electricQuantityLeft = batteryLeft + 2 * mStrokeWidth;
-    // double electricQuantityTop = batteryTop + 2 * mStrokeWidth;
-    // double electricQuantityRight =
-    //     electricQuantityLeft + electricQuantityTotalWidth * percent;
-    // double electricQuantityBottom = size.height - 2 * mStrokeWidth;
+    //电量位置
+    double electricQuantityTotalWidth = size.width - 5 * mStrokeWidth;
+    double electricQuantityLeft = batteryLeft + 2 * mStrokeWidth;
+    double electricQuantityTop = batteryTop + 2 * mStrokeWidth;
+    double electricQuantityRight =
+        electricQuantityLeft + electricQuantityTotalWidth * percent / 100;
+    double electricQuantityBottom = size.height - 2 * mStrokeWidth;
 
     mPaint.style = PaintingStyle.stroke;
     mPaint.color = Colors.blue;
@@ -86,15 +86,15 @@ class BatteryViewPainter extends CustomPainter {
 
     mPaint.style = PaintingStyle.fill;
     mPaint.color = Colors.green;
-    // //画电池电量
-    // canvas.drawRRect(
-    //     RRect.fromLTRBR(
-    //         electricQuantityLeft,
-    //         electricQuantityTop,
-    //         electricQuantityRight,
-    //         electricQuantityBottom,
-    //         Radius.circular(mStrokeWidth)),
-    //     mPaint);
+    //画电池电量
+    canvas.drawRRect(
+        RRect.fromLTRBR(
+            electricQuantityLeft,
+            electricQuantityTop,
+            electricQuantityRight,
+            electricQuantityBottom,
+            Radius.circular(mStrokeWidth)),
+        mPaint);
   }
 
   @override

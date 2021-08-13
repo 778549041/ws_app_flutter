@@ -150,7 +150,7 @@ class CarStatusData {
     runTime = asT<int>(json['runTime'], 0);
     airTimingOpenDuration = asT<int>(json['airTimingOpenDuration'], 0);
     airWorkDuration = asT<int>(json['airWorkDuration'], 0);
-    fCarColorUrl = asT<String>(json['FCarColorURL'], 'https://wsmedia.ghac.cn/NonCarOwner/');
+    fCarColorUrl = asT<String>(Uri.decodeComponent(json['FCarColorURL']), 'https://wsmedia.ghac.cn/NonCarOwner/');
     //车辆启动状态
     if (extendVehiclesStatus == '1') {
       carLaunchStr = '启动';
@@ -310,6 +310,8 @@ class CarStatusData {
       fCarColorUrl = fCarColorUrl! + 'lf_rf_rb_open.png'; 
     } else if (doorLfStatus == '2' && doorLbStatus == '1' && doorRfStatus == '1' && doorRbStatus == '1') {
       fCarColorUrl = fCarColorUrl! + 'lb_rf_rb_open.png'; 
+    } else {
+      fCarColorUrl = fCarColorUrl! + 'all_close.png'; 
     }
   }
 }

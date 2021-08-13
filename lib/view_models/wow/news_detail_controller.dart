@@ -457,7 +457,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
 
         NewsCommentModel commentModel = NewsCommentModel();
         commentModel.avatar =
-            Get.find<UserController>().userInfo.value.member!.headImg;
+            Get.find<UserController>().userInfo.value.member?.headImg;
         commentModel.content = input;
         commentModel.isSelf = true;
         commentModel.isVehicle =

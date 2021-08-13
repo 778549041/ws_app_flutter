@@ -70,8 +70,8 @@ class EnjoyPage extends GetView<EnjoyController> {
                           imageUrl: Get.find<UserController>()
                               .userInfo
                               .value
-                              .member!
-                              .headImg!,
+                              .member
+                              ?.headImg,
                           borderWidth: 0,
                           borderColor: Colors.transparent,
                           height: 40,
@@ -81,11 +81,10 @@ class EnjoyPage extends GetView<EnjoyController> {
                       right: 0,
                       child: Offstage(
                           offstage: !(Get.find<UserController>()
-                                  .userInfo
-                                  .value
-                                  .member!
-                                  .isVehicle ==
-                              'true'),
+                              .userInfo
+                              .value
+                              .member!
+                              .isVehicle!),
                           child: Image.asset(
                             'assets/images/mine/vip_tag.png',
                             width: 18,

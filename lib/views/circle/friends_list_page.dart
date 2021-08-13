@@ -140,7 +140,7 @@ class FriendsListPage extends GetView<FriendsController> {
                   width: 15,
                 ),
                 RoundAvatar(
-                  imageUrl: member.avatar!,
+                  imageUrl: member.avatar,
                   height: 40,
                   borderColor: Colors.transparent,
                   borderWidth: 0,
@@ -150,7 +150,7 @@ class FriendsListPage extends GetView<FriendsController> {
                 ),
                 Flexible(
                   child: Text(
-                    member.name!,
+                    member.name == null ? '' : member.name!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 15),
                   ),
@@ -160,14 +160,14 @@ class FriendsListPage extends GetView<FriendsController> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: MedalWidget(
-                      medalBtnImage: member.memberInfo!.medalOrSaleImageName!,
+                      medalBtnImage: member.memberInfo?.medalOrSaleImageName,
                       medalToastImage:
-                          member.memberInfo!.medalOrSaleDescImageName!,
-                      isSales: member.memberInfo!.isSales == 1,
+                          member.memberInfo?.medalOrSaleDescImageName,
+                      isSales: member.memberInfo?.isSales,
                     ),
                   ),
                 Offstage(
-                  offstage: member.sex?.length == 0,
+                  offstage: member.sex == null || member.sex == '2',
                   child: Image.asset(
                     member.sex == '0'
                         ? 'assets/images/mine/woman.png'

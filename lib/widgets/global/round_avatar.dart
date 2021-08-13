@@ -6,7 +6,7 @@ class RoundAvatar extends StatelessWidget {
   final double borderWidth;
   final Color borderColor;
   final String placeHolder;
-  final String imageUrl;
+  final String? imageUrl;
   final VoidCallback? onPressed;
 
   RoundAvatar({
@@ -14,7 +14,7 @@ class RoundAvatar extends StatelessWidget {
     this.borderWidth = 2.0,
     this.borderColor = Colors.white,
     this.placeHolder = 'assets/images/mine/ic_people.png',
-    required this.imageUrl,
+    this.imageUrl,
     this.onPressed,
   });
 
@@ -28,18 +28,18 @@ class RoundAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onPressed ?? null,
+      onTap: onPressed ?? null,
       child: Container(
-        width: this.height,
-        height: this.height,
+        width: height,
+        height: height,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(width: this.borderWidth, color: this.borderColor),
+          border: Border.all(width: borderWidth, color: borderColor),
         ),
         child: ClipOval(
-          child: this.imageUrl.length > 0
+          child: imageUrl != null
               ? CachedNetworkImage(
-                  imageUrl: this.imageUrl,
+                  imageUrl: imageUrl!,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => _buildPlaceholder(),
                   errorWidget: (context, url, error) => _buildPlaceholder(),

@@ -67,7 +67,7 @@ class DoorLockPage extends GetView<EletricController> {
       child: Stack(
         children: <Widget>[
           NetImageWidget(
-            imageUrl: controller.carStatusModel.value.datas!.fCarColorUrl!,
+            imageUrl: controller.carStatusModel.value.datas?.fCarColorUrl,
             placeholder: 'assets/images/chekong/all_door_open.png',
             width: Get.width,
             height: Get.width * 1297 / 1080,

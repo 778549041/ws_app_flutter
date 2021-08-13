@@ -19,8 +19,8 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class CirclePublishController extends GetxController {
-  late TextEditingController textEditingController;
-  late FocusNode focusNode;
+  TextEditingController? textEditingController;
+  FocusNode? focusNode;
   String? publishText;
   var topicModel = TopicModel().obs;
   var selectedAssets = <AssetEntity>[].obs;
@@ -29,7 +29,7 @@ class CirclePublishController extends GetxController {
   @override
   void onInit() {
     publishText = '';
-    final TopicModel? topic = Get.arguments['model'];//修改地址传过来的参数
+    final TopicModel? topic = Get.arguments == null ? null : Get.arguments['model'];//修改地址传过来的参数
     if (topic != null) {
       topicModel.value = topic;
     }
@@ -53,7 +53,7 @@ class CirclePublishController extends GetxController {
     if (publishText != null &&
         publishText!.length > 0 &&
         CommonUtil.isBlank(publishText)) {
-      textEditingController.text = '';
+      textEditingController?.text = '';
       return;
     }
     if (publishText != null && publishText!.length > 0) {

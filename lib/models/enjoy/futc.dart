@@ -6,8 +6,9 @@ class FUTCModel {
   FUTCModel() : list = FUTCData();
 
   FUTCModel.fromJson(Map<String, dynamic> json) {
-    list = FUTCData.fromJson(
-        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>())!);
+    list = json['list'] == null
+        ? null
+        : FUTCData.fromJson(asT<Map<String, dynamic>>(json['list'])!);
   }
 }
 
@@ -15,10 +16,10 @@ class FUTCData {
   String? imageUrl;
   String? url;
 
-  FUTCData({this.imageUrl = '', this.url = ''});
+  FUTCData({this.imageUrl, this.url});
 
   FUTCData.fromJson(Map<String, dynamic> json) {
-    imageUrl = asT<String>(json['image_url'], '');
-    url = asT<String>(json['url'], '');
+    imageUrl = asT<String?>(json['image_url']);
+    url = asT<String?>(json['url']);
   }
 }

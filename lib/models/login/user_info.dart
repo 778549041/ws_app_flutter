@@ -82,7 +82,7 @@ class Member {
       this.fPurchaseDate = '',
       this.fVIN = '',
       this.fcreateDate = '',
-      this.headImg = '',
+      this.headImg,
       this.integral = '',
       this.isDisplay = '',
       this.isReceive = '',

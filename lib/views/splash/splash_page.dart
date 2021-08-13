@@ -108,26 +108,13 @@ class SplashPage extends GetView<SplashController> {
                           children: <Widget>[
                             Obx(
                               () => RoundAvatar(
-                                height: 90,
-                                borderWidth: 3,
-                                imageUrl: (Get.find<UserController>()
-                                                .userInfo
-                                                .value
-                                                .member ==
-                                            null ||
-                                        Get.find<UserController>()
-                                                .userInfo
-                                                .value
-                                                .member!
-                                                .headImg ==
-                                            null)
-                                    ? ''
-                                    : Get.find<UserController>()
-                                        .userInfo
-                                        .value
-                                        .member!
-                                        .headImg!,
-                              ),
+                                  height: 90,
+                                  borderWidth: 3,
+                                  imageUrl: Get.find<UserController>()
+                                      .userInfo
+                                      .value
+                                      .member
+                                      ?.headImg),
                             ),
                             Positioned(
                               bottom: 5.0,

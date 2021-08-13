@@ -104,13 +104,15 @@ class DioManager {
       //加载完成隐藏loading框
       if (shouldLoading) await EasyLoading.dismiss();
       Map? respData;
-      if (response.data is Map) {
-        respData = response.data;
-      } else {
-        respData = _decodeData(response);
+      if (response.data != null) {
+        if (response.data is Map) {
+          respData = response.data;
+        } else {
+          respData = _decodeData(response);
+        }
+        // BaseEntity entity = BaseEntity<T>.fromJson(respData);
+        return EntityFactory.generateOBJ<T>(respData);
       }
-      // BaseEntity entity = BaseEntity<T>.fromJson(respData);
-      return EntityFactory.generateOBJ<T>(respData);
     } on DioError catch (e) {
       //加载失败隐藏loading框
       if (shouldLoading) await EasyLoading.dismiss();
@@ -144,14 +146,16 @@ class DioManager {
       //加载完成隐藏loading框
       if (shouldLoading) await EasyLoading.dismiss();
       Map? respData;
-      if (response.data is Map) {
-        respData = response.data;
-      } else {
-        respData = _decodeData(response);
+      if (response.data != null) {
+        if (response.data is Map) {
+          respData = response.data;
+        } else {
+          respData = _decodeData(response);
+        }
+        BaseEntity entity =
+            BaseEntity<T>.fromJson(respData as Map<String, dynamic>);
+        return entity.data;
       }
-      BaseEntity entity =
-          BaseEntity<T>.fromJson(respData as Map<String, dynamic>);
-      return entity.data;
     } on DioError catch (e) {
       //加载失败隐藏loading框
       if (shouldLoading) await EasyLoading.dismiss();

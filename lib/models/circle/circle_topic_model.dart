@@ -27,8 +27,8 @@ class SingleTopicodel {
   SingleTopicodel() : list = TopicModel();
 
   SingleTopicodel.fromJson(Map<String, dynamic> json) {
-    list = TopicModel.fromJson(
-        asT<Map<String, dynamic>>(json['list'], Map<String, dynamic>())!);
+    list = json['list'] == null ? null : TopicModel.fromJson(
+        asT<Map<String, dynamic>>(json['list'])!);
   }
 }
 
@@ -39,27 +39,27 @@ class TopicModel {
   String? imageUrl;
   String? adminUrl;
   int? totalNum;
-  int? join;
+  bool? join;
   bool? showAll;
 
   TopicModel(
-      {this.topicId = '',
-      this.title = '',
-      this.content = '',
-      this.imageUrl = '',
-      this.adminUrl = '',
-      this.totalNum = 0,
-      this.join = 0,
+      {this.topicId,
+      this.title,
+      this.content,
+      this.imageUrl,
+      this.adminUrl,
+      this.totalNum,
+      this.join,
       this.showAll = false});
 
   TopicModel.fromJson(Map<String, dynamic> json) {
-    topicId = asT<String>(json['topic_id'], '');
-    title = asT<String>(json['title'], '');
-    content = asT<String>(json['content'], '');
-    imageUrl = asT<String>(json['image_url'], '');
-    adminUrl = asT<String>(json['admin_url'], '');
-    totalNum = asT<int>(json['num'], 0);
-    join = asT<int>(json['join'], 0);
+    topicId = asT<String?>(json['topic_id']);
+    title = asT<String?>(json['title']);
+    content = asT<String?>(json['content']);
+    imageUrl = asT<String?>(json['image_url']);
+    adminUrl = asT<String?>(json['admin_url']);
+    totalNum = asT<int?>(json['num']);
+    join = asT<bool?>(json['join']);
     showAll = false;
   }
 }

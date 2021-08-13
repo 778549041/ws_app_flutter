@@ -76,8 +76,8 @@ class CarPage extends GetView<CarController> {
                             imageUrl: Get.find<UserController>()
                                 .userInfo
                                 .value
-                                .member!
-                                .headImg!,
+                                .member
+                                ?.headImg,
                             borderWidth: 0,
                             borderColor: Colors.transparent,
                             height: 40,

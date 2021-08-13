@@ -330,7 +330,7 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
 
         MomentCommentModel commentModel = MomentCommentModel();
         commentModel.avatar =
-            Get.find<UserController>().userInfo.value.member!.headImg;
+            Get.find<UserController>().userInfo.value.member?.headImg;
         commentModel.content = input;
         commentModel.isSelf = true;
         commentModel.isVehicle =

@@ -11,7 +11,7 @@ class FriendModel {
   FriendModel({this.error}) : member = FriendMember();
 
   FriendModel.fromJson(Map<String, dynamic> json) {
-    error = asT<String>(json['error'], '');
+    error = asT<String?>(json['error']);
     member = FriendMember.fromJson(
         asT<Map<String, dynamic>>(json['member'], Map<String, dynamic>())!);
   }
@@ -40,11 +40,11 @@ class AddFriendListModel {
 class FriendListModel {
   List<FriendMember>? memberList;
 
-  FriendListModel() : memberList = <FriendMember>[];
+  FriendListModel(this.memberList);
 
   FriendListModel.fromJson(Map<String, dynamic> json) {
-    memberList = <FriendMember>[];
     if (json['memberList'] != null) {
+      memberList = <FriendMember>[];
       (json['memberList'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
@@ -72,22 +72,22 @@ class FriendMember extends ISuspensionBean {
   String? groupName;
 
   FriendMember(
-      {this.addr = '',
-      this.avatar = '',
+      {this.addr,
+      this.avatar,
       this.isFriend = false,
-      this.name = '',
-      this.sex = '',
-      this.memberId = '',
-      this.friendsRelation = 0,
-      this.mobile = '',
-      this.nickname = '',
-      this.groupName = ''})
+      this.name,
+      this.sex,
+      this.memberId,
+      this.friendsRelation,
+      this.mobile,
+      this.nickname,
+      this.groupName})
       : interest = <String>[],
         memberInfo = CommonMemberModel();
 
   FriendMember.fromJson(Map<String, dynamic> json) {
-    addr = asT<String>(json['addr'], '');
-    avatar = asT<String>(json['avatar'], '');
+    addr = asT<String?>(json['addr']);
+    avatar = asT<String?>(json['avatar']);
     interest = <String>[];
     if (json['interest'] != null) {
       (json['interest'] as List).forEach((element) {
@@ -98,16 +98,16 @@ class FriendMember extends ISuspensionBean {
         }
       });
     }
-    isFriend = asT<bool>(json['isFriend']);
-    name = asT<String>(json['name']);
-    sex = asT<String>(json['sex']);
-    memberId = asT<String>(json['member_id']);
+    isFriend = asT<bool?>(json['isFriend']);
+    name = asT<String?>(json['name']);
+    sex = asT<String?>(json['sex']);
+    memberId = asT<String?>(json['member_id']);
     memberInfo = CommonMemberModel.fromJson(
         asT<Map<String, dynamic>>(json['member_info'], Map<String, dynamic>())!);
-    friendsRelation = asT<int>(json['friends_relation']);
-    mobile = asT<String>(json['mobile']);
-    nickname = asT<String>(json['nickname']);
-    groupName = asT<String>(json['init']);
+    friendsRelation = asT<int?>(json['friends_relation']);
+    mobile = asT<String?>(json['mobile']);
+    nickname = asT<String?>(json['nickname']);
+    groupName = asT<String?>(json['init']);
   }
 
   @override

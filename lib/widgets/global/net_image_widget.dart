@@ -39,6 +39,7 @@ class NetImageWidget extends StatelessWidget {
             width: width,
             height: height,
             placeholder: (context, url) => _buildPlaceholder(),
+            errorWidget: (context, url, error) => _buildPlaceholder(),
             fit: fit,
           )
         : _buildPlaceholder();

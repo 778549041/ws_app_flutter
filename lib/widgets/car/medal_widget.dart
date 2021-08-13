@@ -35,10 +35,8 @@ class MedalWidget extends StatelessWidget {
                     .value
                     .member!
                     .memberInfo!
-                    .isSales ==
-                0 &&
-            Get.find<UserController>().userInfo.value.member!.memberInfo!.isEnd !=
-                1) {
+                    .isSales! &&
+            Get.find<UserController>().userInfo.value.member!.memberInfo!.isEnd!) {
           Get.toNamed(Routes.WEBVIEW, arguments: {
             'url': Get.find<UserController>()
                 .userInfo

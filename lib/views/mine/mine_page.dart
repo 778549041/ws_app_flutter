@@ -148,11 +148,10 @@ class MinePage extends GetView<MineController> {
                     height: 90,
                     borderWidth: 3,
                     imageUrl: Get.find<UserController>()
-                            .userInfo
-                            .value
-                            .member!
-                            .headImg ??
-                        '',
+                        .userInfo
+                        .value
+                        .member
+                        ?.headImg,
                   ),
                 ),
                 Positioned(
@@ -217,12 +216,11 @@ class MinePage extends GetView<MineController> {
                             .memberInfo!
                             .medalOrSaleDescImageName!,
                         isSales: Get.find<UserController>()
-                                .userInfo
-                                .value
-                                .member!
-                                .memberInfo!
-                                .isSales ==
-                            1,
+                            .userInfo
+                            .value
+                            .member!
+                            .memberInfo!
+                            .isSales!,
                       ),
                     ),
                   Obx(() => Offstage(
@@ -305,7 +303,8 @@ class MinePage extends GetView<MineController> {
     );
   }
 
-  Widget _buildFourBtn(int index, Widget child, {String? title, String? image}) {
+  Widget _buildFourBtn(int index, Widget child,
+      {String? title, String? image}) {
     return GestureDetector(
       onTap: () => controller.pushAction(index),
       child: Container(

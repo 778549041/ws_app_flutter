@@ -29,9 +29,9 @@ class RecommendEle extends GetView<EletricController> {
         children: <Widget>[
           _buildEletricView(),
           Obx(() => Offstage(
-                offstage:
-                    controller.carStatusModel.value.datas?.sendingTime?.length ==
-                        '0',
+                offstage: controller
+                        .carStatusModel.value.datas?.sendingTime?.length ==
+                    '0',
                 child: Text(
                   '车辆数据上传于：${DateUtil.formatDateMs(int.parse(controller.carStatusModel.value.datas!.sendingTime!))}',
                   style: TextStyle(color: Color(0xFF999999), fontSize: 12),
@@ -76,7 +76,10 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AutoSizeText(
-                  controller.carStatusModel.value.datas!.soc1!,
+                  controller.carDataModel.value.datas?.rspBody?.soc == null
+                      ? '100'
+                      : controller.carDataModel.value.datas!.rspBody!.soc!
+                          .toString(),
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                   maxLines: 1,
                 ),
@@ -107,7 +110,12 @@ class RecommendEle extends GetView<EletricController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AutoSizeText(
-                  controller.carStatusModel.value.datas!.rangMileage.toString(),
+                  controller.carDataModel.value.datas?.rspBody?.rangMileage ==
+                          null
+                      ? '470'
+                      : controller
+                          .carDataModel.value.datas!.rspBody!.rangMileage!
+                          .toString(),
                   style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                   maxLines: 1,
                 ),
@@ -355,7 +363,8 @@ class RecommendEle extends GetView<EletricController> {
                                 imageH: 20,
                                 imageW: 20,
                                 onPressed: () {
-                                  if (controller.carStatusModel.value.datas!.airOpenStatus!) {
+                                  if (controller.carStatusModel.value.datas!
+                                      .airOpenStatus!) {
                                     controller.sendControlCmd(1, 2);
                                   } else {
                                     controller.sendControlCmd(1, 1);
@@ -378,7 +387,8 @@ class RecommendEle extends GetView<EletricController> {
                                   controller
                                       .carStatusModel.value.datas!.airOpenStr!,
                                   style: TextStyle(
-                                      color: controller.carStatusModel.value.datas!.airOpenStatus!
+                                      color: controller.carStatusModel.value
+                                              .datas!.airOpenStatus!
                                           ? Colors.green
                                           : Color(0xFF999999)),
                                   maxLines: 1,
