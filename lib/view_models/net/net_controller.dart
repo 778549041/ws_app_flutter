@@ -9,6 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class NetConnectController extends BaseController {
   var currentIndex = 0.obs;
@@ -41,7 +42,7 @@ class NetConnectController extends BaseController {
         .toString());
   }
 
-  //调用js事件
+  //flutter调用js事件
   Future<void> _evaluateJavascript() async {
     webViewController?.evaluateJavascript('callJS(\'visible\');').then((value) {
       print(value);
@@ -107,15 +108,27 @@ class NetConnectController extends BaseController {
   }
 
   //页面加载完成
-  void onPageFinished(String url) {
+  void onPageFinished(String url) async {
     print("finished load:" + url);
     if (isConnect.value) {
       currentIndex.value = 1;
     }
     _loadTitle();
+    //设置style
+    String style = '''
+    document.documentElement.style.webkitTouchCallout='none';
+    document.documentElement.style.webkitUserSelect='none';
+    ''';
+    webViewController?.evaluateJavascript(style);
     //设置cookie
-    String cookie = "document.cookie = '_SID=${CommonUtil.sid()}'";
+    String cookie = '''
+    document.cookie = '_SID=${CommonUtil.sid()}';
+    document.cookie = 'member_id=${Get.find<UserController>().userInfo.value.member?.memberId}';
+    ''';
     webViewController?.evaluateJavascript(cookie);
+    final String? cookies =
+        await webViewController?.evaluateJavascript('document.cookie');
+    print(cookies);
     // _evaluateJavascript();
   }
 

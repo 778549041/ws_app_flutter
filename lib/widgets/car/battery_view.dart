@@ -19,17 +19,8 @@ class BatteryView extends StatelessWidget {
         Container(
           child: CustomPaint(
             size: Size(width, height),
-            painter: BatteryViewPainter(percent: percent),
-          ),
-        ),
-        Positioned(
-          left: 2,
-          top: 2,
-          child: AnimatedContainer(
-            duration: Duration(seconds: 1),
-            height: height - 4,
-            width: (width - 5) * percent,
-            color: percent > 0.1 ? Colors.green : Colors.red,
+            painter:
+                BatteryViewPainter(percent: percent, isCharging: isCharging),
           ),
         ),
       ],
@@ -42,9 +33,13 @@ class BatteryViewPainter extends CustomPainter {
   final Paint mPaint;
   final double mStrokeWidth;
   final double mPaintStrokeWidth;
+  final bool isCharging;
 
   BatteryViewPainter(
-      {this.percent = 100, this.mStrokeWidth = 1.0, this.mPaintStrokeWidth = 1.5})
+      {this.percent = 100,
+      this.mStrokeWidth = 1.0,
+      this.mPaintStrokeWidth = 1.5,
+      this.isCharging = false})
       : mPaint = Paint()..strokeWidth = mPaintStrokeWidth;
 
   @override
@@ -66,7 +61,7 @@ class BatteryViewPainter extends CustomPainter {
     double electricQuantityLeft = batteryLeft + 2 * mStrokeWidth;
     double electricQuantityTop = batteryTop + 2 * mStrokeWidth;
     double electricQuantityRight =
-        electricQuantityLeft + electricQuantityTotalWidth * percent / 100;
+        electricQuantityLeft + electricQuantityTotalWidth * percent;
     double electricQuantityBottom = size.height - 2 * mStrokeWidth;
 
     mPaint.style = PaintingStyle.stroke;
@@ -95,6 +90,22 @@ class BatteryViewPainter extends CustomPainter {
             electricQuantityBottom,
             Radius.circular(mStrokeWidth)),
         mPaint);
+
+    //画充电中闪电图标
+    if (isCharging) {
+      mPaint.style = PaintingStyle.fill;
+      mPaint.color = Colors.white;
+      canvas.drawPath(
+          Path()
+            ..moveTo(size.width / 2 + 2, 0) //顶点
+            ..lineTo(size.width / 2 - 6, size.height / 2 + 1) //左边第一个点
+            ..lineTo(size.width / 2 - 2, size.height / 2 + 1) //左边第二个点
+            ..lineTo(size.width / 2 - 2, size.height) //底点
+            ..lineTo(size.width / 2 + 6, size.height / 2 - 1) //右边第一个点
+            ..lineTo(size.width / 2 + 2, size.height / 2 - 1) //右边第二个点
+            ..lineTo(size.width / 2 + 2, 0), //顶点
+          mPaint);
+    }
   }
 
   @override

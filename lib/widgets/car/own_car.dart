@@ -55,7 +55,8 @@ class OwnCarWidget extends GetView<EletricController> {
               Container(
                 margin: const EdgeInsets.only(top: 10),
                 child: CachedNetworkImage(
-                    imageUrl: controller.carDataModel.value.datas!.fcarColorURL!),
+                    imageUrl:
+                        controller.carDataModel.value.datas!.fcarColorURL!),
               ),
             _buildCarControlView(),
             Container(
@@ -115,7 +116,10 @@ class OwnCarWidget extends GetView<EletricController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AutoSizeText(
-                    controller.carStatusModel.value.datas!.soc1!,
+                    controller.carDataModel.value.datas?.rspBody?.soc == null
+                        ? '100'
+                        : controller.carDataModel.value.datas!.rspBody!.soc!
+                            .toString(),
                     style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                     maxLines: 1,
                   ),
@@ -141,8 +145,12 @@ class OwnCarWidget extends GetView<EletricController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   AutoSizeText(
-                    controller.carStatusModel.value.datas!.rangMileage
-                        .toString(),
+                    controller.carDataModel.value.datas?.rspBody?.rangMileage ==
+                            null
+                        ? '470'
+                        : controller
+                            .carDataModel.value.datas!.rspBody!.rangMileage!
+                            .toString(),
                     style: TextStyle(color: Color(0xFF2673FB), fontSize: 36),
                     maxLines: 1,
                   ),
@@ -478,8 +486,8 @@ class OwnCarWidget extends GetView<EletricController> {
                                 text: '/',
                                 style: TextStyle(color: Color(0xFF999999))),
                             TextSpan(
-                              text: controller
-                                  .carStatusModel.value.datas!.positionLightStr!,
+                              text: controller.carStatusModel.value.datas!
+                                  .positionLightStr!,
                               style: TextStyle(
                                   color: controller.carStatusModel.value.datas!
                                               .positionLightStatus! ==
@@ -549,9 +557,8 @@ class OwnCarWidget extends GetView<EletricController> {
   Future buttonAction(int index) async {
     if (index == 0) {
       //爱车配件
-      Get.toNamed(Routes.WEBVIEW, arguments: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.CarPartsPage
-      });
+      Get.toNamed(Routes.WEBVIEW,
+          arguments: {'url': Env.envConfig.serviceUrl + HtmlUrls.CarPartsPage});
     } else if (index == 1) {
       //违章查询
       if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==

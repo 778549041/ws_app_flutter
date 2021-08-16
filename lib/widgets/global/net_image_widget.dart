@@ -33,7 +33,7 @@ class NetImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return imageUrl != null
+    return (imageUrl != null && imageUrl!.contains('http'))
         ? CachedNetworkImage(
             imageUrl: imageUrl!,
             width: width,

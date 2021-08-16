@@ -98,8 +98,12 @@ class NewsDetailPageState extends State<NewsDetailPage>
                               data: controller
                                   .newsDetailModel.value.article!.bodys!.content!,
                               onImageError: (exception, stackTrace) {},
-                              onImageTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {},
-                              onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {},
+                              onImageTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {
+                                LogUtil.d(url);
+                              },
+                              onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {
+                                LogUtil.d(url);
+                              },
                             ),
                           ),
                         ),

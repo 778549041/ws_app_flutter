@@ -121,12 +121,13 @@ class EletricController extends BaseController {
     if (carDataModel.value.datas?.rspBody?.chargingStatus == 1 ||
         carDataModel.value.datas?.rspBody?.chargingStatus == 2) {
       charging.value = true;
+      progressValue.value = 1.0;
     } else {
       charging.value = false;
-    }
-    progressValue.value = carDataModel.value.datas?.rspBody?.soc != null
+      progressValue.value = carDataModel.value.datas?.rspBody?.soc != null
         ? (carDataModel.value.datas!.rspBody!.soc! / 100)
-        : 100;
+        : 1.0;
+    }
   }
 
   //车辆状态查询
