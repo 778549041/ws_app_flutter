@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.ws_app_flutter">
+    package="com.vmc.guangqi">
     
     <!--
     Internet permissions do not affect the `permission_handler` plugin, but are required if your app needs access to
@@ -28,7 +28,7 @@
 <!--    <uses-permission android:name="android.permission.RECEIVE_MMS"/>-->
 
 <!--    &lt;!&ndash; Permissions options for the `phone` group &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 <!--    <uses-permission android:name="android.permission.ADD_VOICEMAIL"/>-->
 <!--    <uses-permission android:name="android.permission.USE_SIP"/>-->
@@ -44,6 +44,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!--申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <!-- Permissions options for the `microphone` or `speech` group -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -60,6 +68,8 @@
         android:label="ws_app_flutter"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:name">
+        <!-- 配置定位Service -->
+        <service android:name="com.amap.api.location.APSService"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

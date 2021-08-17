@@ -62,6 +62,7 @@ class PermissionManager {
       Get.dialog(
           BaseDialog(
             title: '提示',
+            rightText: '去设置',
             content: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text('您当前没有开启$_permissionCHName权限',

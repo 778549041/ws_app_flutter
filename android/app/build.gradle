@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.guangqi.wow_station"
+        applicationId "com.vmc.guangqi"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -82,4 +82,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //引入高德地图定位SDK
+    implementation('com.amap.api:location:5.2.0')
+    // //引入高德地图SDK
+    // implementation('com.amap.api:3dmap:7.7.0')
 }

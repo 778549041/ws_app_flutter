@@ -22,6 +22,7 @@ import 'package:ws_app_flutter/global/global.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/third_config.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/location_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
@@ -106,15 +107,16 @@ class MyAppState extends State<MyApp> {
     SharesdkPlugin.regist(register);
   }
 
-  // //高德地图初始化
-  // void _initAmap() async {
-  //   await AmapService.instance.init(
-  //       androidKey: '2f380dfbbd258d3dcc39dba0ba93f0dd',
-  //       iosKey: '7a1bd67b8d226567eae73e1e9cba3429');
-  //   if (await PermissionManager().requestPermission(Permission.location)) {
-  //     final _location = await AmapLocation.instance.fetchLocation();
-  //   }
-  // }
+  //高德地图初始化
+  void _initAmap() async {
+    LocationManager locationManager = LocationManager();
+    locationManager.startLocation();
+    locationManager.locationPlugin
+        .onLocationChanged()
+        .listen((Map<String, Object> result) {
+      LogUtil.d('当前定位信息数据===========$result');
+    });
+  }
 
   //极光推送初始化
   void _initJPush() async {
@@ -246,7 +248,7 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     _initShareSDK();
-    // _initAmap();
+    _initAmap();
     _initJPush();
     _initBugly();
     _initimIMSDK();

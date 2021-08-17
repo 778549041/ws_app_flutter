@@ -29,6 +29,8 @@ class MineInfoController extends GetxController {
     var _address = _userInfo.member?.area;
     if (_address != null && _address.contains('mainland')) {
       _address = _address.split(':')[1];
+    } else {
+      _address = '';
     }
     data.assignAll([
       {"title": "", "content": ''},

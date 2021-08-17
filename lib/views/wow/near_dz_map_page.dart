@@ -1,7 +1,9 @@
 // import 'package:amap_map_fluttify/amap_map_fluttify.dart' hide controller;
+import 'package:amap_flutter_map/amap_flutter_map.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/third_config.dart';
 import 'package:ws_app_flutter/view_models/wow/near_dz_map_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
@@ -28,6 +30,10 @@ class NearDZMapPage extends GetView<NearDZMapController> {
       ),
       child: Stack(
         children: <Widget>[
+          AMapWidget(
+            apiKey: amapApiKeys,
+            
+          ),
           // AmapView(
           //   // 地图类型 (可选)
           //   mapType: MapType.Standard,
