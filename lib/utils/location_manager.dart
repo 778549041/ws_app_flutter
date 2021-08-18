@@ -24,6 +24,11 @@ class LocationManager {
     ///是否单次定位
     locationOption.onceLocation = true;
     locationOption.fullAccuracyPurposeKey = "AMapLocationScene";
+    ///Android端定位模式, 只在Android系统上有效
+    locationOption.locationMode = AMapLocationMode.Hight_Accuracy;
+    /// iOS端期望的定位精度， 只在iOS端有效
+    locationOption.desiredAccuracy = DesiredAccuracy.HundredMeters;
+    locationOption.desiredLocationAccuracyAuthorizationMode = AMapLocationAccuracyAuthorizationMode.ReduceAccuracy;
 
     ///将定位参数设置给定位插件
     locationPlugin.setLocationOption(locationOption);

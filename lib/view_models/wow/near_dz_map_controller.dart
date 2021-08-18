@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:amap_flutter_base/amap_flutter_base.dart';
 import 'package:amap_flutter_map/amap_flutter_map.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/wow/cdz_info_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/location_manager.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
@@ -20,15 +19,16 @@ import 'package:ws_app_flutter/widgets/wow/store_info_view.dart';
 class NearDZMapController extends GetxController {
   AMapController? mapController;
   LatLng? startLatLng; //当前位置经纬度
-  List<CDZInfo> dzMarkerList = []; //充电站标注
-  List<NearStoreModel> storeMarkerList = []; //特约店标注
+  LocationManager locationManager = LocationManager();
   // var searchData = <InputTip>[].obs; //输入搜索tips
   LatLng? currenSelecttLatLng; //当前选择的位置经纬度(调起第三方所需数据)
   String? currentSelectTitle; //当前选择的位置(调起第三方所需数据)
+  var markers = Map<String, Marker>().obs; //所有标注点
 
   @override
   void onInit() async {
     super.onInit();
+    PermissionManager().requestPermission(Permission.location);
   }
 
   @override
@@ -36,199 +36,194 @@ class NearDZMapController extends GetxController {
     super.onReady();
   }
 
-//   //输入搜索提示
-//   Future inputSearch(String searchKey) async {
-//     if (searchKey.length == 0) {
-//       searchData.assignAll([]);
-//       return;
-//     }
-//     final inputTipList = await AmapSearch.instance.fetchInputTips(searchKey);
-//     searchData.assignAll(inputTipList);
-//   }
+  @override
+  void onClose() {
+    locationManager.dispose();
+    super.onClose();
+  }
 
-//   //输入提示单行点击
-//   Future searchResultClick(int index) async {
-//     Get.focusScope.unfocus();
-//     InputTip item = searchData[index];
-//     if (item.poiId.length == 0 && item.coordinate == null) {
-//       if (item.address.length > 0) {
-//         final poiList = await AmapSearch.instance.searchKeyword(item.address);
-//         Poi poi = poiList.first;
-//         mapController?.setCenterCoordinate(poi.latLng);
-//         await getCurrentDZMarkerData(poi.latLng.longitude, poi.latLng.latitude);
-//         await getCurrentStoreMarkerData(
-//             poi.latLng.longitude, poi.latLng.latitude);
-//       }
-//     } else {
-//       mapController?.setCenterCoordinate(item.coordinate);
-//       await getCurrentDZMarkerData(
-//           item.coordinate.longitude, item.coordinate.latitude);
-//       await getCurrentStoreMarkerData(
-//           item.coordinate.longitude, item.coordinate.latitude);
-//     }
-//     searchData.assignAll([]);
-//   }
+  /// 设置地图中心点
+  void _moveToCenter(LatLng latLng) {
+    mapController?.moveCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          //中心点
+          target: latLng,
+          //缩放级别
+          zoom: 14,
+        ),
+      ),
+      animated: true,
+    );
+  }
 
-//   //标识点击回调
-//   Future onMarkerClicked(IMarker marker) async {
-//     LatLng location = await marker.coordinate;
-//     currenSelecttLatLng = location;
-//     currentSelectTitle = await marker.title;
+  // //输入搜索提示
+  // Future inputSearch(String searchKey) async {
+  //   if (searchKey.length == 0) {
+  //     searchData.assignAll([]);
+  //     return;
+  //   }
+  //   final inputTipList = await AmapSearch.instance.fetchInputTips(searchKey);
+  //   searchData.assignAll(inputTipList);
+  // }
 
-//     await mapController?.setCenterCoordinate(location);
+  // //输入提示单行点击
+  // Future searchResultClick(int index) async {
+  //   Get.focusScope?.unfocus();
+  //   InputTip item = searchData[index];
+  //   if (item.poiId.length == 0 && item.coordinate == null) {
+  //     if (item.address.length > 0) {
+  //       final poiList = await AmapSearch.instance.searchKeyword(item.address);
+  //       Poi poi = poiList.first;
+  //       _moveToCenter(LatLng(poi.latLng.latitude, poi.latLng.longitude));
+  //       await getCurrentDZMarkerData(poi.latLng.longitude, poi.latLng.latitude);
+  //       await getCurrentStoreMarkerData(
+  //           poi.latLng.longitude, poi.latLng.latitude);
+  //     }
+  //   } else {
+  //     _moveToCenter(
+  //         LatLng(item.coordinate.latitude, item.coordinate.longitude));
+  //     await getCurrentDZMarkerData(
+  //         item.coordinate.longitude, item.coordinate.latitude);
+  //     await getCurrentStoreMarkerData(
+  //         item.coordinate.longitude, item.coordinate.latitude);
+  //   }
+  //   searchData.assignAll([]);
+  // }
 
-//     if (await marker.title == '当前位置') return;
-//     if (await marker.snippet == 'dzmarker') {
-//       CDZInfo info = CDZInfo.fromJson(json.decode(await marker.object));
-//       await getSingleDZDetailData(info.stationID, info.serviceType);
-//     } else if (await marker.snippet == 'storemarker') {
-//       String jsonStr = await marker.object;
-//       Get.bottomSheet(
-//         StoreInfoView(
-//           info: NearStoreModel.fromJson(json.decode(jsonStr)),
-//           mapNavCallback: () => callThirdMap(currenSelecttLatLng.longitude,
-//               currenSelecttLatLng.latitude, currentSelectTitle),
-//         ),
-//         barrierColor: Colors.transparent,
-//         // 抗锯齿
-//         clipBehavior: Clip.antiAlias,
-//       );
-//     }
-//   }
+  ///位置回调
+  Future onLocationChanged(AMapLocation location) async {
+    startLatLng = location.latLng;
+    _moveToCenter(startLatLng!);
+    await getCurrentDZMarkerData(startLatLng!.longitude, startLatLng!.latitude);
+    await getCurrentStoreMarkerData(
+        startLatLng!.longitude, startLatLng!.latitude);
+  }
 
-//   // 地图点击回调
-//   Future onMapClicked(LatLng coord) async {
-//     Get.focusScope?.unfocus();
-//   }
+  // 地图点击回调
+  Future onMapClicked(LatLng latLng) async {
+    Get.focusScope?.unfocus();
+  }
 
-//   // 地图拖动开始
-//   Future onMapMoveStart(MapMove move) async {
-//     Get.focusScope?.unfocus();
-//   }
+  // 地图拖动开始
+  Future onMapMoveStart(CameraPosition position) async {
+    Get.focusScope?.unfocus();
+  }
 
-//   // 地图拖动结束
-//   Future onMapMoveEnd(MapMove move) async {
-//     await mapController?.getCenterCoordinate()?.then((value) async {
-//       await getCurrentDZMarkerData(value.longitude, value.latitude);
-//       await getCurrentStoreMarkerData(value.longitude, value.latitude);
-//     });
-//     return;
-//   }
+  // 地图拖动结束
+  Future<void> onMapMoveEnd(CameraPosition position) async {
+    await getCurrentDZMarkerData(
+        position.target.longitude, position.target.latitude);
+    await getCurrentStoreMarkerData(
+        position.target.longitude, position.target.latitude);
+  }
 
-//   // 地图创建完成回调
-//   Future onMapCreated(AmapController controller) async {
-//     mapController = controller;
-//     await initData();
-//   }
+  // 地图创建完成回调
+  Future onMapCreated(AMapController controller) async {
+    mapController = controller;
+  }
 
-//   //初始化数据
-//   Future initData() async {
-// // requestPermission是权限请求方法, 需要你自己实现
-//     // 如果不知道怎么处理, 可以参考example工程的实现, example工程依赖了`permission_handler`插件.
-//     if (await PermissionManager().requestPermission(Permission.location)) {
-//       await mapController?.showMyLocation(MyLocationOption(
-//         myLocationType: MyLocationType.Locate,
-//         iconProvider: AssetImage('assets/images/wow/icon_current_location.png'),
-//       ));
-//       startLatLng = await mapController?.getLocation();
-//       await getCurrentDZMarkerData(startLatLng.longitude, startLatLng.latitude);
-//       await getCurrentStoreMarkerData(
-//           startLatLng.longitude, startLatLng.latitude);
-//     }
-//   }
+  //获取当前位置周边电桩标注数据
+  Future getCurrentDZMarkerData(double lng, double lat) async {
+    // LatLng loc = LatLng(lat, lng);
+    // ReGeocode res = await AmapSearch.instance.searchReGeocode(loc);
+    CDZListModel _model = await DioManager().request<CDZListModel>(
+        DioManager.GET, Api.mapCDZListUrl,
+        queryParamters: {
+          'longitude': lng.toString(),
+          'latitude': lat.toString(),
+          'distance': '10',
+          // 'city': res.cityName,
+        });
+    if (_model.list != null && _model.list!.length > 0) {
+      _model.list!.forEach((CDZInfo element) async {
+        final Marker marker = Marker(
+          position: LatLng(double.parse(element.stationLat!),
+              double.parse(element.stationLng!)),
+          infoWindowEnable: false,
+          icon: await _markerIcon(element.serviceType!),
+          onTap: (id) async {
+            currenSelecttLatLng = LatLng(double.parse(element.stationLat!),
+                double.parse(element.stationLng!));
+            currentSelectTitle = element.stationName!;
+            await getSingleDZDetailData(
+                element.stationID!, element.serviceType!);
+          },
+        );
+        markers[marker.id] = marker;
+      });
+    }
+  }
 
-//   //获取当前位置周边电桩标注数据
-//   Future getCurrentDZMarkerData(num lng, num lat) async {
-//     LatLng loc = LatLng(lat, lng);
-//     ReGeocode res = await AmapSearch.instance.searchReGeocode(loc);
-//     CDZListModel _model = await DioManager().request<CDZListModel>(
-//         DioManager.GET, Api.mapCDZListUrl,
-//         queryParamters: {
-//           'longitude': lng.toString(),
-//           'latitude': lat.toString(),
-//           'distance': '10',
-//           'city': res.cityName,
-//         });
-//     dzMarkerList.clear();
-//     dzMarkerList.addAll(_model.list!);
-//     addDZMarkers();
-//   }
+  //获取当前位置周边特约店标注数据
+  Future getCurrentStoreMarkerData(double lng, double lat) async {
+    NearStoreListModel _model = await DioManager().request<NearStoreListModel>(
+        DioManager.GET, Api.mapCDZStoreListUrl,
+        queryParamters: {
+          'longitude': lng.toString(),
+          'latitude': lat.toString(),
+          'distance': '10',
+        });
+    if (_model.data != null && _model.data!.length > 0) {
+      _model.data!.forEach((NearStoreModel element) async {
+        final Marker marker = Marker(
+          position: LatLng(
+              double.parse(element.fShopLat!), double.parse(element.fShopLng!)),
+          infoWindowEnable: false,
+          icon: await BitmapDescriptor.fromIconPath('assets/images/wow/dz_store_anno.png'),
+          onTap: (id) {
+            currenSelecttLatLng = LatLng(double.parse(element.fShopLat!),
+                double.parse(element.fShopLng!));
+            currentSelectTitle = element.fShopName!;
+            //展示特约店详细弹窗
+            Get.bottomSheet(
+              StoreInfoView(
+                info: element,
+                mapNavCallback: () => callThirdMap(
+                    currenSelecttLatLng!.longitude,
+                    currenSelecttLatLng!.latitude,
+                    currentSelectTitle!),
+              ),
+              barrierColor: Colors.transparent,
+              // 抗锯齿
+              clipBehavior: Clip.antiAlias,
+            );
+          },
+        );
+        markers[marker.id] = marker;
+      });
+    }
+  }
 
-//   //获取当前位置周边特约店标注数据
-//   Future getCurrentStoreMarkerData(num lng, num lat) async {
-//     NearStoreListModel _model = await DioManager().request<NearStoreListModel>(
-//         DioManager.GET, Api.mapCDZStoreListUrl,
-//         queryParamters: {
-//           'longitude': lng.toString(),
-//           'latitude': lat.toString(),
-//           'distance': '10',
-//         });
-//     storeMarkerList.clear();
-//     storeMarkerList.addAll(_model.data!);
-//     addStoreMarkers();
-//   }
-
-//   //获取单个电桩详细数据
-//   Future getSingleDZDetailData(String stationID, String serviceType) async {
-//     SingleCDZInfoModel _model = await DioManager().request<SingleCDZInfoModel>(
-//         DioManager.GET, Api.mapSingleCDZUrl,
-//         queryParamters: {'StationID': stationID, 'ServiceType': serviceType});
-//     if (_model.result!) {
-//       //展示电桩详细弹窗
-//       Get.bottomSheet(
-//         DZInfoView(
-//           info: _model.list!,
-//           jumpListCallback: () {
-//             Get.back();
-//             Get.toNamed(Routes.NEARDZLIST, arguments: {
-//               'stationID': stationID,
-//               'serviceType': serviceType
-//             });
-//           },
-//           mapNavCallback: () => callThirdMap(currenSelecttLatLng!.longitude,
-//               currenSelecttLatLng!.latitude, currentSelectTitle!),
-//         ),
-//         barrierColor: Colors.transparent,
-//         // 抗锯齿
-//         clipBehavior: Clip.antiAlias,
-//       );
-//     }
-//   }
-
-//   //添加电桩标注
-//   Future addDZMarkers() async {
-//     List<MarkerOption> markers = dzMarkerList.map((CDZInfo info) {
-//       return MarkerOption(
-//         coordinate: LatLng(
-//             double.parse(info.stationLat), double.parse(info.stationLng)),
-//         title: info.stationName,
-//         snippet: 'dzmarker',
-//         object: json.encode(info.toJson()),
-//         infoWindowEnabled: false,
-//         iconProvider: AssetImage(_markerIcon(info.serviceType)),
-//       );
-//     }).toList();
-//     await mapController?.addMarkers(markers);
-//   }
-
-//   //添加特约店标注
-//   Future addStoreMarkers() async {
-//     List<MarkerOption> markers = storeMarkerList.map((NearStoreModel info) {
-//       return MarkerOption(
-//         coordinate:
-//             LatLng(double.parse(info.fShopLat), double.parse(info.fShopLng)),
-//         title: info.fShopName,
-//         snippet: 'storemarker',
-//         object: json.encode(info.toJson()),
-//         infoWindowEnabled: false,
-//         iconProvider: AssetImage('assets/images/wow/dz_store_anno.png'),
-//       );
-//     }).toList();
-//     await mapController?.addMarkers(markers);
-//   }
+  //获取单个电桩详细数据
+  Future getSingleDZDetailData(String stationID, String serviceType) async {
+    SingleCDZInfoModel _model = await DioManager().request<SingleCDZInfoModel>(
+        DioManager.GET, Api.mapSingleCDZUrl,
+        queryParamters: {'StationID': stationID, 'ServiceType': serviceType});
+    if (_model.result!) {
+      //展示电桩详细弹窗
+      Get.bottomSheet(
+        DZInfoView(
+          info: _model.list!,
+          jumpListCallback: () {
+            Get.back();
+            Get.toNamed(Routes.NEARDZLIST, arguments: {
+              'stationID': stationID,
+              'serviceType': serviceType
+            });
+          },
+          mapNavCallback: () => callThirdMap(currenSelecttLatLng!.longitude,
+              currenSelecttLatLng!.latitude, currentSelectTitle!),
+        ),
+        barrierColor: Colors.transparent,
+        // 抗锯齿
+        clipBehavior: Clip.antiAlias,
+      );
+    }
+  }
 
   //标注图片
-  String _markerIcon(String type) {
+  Future<BitmapDescriptor> _markerIcon(String type) async {
     String operatorImage = '';
     if (type == '1') {
       operatorImage = 'assets/images/wow/icon_cdz_tld.png';
@@ -237,7 +232,7 @@ class NearDZMapController extends GetxController {
     } else if (type == '3') {
       operatorImage = 'assets/images/wow/icon_cdz_xx.png';
     }
-    return operatorImage;
+    return BitmapDescriptor.fromIconPath(operatorImage);
   }
 
   //调起第三方地图

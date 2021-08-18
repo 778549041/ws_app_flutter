@@ -1,7 +1,9 @@
-// import 'package:amap_map_fluttify/amap_map_fluttify.dart' hide controller;
+import 'package:amap_flutter_base/amap_flutter_base.dart';
+import 'package:amap_flutter_map/amap_flutter_map.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/third_config.dart';
 import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
@@ -29,29 +31,46 @@ class NavMapPage extends GetView<NavMapController> {
       ),
       child: Stack(
         children: <Widget>[
-          // AmapView(
-          //   // 地图类型 (可选)
-          //   mapType: MapType.Standard,
-          //   showCompass: false,
-          //   // 缩放级别 (可选)
-          //   zoomLevel: 14,
-          //   // 地图创建完成回调 (可选)
-          //   onMapCreated: (mapController) =>
-          //       controller.onMapCreated(mapController),
-          // ),
-          // Positioned(
-          //   left: (ScreenUtil.getInstance().screenWidth - 80) / 2,
-          //   bottom: 60,
-          //   child: CustomButton(
-          //     title: '导航',
-          //     width: 80,
-          //     height: 40,
-          //     backgroundColor: Color(0xFF0045D0),
-          //     titleColor: Colors.white,
-          //     radius: 20,
-          //     onPressed: () => controller.callThirdMap(),
-          //   ),
-          // ),
+          Obx(
+            () => AMapWidget(
+              apiKey: amapApiKeys,
+              markers: Set<Marker>.of(controller.markers.values),
+
+              ///自定义地图样式
+              customStyleOptions: CustomStyleOptions(true),
+
+              ///定位小蓝点
+              myLocationStyleOptions: MyLocationStyleOptions(
+                true,
+                icon: BitmapDescriptor.fromIconPath(
+                    'assets/images/wow/icon_current_location.png'),
+              ),
+
+              /// 地图单击事件的回调
+              onTap: (LatLng latLng) => controller.onMapClicked(latLng),
+
+              ///位置回调
+              onLocationChanged: (AMapLocation location) =>
+                  controller.onLocationChanged(location),
+
+              /// 地图创建完成回调
+              onMapCreated: (AMapController amapController) =>
+                  controller.onMapCreated(amapController),
+            ),
+          ),
+          Positioned(
+            left: (ScreenUtil.getInstance().screenWidth - 80) / 2,
+            bottom: 60,
+            child: CustomButton(
+              title: '导航',
+              width: 80,
+              height: 40,
+              backgroundColor: Color(0xFF0045D0),
+              titleColor: Colors.white,
+              radius: 20,
+              onPressed: () => controller.callThirdMap(),
+            ),
+          ),
           // Positioned(
           //   top: 0,
           //   left: 0,

@@ -107,17 +107,6 @@ class MyAppState extends State<MyApp> {
     SharesdkPlugin.regist(register);
   }
 
-  //高德地图初始化
-  void _initAmap() async {
-    LocationManager locationManager = LocationManager();
-    locationManager.startLocation();
-    locationManager.locationPlugin
-        .onLocationChanged()
-        .listen((Map<String, Object> result) {
-      LogUtil.d('当前定位信息数据===========$result');
-    });
-  }
-
   //极光推送初始化
   void _initJPush() async {
     JPush jpush = JPush();
@@ -248,7 +237,6 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     _initShareSDK();
-    _initAmap();
     _initJPush();
     _initBugly();
     _initimIMSDK();

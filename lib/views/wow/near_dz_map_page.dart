@@ -1,4 +1,4 @@
-// import 'package:amap_map_fluttify/amap_map_fluttify.dart' hide controller;
+import 'package:amap_flutter_base/amap_flutter_base.dart';
 import 'package:amap_flutter_map/amap_flutter_map.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
@@ -30,29 +30,56 @@ class NearDZMapPage extends GetView<NearDZMapController> {
       ),
       child: Stack(
         children: <Widget>[
-          AMapWidget(
-            apiKey: amapApiKeys,
-            
+          Obx(
+            () => AMapWidget(
+              apiKey: amapApiKeys,
+              // initialCameraPosition: CameraPosition(
+              //     //中心点
+              //     target: LatLng(0, 0),
+              //     //缩放级别
+              //     zoom: 13,
+              //     //俯仰角0°~45°（垂直与地图时为0）
+              //     tilt: 30,
+              //     //偏航角 0~360° (正北方为0)
+              //     bearing: 0),
+              markers: Set<Marker>.of(controller.markers.values),
+
+              /// 地图创建完成回调
+              onMapCreated: (AMapController amapController) =>
+                  controller.onMapCreated(amapController),
+
+              ///自定义地图样式
+              customStyleOptions: CustomStyleOptions(true),
+
+              ///定位小蓝点
+              myLocationStyleOptions: MyLocationStyleOptions(
+                true,
+                icon: BitmapDescriptor.fromIconPath(
+                    'assets/images/wow/icon_current_location.png'),
+              ),
+
+              /// 相机视角持续移动的回调
+              onCameraMove: (CameraPosition position) =>
+                  controller.onMapMoveStart(position),
+
+              /// 相机视角移动结束的回调
+              onCameraMoveEnd: (CameraPosition position) =>
+                  controller.onMapMoveEnd(position),
+
+              ///位置回调
+              onLocationChanged: (AMapLocation location) =>
+                  controller.onLocationChanged(location),
+
+              /// 地图单击事件的回调
+              onTap: (LatLng latLng) => controller.onMapClicked(latLng),
+
+              /// 地图长按事件的回调
+              onLongPress: (LatLng latLng) {},
+
+              /// 地图POI的点击回调，需要`touchPoiEnabled`true，才能回调
+              onPoiTouched: (AMapPoi poi) {},
+            ),
           ),
-          // AmapView(
-          //   // 地图类型 (可选)
-          //   mapType: MapType.Standard,
-          //   showCompass: false,
-          //   // 缩放级别 (可选)
-          //   zoomLevel: 14,
-          //   // 标识点击回调 (可选)
-          //   onMarkerClicked: (IMarker marker) =>
-          //       controller.onMarkerClicked(marker),
-          //   // 地图点击回调 (可选)
-          //   onMapClicked: (LatLng coord) => controller.onMapClicked(coord),
-          //   // 地图拖动开始 (可选)
-          //   onMapMoveStart: (MapMove move) => controller.onMapMoveStart(move),
-          //   // 地图拖动结束 (可选)
-          //   onMapMoveEnd: (MapMove move) => controller.onMapMoveEnd(move),
-          //   // 地图创建完成回调 (可选)
-          //   onMapCreated: (mapController) =>
-          //       controller.onMapCreated(mapController),
-          // ),
           // Positioned(
           //   top: 0,
           //   left: 0,
