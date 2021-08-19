@@ -83,7 +83,7 @@ class MomentModel {
       this.examine = '',
       this.praise = '0',
       this.praiseStatus = false,
-      this.avatar = '',
+      this.avatar,
       this.nickname = '',
       this.isSelf = false,
       this.pubtime = '',
@@ -118,7 +118,7 @@ class MomentModel {
     examine = asT<String>(json['examine']);
     praise = asT<String>(json['praise'], '0');
     praiseStatus = asT<bool>(json['praise_status']);
-    avatar = asT<String>(json['avatar'], '');
+    avatar = asT<String?>(json['avatar']);
     nickname = asT<String>(json['nickname']);
     isSelf = asT<bool>(json['is_self']);
     fileList = <FileModel>[];

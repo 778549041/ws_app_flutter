@@ -163,7 +163,7 @@ class Member {
     nextLevelname = asT<String?>(json['next_levelname']);
     nextLvDiscount = asT<String?>(json['next_lv_discount']);
     openid = asT<String?>(json['openid']);
-    profession = asT<String?>(json['profession']);
+    profession = asT<String>(json['profession'],'');
     regtime = asT<String?>(json['regtime']);
     sex = asT<String?>(json['sex']);
     uname = asT<String?>(json['uname']);

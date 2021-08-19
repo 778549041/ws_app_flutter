@@ -90,8 +90,7 @@ class CarPage extends GetView<CarController> {
                                     .userInfo
                                     .value
                                     .member!
-                                    .isVehicle ==
-                                'true'),
+                                    .isVehicle!),
                             child: Image.asset(
                               'assets/images/mine/vip_tag.png',
                               width: 18,

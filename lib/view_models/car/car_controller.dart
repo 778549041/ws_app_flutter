@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_picker/flutter_picker.dart';
@@ -10,6 +11,7 @@ import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
+import 'package:ws_app_flutter/utils/location_manager.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/utils/permission/permission_manager.dart';
@@ -28,6 +30,8 @@ class CarController extends BaseController {
   List<String> _carConfigImageList = <String>[];
   late SwiperController swiperController;
   late SwiperController colorSwiperController;
+  LocationManager locationManager = LocationManager();
+  bool reloadLocation = false;//默认false，为true则弹出提示框
 
   @override
   void onInit() {
@@ -39,34 +43,40 @@ class CarController extends BaseController {
   @override
   void onReady() {
     //非车主
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle != 'true') {
-      refreshLocation(reloadLocation: true);
+    if (!Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+      refreshLocation(false);
       requestCarConfigData();
     }
+    locationManager.locationPlugin
+          .onLocationChanged()
+          .listen((Map<String, Object> result) async {
+            LogUtil.d(result);
+        await _requestNearStoreData(
+            result['longitude'], result['latitude'], result['city'].toString(),
+            reloadLocation: reloadLocation);
+      });
     super.onReady();
   }
 
   //刷新位置信息
-  void refreshLocation({bool reloadLocation = false}) async {
+  void refreshLocation(bool reload) async {
+    reloadLocation = reload;
     var hasPermission = false;
-    if (reloadLocation) {
+    if (!reloadLocation) {//首次进页面，请求定位权限
       hasPermission =
           await PermissionManager().requestPermission(Permission.location);
-    } else {
+    } else {//直接获取定位权限
       hasPermission = (await Permission.location.status).isGranted;
     }
-    //TODO
-    // if (hasPermission) {
-    //   final _location = await AmapLocation.instance.fetchLocation();
-    //   await _requestNearStoreData(
-    //       _location.latLng.longitude, _location.latLng.latitude, _location.city,
-    //       reloadLocation: reloadLocation);
-    // }
+
+    if (hasPermission) {
+      locationManager.startLocation();
+    }
     locationSuccess.value = hasPermission;
   }
 
   //附近特约店数据
-  Future _requestNearStoreData(double longitude, double latitude, String city,
+  Future _requestNearStoreData(dynamic longitude, dynamic latitude, String city,
       {bool reloadLocation = false}) async {
     nearStoreList.value = await DioManager().request<NearStoreListModel>(
         DioManager.POST, Api.carNearByStoreUrl, queryParamters: {

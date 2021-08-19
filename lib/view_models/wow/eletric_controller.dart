@@ -331,8 +331,7 @@ class EletricController extends BaseController {
       addAllTimer();
     } else if (index == 2) {
       //电池诊断
-      if (Get.find<UserController>().userInfo.value.member?.isVehicle ==
-          'true') {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': Env.envConfig.serviceUrl + HtmlUrls.BatteryDiagonisPage
         });

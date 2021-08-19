@@ -78,8 +78,7 @@ class MineController extends BaseController {
       });
     } else if (actionTag == 4) {
       //认证信息
-      if (Get.find<UserController>().userInfo.value.member?.isVehicle ==
-          'true') {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         pushH5Page(args: {
           'url': Env.envConfig.serviceUrl + HtmlUrls.CarOwnerCertifyInfoPage,
         })?.then((value) async {

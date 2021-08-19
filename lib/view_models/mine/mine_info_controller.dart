@@ -135,7 +135,7 @@ class MineInfoController extends GetxController {
     } else if (index == 6) {
       Get.toNamed(Routes.MINECHANGEAREA);
     } else if (index == 7) {
-      Get.toNamed(Routes.SELECTINTREST);
+      Get.toNamed(Routes.SELECTINTREST, arguments: {'fromComplete': false});
     } else if (index == 8) {
       Get.toNamed(Routes.MINESHOPADDRLIST);
     }

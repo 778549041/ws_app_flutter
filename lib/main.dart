@@ -152,7 +152,7 @@ class MyAppState extends State<MyApp> {
 
   //bugly初始化
   void _initBugly() {
-    FlutterBugly.init(androidAppId: '', iOSAppId: '18870e2ba8');
+    FlutterBugly.init(androidAppId: 'a9d87f9857', iOSAppId: '18870e2ba8');
   }
 
   //腾讯云IMSDK初始化

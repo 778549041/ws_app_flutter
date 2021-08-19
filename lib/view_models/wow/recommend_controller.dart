@@ -26,7 +26,6 @@ class RecommendController extends RefreshListController {
     await _requestCircleData();
     await _requestRecommendNewsData();
     await _requestRecommendActivityData();
-    Get.find<EletricController>().requestElectricityData();
     return list;
   }
 

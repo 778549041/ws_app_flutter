@@ -464,8 +464,7 @@ class RecommendEle extends GetView<EletricController> {
   Future buttonAction(int index) async {
     if (index == 0) {
       //里程信息
-      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
-          'true') {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': Env.envConfig.serviceUrl + HtmlUrls.MilesInfoPage
         });
@@ -490,8 +489,7 @@ class RecommendEle extends GetView<EletricController> {
       Get.toNamed(Routes.NEARDZMAP);
     } else if (index == 3) {
       //一键救援
-      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
-          'true') {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         //拨号
         if (await canLaunch('tel:400-830-8999')) {
           launch('tel:400-830-8999');

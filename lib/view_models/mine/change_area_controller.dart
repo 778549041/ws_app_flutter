@@ -15,8 +15,8 @@ class ChangeAreaController extends GetxController {
   void onInit() {
     UserInfo _userInfo = Get.find<UserController>().userInfo.value;
     area.value = _userInfo.member?.area == null ? '' : _userInfo.member!.area!;
-    if (_userInfo.member!.area!.contains('mainland')) {
-      area.value = _userInfo.member!.area!.split(':')[1];
+    if (area.value.contains('mainland')) {
+      area.value = area.value.split(':')[1];
     }
 
     address.value = _userInfo.member?.addr == null ? '' : _userInfo.member!.addr!;

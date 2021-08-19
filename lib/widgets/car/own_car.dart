@@ -561,8 +561,7 @@ class OwnCarWidget extends GetView<EletricController> {
           arguments: {'url': Env.envConfig.serviceUrl + HtmlUrls.CarPartsPage});
     } else if (index == 1) {
       //违章查询
-      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
-          'true') {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': Env.envConfig.serviceUrl + HtmlUrls.ViolationPage
         });
@@ -571,8 +570,7 @@ class OwnCarWidget extends GetView<EletricController> {
       }
     } else if (index == 2) {
       //预约保养
-      if (Get.find<UserController>().userInfo.value.member!.isVehicle! ==
-          'true') {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         CommonModel _model = await DioManager().request<CommonModel>(
             DioManager.POST, Api.reservationMaintainUrl,
             params: {

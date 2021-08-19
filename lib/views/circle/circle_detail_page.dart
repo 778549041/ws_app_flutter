@@ -207,7 +207,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                           child: Stack(
                             children: <Widget>[
                               RoundAvatar(
-                                imageUrl: model.avatar!,
+                                imageUrl: model.avatar,
                                 height: 40,
                               ),
                               Positioned(

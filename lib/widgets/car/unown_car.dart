@@ -278,7 +278,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                     fontSize: 12,
                     titleColor: Color(0xFFA0A0A0),
                     onPressed: () =>
-                        controller.refreshLocation(reloadLocation: true),
+                        controller.refreshLocation(true),
                   )),
             ],
           ),
@@ -379,7 +379,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        controller.refreshLocation();
+        controller.refreshLocation(false);
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
         break;

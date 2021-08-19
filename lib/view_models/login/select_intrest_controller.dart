@@ -16,6 +16,7 @@ import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 class SelectIntreController extends BaseController {
   List<String> selectIntres = <String>[]; //选中兴趣爱好
   List<IntresData> allIntres = <IntresData>[]; //所有兴趣爱好
+  final bool fromComplete = Get.arguments['fromComplete']; //区分是完善信息还是添加兴趣爱好
 
   @override
   void onReady() async {
@@ -56,7 +57,7 @@ class SelectIntreController extends BaseController {
   //跳过
   void jumpToNext() {
     print('object');
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle == 'false') {
+    if (!Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       Get.dialog(
           BaseDialog(
             title: '提示',
@@ -78,7 +79,7 @@ class SelectIntreController extends BaseController {
   }
 
   //保存
-  void saveIntres(bool fromComplete) async {
+  void saveIntres() async {
     if (selectIntres.length < 2) {
       EasyLoading.showToast('最少选择两个',
           toastPosition: EasyLoadingToastPosition.bottom);

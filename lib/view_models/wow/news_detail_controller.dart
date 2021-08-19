@@ -461,8 +461,7 @@ class NewsDetailController extends RefreshListController<NewsCommentModel> {
         commentModel.content = input;
         commentModel.isSelf = true;
         commentModel.isVehicle =
-            (Get.find<UserController>().userInfo.value.member!.isVehicle ==
-                'true');
+            (Get.find<UserController>().userInfo.value.member!.isVehicle!);
         commentModel.nickname =
             Get.find<UserController>().userInfo.value.member!.showName;
         commentModel.memberInfo =
