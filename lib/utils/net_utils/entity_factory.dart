@@ -22,6 +22,7 @@ import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
 import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
+import 'package:ws_app_flutter/models/mine/sign_data.dart';
 import 'package:ws_app_flutter/models/splash/splash_model.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -123,11 +124,15 @@ class EntityFactory {
      return AddFriendListModel.fromJson(json) as T;
    } else if (T.toString() == 'FriendListModel') {
      return FriendListModel.fromJson(json) as T;
-   }  else if (T.toString() == 'CarStatusModel') {
+   } else if (T.toString() == 'CarStatusModel') {
      return CarStatusModel.fromJson(json) as T;
-   }  else if (T.toString() == 'ControlCmdModel') {
+   } else if (T.toString() == 'ControlCmdModel') {
      return ControlCmdModel.fromJson(json) as T;
-   } 
+   } else if (T.toString() == 'SignData') {
+     return SignData.fromJson(json) as T;
+   } else if (T.toString() == 'SignEventResult') {
+     return SignEventResult.fromJson(json) as T;
+   }
    else {
       return json as T;
     }

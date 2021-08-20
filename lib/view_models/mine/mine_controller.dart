@@ -62,9 +62,13 @@ class MineController extends BaseController {
       });
     } else if (actionTag == 2) {
       //每日签到
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.DaylySignPage,
-      })?.then((value) async {
+      // pushH5Page(args: {
+      //   'url': Env.envConfig.serviceUrl + HtmlUrls.DaylySignPage,
+      // })?.then((value) async {
+      //   requestFavorData();
+      //   await Get.find<UserController>().requestNewMessage();
+      // });
+      Get.toNamed(Routes.SIGNPAGE)?.then((value) async {
         requestFavorData();
         await Get.find<UserController>().requestNewMessage();
       });

@@ -13,7 +13,7 @@ class WowPage extends StatefulWidget {
 }
 
 class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  final WowController controller = Get.put<WowController>(WowController());
+  final WowController controller = Get.find<WowController>();
   final List<Tab> tabs = <Tab>[
     Tab(
       text: '推荐',

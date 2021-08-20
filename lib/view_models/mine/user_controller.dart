@@ -19,7 +19,7 @@ import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 class UserController extends BaseController {
   var userInfo = UserInfo().obs; //用户信息
   var isLogin = false.obs; //是否登录
-  var msgModel = MsgModel().obs;//消息数据
+  var msgModel = MsgModel().obs; //消息数据
 
   @override
   void onReady() {
@@ -142,9 +142,9 @@ class UserController extends BaseController {
     CommonModel obj =
         await DioManager().request<CommonModel>(DioManager.POST, Api.logoutUrl);
     if (obj.success != null) {
-      userInfo.value = UserInfo();
-      isLogin.value = false;
       Get.offAllNamed(Routes.LOGIN);
+      // userInfo.value = UserInfo();
+      // isLogin.value = false;
     }
   }
 
@@ -162,6 +162,7 @@ class UserController extends BaseController {
 
   //新消息数据
   Future requestNewMessage() async {
-    msgModel.value = await DioManager().request<MsgModel>(DioManager.GET, Api.mineNewMessageUrl);
+    msgModel.value = await DioManager()
+        .request<MsgModel>(DioManager.GET, Api.mineNewMessageUrl);
   }
 }

@@ -12,7 +12,7 @@ class UnOwnCarWidget extends StatefulWidget {
 
 class UnOwnCarWidgetState extends State<UnOwnCarWidget>
     with WidgetsBindingObserver {
-  final CarController controller = Get.put<CarController>(CarController());
+  final CarController controller = Get.find<CarController>();
 
   @override
   Widget build(BuildContext context) {

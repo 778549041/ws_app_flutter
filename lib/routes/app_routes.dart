@@ -32,6 +32,7 @@ abstract class Routes {
   static const SCAN = '/mine-scan'; //扫码页面
   static const CHAT = '/chat'; //聊天页面
   static const MINEFRIENDS = '/mine-friends'; //个人中心我的好友（聊天会话列表）
+  static const SIGNPAGE = '/sign-page';//签到
   //wow
   static const NEARDZMAP = '/near-dz-map'; //车主附近电桩
   static const NEARDZLIST = '/near-dz-list'; //充电站列表

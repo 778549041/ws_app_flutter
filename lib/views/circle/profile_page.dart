@@ -236,7 +236,7 @@ class ProfilePage extends GetView<ProfileController> {
                 offstage: (controller.friendModel.value.error != null ||
                     controller.userId ==
                         controller.friendModel.value.member!.memberId ||
-                    controller.userId == '1'),
+                    controller.userId == '0'),
                 child: CustomButton(
                   backgroundColor: MainAppColor.mainBlueBgColor,
                   title: controller.friendModel.value.member!.isFriend!

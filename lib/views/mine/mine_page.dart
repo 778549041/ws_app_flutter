@@ -1,6 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
@@ -32,6 +33,7 @@ class MinePage extends GetView<MineController> {
           margin: EdgeInsets.only(
               top: ScreenUtil.getInstance().statusBarHeight + 40),
           width: Get.width,
+          color: MainAppColor.mainSilverColor,
           child: _buildBody(),
         ),
       ],
@@ -157,12 +159,18 @@ class MinePage extends GetView<MineController> {
                 Positioned(
                   bottom: 5.0,
                   right: 5.0,
-                  child: Image.asset(
-                    'assets/images/mine/vip_tag.png',
-                    width: 18,
-                    height: 18,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Offstage(
+                      offstage: !(Get.find<UserController>()
+                          .userInfo
+                          .value
+                          .member!
+                          .isVehicle!),
+                      child: Image.asset(
+                        'assets/images/mine/vip_tag.png',
+                        width: 18,
+                        height: 18,
+                        fit: BoxFit.cover,
+                      )),
                 )
               ],
             ),

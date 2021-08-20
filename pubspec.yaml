@@ -50,6 +50,8 @@ dependencies:
 
   # 丰富的UI组件库
   getwidget: ^2.0.3
+  # 日历组件
+  table_calendar: ^3.0.2
   # 悬浮搜索框
   material_floating_search_bar: ^0.3.4
   # 搜索下拉框
