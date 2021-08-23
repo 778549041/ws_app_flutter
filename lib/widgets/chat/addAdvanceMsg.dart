@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -60,7 +61,7 @@ class AdvanceMsg extends StatelessWidget {
   //发送视频消息
   sendVideoMsg(String path, int duration) async {
     final thumbnailFile = await VideoCompress.getFileThumbnail(path);
-    print("thumbnailFile $thumbnailFile");
+    LogUtil.d("thumbnailFile $thumbnailFile");
 
     V2TimValueCallback<V2TimMessage> res = await TencentImSDKPlugin.v2TIMManager
         .getMessageManager()
@@ -80,12 +81,12 @@ class AdvanceMsg extends StatelessWidget {
       try {
         Get.find<ChatController>().addMessageIfNotExits(msg);
       } catch (err) {
-        print("发生错误");
+        LogUtil.d("发生错误");
       }
     } else {
       EasyLoading.showToast('发送失败 ${res.code} ${res.desc}',
           toastPosition: EasyLoadingToastPosition.bottom);
-      print(res.desc);
+      LogUtil.d(res.desc);
     }
   }
 
@@ -106,7 +107,7 @@ class AdvanceMsg extends StatelessWidget {
       try {
         Get.find<ChatController>().addMessageIfNotExits(msg);
       } catch (err) {
-        print("发生错误");
+        LogUtil.d("发生错误");
       }
     } else {
       EasyLoading.showToast('发送失败 ${res.code} ${res.desc}',
@@ -116,7 +117,7 @@ class AdvanceMsg extends StatelessWidget {
 
   //发送自定义消息
   sendCustomData(context) async {
-    print("herree $toUser");
+    LogUtil.d("herree $toUser");
     V2TimValueCallback<V2TimMessage> res = await TencentImSDKPlugin.v2TIMManager
         .getMessageManager()
         .sendCustomMessage(
@@ -135,10 +136,10 @@ class AdvanceMsg extends StatelessWidget {
       try {
         Get.find<ChatController>().addMessageIfNotExits(msg);
       } catch (err) {
-        print("发生错误");
+        LogUtil.d("发生错误");
       }
     } else {
-      print("发送失败 ${res.code} ${res.desc} herree");
+      LogUtil.d("发送失败 ${res.code} ${res.desc} herree");
       EasyLoading.showToast('发送失败 ${res.code} ${res.desc}',
           toastPosition: EasyLoadingToastPosition.bottom);
     }
@@ -149,7 +150,7 @@ class AdvanceMsg extends StatelessWidget {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      print("选择成功${result.files.single.path}");
+      LogUtil.d("选择成功${result.files.single.path}");
       String path = result.files.single.path!;
       V2TimValueCallback<V2TimMessage> res = await TencentImSDKPlugin
           .v2TIMManager
@@ -167,7 +168,7 @@ class AdvanceMsg extends StatelessWidget {
         try {
           Get.find<ChatController>().addMessageIfNotExits(msg);
         } catch (err) {
-          print("发生错误");
+          LogUtil.d("发生错误");
         }
       } else {
         EasyLoading.showToast('发送失败 ${res.code} ${res.desc}',
@@ -258,7 +259,7 @@ class AdvanceMsg extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    print("toUser $toUser type $type herree");
+    LogUtil.d("toUser $toUser type $type herree");
     return Container(
       width: 56,
       height: 56,

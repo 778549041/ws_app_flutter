@@ -20,9 +20,11 @@ import 'package:ws_app_flutter/models/login/msg_model.dart';
 import 'package:ws_app_flutter/models/login/store_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
+import 'package:ws_app_flutter/models/mine/common_question_model.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
 import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/models/mine/sign_data.dart';
+import 'package:ws_app_flutter/models/mine/system_msg_model.dart';
 import 'package:ws_app_flutter/models/splash/splash_model.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -132,6 +134,10 @@ class EntityFactory {
      return SignData.fromJson(json) as T;
    } else if (T.toString() == 'SignEventResult') {
      return SignEventResult.fromJson(json) as T;
+   } else if (T.toString() == 'CommonQuModel') {
+     return CommonQuModel.fromJson(json) as T;
+   } else if (T.toString() == 'SystemMsgModel') {
+     return SystemMsgModel.fromJson(json) as T;
    }
    else {
       return json as T;

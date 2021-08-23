@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,7 +23,7 @@ class NetConnectController extends BaseController {
     final ConnectivityResult connectivityResult =
         await Connectivity().checkConnectivity();
     isConnect.value = connectivityResult != ConnectivityResult.none;
-    print('netconnected:' + isConnect.value.toString());
+    LogUtil.d('netconnected:' + isConnect.value.toString());
     if (!isConnect.value) {
       currentIndex.value = 2;
     }
@@ -45,13 +46,13 @@ class NetConnectController extends BaseController {
   //flutter调用js事件
   Future<void> _evaluateJavascript() async {
     webViewController?.evaluateJavascript('callJS(\'visible\');').then((value) {
-      print(value);
+      LogUtil.d(value);
     });
   }
 
   //支付跳转
   Future<void> _openPay(String url) async {
-    print("payurl:" + url);
+    LogUtil.d("payurl:" + url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -104,12 +105,12 @@ class NetConnectController extends BaseController {
 
   //页面开始加载
   void onPageStart(String url) {
-    print("start load:" + url);
+    LogUtil.d("start load:" + url);
   }
 
   //页面加载完成
   void onPageFinished(String url) async {
-    print("finished load:" + url);
+    LogUtil.d("finished load:" + url);
     if (isConnect.value) {
       currentIndex.value = 1;
     }
@@ -128,7 +129,7 @@ class NetConnectController extends BaseController {
     webViewController?.evaluateJavascript(cookie);
     final String? cookies =
         await webViewController?.evaluateJavascript('document.cookie');
-    print(cookies);
+    LogUtil.d(cookies);
     // _evaluateJavascript();
   }
 

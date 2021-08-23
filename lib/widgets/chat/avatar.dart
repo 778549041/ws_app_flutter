@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,7 @@ class Avatar extends StatelessWidget {
                 height: height,
                 errorBuilder: (BuildContext context, Object exception,
                     StackTrace? stackTrace) {
-                  print("图片渲染失败");
+                  LogUtil.d("图片渲染失败");
                   return Container(
                     width: width,
                     height: height,

@@ -64,7 +64,6 @@ class SendMsg extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (!message.isSelf!) {
-                print("1111");
                 // 区分群内消息和普通好友消息
               }
             },

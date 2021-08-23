@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -28,7 +29,7 @@ class VideoMessageState extends State<VideoMessage> {
         )..initialize().then((_) {
             setState(() {});
           }).catchError((err) {
-            print("初始化视频发生错误$err");
+            LogUtil.d("初始化视频发生错误$err");
           });
       } else {
         _controller = VideoPlayerController.network(
@@ -36,19 +37,19 @@ class VideoMessageState extends State<VideoMessage> {
         )..initialize().then((_) {
             setState(() {});
           }).catchError((err) {
-            print("初始化视频发生错误$err");
+            LogUtil.d("初始化视频发生错误$err");
           });
       }
     } catch (err) {
-      print("视频初始化发生异常");
+      LogUtil.d("视频初始化发生异常");
     }
 
     if (!_controller!.hasListeners) {
       _controller!.addListener(() {
-        print(
+        LogUtil.d(
             "播放着 ${_controller!.value.isPlaying} ${_controller!.value.position} ${_controller!.value.duration} ${_controller!.value.duration == _controller!.value.position}");
         if (_controller!.value.position == _controller!.value.duration) {
-          print("到头了 ${_controller!.value.isPlaying}");
+          LogUtil.d("到头了 ${_controller!.value.isPlaying}");
           if (!_controller!.value.isPlaying) {
             setState(() {});
           }
@@ -66,7 +67,7 @@ class VideoMessageState extends State<VideoMessage> {
   }
 
   void deactivate() {
-    print("video message deactivate call ${widget.message.msgID}");
+    LogUtil.d("video message deactivate call ${widget.message.msgID}");
     _controller!.dispose();
     super.deactivate();
   }

@@ -60,7 +60,7 @@ class SignData {
     }
     return SignData(
       signinLogs: signinLogs,
-      hasSignin: asT<bool?>(jsonRes['has_signin']),
+      hasSignin: asT<bool>(jsonRes['has_signin'], false),
     );
   }
   List<Signin_logs>? signinLogs;

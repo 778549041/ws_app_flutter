@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -25,7 +26,7 @@ class TextMsgState extends State<TextMsg> {
   OverlayEntry? overlayEntry;
   String voiceIco = "assets/images/common/voice_volume_1.png";
   void initState() {
-    print("widget.toUser${widget.toUser}");
+    LogUtil.d("widget.toUser${widget.toUser}");
 
     recordPlugin.responseFromInit.listen((data) {
       if (data) {
@@ -50,7 +51,7 @@ class TextMsgState extends State<TextMsg> {
             // 发送成功
             if (sendRes.code == 0) {
               Get.find<ChatController>().addMessageIfNotExits(sendRes.data!);
-              print('发送成功');
+              LogUtil.d('发送成功');
             }
           });
         }
@@ -81,7 +82,7 @@ class TextMsgState extends State<TextMsg> {
         }
       });
 
-      print("振幅大小   " + voiceData.toString() + "  " + voiceIco);
+      LogUtil.d("振幅大小   " + voiceData.toString() + "  " + voiceIco);
     });
     recordPlugin.initRecordMp3();
     super.initState();
@@ -151,11 +152,11 @@ class TextMsgState extends State<TextMsg> {
     }
 
     if (sendRes.code == 0) {
-      print('发送成功');
+      LogUtil.d('发送成功');
       Get.find<ChatController>().addMessageIfNotExits(sendRes.data!);
       inputController.clear();
     } else {
-      print(sendRes.desc);
+      LogUtil.d(sendRes.desc);
       EasyLoading.showToast('发送失败 ${sendRes.code} ${sendRes.desc}',
           toastPosition: EasyLoadingToastPosition.bottom);
     }
@@ -219,7 +220,7 @@ class TextMsgState extends State<TextMsg> {
                         e.localPosition.dy > 40) {
                       // 取消了发送
                       isSendLocal = false;
-                      print("取消了");
+                      LogUtil.d("取消了");
                     }
                     try {
                       if (overlayEntry != null) {

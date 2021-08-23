@@ -28,13 +28,13 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                         Badge(
                           toAnimate: false,
                           showBadge:
-                              int.parse(controller.msgModel!.interactionCount!) >
+                              int.parse(controller.msgModel.value.interactionCount!) >
                                   0,
                           elevation: 0,
                           shape: BadgeShape.circle,
                           padding: EdgeInsets.all(7),
                           badgeContent: Text(
-                            controller.msgModel!.interactionCount!,
+                            controller.msgModel.value.interactionCount!,
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
@@ -48,12 +48,12 @@ class MsgCenterPage extends GetView<MsgCenterController> {
                         Badge(
                           toAnimate: false,
                           showBadge:
-                              int.parse(controller.msgModel!.msgCount!) > 0,
+                              int.parse(controller.msgModel.value.msgCount!) > 0,
                           elevation: 0,
                           shape: BadgeShape.circle,
                           padding: EdgeInsets.all(7),
                           badgeContent: Text(
-                            controller.msgModel!.msgCount!,
+                            controller.msgModel.value.msgCount!,
                             style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),

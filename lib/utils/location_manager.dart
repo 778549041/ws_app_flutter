@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:amap_flutter_location/amap_flutter_location.dart';
 import 'package:amap_flutter_location/amap_location_option.dart';
+import 'package:flustars/flustars.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ws_app_flutter/global/third_config.dart';
 
@@ -49,9 +50,9 @@ class LocationManager {
     // 申请权限
     bool hasLocationPermission = await requestLocationPermission();
     if (hasLocationPermission) {
-      print("定位权限申请通过");
+      LogUtil.d("定位权限申请通过");
     } else {
-      print("定位权限申请不通过");
+      LogUtil.d("定位权限申请不通过");
     }
   }
 

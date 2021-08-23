@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -56,7 +57,7 @@ class SelectIntreController extends BaseController {
 
   //跳过
   void jumpToNext() {
-    print('object');
+    LogUtil.d('object');
     if (!Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       Get.dialog(
           BaseDialog(

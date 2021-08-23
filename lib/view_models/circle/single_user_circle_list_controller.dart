@@ -14,8 +14,8 @@ class SingleUserCircleController extends RefreshListController<MomentModel> {
 
   @override
   void onInit() {
-    pageSize = 10;
     super.onInit();
+    pageSize = 10;
   }
 
   Future requestCircleListData(int pageNum) async {

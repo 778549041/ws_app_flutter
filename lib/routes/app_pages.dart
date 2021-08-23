@@ -23,9 +23,14 @@ import 'package:ws_app_flutter/view_models/mine/bind_new_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/check_report_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/common_question_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/elwy_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/order_list_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/sign_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/system_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/unbind_phone_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_pwd_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/feedback_controller.dart';
@@ -36,6 +41,7 @@ import 'package:ws_app_flutter/view_models/mine/pay_confirm_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/pwd_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/shop_list_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/win_list_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/activity_search_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/cate_news_controller.dart';
@@ -69,12 +75,18 @@ import 'package:ws_app_flutter/views/login/select_intrest_page.dart';
 import 'package:ws_app_flutter/views/main/tabbar_page.dart';
 import 'package:ws_app_flutter/views/mine/add_shop_page.dart';
 import 'package:ws_app_flutter/views/mine/bind_new_phone_page.dart';
+import 'package:ws_app_flutter/views/mine/certify_info_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
 import 'package:ws_app_flutter/views/mine/chat_page.dart';
+import 'package:ws_app_flutter/views/mine/check_report_page.dart';
+import 'package:ws_app_flutter/views/mine/common_question.dart';
+import 'package:ws_app_flutter/views/mine/elwy_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_friends_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
+import 'package:ws_app_flutter/views/mine/order_list_page.dart';
 import 'package:ws_app_flutter/views/mine/sign_page.dart';
+import 'package:ws_app_flutter/views/mine/system_msg_page.dart';
 import 'package:ws_app_flutter/views/mine/unbind_phone_page.dart';
 import 'package:ws_app_flutter/views/mine/change_pwd_page.dart';
 import 'package:ws_app_flutter/views/mine/feed_back_page.dart';
@@ -87,6 +99,7 @@ import 'package:ws_app_flutter/views/mine/phone_page.dart';
 import 'package:ws_app_flutter/views/mine/pwd_manage_page.dart';
 import 'package:ws_app_flutter/views/mine/setting_page.dart';
 import 'package:ws_app_flutter/views/mine/shop_address_list_page.dart';
+import 'package:ws_app_flutter/views/mine/win_list_page.dart';
 import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/views/webview_page.dart';
 import 'package:ws_app_flutter/views/wow/activity_search_page.dart';
@@ -319,6 +332,65 @@ abstract class AppPages {
       binding: BindingsBuilder(
         () =>
             Get.lazyPut<SignController>(() => SignController()),
+      ),
+    ),
+    //常见问题
+    GetPage(
+      name: Routes.NORMALQUESTIONPAGE,
+      page: () => CommonQuestionPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<CommonQuController>(() => CommonQuController()),
+      ),
+    ),
+    //系统消息
+    GetPage(
+      name: Routes.SYSTEMMSGPAGE,
+      page: () => SystemMsgPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<SystemMsgController>(() => SystemMsgController()),
+      ),
+    ),
+    //认证信息
+    GetPage(
+      name: Routes.CERTIFYINFOPAGE,
+      page: () => CertifyInfoPage(),
+    ),
+    //检查报告
+    GetPage(
+      name: Routes.CHECKREPORTPAGE,
+      page: () => CheckReportPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<CheckReportController>(() => CheckReportController()),
+      ),
+    ),
+    //e路无忧
+    GetPage(
+      name: Routes.ELWYPAGE,
+      page: () => ELWYPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<ELWYController>(() => ELWYController()),
+      ),
+    ),
+    //中奖纪录
+    GetPage(
+      name: Routes.WINLISTRECORD,
+      page: () => WinListPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<WinListController>(() => WinListController()),
+      ),
+    ),
+    //兑换订单
+    GetPage(
+      name: Routes.ORDERLISTROUTE,
+      page: () => OrderListPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<OrderListController>(() => OrderListController()),
       ),
     ),
     //车主附近电桩

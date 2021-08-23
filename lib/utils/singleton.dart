@@ -1,3 +1,5 @@
+import 'package:flustars/flustars.dart';
+
 ///单例模式
 class Singleton {
   // static _instance，_instance会在编译期被初始化，保证了只被创建一次
@@ -15,6 +17,6 @@ class Singleton {
   }
 
   void init() {
-    print("这里初始化");
+    LogUtil.d("这里初始化");
   }
 }

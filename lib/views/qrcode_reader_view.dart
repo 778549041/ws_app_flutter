@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_reader/flutter_qr_reader.dart';
 import 'package:image_picker/image_picker.dart';
@@ -140,7 +141,7 @@ class QrcodeReaderViewState extends State<QrcodeReaderView>
         final qrScanSize = constraints.maxWidth * widget.scanBoxRatio;
         final mediaQuery = MediaQuery.of(context);
         if (constraints.maxHeight < qrScanSize * 1.5) {
-          print("建议高度与扫码区域高度比大于1.5");
+          LogUtil.d("建议高度与扫码区域高度比大于1.5");
         }
         return Stack(
           children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,7 @@ class CircleListItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print('点击了圈子');
+        LogUtil.d('点击了圈子');
         Get.toNamed(Routes.CIRCLEDETAIL,
             arguments: {'circle_id': model.circleId});
       },
@@ -233,7 +234,7 @@ class CircleListItem extends StatelessWidget {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print('点击话题');
+                              LogUtil.d('点击话题');
                               Get.toNamed(Routes.CIRCLTOPICLIST,
                                   arguments: {'topcid': model.topicId!});
                             },
@@ -254,7 +255,7 @@ class CircleListItem extends StatelessWidget {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    print('点击跳转链接');
+                                    LogUtil.d('点击跳转链接');
                                     CommonUtil.serviceControlPushPage(
                                         type: model.params!.type,
                                         detailId: model.params!.detailId,

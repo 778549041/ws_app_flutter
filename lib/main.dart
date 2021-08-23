@@ -114,17 +114,17 @@ class MyAppState extends State<MyApp> {
     jpush.addEventHandler(
       // 接收通知回调方法。
       onReceiveNotification: (Map<String, dynamic> message) async {
-        print("flutter onReceiveNotification: $message");
+        LogUtil.d("flutter onReceiveNotification: $message");
       },
       // 点击通知回调方法。
       onOpenNotification: (Map<String, dynamic> message) async {
-        print("flutter onOpenNotification: $message");
+        LogUtil.d("flutter onOpenNotification: $message");
       },
       onReceiveMessage: (Map<String, dynamic> message) async {
-        print("flutter onReceiveMessage: $message");
+        LogUtil.d("flutter onReceiveMessage: $message");
       },
       onReceiveNotificationAuthorization: (Map<String, dynamic> message) async {
-        print("flutter onReceiveNotificationAuthorization: $message");
+        LogUtil.d("flutter onReceiveNotificationAuthorization: $message");
       },
     );
     //初始化jpush
@@ -141,12 +141,12 @@ class MyAppState extends State<MyApp> {
     ));
     //获取registrationID
     jpush.getRegistrationID().then((registrationID) {
-      print(registrationID);
+      LogUtil.d(registrationID);
       SpUtil.putString(REGISTRATIONID, registrationID);
     });
     //iOS点击推送启动应用拿到推送消息
     jpush.getLaunchAppNotification().then((Map<dynamic, dynamic> message) {
-      print('获取到的推送消息数据为${message}');
+      LogUtil.d('获取到的推送消息数据为${message}');
     });
   }
 
@@ -172,7 +172,7 @@ class MyAppState extends State<MyApp> {
         onConnectSuccess: () {},
         //被踢下线
         onKickedOffline: () {
-          print("被踢下线了");
+          LogUtil.d("被踢下线了");
         },
         //sig过期
         onUserSigExpired: () {},
@@ -193,9 +193,9 @@ class MyAppState extends State<MyApp> {
             },
             //收到消息已读回执
             onRecvC2CReadReceipt: (List<V2TimMessageReceipt> data) {
-              print('收到了新消息 已读回执');
+              LogUtil.d('收到了新消息 已读回执');
               data.forEach((element) {
-                print("已读回执${element.userID} ${element.timestamp}");
+                LogUtil.d("已读回执${element.userID} ${element.timestamp}");
                 if (Get.isRegistered<ChatController>()) {
                   Get.find<ChatController>()
                       .updateC2CMessageByUserId(element.userID);
@@ -209,7 +209,7 @@ class MyAppState extends State<MyApp> {
               if (Get.isRegistered<ChatController>()) {
                 Get.find<ChatController>().addMessageIfNotExits(message);
               }
-              print(
+              LogUtil.d(
                   "消息发送进度 ${progress} ${message.timestamp} ${message.msgID} ${message.timestamp} ${message.status}");
             },
           ));

@@ -25,11 +25,11 @@ class MedalWidget extends StatelessWidget {
       onPressed: () {
         /// widget宽高。
         Rect rect = WidgetUtil.getWidgetBounds(context);
-        print(rect);
+        LogUtil.d(rect);
 
         /// widget在屏幕上的坐标。
         Offset offset = WidgetUtil.getWidgetLocalToGlobal(context);
-        print(offset);
+        LogUtil.d(offset);
         if (Get.find<UserController>()
                     .userInfo
                     .value

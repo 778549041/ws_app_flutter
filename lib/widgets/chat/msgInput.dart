@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ws_app_flutter/widgets/chat/addAdvanceMsg.dart';
 import 'package:ws_app_flutter/widgets/chat/addFaceMsg.dart';
@@ -10,7 +11,7 @@ class MsgInput extends StatelessWidget {
   final int type;
   @override
   Widget build(BuildContext context) {
-    print("toUser$toUser $type ***** MsgInput");
+    LogUtil.d("toUser$toUser $type ***** MsgInput");
     return Container(
       height: 55,
       child: Row(

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
@@ -77,20 +77,20 @@ class BaseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    debugPrint('ViewModel控制器---初始化--->$runtimeType');
+    LogUtil.d('ViewModel控制器---初始化--->$runtimeType');
   }
 
   ///路由操作、异步请求可以放在这里
   @override
   void onReady() {
     super.onReady();
-    debugPrint('ViewModel控制器---准备完成--->$runtimeType');
+    LogUtil.d('ViewModel控制器---准备完成--->$runtimeType');
   }
 
   ///关闭流用onClose方法，而不是dispose
   @override
   void onClose() {
     super.onClose();
-    debugPrint('ViewModel控制器---关闭--->$runtimeType');
+    LogUtil.d('ViewModel控制器---关闭--->$runtimeType');
   }
 }

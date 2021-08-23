@@ -147,27 +147,63 @@ class SignPage extends GetView<SignController> {
                 ),
                 calendarBuilders:
                     CalendarBuilders(todayBuilder: (context, day, focusedDay) {
-                  return Container(
-                    color: Colors.blue,
-                    child: Center(
-                      child: Text(day.day.toString()),
+                  return Obx(
+                    () => Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:
+                            controller.hasSign.value ? Colors.red : Colors.grey,
+                      ),
+                      child: Center(
+                        child: Text(day.day.toString()),
+                      ),
                     ),
                   );
                 }),
               ),
             ),
+            Obx(
+              () => Offstage(
+                offstage: !controller.hasSign.value,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: RichText(
+                    text: TextSpan(
+                      text: '签到成功，恭喜您获得',
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      children: [
+                        TextSpan(
+                            text: controller.tipScore.value,
+                            style:
+                                (TextStyle(color: Colors.red, fontSize: 25))),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
-            CustomButton(
-              title: '点击签到',
-              width: 140,
-              height: 40,
-              backgroundColor: MainAppColor.mainBlueBgColor,
-              titleColor: Colors.white,
-              radius: 20,
-              onPressed: () => controller.signEvent(),
-            )
+            Obx(
+              () => CustomButton(
+                disabled: controller.hasSign.value,
+                title: '点击签到',
+                width: 140,
+                height: 40,
+                backgroundColor: controller.hasSign.value
+                    ? Colors.grey
+                    : MainAppColor.mainBlueBgColor,
+                titleColor: Colors.white,
+                radius: 20,
+                onPressed: () => controller.signEvent(),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

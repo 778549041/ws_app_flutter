@@ -526,11 +526,11 @@ class NewsDetailPageState extends State<NewsDetailPage>
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       if (MediaQuery.of(Get.context!).viewInsets.bottom == 0) {
         //关闭键盘
-        print('关闭键盘');
+        LogUtil.d('关闭键盘');
         controller.placeholder.value = '我来说下~';
       } else {
         //显示键盘
-        print('显示键盘');
+        LogUtil.d('显示键盘');
       }
     });
   }

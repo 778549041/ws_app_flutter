@@ -33,7 +33,7 @@ class MinePage extends GetView<MineController> {
           margin: EdgeInsets.only(
               top: ScreenUtil.getInstance().statusBarHeight + 40),
           width: Get.width,
-          color: MainAppColor.mainSilverColor,
+          // color: MainAppColor.mainSilverColor,
           child: _buildBody(),
         ),
       ],
@@ -131,7 +131,7 @@ class MinePage extends GetView<MineController> {
           top: 20,
           left: 0,
           right: 0,
-          bottom: 0,
+          bottom: -5,
           child: Container(
             decoration: BoxDecoration(
                 color: Color(0xFFF3F3F3),

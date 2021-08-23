@@ -218,6 +218,8 @@ class Api {
   static final signDataUrl = 'm/integralsignin.html';
   //签到操作
   static final signEventUrl = 'm/integralsignin-signin.html';
+  //常见问题
+  static final normalQuestionUrl = 'm/answering.html';
 
 
   /// 活动相关

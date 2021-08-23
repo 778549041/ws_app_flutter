@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flustars/flustars.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/view_models/base/list_controller.dart';
 
@@ -75,8 +75,8 @@ abstract class RefreshListController<T> extends ListController<T> {
     } catch (e, s) {
       _currentPageNum--;
       refreshController.loadFailed();
-      debugPrint('error--->\n' + e.toString());
-      debugPrint('statck--->\n' + s.toString());
+      LogUtil.d('error--->\n' + e.toString());
+      LogUtil.d('statck--->\n' + s.toString());
       return null;
     }
   }

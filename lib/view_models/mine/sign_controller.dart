@@ -12,22 +12,32 @@ class SignController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getSignData();
-  }
-
-  void getSignData() async {
-    SignData data = await DioManager().request<SignData>(DioManager.GET, Api.signDataUrl);
-    print(data);
-  }
-
-  void signEvent() async {
-    SignEventResult result = await DioManager().request(DioManager.GET, Api.signEventUrl);
-    print(result);
   }
 
   @override
   void onReady() {
     super.onReady();
+    getSignData();
+  }
+
+  void getSignData() async {
+    SignData data = await DioManager().request<SignData>(DioManager.GET, Api.signDataUrl);
+    hasSign.value = data.hasSignin!;
+    if (data.signinLogs != null) {
+        Signin_logs signin_logs = data.signinLogs![0];
+        tipScore.value = signin_logs.rewardsTitle!;
+      }
+  }
+
+  void signEvent() async {
+    SignEventResult result = await DioManager().request<SignEventResult>(DioManager.GET, Api.signEventUrl);
+    if (result.success != null) {
+      hasSign.value = true;
+      if (result.data?.signinLogs != null) {
+        Signin_logs signin_logs = result.data!.signinLogs![0];
+        tipScore.value = signin_logs.rewardsTitle!;
+      }
+    }
   }
 
   @override

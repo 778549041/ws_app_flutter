@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_record/flutter_plugin_record.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
@@ -39,7 +40,7 @@ class SoundMessageState extends State<SoundMessage> {
 
   @override
   void deactivate() {
-    print("sound message deactivate call ${widget.message.msgID}");
+    LogUtil.d("sound message deactivate call ${widget.message.msgID}");
     recordPlugin.dispose();
     super.deactivate();
   }

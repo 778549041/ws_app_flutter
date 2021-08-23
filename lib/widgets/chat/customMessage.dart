@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +28,7 @@ class CustomMessageState extends State<CustomMessage> {
       String text = json.decode(data)['text'];
       String link = json.decode(data)['link'];
       if (version == 4) {
-        print(data);
+        LogUtil.d(data);
         String businessID = json.decode(data)['businessID'];
         if (businessID == 'group_create') {
           res = Container(

@@ -150,7 +150,7 @@ class CirclePublishController extends GetxController {
                       scope: Env.envConfig.qiniuSpaceName,
                       deadline: DateUtil.getNowDateMs() + 3600)),
           options: PutOptions(controller: PutController()));
-      print(result);
+      LogUtil.d(result);
       imgUrlList.add(Env.envConfig.qiniuServiceUrl + result.key!);
     }
     EasyLoading.dismiss();

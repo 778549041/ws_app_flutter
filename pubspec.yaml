@@ -125,6 +125,8 @@ dependencies:
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   # 文本展开收起
   expandable_text: ^2.0.0
+  # 折叠展开视图
+  expandable: ^5.0.1
   auto_size_text: ^3.0.0-nullsafety.0
   # 列表动画
   flutter_staggered_animations: ^1.0.0

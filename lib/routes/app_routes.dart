@@ -33,6 +33,14 @@ abstract class Routes {
   static const CHAT = '/chat'; //聊天页面
   static const MINEFRIENDS = '/mine-friends'; //个人中心我的好友（聊天会话列表）
   static const SIGNPAGE = '/sign-page';//签到
+  static const NORMALQUESTIONPAGE = '/normal-question-page';//常见问题
+  static const SYSTEMMSGPAGE = '/system-msg-page';//系统消息
+  static const CERTIFYINFOPAGE = '/certify-info-page';//认证信息页面
+  static const CHECKREPORTPAGE = '/check-report-page';//检查报告
+  static const ELWYPAGE = '/elwy-page';//e路无忧
+  static const WINLISTRECORD = '/winlist-page';//中奖纪录
+  static const ORDERLISTROUTE = '/orderlist-page';//兑换订单
+
   //wow
   static const NEARDZMAP = '/near-dz-map'; //车主附近电桩
   static const NEARDZLIST = '/near-dz-list'; //充电站列表

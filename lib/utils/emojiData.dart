@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -868,7 +869,7 @@ class EmojiItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        print("表情touser$toUser");
+        LogUtil.d("表情touser$toUser");
         V2TimValueCallback<V2TimMessage>? sendRes;
         if (type == 1) {
           sendRes = await TencentImSDKPlugin.v2TIMManager.sendC2CTextMessage(
@@ -882,10 +883,10 @@ class EmojiItem extends StatelessWidget {
         }
         if (sendRes!.code == 0) {
           Get.find<ChatController>().addMessageIfNotExits(sendRes.data!);
-          print('发送成功');
+          LogUtil.d('发送成功');
           close!();
         } else {
-          print('发送失败${sendRes.desc}');
+          LogUtil.d('发送失败${sendRes.desc}');
         }
       },
       child: Container(
