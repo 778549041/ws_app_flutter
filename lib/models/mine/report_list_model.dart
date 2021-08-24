@@ -1,0 +1,7 @@
+class ReportListModel {
+
+}
+
+class ReportModel {
+  
+}

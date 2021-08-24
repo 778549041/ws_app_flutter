@@ -220,6 +220,10 @@ class Api {
   static final signEventUrl = 'm/integralsignin-signin.html';
   //常见问题
   static final normalQuestionUrl = 'm/answering.html';
+  //检查报告
+  static final reportListUrl = 'm/thirdparty-condition_list.html';
+  //我的e路无忧
+  static final myPackagesListUrl = 'm/my-packages.html';
 
 
   /// 活动相关

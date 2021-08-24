@@ -20,6 +20,7 @@ import 'package:ws_app_flutter/view_models/login/select_intrest_controller.dart'
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/add_shop_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/bind_new_phone_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/certify_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
@@ -330,8 +331,7 @@ abstract class AppPages {
       name: Routes.SIGNPAGE,
       page: () => SignPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<SignController>(() => SignController()),
+        () => Get.lazyPut<SignController>(() => SignController()),
       ),
     ),
     //常见问题
@@ -339,8 +339,7 @@ abstract class AppPages {
       name: Routes.NORMALQUESTIONPAGE,
       page: () => CommonQuestionPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<CommonQuController>(() => CommonQuController()),
+        () => Get.lazyPut<CommonQuController>(() => CommonQuController()),
       ),
     ),
     //系统消息
@@ -348,22 +347,23 @@ abstract class AppPages {
       name: Routes.SYSTEMMSGPAGE,
       page: () => SystemMsgPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<SystemMsgController>(() => SystemMsgController()),
+        () => Get.lazyPut<SystemMsgController>(() => SystemMsgController()),
       ),
     ),
     //认证信息
     GetPage(
       name: Routes.CERTIFYINFOPAGE,
       page: () => CertifyInfoPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CertifyInfoController>(() => CertifyInfoController()),
+      ),
     ),
     //检查报告
     GetPage(
       name: Routes.CHECKREPORTPAGE,
       page: () => CheckReportPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<CheckReportController>(() => CheckReportController()),
+        () => Get.lazyPut<CheckReportController>(() => CheckReportController()),
       ),
     ),
     //e路无忧
@@ -371,8 +371,7 @@ abstract class AppPages {
       name: Routes.ELWYPAGE,
       page: () => ELWYPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<ELWYController>(() => ELWYController()),
+        () => Get.lazyPut<ELWYController>(() => ELWYController()),
       ),
     ),
     //中奖纪录
@@ -380,8 +379,7 @@ abstract class AppPages {
       name: Routes.WINLISTRECORD,
       page: () => WinListPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<WinListController>(() => WinListController()),
+        () => Get.lazyPut<WinListController>(() => WinListController()),
       ),
     ),
     //兑换订单
@@ -389,8 +387,7 @@ abstract class AppPages {
       name: Routes.ORDERLISTROUTE,
       page: () => OrderListPage(),
       binding: BindingsBuilder(
-        () =>
-            Get.lazyPut<OrderListController>(() => OrderListController()),
+        () => Get.lazyPut<OrderListController>(() => OrderListController()),
       ),
     ),
     //车主附近电桩

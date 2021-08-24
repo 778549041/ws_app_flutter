@@ -8,15 +8,15 @@ class MsgModel {
   CommonMemberModel? memberInfo;
 
   MsgModel(
-      {this.interactionCount = '',
-      this.msgCount = '',
-      this.circleCount = '',
+      {this.interactionCount = '0',
+      this.msgCount = '0',
+      this.circleCount = '0',
       this.memberInfo});
 
   MsgModel.fromJson(Map<String, dynamic> json) {
-    interactionCount = asT<String>(json['interactionCount']);
-    msgCount = asT<String>(json['msgCount']);
-    circleCount = asT<String>(json['circleCount']);
+    interactionCount = asT<String>(json['interactionCount'],'0');
+    msgCount = asT<String>(json['msgCount'],'0');
+    circleCount = asT<String>(json['circleCount'],'0');
     memberInfo = CommonMemberModel.fromJson(
         asT<Map<String, dynamic>>(json['memberInfo'], Map<String, dynamic>())!);
   }

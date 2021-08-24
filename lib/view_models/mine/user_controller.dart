@@ -88,7 +88,7 @@ class UserController extends BaseController {
       //微信授权认证
       SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
           .then((result) {
-        if (result == true) {
+        if (result['state'] == 'installed') {
           SharesdkPlugin.auth(ShareSDKPlatforms.wechatSession, Map(),
               (SSDKResponseState state, dynamic user, SSDKError error) async {
             if (state == SSDKResponseState.Success) {

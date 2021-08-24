@@ -1,7 +1,7 @@
+import 'package:badges/badges.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
@@ -69,14 +69,28 @@ class MinePage extends GetView<MineController> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 22),
-              child: CustomButton(
-                backgroundColor: Colors.transparent,
-                width: 25,
-                height: 25,
-                image: 'assets/images/mine/mine_message.png',
-                imageW: 25,
-                imageH: 25,
-                onPressed: () => controller.pushAction(1002),
+              child: Obx(
+                () => Badge(
+                  showBadge: int.parse(
+                          Get.find<UserController>().msgModel.value.msgCount! +
+                              Get.find<UserController>()
+                                  .msgModel
+                                  .value
+                                  .interactionCount!) >
+                      0,
+                  elevation: 0,
+                  shape: BadgeShape.circle,
+                  padding: EdgeInsets.all(5),
+                  child: CustomButton(
+                    backgroundColor: Colors.transparent,
+                    width: 25,
+                    height: 25,
+                    image: 'assets/images/mine/mine_message.png',
+                    imageW: 25,
+                    imageH: 25,
+                    onPressed: () => controller.pushAction(1002),
+                  ),
+                ),
               ),
             )
           ],

@@ -61,7 +61,7 @@ dependencies:
   # 牛批的tabbar(凸起)
   convex_bottom_bar: ^3.0.0
   #官方webview插件
-  webview_flutter: ^2.0.10
+  # webview_flutter: ^2.0.10
   #loading组件
   flutter_spinkit: ^5.0.0
   #圆形、直线进度条
@@ -75,7 +75,7 @@ dependencies:
   # 类iOS侧滑菜单
   flutter_slidable: ^0.6.0
   # 谁用谁闪亮
-  # shimmer: ^1.1.2
+  shimmer: ^2.0.0
   # 通讯录列表
   azlistview: ^2.0.0-nullsafety.0
   alphabet_list_scroll_view: ^2.0.0
@@ -118,7 +118,8 @@ dependencies:
   flutter_native_image: ^0.0.6+1
   flutter_image_compress: ^1.1.0
   # 加载html文本
-  flutter_html: ^2.1.1
+  flutter_html: 
+    path: plugins/flutter_html-2.1.1
   # 点赞按钮
   like_button: ^2.0.2
   # 列表滚动到指定行

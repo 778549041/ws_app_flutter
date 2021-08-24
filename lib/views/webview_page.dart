@@ -83,7 +83,7 @@ class WebViewPage extends GetView<NetConnectController> {
               height: double.infinity,
             ),
             WebView(
-              // sid: CommonUtil.sid(),
+              sid: CommonUtil.sid(),
               //是否允许js交互事件
               javascriptMode: JavascriptMode.unrestricted,
               //webview初始化
