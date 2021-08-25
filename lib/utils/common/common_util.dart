@@ -25,6 +25,16 @@ class CommonUtil {
     return sid!;
   }
 
+  /// 每隔3三位加逗号
+  /// num 数字或数字字符串。double型。
+  static String formatDoubleComma3(Object num,
+      {int digit = 3, String pattern = ','}) {
+    List<String> list = num.toString().split('.');
+    String left =
+        TextUtil.formatDigitPatternEnd(list[0], digit: digit, pattern: pattern);
+    return left;
+  }
+
   //检查密码格式
   static bool checkPwd(String? input) {
     if (input == null || input.isEmpty) return false;

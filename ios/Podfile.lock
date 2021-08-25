@@ -72,6 +72,7 @@ PODS:
   - FMDB/standard (2.7.5)
   - geolocator_apple (1.0.0):
     - Flutter
+  - GGWkCookie (0.1.1)
   - HydraAsync (2.0.6)
   - image_gallery_saver (1.5.0):
     - Flutter
@@ -284,6 +285,7 @@ PODS:
     - Flutter
   - webview_flutter (0.0.1):
     - Flutter
+    - GGWkCookie
 
 DEPENDENCIES:
   - amap_flutter_location (from `.symlinks/plugins/amap_flutter_location/ios`)
@@ -326,6 +328,7 @@ SPEC REPOS:
     - DKImagePickerController
     - DKPhotoGallery
     - FMDB
+    - GGWkCookie
     - HydraAsync
     - JCore
     - JPush
@@ -422,6 +425,7 @@ SPEC CHECKSUMS:
   flutter_qr_reader: d930dde3b2cfe2b3d0bb7d66e5ff3e514300a5e5
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator_apple: 60a1c3f5930c090d2f5164ba8bf25f4f89121e3c
+  GGWkCookie: 78386a4f50e44f43ab7a084b1aeb872e91c2fa14
   HydraAsync: 8d589bd725b0224f899afafc9a396327405f8063
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: e06f7a68f000bd36f552c1847e33cda96ed31f1f
@@ -450,7 +454,7 @@ SPEC CHECKSUMS:
   video_compress: fce97e4fb1dfd88175aa07d2ffc8a2f297f87fbe
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
-  webview_flutter: 3603125dfd3bcbc9d8d418c3f80aeecf331c068b
+  webview_flutter: d4754e5525d470a834cd48433acdeec73a5cb313
 
 PODFILE CHECKSUM: 3dffd8c48b531d21ec0ec153c22dc8e3a6223bc9
 

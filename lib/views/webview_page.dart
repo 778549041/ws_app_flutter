@@ -86,10 +86,11 @@ class WebViewPage extends GetView<NetConnectController> {
               sid: CommonUtil.sid(),
               //是否允许js交互事件
               javascriptMode: JavascriptMode.unrestricted,
+              initialUrl: url,
               //webview初始化
               onWebViewCreated: (WebViewController webViewController) {
                 controller.webViewController = webViewController;
-                controller.loadWebPage(url: url, localHtml: localHtml);
+                // controller.loadWebPage(url: url, localHtml: localHtml);
               },
               //交互事件集合
               javascriptChannels: controller.loadJavascriptChannel(),

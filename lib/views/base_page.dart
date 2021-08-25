@@ -68,6 +68,8 @@ class BasePage extends StatelessWidget {
                   backwardsCompatibility: false,
                   //z轴高度，设置导航栏背景透明时需要设置此值为0
                   elevation: 0,
+                  //返回按钮宽度
+                  leadingWidth: 80,
                   //如果leftItem不为空则显示外部传入的自定义组件，否则显示默认返回按钮
                   leading: leftItem != null
                       ? leftItem

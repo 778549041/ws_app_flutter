@@ -115,21 +115,21 @@ class NetConnectController extends BaseController {
       currentIndex.value = 1;
     }
     _loadTitle();
-    //设置style
-    String style = '''
-    document.documentElement.style.webkitTouchCallout='none';
-    document.documentElement.style.webkitUserSelect='none';
-    ''';
-    webViewController?.evaluateJavascript(style);
-    //设置cookie
-    String cookie = '''
-    document.cookie = '_SID=${CommonUtil.sid()}';
-    document.cookie = 'member_id=${Get.find<UserController>().userInfo.value.member?.memberId}';
-    ''';
-    webViewController?.evaluateJavascript(cookie);
-    final String? cookies =
-        await webViewController?.evaluateJavascript('document.cookie');
-    LogUtil.d(cookies);
+    // //设置style
+    // String style = '''
+    // document.documentElement.style.webkitTouchCallout='none';
+    // document.documentElement.style.webkitUserSelect='none';
+    // ''';
+    // webViewController?.evaluateJavascript(style);
+    // //设置cookie
+    // String cookie = '''
+    // document.cookie = '_SID=${CommonUtil.sid()}';
+    // document.cookie = 'member_id=${Get.find<UserController>().userInfo.value.member?.memberId}';
+    // ''';
+    // webViewController?.evaluateJavascript(cookie);
+    // final String? cookies =
+    //     await webViewController?.evaluateJavascript('document.cookie');
+    // LogUtil.d(cookies);
     // _evaluateJavascript();
   }
 

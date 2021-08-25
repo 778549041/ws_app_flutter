@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ws_app_flutter/view_models/base/view_state.dart';
+import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 ///加载中
 class ViewStateBusyWidget extends StatelessWidget {
@@ -7,6 +8,48 @@ class ViewStateBusyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(),
+    );
+  }
+}
+
+///页面无数据
+class ViewStateEmptyWidget extends StatelessWidget {
+  final String? message;
+  final String? image;
+  final String? buttonText;
+  final VoidCallback? onPressed;
+
+  ViewStateEmptyWidget(
+      {Key? key, this.onPressed, this.image, this.message, this.buttonText})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Image.asset(
+          image!,
+          width: 200,
+          fit: BoxFit.fitWidth,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+          child: Text(message ?? '',
+              style: TextStyle(color: Color(0xFF4245E5), fontSize: 18)),
+        ),
+        if (buttonText != null)
+          CustomButton(
+            width: 140,
+            height: 40,
+            radius: 20,
+            title: buttonText,
+            backgroundColor: Color(0xFF4245E5),
+            titleColor: Colors.white,
+            onPressed: onPressed,
+          ),
+      ],
     );
   }
 }
@@ -56,23 +99,16 @@ class ViewStateWidget extends StatelessWidget {
                 title ?? "加载失败",
                 style: titleStyle,
               ),
-              SizedBox(height: 20),
-              ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: 200, minHeight: 150),
-                child: SingleChildScrollView(
-                  child: Text(message ?? '', style: messageStyle),
-                ),
-              ),
+              Text(message ?? '', style: messageStyle),
             ],
           ),
         ),
-        Center(
-          child: ViewStateButton(
+        if (buttonText != null)
+          ViewStateButton(
             onPressed: onPressed,
             child: buttonText,
             textData: buttonTextData,
-          ),
-        )
+          )
       ],
     );
   }
@@ -137,38 +173,6 @@ class ViewStateErrorWidget extends StatelessWidget {
       message: message ?? errorMessage,
       buttonText: buttonText,
       buttonTextData: buttonTextData ?? defaultTextData,
-    );
-  }
-}
-
-///页面无数据
-class ViewStateEmptyWidget extends StatelessWidget {
-  final String? message;
-  final Widget? image;
-  final Widget? buttonText;
-  final VoidCallback onPressed;
-
-  ViewStateEmptyWidget(
-      {Key? key,
-      required this.onPressed,
-      this.image,
-      this.message,
-      this.buttonText})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewStateWidget(
-      onPressed: this.onPressed,
-      image: image ??
-          const Icon(
-            IconData(0xe63c, fontFamily: 'iconfont'),
-            size: 100,
-            color: Colors.grey,
-          ),
-      title: message ?? "暂无数据",
-      buttonText: buttonText,
-      buttonTextData: "点我刷新",
     );
   }
 }

@@ -13,8 +13,9 @@ class WinListPage extends GetView<WinListController> {
         title: '中奖纪录',
         rightItems: [
           CustomButton(
+            backgroundColor: Colors.transparent,
             title: '日历',
-            width: 30,
+            width: 100,
             height: 30,
             onPressed: () {
               LogUtil.d('按月份筛选纪录');
