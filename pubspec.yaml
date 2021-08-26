@@ -47,6 +47,8 @@ dependencies:
   connectivity: ^3.0.3
   #uuid
   uuid: ^3.0.4
+  #加解密
+  encrypt: ^5.0.1
 
   # 丰富的UI组件库
   getwidget: ^2.0.3

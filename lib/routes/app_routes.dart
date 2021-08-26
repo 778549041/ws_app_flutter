@@ -32,14 +32,16 @@ abstract class Routes {
   static const SCAN = '/mine-scan'; //扫码页面
   static const CHAT = '/chat'; //聊天页面
   static const MINEFRIENDS = '/mine-friends'; //个人中心我的好友（聊天会话列表）
-  static const SIGNPAGE = '/sign-page';//签到
-  static const NORMALQUESTIONPAGE = '/normal-question-page';//常见问题
-  static const SYSTEMMSGPAGE = '/system-msg-page';//系统消息
-  static const CERTIFYINFOPAGE = '/certify-info-page';//认证信息页面
-  static const CHECKREPORTPAGE = '/check-report-page';//检查报告
-  static const ELWYPAGE = '/elwy-page';//e路无忧
-  static const WINLISTRECORD = '/winlist-page';//中奖纪录
-  static const ORDERLISTROUTE = '/orderlist-page';//兑换订单
+  static const SIGNPAGE = '/sign-page'; //签到
+  static const NORMALQUESTIONPAGE = '/normal-question-page'; //常见问题
+  static const INTERAMSGPAGE = '/intera-msg-page'; //互动消息
+  static const SYSTEMMSGPAGE = '/system-msg-page'; //系统消息
+  static const CERTIFYINFOPAGE = '/certify-info-page'; //认证信息页面
+  static const CHECKREPORTPAGE = '/check-report-page'; //检查报告
+  static const ELWYPAGE = '/elwy-page'; //e路无忧
+  static const WINLISTRECORD = '/winlist-page'; //中奖纪录
+  static const ORDERLISTROUTE = '/orderlist-page'; //兑换订单
+  static const ORDERDETAILPAGE = '/order-detail-page'; //订单详情
 
   //wow
   static const NEARDZMAP = '/near-dz-map'; //车主附近电桩
@@ -64,7 +66,7 @@ abstract class Routes {
   static const REPORT = '/report'; //举报
   static const TOPICLIST = '/topic-list'; //话题列表
   //车控
-  static const DOORLOCK = '/door-lock-page';//门锁详情
-  static const AIRCONDITION = '/air-condition-page';//空调详情
-  static const VITUALCONTROL = '/vitual-control-page';//虚拟体验
+  static const DOORLOCK = '/door-lock-page'; //门锁详情
+  static const AIRCONDITION = '/air-condition-page'; //空调详情
+  static const VITUALCONTROL = '/vitual-control-page'; //虚拟体验
 }

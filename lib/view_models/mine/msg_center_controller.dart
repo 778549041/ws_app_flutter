@@ -25,9 +25,7 @@ class MsgCenterController extends BaseController {
       Get.toNamed(Routes.SYSTEMMSGPAGE);
     } else if (msgType == 2) {
       //互动消息
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.InteractiveMessagePage,
-      });
+      Get.toNamed(Routes.INTERAMSGPAGE);
     }
     await DioManager().request(DioManager.GET, Api.clearUnReadMessageUrl,
         queryParamters: {'type': msgType});

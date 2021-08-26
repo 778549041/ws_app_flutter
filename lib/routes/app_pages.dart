@@ -28,6 +28,7 @@ import 'package:ws_app_flutter/view_models/mine/check_report_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/common_question_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/elwy_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/intera_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/order_list_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/sign_controller.dart';
@@ -83,8 +84,10 @@ import 'package:ws_app_flutter/views/mine/chat_page.dart';
 import 'package:ws_app_flutter/views/mine/check_report_page.dart';
 import 'package:ws_app_flutter/views/mine/common_question.dart';
 import 'package:ws_app_flutter/views/mine/elwy_page.dart';
+import 'package:ws_app_flutter/views/mine/intera_msg_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_friends_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
+import 'package:ws_app_flutter/views/mine/order_detail_page.dart';
 import 'package:ws_app_flutter/views/mine/order_list_page.dart';
 import 'package:ws_app_flutter/views/mine/sign_page.dart';
 import 'package:ws_app_flutter/views/mine/system_msg_page.dart';
@@ -342,6 +345,14 @@ abstract class AppPages {
         () => Get.lazyPut<CommonQuController>(() => CommonQuController()),
       ),
     ),
+    //互动消息
+    GetPage(
+      name: Routes.INTERAMSGPAGE,
+      page: () => InteraMsgPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<InteraMsgController>(() => InteraMsgController()),
+      ),
+    ),
     //系统消息
     GetPage(
       name: Routes.SYSTEMMSGPAGE,
@@ -389,6 +400,11 @@ abstract class AppPages {
       binding: BindingsBuilder(
         () => Get.lazyPut<OrderListController>(() => OrderListController()),
       ),
+    ),
+    //订单详情
+    GetPage(
+      name: Routes.ORDERDETAILPAGE,
+      page: () => OrderDetailPage(),
     ),
     //车主附近电桩
     GetPage(
