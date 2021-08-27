@@ -10,7 +10,7 @@ class ActivityListModel {
 
   ActivityListModel.fromJson(Map<String, dynamic> json) {
     list = <ActivityModel>[];
-    if (json['list'] != null) {
+    if (json['list'] != null && json['list'] != false) {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {

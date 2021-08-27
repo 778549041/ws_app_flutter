@@ -49,7 +49,8 @@ class InteraMsgPage extends GetView<InteraMsgController> {
     }
 
     return GestureDetector(
-      onTap: () {},
+      behavior: HitTestBehavior.translucent,
+      onTap: () => controller.pushAction(0, model),
       child: Container(
         margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
         child: Column(
@@ -105,7 +106,7 @@ class InteraMsgPage extends GetView<InteraMsgController> {
         radius: 5,
         borderWidth: 1,
         borderColor: Color(0xFFBD1051),
-        onPressed: () {},
+        onPressed: () => controller.pushAction(1, model),
       );
     } else if (model.type == 'friends') {
       if (model.inv == 1) {
@@ -123,7 +124,7 @@ class InteraMsgPage extends GetView<InteraMsgController> {
                 radius: 5,
                 borderWidth: 1,
                 borderColor: Color(0xFF4245E5),
-                onPressed: () {},
+                onPressed: () => controller.pushAction(2, model),
               ),
               SizedBox(
                 height: 10,
@@ -137,14 +138,20 @@ class InteraMsgPage extends GetView<InteraMsgController> {
                 radius: 5,
                 borderWidth: 1,
                 borderColor: MainAppColor.secondaryTextColor,
-                onPressed: () {},
+                onPressed: () => controller.pushAction(3, model),
               ),
             ],
           );
-        } else {
+        } else if (model.status == 2) {
           //已同意
           return Text(
             '已同意',
+            style: TextStyle(color: Colors.blueAccent, fontSize: 14),
+          );
+        } else {
+          //已拒绝
+          return Text(
+            '已拒绝',
             style: TextStyle(color: Colors.blueAccent, fontSize: 14),
           );
         }
@@ -156,11 +163,17 @@ class InteraMsgPage extends GetView<InteraMsgController> {
             '等待验证',
             style: TextStyle(color: Colors.blueAccent, fontSize: 14),
           );
-        } else {
+        } else if (model.status == 2) {
           //已同意
           return Text(
             '已添加',
             style: TextStyle(color: Colors.blue, fontSize: 14),
+          );
+        } else {
+          //已拒绝
+          return Text(
+            '已拒绝',
+            style: TextStyle(color: Colors.blueAccent, fontSize: 14),
           );
         }
       } else {

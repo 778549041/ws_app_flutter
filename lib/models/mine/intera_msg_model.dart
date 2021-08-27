@@ -29,7 +29,7 @@ class InteraModel {
   String? proMemberId; //请求添加好友的memberid
   bool? read;
   String? relId;//点赞资讯id
-  int? status; //1等待验证，2已添加
+  int? status; //1等待验证，2已添加,3已拒绝
   String? type;//friends表示添加好友，content_comment_praise表示资讯评论点赞
   String? name;
   String? avatar;

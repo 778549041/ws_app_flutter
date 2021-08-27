@@ -61,29 +61,40 @@ class CommonQuestionPage extends GetView<CommonQuController> {
           ),
           header: Row(
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(right: 5),
-                width: 20,
-                height: 20,
-                color: Colors.blue,
+              Image.asset(
+                'assets/images/mine/question.png',
+                width: 18,
+                height: 18,
               ),
-              Text(indexStr + '.' + question.questions!,style: TextStyle(color: Colors.blue),),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                indexStr + '.' + question.questions!,
+                style: TextStyle(color: Color(0xFF4245E5)),
+              ),
               ExpandableIcon(
                 theme: const ExpandableThemeData(
                   expandIcon: Icons.arrow_drop_down,
                   collapseIcon: Icons.arrow_drop_up,
-                  iconColor: Colors.blue,
+                  iconColor: Color(0xFF4245E5),
                   iconSize: 30,
                   iconRotationAngle: math.pi / 2,
                   iconPadding: EdgeInsets.only(left: 5, right: 5),
                   hasIcon: false,
                 ),
               ),
-              CustomButton(
-                title: 'docx',
-                width: 40,
-                height: 20,
-                onPressed: () {},
+              Offstage(
+                offstage: question.filePath == null,
+                child: CustomButton(
+                  title: 'docx',
+                  width: 40,
+                  height: 20,
+                  onPressed: () => controller.pushH5Page(args: {
+                    'url': question.filePath,
+                    'hasNav': true,
+                  }),
+                ),
               ),
             ],
           ),

@@ -1,5 +1,3 @@
-import 'package:ws_app_flutter/global/env_config.dart';
-import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
@@ -54,105 +52,69 @@ class MineController extends BaseController {
       //我的好友
       Get.find<UserController>().requestIMInfoAndLogin().then((value) {
         if (value) {
-          Get.toNamed(Routes.MINEFRIENDS)?.then((value) async {
+          Get.toNamed(Routes.MINEFRIENDS)?.then((value) {
             requestFavorData();
-            await Get.find<UserController>().requestNewMessage();
+            Get.find<UserController>().requestNewMessage();
           });
         }
       });
     } else if (actionTag == 2) {
       //每日签到
-      // pushH5Page(args: {
-      //   'url': Env.envConfig.serviceUrl + HtmlUrls.DaylySignPage,
-      // })?.then((value) async {
-      //   requestFavorData();
-      //   await Get.find<UserController>().requestNewMessage();
-      // });
-      Get.toNamed(Routes.SIGNPAGE)?.then((value) async {
+      Get.toNamed(Routes.SIGNPAGE)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 3) {
       //常见问题
-      // pushH5Page(args: {
-      //   'url': Env.envConfig.serviceUrl + HtmlUrls.FAQPage,
-      // })?.then((value) async {
-      //   requestFavorData();
-      //   await Get.find<UserController>().requestNewMessage();
-      // });
-      Get.toNamed(Routes.NORMALQUESTIONPAGE)?.then((value) async {
+      Get.toNamed(Routes.NORMALQUESTIONPAGE)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 4) {
       //认证信息
       if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
-        Get.toNamed(Routes.CERTIFYINFOPAGE)?.then((value) async {
+        Get.toNamed(Routes.CERTIFYINFOPAGE)?.then((value) {
           requestFavorData();
-          await Get.find<UserController>().requestNewMessage();
+          Get.find<UserController>().requestNewMessage();
         });
       } else {
         Get.find<UserController>().certifyVechile();
       }
     } else if (actionTag == 5) {
       //检查报告
-      // pushH5Page(args: {
-      //   'url': Env.envConfig.serviceUrl + HtmlUrls.CheckReportPage,
-      // })?.then((value) async {
-      //   requestFavorData();
-      //   await Get.find<UserController>().requestNewMessage();
-      // });
-      Get.toNamed(Routes.CHECKREPORTPAGE)?.then((value) async {
-          requestFavorData();
-          await Get.find<UserController>().requestNewMessage();
-        });
+      Get.toNamed(Routes.CHECKREPORTPAGE)?.then((value) {
+        requestFavorData();
+        Get.find<UserController>().requestNewMessage();
+      });
     } else if (actionTag == 6) {
       //e路无忧
-      // pushH5Page(args: {
-      //   'url': Env.envConfig.serviceUrl + HtmlUrls.MyServicePackagePage,
-      // })?.then((value) async {
-      //   requestFavorData();
-      //   await Get.find<UserController>().requestNewMessage();
-      // });
-      Get.toNamed(Routes.ELWYPAGE)?.then((value) async {
-          requestFavorData();
-          await Get.find<UserController>().requestNewMessage();
-        });
+      Get.toNamed(Routes.ELWYPAGE)?.then((value) {
+        requestFavorData();
+        Get.find<UserController>().requestNewMessage();
+      });
     } else if (actionTag == 7) {
       //中奖记录
-      // pushH5Page(args: {
-      //   'url': Env.envConfig.serviceUrl + HtmlUrls.WinrecordPage,
-      // })?.then((value) async {
-      //   requestFavorData();
-      //   await Get.find<UserController>().requestNewMessage();
-      // });
-      Get.toNamed(Routes.WINLISTRECORD)?.then((value) async {
-          requestFavorData();
-          await Get.find<UserController>().requestNewMessage();
-        });
+      Get.toNamed(Routes.WINLISTRECORD)?.then((value) {
+        requestFavorData();
+        Get.find<UserController>().requestNewMessage();
+      });
     } else if (actionTag == 8) {
       //兑换订单
-      // pushH5Page(args: {
-      //   'url': Env.envConfig.serviceUrl + HtmlUrls.ExchangeOrderPage,
-      // })?.then((value) async {
-      //   requestFavorData();
-      //   await Get.find<UserController>().requestNewMessage();
-      // });
-      Get.toNamed(Routes.ORDERLISTROUTE)?.then((value) async {
-          requestFavorData();
-          await Get.find<UserController>().requestNewMessage();
-        });
+      Get.toNamed(Routes.ORDERLISTROUTE)?.then((value) {
+        requestFavorData();
+        Get.find<UserController>().requestNewMessage();
+      });
     } else if (actionTag == 9) {
       //设置
-      Get.toNamed(Routes.SETTING)?.then((value) async {
+      Get.toNamed(Routes.SETTING)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1000) {
       //扫一扫
-      Get.toNamed(Routes.SCAN)?.then((value) async {
+      Get.toNamed(Routes.SCAN)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1001) {
       //我的客服
@@ -161,49 +123,43 @@ class MineController extends BaseController {
       //消息中心
       Get.find<UserController>().requestIMInfoAndLogin().then((value) {
         if (value) {
-          Get.toNamed(Routes.MSGCENTER)?.then((value) async {
+          Get.toNamed(Routes.MSGCENTER)?.then((value) {
             requestFavorData();
-            await Get.find<UserController>().requestNewMessage();
+            Get.find<UserController>().requestNewMessage();
           });
         }
       });
     } else if (actionTag == 1003) {
       //个人信息
-      Get.toNamed(Routes.MINEINFO)?.then((value) async {
+      Get.toNamed(Routes.MINEINFO)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1005) {
       //圈子
       Get.toNamed(Routes.SINGLECIRCLELIST, arguments: {
         'memberId': Get.find<UserController>().userInfo.value.member?.memberId
-      })?.then((value) async {
+      })?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1006) {
       //收藏
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.MyFavortePage,
-      })?.then((value) async {
+      Get.toNamed(Routes.MYFAVORPAGE)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1007) {
       //活动
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.MyActivityPage,
-      })?.then((value) async {
+      Get.toNamed(Routes.MYACTIVITYPAGE)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     } else if (actionTag == 1008) {
       //积分
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralDetailPage,
-      })?.then((value) async {
+      Get.toNamed(Routes.INTEGRALPAGE)?.then((value) {
         requestFavorData();
-        await Get.find<UserController>().requestNewMessage();
+        Get.find<UserController>().requestNewMessage();
       });
     }
   }

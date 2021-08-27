@@ -42,6 +42,9 @@ abstract class Routes {
   static const WINLISTRECORD = '/winlist-page'; //中奖纪录
   static const ORDERLISTROUTE = '/orderlist-page'; //兑换订单
   static const ORDERDETAILPAGE = '/order-detail-page'; //订单详情
+  static const MYFAVORPAGE = '/my-favor-page';//我的收藏
+  static const MYACTIVITYPAGE = '/my-activity-page';//我的活动
+  static const INTEGRALPAGE = '/integral-page';//积分页面
 
   //wow
   static const NEARDZMAP = '/near-dz-map'; //车主附近电桩

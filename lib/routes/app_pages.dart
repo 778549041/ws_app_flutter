@@ -28,8 +28,11 @@ import 'package:ws_app_flutter/view_models/mine/check_report_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/common_question_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/elwy_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/integral_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/intera_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/my_activity_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/my_favor_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/order_list_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/sign_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/system_msg_controller.dart';
@@ -84,9 +87,12 @@ import 'package:ws_app_flutter/views/mine/chat_page.dart';
 import 'package:ws_app_flutter/views/mine/check_report_page.dart';
 import 'package:ws_app_flutter/views/mine/common_question.dart';
 import 'package:ws_app_flutter/views/mine/elwy_page.dart';
+import 'package:ws_app_flutter/views/mine/integral_page.dart';
 import 'package:ws_app_flutter/views/mine/intera_msg_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_friends_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
+import 'package:ws_app_flutter/views/mine/my_activity_page.dart';
+import 'package:ws_app_flutter/views/mine/my_favor_page.dart';
 import 'package:ws_app_flutter/views/mine/order_detail_page.dart';
 import 'package:ws_app_flutter/views/mine/order_list_page.dart';
 import 'package:ws_app_flutter/views/mine/sign_page.dart';
@@ -343,6 +349,30 @@ abstract class AppPages {
       page: () => CommonQuestionPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<CommonQuController>(() => CommonQuController()),
+      ),
+    ),
+    //我的收藏
+    GetPage(
+      name: Routes.MYFAVORPAGE,
+      page: () => MyFavorPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<MyFavorController>(() => MyFavorController()),
+      ),
+    ),
+    //我的活动
+    GetPage(
+      name: Routes.MYACTIVITYPAGE,
+      page: () => MyActivityPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<MyActivityController>(() => MyActivityController()),
+      ),
+    ),
+    //积分
+    GetPage(
+      name: Routes.INTEGRALPAGE,
+      page: () => IntegralPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<IntegralController>(() => IntegralController()),
       ),
     ),
     //互动消息

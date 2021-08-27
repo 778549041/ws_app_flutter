@@ -145,23 +145,61 @@ class SignPage extends GetView<SignController> {
                   titleCentered: true,
                   formatButtonVisible: false,
                 ),
-                calendarBuilders:
-                    CalendarBuilders(todayBuilder: (context, day, focusedDay) {
-                  return Obx(
-                    () => Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color:
-                            controller.hasSign.value ? Colors.red : Colors.grey,
-                      ),
-                      child: Center(
-                        child: Text(day.day.toString()),
-                      ),
+                selectedDayPredicate: (day) {
+                  return controller.signDays.contains(day.day.toString());
+                },
+                calendarBuilders: CalendarBuilders(
+                  selectedBuilder: (context, day, focusedDay) {
+                    if (day.day == DateTime.now().day) {
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: <Widget>[
+                          Offstage(
+                            offstage: !controller.hasSign.value,
+                            child: Image.asset(
+                              'assets/images/mine/today_signed.png',
+                              width: 30,
+                              height: 30,
+                            ),
+                          ),
+                          Center(child: Text(day.day.toString())),
+                        ],
+                      );
+                    } else {
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/mine/other_day_signed.png',
+                            width: 30,
+                            height: 30,
+                          ),
+                          Center(child: Text(day.day.toString())),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+            Obx(
+              () => Offstage(
+                offstage: controller.signDays.length == 0,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: RichText(
+                    text: TextSpan(
+                      text: '您已累计签到 ',
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      children: [
+                        TextSpan(
+                            text: controller.signDays.length.toString() + '天',
+                            style: (TextStyle(
+                                color: Color(0xFF4245E5), fontSize: 15))),
+                      ],
                     ),
-                  );
-                }),
+                  ),
+                ),
               ),
             ),
             Obx(
@@ -171,7 +209,7 @@ class SignPage extends GetView<SignController> {
                   margin: const EdgeInsets.only(top: 10),
                   child: RichText(
                     text: TextSpan(
-                      text: '签到成功，恭喜您获得',
+                      text: '签到成功，恭喜您获得 ',
                       style: TextStyle(color: Colors.black, fontSize: 15),
                       children: [
                         TextSpan(
@@ -190,8 +228,13 @@ class SignPage extends GetView<SignController> {
             Obx(
               () => CustomButton(
                 disabled: controller.hasSign.value,
-                title: '点击签到',
-                width: 140,
+                image: controller.hasSign.value
+                    ? 'assets/images/mine/signed_success.png'
+                    : 'assets/images/mine/calendar.png',
+                imageH: 30,
+                imageW: 30,
+                title: controller.hasSign.value ? '已签到' : '点击签到',
+                width: 170,
                 height: 40,
                 backgroundColor: controller.hasSign.value
                     ? Colors.grey

@@ -224,6 +224,10 @@ class Api {
   static final reportListUrl = 'm/thirdparty-condition_list.html';
   //我的e路无忧
   static final myPackagesListUrl = 'm/my-packages.html';
+  //我的收藏
+  static final myFavorUrl = 'm/info-collection_list.html';
+  //取消收藏
+  static final cancelFavorUrl = 'm/info-delete_art_collect.html';
 
 
   /// 活动相关

@@ -81,7 +81,7 @@ class SignData {
 
 class Signin_logs {
   Signin_logs({
-    this.currentDay,
+    this.currentDay,//当前签到日期
     this.currentMonth,
     this.currentYear,
     this.day,
