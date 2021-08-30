@@ -23,6 +23,7 @@ import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/mine/common_question_model.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
+import 'package:ws_app_flutter/models/mine/integral_model.dart';
 import 'package:ws_app_flutter/models/mine/intera_msg_model.dart';
 import 'package:ws_app_flutter/models/mine/order_list_model.dart';
 import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
@@ -147,6 +148,8 @@ class EntityFactory {
      return ImgListModel.fromJson(json) as T;
    } else if (T.toString() == 'InteraMsgModel') {
      return InteraMsgModel.fromJson(json) as T;
+   } else if (T.toString() == 'IntegralModel') {
+     return IntegralModel.fromJson(json) as T;
    }
    else {
       return json as T;

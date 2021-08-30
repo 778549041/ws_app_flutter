@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
@@ -19,15 +20,14 @@ class CertifyInfoController extends GetxController {
         "title": "车架号码",
         "content": _userInfo.member?.fVIN == null
             ? ''
-            : _userInfo.member!.fVIN!
-                .replaceFirst(RegExp(r'\d{7}'), '*******', 5)
+            : _userInfo.member!.fVIN!.replaceRange(5, 12, '*******')
       },
       {
         "title": "车牌号码",
         "content": _userInfo.member?.fLicPlate == null
             ? ''
             : _userInfo.member!.fLicPlate!
-                .replaceFirst(RegExp(r'\d{4}'), '****', 2),
+                .replaceRange(2, 6, '****'),
       },
       {
         "title": "车身颜色",
@@ -44,19 +44,23 @@ class CertifyInfoController extends GetxController {
         "title": "认证手机",
         "content": _userInfo.member?.fPhoneNum == null
             ? ''
-            : _userInfo.member!.fPhoneNum!
+            : _userInfo.member!.fPhoneNum!.replaceRange(3, 7, '****')
       },
       {
         "title": "认证时间",
         "content": _userInfo.member?.fcreateDate == null
             ? ''
-            : _userInfo.member!.fcreateDate!
+            : DateUtil.formatDateMs(
+                int.parse(_userInfo.member!.fcreateDate!) * 1000,
+                format: DateFormats.y_mo_d)
       },
       {
         "title": "购车时间",
         "content": _userInfo.member?.fPurchaseDate == null
             ? ''
-            : _userInfo.member!.fPurchaseDate!
+            : DateUtil.formatDateMs(
+                int.parse(_userInfo.member!.fPurchaseDate!) * 1000,
+                format: DateFormats.y_mo_d)
       },
     ]);
   }

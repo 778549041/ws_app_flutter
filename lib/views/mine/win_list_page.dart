@@ -14,9 +14,11 @@ class WinListPage extends GetView<WinListController> {
         rightItems: [
           CustomButton(
             backgroundColor: Colors.transparent,
-            title: '日历',
+            image: 'assets/images/mine/calendar.png',
             width: 100,
             height: 30,
+            imageH: 20,
+            imageW: 20,
             onPressed: () {
               LogUtil.d('按月份筛选纪录');
               controller.month.value = '8';

@@ -9,7 +9,14 @@ import 'package:ws_app_flutter/views/enjoy/enjoy_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_page.dart';
 import 'package:ws_app_flutter/views/wow/wow_page.dart';
 
-class MainTabBarPage extends GetView<MainController> {
+class MainTabBarPage extends StatefulWidget {
+  @override
+  MainTabBarPageState createState() => MainTabBarPageState();
+}
+
+class MainTabBarPageState extends State<MainTabBarPage>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  final MainController controller = Get.find<MainController>();
   final List<Widget> _allPages = [
     WowPage(),
     CirclePage(),
@@ -17,19 +24,22 @@ class MainTabBarPage extends GetView<MainController> {
     EnjoyPage(),
     MinePage(),
   ];
+  TabController? _tabController;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return AnnotatedRegion(
       child: Scaffold(
         body: WillPopScope(
           onWillPop: () => controller.onWillPop(),
-          child: PageView.builder(
-            itemBuilder: (context, index) => _allPages[index],
-            itemCount: _allPages.length,
-            controller: controller.pageController,
+          child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
-            onPageChanged: (value) => controller.onChangeValue(value),
+            controller: _tabController,
+            children: _allPages,
           ),
         ),
         bottomNavigationBar: ConvexAppBar(
@@ -65,5 +75,28 @@ class MainTabBarPage extends GetView<MainController> {
       ),
       value: SystemUiOverlayStyle.light,
     );
+  }
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 5, vsync: this);
+    controller.tabController = _tabController;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(MainTabBarPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 }

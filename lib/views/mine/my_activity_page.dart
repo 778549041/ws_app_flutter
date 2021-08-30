@@ -42,17 +42,18 @@ class MyActivityPageState extends State<MyActivityPage>
   Widget build(BuildContext context) {
     return BasePage(
       title: '我的活动',
+      bgColor: MainAppColor.mainSilverColor,
       child: Column(
         children: <Widget>[
           Container(
             width: Get.width,
             height: 40,
             child: TabBar(
-              indicatorColor: Colors.transparent,
               controller: _tabController,
               tabs: tabs,
               labelColor: Color(0xFF4245E5),
               unselectedLabelColor: MainAppColor.secondaryTextColor,
+              indicator: UnderlineTabIndicator(borderSide: BorderSide.none),
             ),
           ),
           Expanded(

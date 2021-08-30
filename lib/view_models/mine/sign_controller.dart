@@ -28,11 +28,10 @@ class SignController extends GetxController {
     if (data.signinLogs != null) {
       Signin_logs signin_logs = data.signinLogs![0];
       tipScore.value = signin_logs.rewardsTitle!;
-      var days = [];
       for (var signLog in data.signinLogs!) {
-        days.add(signLog.currentDay!);
+        String tempDateStr = signLog.currentYear! + signLog.currentMonth! + signLog.currentDay!;
+        signDays.add(tempDateStr);
       }
-      signDays.assignAll(days);
       print(signDays);
     }
   }
@@ -41,7 +40,6 @@ class SignController extends GetxController {
     SignEventResult result = await DioManager()
         .request<SignEventResult>(DioManager.GET, Api.signEventUrl);
     if (result.success != null) {
-      hasSign.value = true;
       getSignData();
     }
   }

@@ -130,122 +130,132 @@ class SignPage extends GetView<SignController> {
                 ],
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
-              margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-              child: TableCalendar(
-                locale: 'zh_CN',
-                firstDay: controller.firstDay,
-                lastDay: controller.lastDay,
-                focusedDay: DateTime.now(),
-                calendarFormat: CalendarFormat.month,
-                daysOfWeekHeight: 20,
-                headerStyle: HeaderStyle(
-                  titleCentered: true,
-                  formatButtonVisible: false,
-                ),
-                selectedDayPredicate: (day) {
-                  return controller.signDays.contains(day.day.toString());
-                },
-                calendarBuilders: CalendarBuilders(
-                  selectedBuilder: (context, day, focusedDay) {
-                    if (day.day == DateTime.now().day) {
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          Offstage(
-                            offstage: !controller.hasSign.value,
-                            child: Image.asset(
-                              'assets/images/mine/today_signed.png',
-                              width: 30,
-                              height: 30,
-                            ),
-                          ),
-                          Center(child: Text(day.day.toString())),
-                        ],
-                      );
-                    } else {
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/images/mine/other_day_signed.png',
-                            width: 30,
-                            height: 30,
-                          ),
-                          Center(child: Text(day.day.toString())),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
             Obx(
-              () => Offstage(
-                offstage: controller.signDays.length == 0,
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      text: '您已累计签到 ',
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      children: [
-                        TextSpan(
-                            text: controller.signDays.length.toString() + '天',
-                            style: (TextStyle(
-                                color: Color(0xFF4245E5), fontSize: 15))),
-                      ],
+              () => Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
+                    margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    child: TableCalendar(
+                      locale: 'zh_CN',
+                      firstDay: controller.firstDay,
+                      lastDay: controller.lastDay,
+                      focusedDay: DateTime.now(),
+                      calendarFormat: CalendarFormat.month,
+                      daysOfWeekHeight: 20,
+                      headerStyle: HeaderStyle(
+                        titleCentered: true,
+                        formatButtonVisible: false,
+                      ),
+                      selectedDayPredicate: (day) {
+                        String dayStr = day.year.toString() +
+                            day.month.toString() +
+                            day.day.toString();
+                        return controller.signDays.contains(dayStr);
+                      },
+                      calendarBuilders: CalendarBuilders(
+                        selectedBuilder: (context, day, focusedDay) {
+                          if ((day.year.toString() +
+                                  day.month.toString() +
+                                  day.day.toString()) ==
+                              (DateTime.now().year.toString() +
+                                  DateTime.now().month.toString() +
+                                  DateTime.now().day.toString())) {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                Offstage(
+                                  offstage: !controller.hasSign.value,
+                                  child: Image.asset(
+                                    'assets/images/mine/today_signed.png',
+                                    width: 30,
+                                    height: 30,
+                                  ),
+                                ),
+                                Center(child: Text(day.day.toString())),
+                              ],
+                            );
+                          } else {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                  'assets/images/mine/other_day_signed.png',
+                                  width: 30,
+                                  height: 30,
+                                ),
+                                Center(child: Text(day.day.toString())),
+                              ],
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            Obx(
-              () => Offstage(
-                offstage: !controller.hasSign.value,
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                      text: '签到成功，恭喜您获得 ',
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      children: [
-                        TextSpan(
-                            text: controller.tipScore.value,
-                            style:
-                                (TextStyle(color: Colors.red, fontSize: 25))),
-                      ],
+                  Offstage(
+                    offstage: controller.signDays.length == 0,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: RichText(
+                        text: TextSpan(
+                          text: '您已累计签到 ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                          children: [
+                            TextSpan(
+                                text:
+                                    controller.signDays.length.toString() + '天',
+                                style: (TextStyle(
+                                    color: Color(0xFF4245E5), fontSize: 15))),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Offstage(
+                    offstage: !controller.hasSign.value,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: RichText(
+                        text: TextSpan(
+                          text: '签到成功，恭喜您获得 ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                          children: [
+                            TextSpan(
+                                text: controller.tipScore.value,
+                                style: (TextStyle(
+                                    color: Colors.red, fontSize: 25))),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomButton(
+                    disabled: controller.hasSign.value,
+                    image: controller.hasSign.value
+                        ? 'assets/images/mine/signed_success.png'
+                        : 'assets/images/mine/calendar.png',
+                    imageH: 30,
+                    imageW: 30,
+                    title: controller.hasSign.value ? '已签到' : '点击签到',
+                    width: 170,
+                    height: 40,
+                    backgroundColor: controller.hasSign.value
+                        ? Colors.grey
+                        : MainAppColor.mainBlueBgColor,
+                    titleColor: Colors.white,
+                    radius: 20,
+                    onPressed: () => controller.signEvent(),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Obx(
-              () => CustomButton(
-                disabled: controller.hasSign.value,
-                image: controller.hasSign.value
-                    ? 'assets/images/mine/signed_success.png'
-                    : 'assets/images/mine/calendar.png',
-                imageH: 30,
-                imageW: 30,
-                title: controller.hasSign.value ? '已签到' : '点击签到',
-                width: 170,
-                height: 40,
-                backgroundColor: controller.hasSign.value
-                    ? Colors.grey
-                    : MainAppColor.mainBlueBgColor,
-                titleColor: Colors.white,
-                radius: 20,
-                onPressed: () => controller.signEvent(),
-              ),
-            ),
-            SizedBox(
-              height: 30,
             ),
           ],
         ),

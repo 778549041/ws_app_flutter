@@ -10,9 +10,8 @@ import 'package:ws_app_flutter/view_models/wow/eletric_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/wow_controller.dart';
 
 class MainController extends BaseController {
-  var selectedIndex = 0.obs;
   DateTime? _lastPressed;
-  PageController? pageController;
+  TabController? tabController;
 
   @override
   void onInit() async {
@@ -22,7 +21,6 @@ class MainController extends BaseController {
     Get.lazyPut<EnjoyController>(() => EnjoyController());
     Get.lazyPut<MineController>(() => MineController());
 
-    pageController = PageController(initialPage: selectedIndex.value);
     Get.find<UserController>().requestNewMessage();
     super.onInit();
   }
@@ -38,9 +36,9 @@ class MainController extends BaseController {
     return true;
   }
 
-  //pageview页面切换
-  void onChangeValue(int index) {
-    selectedIndex.value = index;
+  //tabbaritem点击
+  void onItemTap(int index) async {
+    tabController?.animateTo(index);
     Get.find<UserController>().getUserInfo();
     if (index == 4) {
       Get.find<MineController>().requestFavorData();
@@ -52,10 +50,5 @@ class MainController extends BaseController {
     if (index == 0 || index == 2) {
       Get.find<EletricController>().addAllTimer();
     }
-  }
-
-  //tabbaritem点击
-  void onItemTap(int index) async {
-    pageController?.jumpToPage(index);
   }
 }
