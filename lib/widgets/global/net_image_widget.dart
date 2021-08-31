@@ -7,13 +7,16 @@ class NetImageWidget extends StatelessWidget {
   final String? imageUrl;
   final String? placeholder;
   final BoxFit fit;
+  final Color? color;
 
-  NetImageWidget(
-      {this.width = double.infinity,
-      this.height = double.infinity,
-      this.imageUrl,
-      this.placeholder,
-      this.fit = BoxFit.cover});
+  NetImageWidget({
+    this.width = double.infinity,
+    this.height = double.infinity,
+    this.imageUrl,
+    this.placeholder,
+    this.fit = BoxFit.cover,
+    this.color,
+  });
 
   Widget _buildPlaceholder() {
     if (placeholder != null) {
@@ -36,6 +39,7 @@ class NetImageWidget extends StatelessWidget {
     return (imageUrl != null && imageUrl!.contains('http'))
         ? CachedNetworkImage(
             imageUrl: imageUrl!,
+            color: color,
             width: width,
             height: height,
             placeholder: (context, url) => _buildPlaceholder(),

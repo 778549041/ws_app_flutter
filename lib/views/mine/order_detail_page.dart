@@ -212,7 +212,8 @@ class OrderDetailPage extends StatelessWidget {
               style: TextStyle(fontSize: 12),
             ),
             ExpandableText(
-              orderModel.explain == null ? '' : orderModel.explain!,
+              orderModel.explain == null ? '使用说明：暂无' : '使用说明：' + orderModel.explain!,
+              style: TextStyle(fontSize: 12),
               expandText: '展开∨',
               collapseText: '收起∧',
               linkColor: Color(0xFF1B7DF4),

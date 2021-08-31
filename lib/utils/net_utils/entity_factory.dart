@@ -26,9 +26,12 @@ import 'package:ws_app_flutter/models/mine/favor.dart';
 import 'package:ws_app_flutter/models/mine/integral_model.dart';
 import 'package:ws_app_flutter/models/mine/intera_msg_model.dart';
 import 'package:ws_app_flutter/models/mine/order_list_model.dart';
+import 'package:ws_app_flutter/models/mine/pac_list_model.dart';
+import 'package:ws_app_flutter/models/mine/report_list_model.dart';
 import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/models/mine/sign_data.dart';
 import 'package:ws_app_flutter/models/mine/system_msg_model.dart';
+import 'package:ws_app_flutter/models/mine/win_list_model.dart';
 import 'package:ws_app_flutter/models/splash/splash_model.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
@@ -150,6 +153,12 @@ class EntityFactory {
      return InteraMsgModel.fromJson(json) as T;
    } else if (T.toString() == 'IntegralModel') {
      return IntegralModel.fromJson(json) as T;
+   } else if (T.toString() == 'WinListModel') {
+     return WinListModel.fromJson(json) as T;
+   } else if (T.toString() == 'ReportListModel') {
+     return ReportListModel.fromJson(json) as T;
+   } else if (T.toString() == 'PackageListModel') {
+     return PackageListModel.fromJson(json) as T;
    }
    else {
       return json as T;

@@ -58,7 +58,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15, 25, 15, 5),
                           child: Obx(() => Text(
-                                controller.newsDetailModel.value.article!.title!,
+                                controller
+                                    .newsDetailModel.value.article!.title!,
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               )),
@@ -95,13 +96,19 @@ class NewsDetailPageState extends State<NewsDetailPage>
                           padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                           child: Obx(
                             () => Html(
-                              data: controller
-                                  .newsDetailModel.value.article!.bodys!.content!,
+                              data: controller.newsDetailModel.value.article!
+                                  .bodys!.content!,
                               onImageError: (exception, stackTrace) {},
-                              onImageTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {
+                              onImageTap: (String? url,
+                                  RenderContext context,
+                                  Map<String, String> attributes,
+                                  dom.Element? element) {
                                 LogUtil.d(url);
                               },
-                              onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, dom.Element? element) {
+                              onLinkTap: (String? url,
+                                  RenderContext context,
+                                  Map<String, String> attributes,
+                                  dom.Element? element) {
                                 LogUtil.d(url);
                               },
                             ),
@@ -183,8 +190,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
                             : 'assets/images/wow/news_detail_praise.png',
                       );
                     },
-                    likeCount:
-                        controller.newsDetailModel.value.article!.articlePraise!,
+                    likeCount: controller
+                        .newsDetailModel.value.article!.articlePraise!,
                     countBuilder: (int? count, bool isLiked, String text) {
                       return Text(
                         text,
@@ -217,8 +224,8 @@ class NewsDetailPageState extends State<NewsDetailPage>
                 ),
                 Obx(
                   () => LikeButton(
-                    isLiked:
-                        controller.newsDetailModel.value.article!.collectStatus!,
+                    isLiked: controller
+                        .newsDetailModel.value.article!.collectStatus!,
                     size: 15,
                     countPostion: CountPostion.bottom,
                     circleColor: CircleColor(
@@ -333,10 +340,10 @@ class NewsDetailPageState extends State<NewsDetailPage>
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: MedalWidget(
-                                      medalBtnImage:
-                                          model.memberInfo!.medalOrSaleImageName!,
-                                      medalToastImage: model
-                                          .memberInfo!.medalOrSaleDescImageName!,
+                                      medalBtnImage: model
+                                          .memberInfo!.medalOrSaleImageName!,
+                                      medalToastImage: model.memberInfo!
+                                          .medalOrSaleDescImageName!,
                                       isSales: model.memberInfo!.isSales == 1,
                                     ),
                                   ),
@@ -400,7 +407,7 @@ class NewsDetailPageState extends State<NewsDetailPage>
             padding: const EdgeInsets.only(top: 10, left: 50),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
+              // crossAxisAlignment: CrossAxisAlignment.baseline,
               children: <Widget>[
                 Expanded(
                     child: RichText(
@@ -457,7 +464,10 @@ class NewsDetailPageState extends State<NewsDetailPage>
                         if (replyModel.isOfficial!)
                           WidgetSpan(
                             child: Image.asset(
-                                'assets/images/wow/ve_offical_tag.png'),
+                              'assets/images/wow/ve_offical_tag.png',
+                              width: 30,
+                              height: 15,
+                            ),
                           ),
                         TextSpan(
                           text: replyModel.plName,

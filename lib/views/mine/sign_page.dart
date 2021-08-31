@@ -225,7 +225,7 @@ class SignPage extends GetView<SignController> {
                             TextSpan(
                                 text: controller.tipScore.value,
                                 style: (TextStyle(
-                                    color: Colors.red, fontSize: 25))),
+                                    color: Color(0xFFE30052), fontSize: 25))),
                           ],
                         ),
                       ),

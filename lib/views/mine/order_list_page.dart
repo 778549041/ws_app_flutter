@@ -18,36 +18,34 @@ class OrderListPage extends GetView<OrderListController> {
     return BasePage(
       title: '兑换订单',
       bgColor: MainAppColor.mainSilverColor,
-      child: Obx(
-        () {
-          if (controller.isEmpty()) {
-            return ViewStateEmptyWidget(
-              image: 'assets/images/common/empty.png',
-              message: '空空如也',
-              buttonText: '重新加载',
-              onPressed: () => controller.refresh(),
-            );
-          } else {
-            return SmartRefresher(
-              controller: controller.refreshController,
-              enablePullUp: true,
-              onRefresh: () => controller.refresh(),
-              onLoading: () => controller.loadMore(),
-              child: CustomScrollView(
-                slivers: [
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return _buildOrderItem(index);
-                      },
-                      childCount: controller.list.length,
+      child: SmartRefresher(
+        controller: controller.refreshController,
+        enablePullUp: true,
+        onRefresh: () => controller.refresh(),
+        onLoading: () => controller.loadMore(),
+        child: CustomScrollView(
+          slivers: [
+            Obx(
+              () => controller.isEmpty()
+                  ? SliverToBoxAdapter(
+                      child: ViewStateEmptyWidget(
+                        image: 'assets/images/common/empty.png',
+                        message: '空空如也',
+                        buttonText: '重新加载',
+                        onPressed: () => controller.refresh(),
+                      ),
+                    )
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return _buildOrderItem(index);
+                        },
+                        childCount: controller.list.length,
+                      ),
                     ),
-                  )
-                ],
-              ),
-            );
-          }
-        },
+            ),
+          ],
+        ),
       ),
     );
   }

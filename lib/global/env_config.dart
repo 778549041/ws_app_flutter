@@ -57,10 +57,11 @@ class Env {
 
   // 根据不同环境返回对应的环境配置
   static EnvConfig _getEnvConfig() {
-    if (kDebugMode) {
-      return _debugConfig;
-    } else {
+    //TODO
+    // if (kDebugMode) {
+    //   return _debugConfig;
+    // } else {
       return _releaseConfig;
-    }
+    // }
   }
 }

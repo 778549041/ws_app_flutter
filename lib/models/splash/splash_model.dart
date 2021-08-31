@@ -4,12 +4,13 @@ class SplashModel {
   String? result;
   SplashData? data;
 
-  SplashModel({this.result,this.data});
+  SplashModel({this.result, this.data});
 
   SplashModel.fromJson(Map<String, dynamic> json) {
     result = asT<String?>(json['result']);
-    data = json['data'] == null ? null : SplashData.fromJson(
-        asT<Map<String, dynamic>>(json['data'])!);
+    data = (json['data'] != null && json['data'] != false)
+        ? SplashData.fromJson(asT<Map<String, dynamic>>(json['data'])!)
+        : null;
   }
 }
 

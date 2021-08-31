@@ -43,6 +43,7 @@ class MainTabBarPageState extends State<MainTabBarPage>
           ),
         ),
         bottomNavigationBar: ConvexAppBar(
+          controller: _tabController,
           style: TabStyle.react,
           items: [
             TabItem<Image>(

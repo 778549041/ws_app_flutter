@@ -8,7 +8,10 @@ class OrderListModel {
   OrderListModel({this.orderItemsGroup, this.orderList});
 
   OrderListModel.fromJson(Map<String, dynamic> json) {
-    orderItemsGroup = json['order_items_group'];
+    orderItemsGroup = (json['order_items_group'] != null &&
+            json['order_items_group'] != false)
+        ? json['order_items_group']
+        : null;
     orderList = <OrderModel>[];
     if (json['order_list'] != null && json['order_list'] != false) {
       (json['order_list'] as List).forEach((element) {

@@ -16,7 +16,7 @@ class IntegralController extends GetxController {
     super.onInit();
   }
 
-  //选择出生日期
+  //选择日期
   void selectDate() {
     Pickers.showDatePicker(
       Get.context!,
