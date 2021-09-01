@@ -45,9 +45,7 @@ class CheckReportPage extends GetView<CheckReportController> {
   Widget _buildItem(int index) {
     ReportModel model = controller.list[index];
     return GestureDetector(
-      onTap: () {
-        print('点击了第$index个检查表');
-      },
+      onTap: () => controller.pushDetail(model),
       child: Container(
         margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
         padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),

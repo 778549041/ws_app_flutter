@@ -25,9 +25,13 @@ import 'package:ws_app_flutter/view_models/mine/change_area_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/change_name_cotroller.dart';
 import 'package:ws_app_flutter/view_models/mine/chat_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/check_report_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/check_report_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/common_question_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/conversation_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/elwy_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/elwy_detail_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/elwy_exchange_detail_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/elwy_exchange_list_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/integral_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/intera_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/msg_center_controller.dart';
@@ -84,10 +88,16 @@ import 'package:ws_app_flutter/views/mine/certify_info_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
 import 'package:ws_app_flutter/views/mine/chat_page.dart';
+import 'package:ws_app_flutter/views/mine/check_report_detail.dart';
 import 'package:ws_app_flutter/views/mine/check_report_page.dart';
 import 'package:ws_app_flutter/views/mine/common_question.dart';
+import 'package:ws_app_flutter/views/mine/elwy_detail.dart';
+import 'package:ws_app_flutter/views/mine/elwy_exchange_detail.dart';
+import 'package:ws_app_flutter/views/mine/elwy_exchange_list_page.dart';
 import 'package:ws_app_flutter/views/mine/elwy_page.dart';
 import 'package:ws_app_flutter/views/mine/integral_page.dart';
+import 'package:ws_app_flutter/views/mine/integral_rule_page.dart';
+import 'package:ws_app_flutter/views/mine/integral_strategy_page.dart';
 import 'package:ws_app_flutter/views/mine/intera_msg_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_friends_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
@@ -375,6 +385,16 @@ abstract class AppPages {
         () => Get.lazyPut<IntegralController>(() => IntegralController()),
       ),
     ),
+    //积分规则
+    GetPage(
+      name: Routes.INTEGRALRULE,
+      page: () => IntegralRulePage(),
+    ),
+    //积分攻略
+    GetPage(
+      name: Routes.INTEGRALSTRATEGY,
+      page: () => IntegralStrategyPage(),
+    ),
     //互动消息
     GetPage(
       name: Routes.INTERAMSGPAGE,
@@ -407,12 +427,47 @@ abstract class AppPages {
         () => Get.lazyPut<CheckReportController>(() => CheckReportController()),
       ),
     ),
+    //检查报告详情
+    GetPage(
+      name: Routes.CHECKREPORTDETAIL,
+      page: () => CheckReportDetail(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CheckReportDetailController>(
+            () => CheckReportDetailController()),
+      ),
+    ),
     //e路无忧
     GetPage(
       name: Routes.ELWYPAGE,
       page: () => ELWYPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<ELWYController>(() => ELWYController()),
+      ),
+    ),
+    //e路无忧详情
+    GetPage(
+      name: Routes.ELWYDETAIL,
+      page: () => ElwyDetail(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ElwyDetailController>(() => ElwyDetailController()),
+      ),
+    ),
+    //e路无忧兑换列表
+    GetPage(
+      name: Routes.ELWYEXCHANGELIST,
+      page: () => ElwyExchangeListPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ElwyExchangeListController>(
+            () => ElwyExchangeListController()),
+      ),
+    ),
+    //e路无忧兑换列表详情
+    GetPage(
+      name: Routes.ELWYEXCHANGEDETAIL,
+      page: () => ElwyExchangeDetailPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ElwyExchangeDetailController>(
+            () => ElwyExchangeDetailController()),
       ),
     ),
     //中奖纪录

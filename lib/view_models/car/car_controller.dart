@@ -348,9 +348,8 @@ class CarController extends BaseController {
       Get.toNamed(Routes.MINEINFO);
     } else if (index == 1006) {
       //点击积分
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralDetailPage,
-      });
+      //积分规则
+      Get.toNamed(Routes.INTEGRALRULE);
     } else if (index == 1007) {
       //点击了解VE-1
       pushH5Page(args: {

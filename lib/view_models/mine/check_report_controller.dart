@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/mine/report_list_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
@@ -16,5 +18,9 @@ class CheckReportController extends RefreshListController<ReportModel> {
         DioManager.GET, Api.reportListUrl,
         queryParamters: {'page': pageNum});
     return model.data;
+  }
+
+  void pushDetail(ReportModel model) {
+    Get.toNamed(Routes.CHECKREPORTDETAIL,arguments: {'id':model.id});
   }
 }

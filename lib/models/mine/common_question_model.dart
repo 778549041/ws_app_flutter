@@ -7,7 +7,7 @@ class CommonQuModel {
   CommonQuModel({this.filePath, this.list});
 
   CommonQuModel.fromJson(Map<String, dynamic> json) {
-    filePath = json['file_path'];
+    filePath = (json['file_path'] != null && json['file_path'] != false) ? json['file_path'] : null;
     list = <SingleQuestion>[];
     if (json['list'] != null && json['list'] != false) {
       (json['list'] as List).forEach((element) {

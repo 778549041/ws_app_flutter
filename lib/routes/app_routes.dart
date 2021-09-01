@@ -39,12 +39,18 @@ abstract class Routes {
   static const CERTIFYINFOPAGE = '/certify-info-page'; //认证信息页面
   static const CHECKREPORTPAGE = '/check-report-page'; //检查报告
   static const ELWYPAGE = '/elwy-page'; //e路无忧
+  static const ELWYDETAIL = '/elwy-detail';//e路无忧详情
+  static const ELWYEXCHANGELIST = '/elwy-exchange';//e路无忧兑换列表
+  static const ELWYEXCHANGEDETAIL = '/elwy-exchange-detail';//e路无忧兑换详情
   static const WINLISTRECORD = '/winlist-page'; //中奖纪录
   static const ORDERLISTROUTE = '/orderlist-page'; //兑换订单
   static const ORDERDETAILPAGE = '/order-detail-page'; //订单详情
   static const MYFAVORPAGE = '/my-favor-page';//我的收藏
   static const MYACTIVITYPAGE = '/my-activity-page';//我的活动
   static const INTEGRALPAGE = '/integral-page';//积分页面
+  static const INTEGRALRULE = '/integral-rule';//积分规则
+  static const INTEGRALSTRATEGY = '/integral-strategy';//积分攻略
+  static const CHECKREPORTDETAIL = '/check-report-detail';//检查报告详情
 
   //wow
   static const NEARDZMAP = '/near-dz-map'; //车主附近电桩

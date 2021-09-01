@@ -222,8 +222,16 @@ class Api {
   static final normalQuestionUrl = 'm/answering.html';
   //检查报告
   static final reportListUrl = 'm/thirdparty-condition_list.html';
+  //检查报告详情
+  static final reportDetailUrl = 'm/thirdparty-condition_detail.html';
   //我的e路无忧
   static final myPackagesListUrl = 'm/my-packages.html';
+  //e路无忧详情
+  static final packagesDetailUrl = 'm/my-package_detail.html';
+  //e路无忧套餐兑换列表
+  static final packagesExchangeListUrl = 'm/package-goods_list.html';
+  //e路无忧套餐兑换详情
+  static final packagesExchangeDetailUrl = 'm/package-goods_detail.html';
   //我的收藏
   static final myFavorUrl = 'm/info-collection_list.html';
   //取消收藏

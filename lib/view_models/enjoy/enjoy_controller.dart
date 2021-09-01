@@ -52,14 +52,10 @@ class EnjoyController extends RefreshListController<ShopModel> {
       Get.toNamed(Routes.MINEINFO);
     } else if (index == 1002) {
       //点击积分
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralDetailPage,
-      });
+      Get.toNamed(Routes.INTEGRALPAGE);
     } else if (index == 1003) {
       //积分规则
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.IntegralRulePage,
-      });
+      Get.toNamed(Routes.INTEGRALRULE);
     } else if (index == 1004) {
       //换保养
       pushH5Page(args: {

@@ -1,6 +1,7 @@
 import 'package:flutter_pickers/pickers.dart';
 import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/integral_income_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/integral_outcome_controller.dart';
@@ -43,7 +44,7 @@ class IntegralController extends GetxController {
       Get.find<MainController>().onItemTap(3);
     } else if (index == 1) {
       //积分规则
-
+      Get.toNamed(Routes.INTEGRALRULE);
     }
   }
 }

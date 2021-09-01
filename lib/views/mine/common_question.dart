@@ -69,9 +69,11 @@ class CommonQuestionPage extends GetView<CommonQuController> {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                indexStr + '.' + question.questions!,
-                style: TextStyle(color: Color(0xFF4245E5)),
+              Expanded(
+                child: Text(
+                  indexStr + '.' + question.questions!,
+                  style: TextStyle(color: Color(0xFF4245E5)),
+                ),
               ),
               ExpandableIcon(
                 theme: const ExpandableThemeData(
