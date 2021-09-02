@@ -11,6 +11,8 @@ import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/report_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
+import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
+import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
 import 'package:ws_app_flutter/view_models/login/complaint_controller.dart';
@@ -75,6 +77,7 @@ import 'package:ws_app_flutter/views/circle/report_know_page.dart';
 import 'package:ws_app_flutter/views/circle/report_page.dart';
 import 'package:ws_app_flutter/views/circle/single_user_circle_page.dart';
 import 'package:ws_app_flutter/views/circle/topic_list_page.dart';
+import 'package:ws_app_flutter/views/enjoy/gallery_mall.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
 import 'package:ws_app_flutter/views/login/complaint_page.dart';
@@ -470,6 +473,11 @@ abstract class AppPages {
             () => ElwyExchangeDetailController()),
       ),
     ),
+    //e路无忧简介
+    GetPage(
+      name: Routes.ELWYINTROPAGE,
+      page: () => ElwyIntroductionPage(),
+    ),
     //中奖纪录
     GetPage(
       name: Routes.WINLISTRECORD,
@@ -659,5 +667,12 @@ abstract class AppPages {
     GetPage(name: Routes.AIRCONDITION, page: () => AirConditionPage()),
     //虚拟体验
     GetPage(name: Routes.VITUALCONTROL, page: () => VitualControlPage()),
+    GetPage(
+      name: Routes.GALLERYMALL,
+      page: () => GalleryMallPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<GalleryMallController>(() => GalleryMallController()),
+      ),
+    ),
   ];
 }

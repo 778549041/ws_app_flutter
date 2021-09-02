@@ -2,7 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:ws_app_flutter/models/enjoy/shop.dart';
+import 'package:ws_app_flutter/models/enjoy/gallery_mall_model.dart';
 import 'package:ws_app_flutter/view_models/enjoy/enjoy_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
@@ -213,9 +213,7 @@ class EnjoyPage extends GetView<EnjoyController> {
                     padding: const EdgeInsets.only(
                         top: 15, left: 2, right: 2, bottom: 18),
                     child: GestureDetector(
-                      onTap: () => controller.pushH5Page(args: {
-                        'url': controller.futcModel.value.list!.url,
-                      }),
+                      onTap: () => controller.elwyKVClickAction(),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Obx(() => NetImageWidget(

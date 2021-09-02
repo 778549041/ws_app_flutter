@@ -41,6 +41,7 @@ abstract class Routes {
   static const ELWYPAGE = '/elwy-page'; //e路无忧
   static const ELWYDETAIL = '/elwy-detail';//e路无忧详情
   static const ELWYEXCHANGELIST = '/elwy-exchange';//e路无忧兑换列表
+  static const ELWYINTROPAGE = '/elwy-intro';//e路无忧简介
   static const ELWYEXCHANGEDETAIL = '/elwy-exchange-detail';//e路无忧兑换详情
   static const WINLISTRECORD = '/winlist-page'; //中奖纪录
   static const ORDERLISTROUTE = '/orderlist-page'; //兑换订单
@@ -78,4 +79,6 @@ abstract class Routes {
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情
   static const VITUALCONTROL = '/vitual-control-page'; //虚拟体验
+  //优享
+  static const GALLERYMALL = '/gallery-mall';//积分商城
 }

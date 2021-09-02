@@ -1,11 +1,5 @@
 ///前端页面地址
 class HtmlUrls {
-//服务套餐
-  static const String ServicePackage =
-      'htmlrouter/dist/pages/servicepackage/list/list';
-//e路无忧套餐简介
-  static const String ServicePackageIntroduction =
-      'htmlrouter/dist/pages/servicepackage/brief/brief';
 //积分商城
   static const String PointGalleryPage =
       'htmlrouter/dist/pages/integralmall/gallery';

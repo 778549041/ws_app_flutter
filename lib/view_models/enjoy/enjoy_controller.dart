@@ -4,7 +4,7 @@ import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
-import 'package:ws_app_flutter/models/enjoy/shop.dart';
+import 'package:ws_app_flutter/models/enjoy/gallery_mall_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
@@ -18,8 +18,8 @@ class EnjoyController extends RefreshListController<ShopModel> {
 
   @override
   void onInit() {
-    pageSize = 12;
     super.onInit();
+    pageSize = 12;
   }
 
   @override
@@ -40,10 +40,10 @@ class EnjoyController extends RefreshListController<ShopModel> {
 
   //商城数据
   Future _requestMallData(int pageNum) async {
-    ShopListModel _model = await DioManager().request<ShopListModel>(
+    GalleryMallModel _model = await DioManager().request<GalleryMallModel>(
         DioManager.GET, Api.enjoyMallListUrl,
         queryParamters: {"page": pageNum});
-    return _model.dataList;
+    return _model.data_list;
   }
 
   Future buttonAction(int index) async {
@@ -128,10 +128,11 @@ class EnjoyController extends RefreshListController<ShopModel> {
       }
     } else if (index == 1007) {
       //更多
-      pushH5Page(args: {
-        'url':
-            Env.envConfig.serviceUrl + HtmlUrls.PointGalleryPage + '?source=3',
-      });
+      // pushH5Page(args: {
+      //   'url':
+      //       Env.envConfig.serviceUrl + HtmlUrls.PointGalleryPage + '?source=3',
+      // });
+      Get.toNamed(Routes.GALLERYMALL);
     }
   }
 
@@ -141,5 +142,15 @@ class EnjoyController extends RefreshListController<ShopModel> {
           HtmlUrls.ProductDetailPage +
           '?product_id=${model.product!.productId}&source=1',
     });
+  }
+
+  void elwyKVClickAction() async {
+    CommonModel _model = await DioManager()
+        .request<CommonModel>(DioManager.GET, Api.ePushJudgeUrl);
+    if (_model.status!) {
+      Get.toNamed(Routes.ELWYINTROPAGE);
+    } else {
+      Get.toNamed(Routes.ELWYEXCHANGELIST);
+    }
   }
 }

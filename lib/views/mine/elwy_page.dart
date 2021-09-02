@@ -15,6 +15,7 @@ class ELWYPage extends GetView<ELWYController> {
       bgColor: MainAppColor.mainSilverColor,
       child: SmartRefresher(
         controller: controller.refreshController,
+        enablePullUp: true,
         onRefresh: () => controller.refresh(),
         onLoading: () => controller.loadMore(),
         child: CustomScrollView(

@@ -476,13 +476,9 @@ class RecommendEle extends GetView<EletricController> {
       CommonModel _model = await DioManager()
           .request<CommonModel>(DioManager.GET, Api.ePushJudgeUrl);
       if (_model.status!) {
-        Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': Env.envConfig.serviceUrl + HtmlUrls.ServicePackageIntroduction
-        });
+        Get.toNamed(Routes.ELWYINTROPAGE);
       } else {
-        Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': Env.envConfig.serviceUrl + HtmlUrls.ServicePackage
-        });
+        Get.toNamed(Routes.ELWYEXCHANGELIST);
       }
     } else if (index == 2) {
       //附近电桩

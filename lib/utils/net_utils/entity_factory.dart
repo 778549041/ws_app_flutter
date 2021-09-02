@@ -10,7 +10,7 @@ import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/common/img_model.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
-import 'package:ws_app_flutter/models/enjoy/shop.dart';
+import 'package:ws_app_flutter/models/enjoy/gallery_mall_model.dart';
 import 'package:ws_app_flutter/models/login/address_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
@@ -100,8 +100,8 @@ class EntityFactory {
      return CarConfigListModel.fromJson(json) as T;
    } else if (T.toString() == 'FUTCModel') {
      return FUTCModel.fromJson(json) as T;
-   } else if (T.toString() == 'ShopListModel') {
-     return ShopListModel.fromJson(json) as T;
+   } else if (T.toString() == 'GalleryMallModel') {
+     return GalleryMallModel.fromJson(json) as T;
    } else if (T.toString() == 'FavorModel') {
      return FavorModel.fromJson(json) as T;
    } else if (T.toString() == 'ShopAddressListModel') {

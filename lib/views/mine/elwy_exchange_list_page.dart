@@ -17,6 +17,7 @@ class ElwyExchangeListPage extends GetView<ElwyExchangeListController> {
       bgColor: MainAppColor.mainSilverColor,
       child: SmartRefresher(
         controller: controller.refreshController,
+        enablePullUp: true,
         onRefresh: () => controller.refresh(),
         onLoading: () => controller.loadMore(),
         child: CustomScrollView(
@@ -109,8 +110,7 @@ class ElwyExchangeListPage extends GetView<ElwyExchangeListController> {
                       children: <Widget>[
                         NetImageWidget(
                           imageUrl: _item.logo,
-                          width: 40,
-                          height: 20,
+                          height: 25,
                         ),
                         SizedBox(
                           width: 10,

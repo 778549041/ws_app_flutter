@@ -2,16 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class NetImageWidget extends StatelessWidget {
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final String? imageUrl;
   final String? placeholder;
   final BoxFit fit;
   final Color? color;
 
   NetImageWidget({
-    this.width = double.infinity,
-    this.height = double.infinity,
+    this.width,
+    this.height,
     this.imageUrl,
     this.placeholder,
     this.fit = BoxFit.cover,
