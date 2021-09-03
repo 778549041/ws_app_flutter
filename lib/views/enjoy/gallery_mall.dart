@@ -27,10 +27,7 @@ class GalleryMallPageState extends State<GalleryMallPage>
       child: SmartRefresher(
         controller: controller.refreshController,
         enablePullUp: true,
-        onRefresh: () {
-          controller.headDataLoadOnce = false;
-          controller.refresh();
-        },
+        enablePullDown: false,
         onLoading: () => controller.loadMore(),
         child: CustomScrollView(
           slivers: [
@@ -40,15 +37,17 @@ class GalleryMallPageState extends State<GalleryMallPage>
             SliverToBoxAdapter(
               child: _buildSegment(),
             ),
-            SliverStaggeredGrid.countBuilder(
-              crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 5,
-              staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-              itemBuilder: (context, index) {
-                return _buildGridItem(index);
-              },
-              itemCount: controller.list.length,
+            Obx(
+              () => SliverStaggeredGrid.countBuilder(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 15,
+                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                itemBuilder: (context, index) {
+                  return _buildGridItem(index);
+                },
+                itemCount: controller.list.length,
+              ),
             ),
           ],
         ),
@@ -124,8 +123,12 @@ class GalleryMallPageState extends State<GalleryMallPage>
       child: Obx(
         () => TabBar(
           isScrollable: true,
-          controller:
-              TabController(length: controller.tabsData.length, vsync: this),
+          controller: TabController(
+              length: controller.tabsData.length,
+              vsync: this,
+              initialIndex: controller.tabsData.contains(controller.cat_id)
+                  ? controller.tabsData.indexOf(controller.cat_id)
+                  : 0),
           tabs: controller.tabsData.map((e) {
             return Tab(
               text: e.cat_name,
@@ -136,9 +139,7 @@ class GalleryMallPageState extends State<GalleryMallPage>
           labelStyle: TextStyle(fontSize: 18),
           unselectedLabelStyle: TextStyle(fontSize: 15),
           indicator: UnderlineTabIndicator(borderSide: BorderSide.none),
-          onTap: (index) {
-            ScreenCat cat = controller.tabsData[index];
-          },
+          onTap: (index) => controller.tabIndexChanged(index),
         ),
       ),
     );
@@ -147,7 +148,11 @@ class GalleryMallPageState extends State<GalleryMallPage>
   Widget _buildGridItem(int index) {
     ShopModel model = controller.list[index];
     return GestureDetector(
-        onTap: () {},
+      onTap: () => controller.pushDetail(model),
+      child: Padding(
+        padding: index.isEven
+            ? EdgeInsets.only(left: 15)
+            : EdgeInsets.only(right: 15),
         child: Column(
           children: <Widget>[
             ClipRRect(
@@ -156,8 +161,7 @@ class GalleryMallPageState extends State<GalleryMallPage>
                 children: <Widget>[
                   NetImageWidget(
                     imageUrl: model.image,
-                    width: (Get.width - 50) / 3,
-                    height: (Get.width - 50) / 3,
+                    width: (Get.width - 45) / 2,
                   ),
                   Positioned(
                     right: 0,
@@ -186,6 +190,7 @@ class GalleryMallPageState extends State<GalleryMallPage>
             Offstage(
               offstage: int.parse(model.deduction!) == 0,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
                     'assets/images/enjoy/enjoy_price_point_red.png',
@@ -209,6 +214,7 @@ class GalleryMallPageState extends State<GalleryMallPage>
             Offstage(
               offstage: int.parse(model.integral!) == 0,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
                     'assets/images/enjoy/enjoy_price_point.png',
@@ -230,7 +236,9 @@ class GalleryMallPageState extends State<GalleryMallPage>
               ),
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 
   @override

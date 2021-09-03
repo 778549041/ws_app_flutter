@@ -58,11 +58,7 @@ class EnjoyController extends RefreshListController<ShopModel> {
       Get.toNamed(Routes.INTEGRALRULE);
     } else if (index == 1004) {
       //换保养
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl +
-            HtmlUrls.PointGalleryPage +
-            '?cat_id=6087&source=2',
-      });
+      Get.toNamed(Routes.GALLERYMALL,arguments: {'cat_id':'6087'});
     } else if (index == 1005) {
       //抽大奖
       CJUrlModel _model = await DioManager()
@@ -128,20 +124,12 @@ class EnjoyController extends RefreshListController<ShopModel> {
       }
     } else if (index == 1007) {
       //更多
-      // pushH5Page(args: {
-      //   'url':
-      //       Env.envConfig.serviceUrl + HtmlUrls.PointGalleryPage + '?source=3',
-      // });
       Get.toNamed(Routes.GALLERYMALL);
     }
   }
 
   Future pushDetailH5(ShopModel model) async {
-    pushH5Page(args: {
-      'url': Env.envConfig.serviceUrl +
-          HtmlUrls.ProductDetailPage +
-          '?product_id=${model.product!.productId}&source=1',
-    });
+    Get.toNamed(Routes.PRODUCTDETAIL,arguments: {'product_id':model.product!.productId!});
   }
 
   void elwyKVClickAction() async {

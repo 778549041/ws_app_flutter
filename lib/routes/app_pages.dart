@@ -11,7 +11,9 @@ import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/report_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
+import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
+import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
@@ -77,7 +79,9 @@ import 'package:ws_app_flutter/views/circle/report_know_page.dart';
 import 'package:ws_app_flutter/views/circle/report_page.dart';
 import 'package:ws_app_flutter/views/circle/single_user_circle_page.dart';
 import 'package:ws_app_flutter/views/circle/topic_list_page.dart';
+import 'package:ws_app_flutter/views/enjoy/exchange_product.dart';
 import 'package:ws_app_flutter/views/enjoy/gallery_mall.dart';
+import 'package:ws_app_flutter/views/enjoy/product_detail.dart';
 import 'package:ws_app_flutter/views/login/bind_phone_page.dart';
 import 'package:ws_app_flutter/views/login/certify_page.dart';
 import 'package:ws_app_flutter/views/login/complaint_page.dart';
@@ -667,11 +671,28 @@ abstract class AppPages {
     GetPage(name: Routes.AIRCONDITION, page: () => AirConditionPage()),
     //虚拟体验
     GetPage(name: Routes.VITUALCONTROL, page: () => VitualControlPage()),
+    //积分商城
     GetPage(
       name: Routes.GALLERYMALL,
       page: () => GalleryMallPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<GalleryMallController>(() => GalleryMallController()),
+      ),
+    ),
+    //商品详情
+    GetPage(
+      name: Routes.PRODUCTDETAIL,
+      page: () => ProductDetailPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ProductDetailController>(() => ProductDetailController()),
+      ),
+    ),
+    //商品兑换
+    GetPage(
+      name: Routes.EXCHANGEPRODUCT,
+      page: () => ExchangeProductPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ExchangeProductController>(() => ExchangeProductController()),
       ),
     ),
   ];

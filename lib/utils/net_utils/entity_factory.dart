@@ -11,6 +11,7 @@ import 'package:ws_app_flutter/models/common/img_model.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
 import 'package:ws_app_flutter/models/enjoy/gallery_mall_model.dart';
+import 'package:ws_app_flutter/models/enjoy/product_detail_model.dart';
 import 'package:ws_app_flutter/models/login/address_model.dart';
 import 'package:ws_app_flutter/models/login/bind_model.dart';
 import 'package:ws_app_flutter/models/login/certify_model.dart';
@@ -170,6 +171,8 @@ class EntityFactory {
      return ExchangePackageListModel.fromJson(json) as T;
    } else if (T.toString() == 'ExchangePackageDetailModel') {
      return ExchangePackageDetailModel.fromJson(json) as T;
+   } else if (T.toString() == 'ProductDetailModel') {
+     return ProductDetailModel.fromJson(json) as T;
    }
    else {
       return json as T;

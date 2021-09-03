@@ -81,4 +81,6 @@ abstract class Routes {
   static const VITUALCONTROL = '/vitual-control-page'; //虚拟体验
   //优享
   static const GALLERYMALL = '/gallery-mall';//积分商城
+  static const PRODUCTDETAIL = '/product-detail';//商品详情
+  static const EXCHANGEPRODUCT = '/product-exchange';//商品兑换
 }

@@ -1,8 +1,5 @@
 ///前端页面地址
 class HtmlUrls {
-//积分商城
-  static const String PointGalleryPage =
-      'htmlrouter/dist/pages/integralmall/gallery';
 //资讯搜索
   static const String NewsSearchPage =
       'htmlrouter/dist/pages/information/search/search?searchkey=';
@@ -22,9 +19,6 @@ class HtmlUrls {
   static const String WishPage = 'htmlrouter/dist/pages/enjoy/wish/index';
 //抽大奖
   static const String LuckyDrawPage = 'htmlrouter/dist/pages/digitalmarketing';
-//积分商城商品详情页面
-  static const String ProductDetailPage =
-      'htmlrouter/dist/pages/integralmall/detail/detail';
 //了解VE-1
   static const String UnderstandVEPage =
       'htmlrouter/dist/pages/member/ownerCertify/VE';
