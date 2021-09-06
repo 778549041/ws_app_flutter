@@ -5,6 +5,7 @@ import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/mine/package_detail.dart';
 import 'package:ws_app_flutter/view_models/mine/elwy_detail_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/widgets/global/base_alert_container.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/net_image_widget.dart';
 
@@ -139,68 +140,54 @@ class ElwyDetail extends GetView<ElwyDetailController> {
   }
 
   Widget _buildQRDialog(String qrStr) {
-    return AnimatedPadding(
-      padding: MediaQuery.of(Get.context!).viewInsets +
-          EdgeInsets.symmetric(horizontal: 15.0, vertical: 24.0),
-      duration: Duration(milliseconds: 120),
-      curve: Curves.easeInCubic,
-      child: MediaQuery.removeViewInsets(
-        removeLeft: true,
-        removeTop: true,
-        removeRight: true,
-        removeBottom: true,
-        context: Get.context!,
-        child: Center(
-          child: Material(
-            borderRadius: BorderRadius.circular(5),
-            child: Container(
-              height: 400,
-              width: Get.width - 30,
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: <Widget>[
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: CustomButton(
-                      width: 30,
-                      height: 30,
-                      imageH: 15,
-                      imageW: 15,
-                      radius: 7.5,
-                      image: 'assets/images/common/icon_close.png',
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      QrImage(
-                        data: qrStr,
-                        version: QrVersions.auto,
-                        size: 200,
-                        gapless: false,
-                        embeddedImage:
-                            AssetImage('assets/images/mine/package_qr.png'),
-                        embeddedImageStyle: QrEmbeddedImageStyle(
-                          size: Size(40, 40),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: Text(
-                          qrStr,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+    return BaseAlertContainer(
+      Container(
+        width: Get.width - 30,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+            Positioned(
+              top: 10,
+              right: 10,
+              child: CustomButton(
+                width: 30,
+                height: 30,
+                imageH: 15,
+                imageW: 15,
+                radius: 7.5,
+                image: 'assets/images/common/icon_close.png',
+                onPressed: () {
+                  Get.back();
+                },
               ),
             ),
-          ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 40,),
+                QrImage(
+                  data: qrStr,
+                  version: QrVersions.auto,
+                  size: 200,
+                  gapless: false,
+                  embeddedImage:
+                      AssetImage('assets/images/mine/package_qr.png'),
+                  embeddedImageStyle: QrEmbeddedImageStyle(
+                    size: Size(40, 40),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    qrStr,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                SizedBox(height: 30,),
+              ],
+            )
+          ],
         ),
       ),
     );

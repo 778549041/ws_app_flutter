@@ -1,12 +1,17 @@
+import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/json_convert.dart';
 
 class ProductDetailModel {
   Data_detail? dataDetail;
   Relgoods? relgoods;
+  Data_detail? goods;
+  List<ShopAddressModel>? member_addrs;
 
   ProductDetailModel({
     this.dataDetail,
     this.relgoods,
+    this.goods,
+    this.member_addrs,
   });
 
   ProductDetailModel.fromJson(Map<String, dynamic> jsonRes) {
@@ -17,6 +22,20 @@ class ProductDetailModel {
     relgoods = jsonRes['relgoods'] == null
         ? null
         : Relgoods.fromJson(asT<Map<String, dynamic>>(jsonRes['relgoods'])!);
+    goods = jsonRes['goods'] == null
+        ? null
+        : Data_detail.fromJson(asT<Map<String, dynamic>>(jsonRes['goods'])!);
+    member_addrs = <ShopAddressModel>[];
+    if (jsonRes['member_addrs'] != null && jsonRes['member_addrs'] != false) {
+      (jsonRes['member_addrs'] as Map).forEach((key, value) {
+        if (value != null) {
+          tryCatch(() {
+            member_addrs?.add(
+                ShopAddressModel.fromJson(asT<Map<String, dynamic>>(value)!));
+          });
+        }
+      });
+    }
   }
 }
 

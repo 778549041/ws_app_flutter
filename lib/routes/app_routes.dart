@@ -75,10 +75,11 @@ abstract class Routes {
   static const REPORTKNOW = '/report-know'; //举报须知
   static const REPORT = '/report'; //举报
   static const TOPICLIST = '/topic-list'; //话题列表
-  //车控
+  //爱车、车控
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情
   static const VITUALCONTROL = '/vitual-control-page'; //虚拟体验
+  static const CARPARTS = '/car-parts';//爱车配件
   //优享
   static const GALLERYMALL = '/gallery-mall';//积分商城
   static const PRODUCTDETAIL = '/product-detail';//商品详情

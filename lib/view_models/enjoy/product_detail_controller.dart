@@ -28,7 +28,7 @@ class ProductDetailController extends GetxController {
             model.value.relgoods!.deduction! &&
         int.parse(Get.find<UserController>().userInfo.value.member!.integral!) >
             model.value.relgoods!.integral!) {
-      Get.toNamed(Routes.EXCHANGEPRODUCT);
+      Get.toNamed(Routes.EXCHANGEPRODUCT,arguments: {'product_id':productid});
     } else {
       EasyLoading.showToast('积分不足',
           toastPosition: EasyLoadingToastPosition.bottom);

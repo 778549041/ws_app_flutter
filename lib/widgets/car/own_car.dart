@@ -557,8 +557,7 @@ class OwnCarWidget extends GetView<EletricController> {
   Future buttonAction(int index) async {
     if (index == 0) {
       //爱车配件
-      Get.toNamed(Routes.WEBVIEW,
-          arguments: {'url': Env.envConfig.serviceUrl + HtmlUrls.CarPartsPage});
+      Get.toNamed(Routes.CARPARTS);
     } else if (index == 1) {
       //违章查询
       if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {

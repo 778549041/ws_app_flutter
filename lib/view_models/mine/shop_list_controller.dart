@@ -10,6 +10,8 @@ import 'package:ws_app_flutter/view_models/base/list_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class ShopListController extends ListController<ShopAddressModel> {
+  final bool? shouldBack = Get.arguments?['shouldBack'];
+
   @override
   Future<List<ShopAddressModel>?> loadData() async {
     ShopAddressListModel _model = await DioManager()
@@ -48,5 +50,11 @@ class ShopListController extends ListController<ShopAddressModel> {
           },
         ),
         barrierDismissible: false);
+  }
+
+  void selectAddressBack(ShopAddressModel model) {
+    if (shouldBack != null && shouldBack == true) {
+      Get.back(result: model);
+    }
   }
 }

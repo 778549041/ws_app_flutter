@@ -5,6 +5,7 @@ import 'package:ws_app_flutter/view_models/mine/setting_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
+import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class SettingPage extends GetView<SettingController> {
   @override
@@ -103,23 +104,20 @@ class SettingPage extends GetView<SettingController> {
               borderWidth: 1.0,
               radius: 20,
               onPressed: () {
-                Get.dialog(CupertinoAlertDialog(
-                  title: Text('提示'),
-                  content: Text('账号注销后您将无法正常登陆与使用该应用，是否确定注销？'),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('取消'),
-                      onPressed: () => Get.back(),
+                Get.dialog(
+                  BaseDialog(
+                    title: '提示',
+                    content: Text(
+                      '账号注销后您将无法正常登陆与使用该应用，是否确定注销？',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
                     ),
-                    FlatButton(
-                      child: Text('确认'),
-                      onPressed: () async {
-                        Get.back();
-                        await controller.deleteUser();
-                      },
-                    )
-                  ],
-                ));
+                    onConfirm: () async {
+                      Get.back();
+                      await controller.deleteUser();
+                    },
+                  ),
+                );
               },
             ),
           ),

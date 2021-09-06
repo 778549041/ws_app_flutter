@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/env_config.dart';
 import 'package:ws_app_flutter/global/html_urls.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/login/login_controller.dart';
 import 'package:ws_app_flutter/widgets/global/count_down_btn.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
@@ -282,10 +283,9 @@ class LoginPage extends GetView<LoginController> {
                           title: '爱车配件',
                           titleColor: Colors.white.withOpacity(0.6),
                           fontSize: 14,
-                          onPressed: () => controller.pushH5Page(args: {
-                            'url': Env.envConfig.serviceUrl +
-                                HtmlUrls.CarPartsPage,
-                          }),
+                          onPressed: () {
+                            Get.toNamed(Routes.CARPARTS);
+                          },
                         ),
                         Container(
                           margin: const EdgeInsets.only(left: 5, right: 5),

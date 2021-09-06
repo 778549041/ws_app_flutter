@@ -2,6 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_pickers/pickers.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/mine/shop_list_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
@@ -67,7 +68,7 @@ class AddShopController extends GetxController {
     _params['maddr[mobile]'] = model.value.mobile;
     _params['maddr[is_default]'] = isDefault.value.toString();
     _params['maddr[area]'] = model.value.area;
-    await DioManager().request(DioManager.POST, Api.changedTakeGoodsAddressUrl,
+    await DioManager().request<CommonModel>(DioManager.POST, Api.changedTakeGoodsAddressUrl,
         params: _params);
     EasyLoading.showToast('保存成功',
         toastPosition: EasyLoadingToastPosition.bottom);

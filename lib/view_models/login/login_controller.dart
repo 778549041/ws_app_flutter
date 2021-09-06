@@ -87,27 +87,31 @@ class LoginController extends BaseController {
   Future<bool> sendCode() async {
     String _phoneNumber = nameController.text;
     if (_phoneNumber.length == 0) {
-      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请输入手机号',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('手机号格式错误',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return false;
     }
     CommonModel obj = await DioManager().request<CommonModel>(
         DioManager.POST, Api.loginSendCodeUrl,
         params: {'mobile': _phoneNumber});
     if (obj.success != null) {
-      EasyLoading.showToast(obj.success!,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(obj.success!,
+          toastPosition: EasyLoadingToastPosition.bottom);
     } else if (obj.error != null) {
-      EasyLoading.showToast(obj.error!,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(obj.error!,
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
     return true;
   }
 
   //忘记密码
   void forgetPwdAction() {
-    Get.toNamed(Routes.CHANGEPWD,arguments: {'isForget':true});
+    Get.toNamed(Routes.CHANGEPWD, arguments: {'isForget': true});
   }
 
   //登录
@@ -118,30 +122,35 @@ class LoginController extends BaseController {
     _params['uname'] = _phoneNumber;
     _params['password'] = _pwdStr;
     if (_phoneNumber.length == 0) {
-      EasyLoading.showToast('请输入手机号',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请输入手机号',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (!RegexUtil.isMobileExact(_phoneNumber)) {
-      EasyLoading.showToast('手机号格式错误',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('手机号格式错误',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     if (loginType.value == LoginType.AuthCodeType) {
       //验证码登录
       if (_pwdStr.length == 0) {
-        EasyLoading.showToast('请输入验证码',toastPosition: EasyLoadingToastPosition.bottom);
+        EasyLoading.showToast('请输入验证码',
+            toastPosition: EasyLoadingToastPosition.bottom);
         return;
       }
       _params['type'] = 'authcode';
     } else if (loginType.value == LoginType.PwdType) {
       //密码登录
       if (_pwdStr.length == 0) {
-        EasyLoading.showToast('请输入密码',toastPosition: EasyLoadingToastPosition.bottom);
+        EasyLoading.showToast('请输入密码',
+            toastPosition: EasyLoadingToastPosition.bottom);
         return;
       }
       _params['type'] = 'password';
     }
     if (!aggree.value) {
-      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     LoginModel obj = await DioManager().request<LoginModel>(
@@ -157,26 +166,32 @@ class LoginController extends BaseController {
         Get.find<UserController>().requestIMInfoAndLogin();
       }
     } else if (obj.error != null || obj.redirect == '1002') {
-      EasyLoading.showToast(obj.error!,toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast(obj.error!,
+          toastPosition: EasyLoadingToastPosition.bottom);
     }
   }
 
   //是否同意协议
   void changeAggreeState() {
+    var status;
     if (aggree.value) {
       aggree.value = false;
       aggreeImageName.value = 'assets/images/login/login_unselected.png';
+      status = 0;
     } else {
       aggree.value = true;
       aggreeImageName.value = 'assets/images/login/login_selected.png';
+      status = 1;
     }
+    SharesdkPlugin.uploadPrivacyPermissionStatus(status, (success) {});
   }
 
   //微信登录
   void wechatLogin() {
     LogUtil.d('微信登录');
     if (!aggree.value) {
-      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     SharesdkPlugin.isClientInstalled(ShareSDKPlatforms.wechatSession)
@@ -197,7 +212,8 @@ class LoginController extends BaseController {
               if (obj.data!.wxUsed!) {
                 //微信已被使用
                 if (obj.data!.msg != null) {
-                  EasyLoading.showToast(obj.data!.msg!,toastPosition: EasyLoadingToastPosition.bottom);
+                  EasyLoading.showToast(obj.data!.msg!,
+                      toastPosition: EasyLoadingToastPosition.bottom);
                 }
               } else {
                 //微信未被使用,绑定手机号
@@ -219,7 +235,8 @@ class LoginController extends BaseController {
           }
         });
       } else {
-        EasyLoading.showToast('请先安装微信客户端',toastPosition: EasyLoadingToastPosition.bottom);
+        EasyLoading.showToast('请先安装微信客户端',
+            toastPosition: EasyLoadingToastPosition.bottom);
       }
     });
   }
@@ -228,7 +245,8 @@ class LoginController extends BaseController {
   void appleLogin() {
     LogUtil.d('苹果登录');
     if (!aggree.value) {
-      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',toastPosition: EasyLoadingToastPosition.bottom);
+      EasyLoading.showToast('请仔细阅读《WOW STATION App隐私政策》及《广汽本田平台服务协议》',
+          toastPosition: EasyLoadingToastPosition.bottom);
       return;
     }
     SharesdkPlugin.auth(ShareSDKPlatforms.apple, Map(),
@@ -254,7 +272,8 @@ class LoginController extends BaseController {
               "identityToken": user['credential']['token'],
             });
           } else {
-            EasyLoading.showToast(obj.message!,toastPosition: EasyLoadingToastPosition.bottom);
+            EasyLoading.showToast(obj.message!,
+                toastPosition: EasyLoadingToastPosition.bottom);
           }
         }
       } else {

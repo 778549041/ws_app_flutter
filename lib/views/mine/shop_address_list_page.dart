@@ -46,96 +46,101 @@ class ShopAddressListPage extends GetView<ShopListController> {
     if (_address != null && _address.contains('mainland')) {
       _address = _address.split(':')[1];
     }
-    return Container(
-      margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Image.asset(
-                'assets/images/mine/mine_shop_addre_addr.png',
-                width: 24,
-                height: 29,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () => controller.selectAddressBack(model),
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/mine/mine_shop_addre_addr.png',
+                  width: 24,
+                  height: 29,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              model.name!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            model.mobile!
+                                .replaceFirst(RegExp(r'\d{4}'), '****', 3),
+                            style: TextStyle(
+                                color: Color(0xFFADADAD), fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Offstage(
+                            offstage: !model.isDefault!,
+                            child: Image.asset(
+                              'assets/images/mine/mine_shop_addre_default.png',
+                              width: 32,
+                              height: 16,
+                            ),
+                          )
+                        ],
+                      ),
+                      Text(
+                        _address! + ' ' + model.addr!,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Column(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            model.name!,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          model.mobile!.replaceFirst(RegExp(r'\d{4}'), '****', 3),
-                          style:
-                              TextStyle(color: Color(0xFFADADAD), fontSize: 15),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Offstage(
-                          offstage: !model.isDefault!,
-                          child: Image.asset(
-                            'assets/images/mine/mine_shop_addre_default.png',
-                            width: 32,
-                            height: 16,
-                          ),
-                        )
-                      ],
+                    CustomButton(
+                      width: 30,
+                      height: 30,
+                      image: 'assets/images/mine/mine_shop_addre_edit.png',
+                      imageW: 21.5,
+                      imageH: 20.5,
+                      onPressed: () => controller.editAction(model: model),
                     ),
-                    Text(
-                      _address! + ' ' + model.addr!,
-                      style: TextStyle(fontSize: 15),
+                    CustomButton(
+                      width: 30,
+                      height: 30,
+                      image: 'assets/images/mine/mine_shop_addre_delete.png',
+                      imageW: 21.5,
+                      imageH: 23.5,
+                      onPressed: () => controller.deleteAction(model),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Column(
-                children: <Widget>[
-                  CustomButton(
-                    width: 30,
-                    height: 30,
-                    image: 'assets/images/mine/mine_shop_addre_edit.png',
-                    imageW: 21.5,
-                    imageH: 20.5,
-                    onPressed: () => controller.editAction(model: model),
-                  ),
-                  CustomButton(
-                    width: 30,
-                    height: 30,
-                    image: 'assets/images/mine/mine_shop_addre_delete.png',
-                    imageW: 21.5,
-                    imageH: 23.5,
-                    onPressed: () => controller.deleteAction(model),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Divider(
-            color: Color(0xFFD6D6D6),
-            height: 0.5,
-          ),
-        ],
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Divider(
+              color: Color(0xFFD6D6D6),
+              height: 0.5,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/models/enjoy/gallery_mall_model.dart';
@@ -300,25 +301,38 @@ class EnjoyPage extends GetView<EnjoyController> {
                 ],
               ),
             ),
-            Obx(() => SliverGrid(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    ShopModel _model = controller.list[index];
-                    return _buildGridItem(_model);
-                  }, childCount: controller.list.length),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1 / 2,
-                  ),
-                )),
+            Obx(
+              () => SliverStaggeredGrid.countBuilder(
+                crossAxisCount: 3,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 10,
+                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                itemBuilder: (context, index) {
+                  return _buildGridItem(index);
+                },
+                itemCount: controller.list.length,
+              ),
+            ),
+            // Obx(() => SliverGrid(
+            //       delegate: SliverChildBuilderDelegate((context, index) {
+            //         ShopModel _model = controller.list[index];
+            //         return _buildGridItem(_model);
+            //       }, childCount: controller.list.length),
+            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //         crossAxisCount: 3,
+            //         crossAxisSpacing: 10,
+            //         mainAxisSpacing: 10,
+            //         childAspectRatio: 1 / 2,
+            //       ),
+            //     )),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildGridItem(ShopModel model) {
+  Widget _buildGridItem(int index) {
+    ShopModel model = controller.list[index];
     return GestureDetector(
         onTap: () => controller.pushDetailH5(model),
         child: Column(

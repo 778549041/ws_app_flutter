@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ws_app_flutter/widgets/global/base_alert_container.dart';
 
 class BaseDialog extends StatelessWidget {
   BaseDialog({
@@ -65,38 +66,22 @@ class BaseDialog extends StatelessWidget {
       ],
     );
 
-    Widget body = Material(
-      borderRadius: BorderRadius.circular(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(height: 24),
-          dialogTitle,
-          content == null ? Container() : Flexible(child: content!),
-          SizedBox(height: 8),
-          Divider(height: 1),
-          bottomButton,
-        ],
-      ),
+    Widget body = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(height: 24),
+        dialogTitle,
+        content == null ? Container() : Flexible(child: content!),
+        SizedBox(height: 8),
+        Divider(height: 1),
+        bottomButton,
+      ],
     );
 
-    return AnimatedPadding(
-      padding: MediaQuery.of(context).viewInsets +
-          EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
-      duration: Duration(milliseconds: 120),
-      curve: Curves.easeInCubic,
-      child: MediaQuery.removeViewInsets(
-        removeLeft: true,
-        removeTop: true,
-        removeRight: true,
-        removeBottom: true,
-        context: context,
-        child: Center(
-          child: SizedBox(
-            width: 270.0,
-            child: body,
-          ),
-        ),
+    return BaseAlertContainer(
+      Container(
+        width: 270,
+        child: body,
       ),
     );
   }

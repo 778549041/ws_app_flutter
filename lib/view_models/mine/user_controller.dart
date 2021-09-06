@@ -33,9 +33,9 @@ class UserController extends BaseController {
         await DioManager().request<UserInfo>(DioManager.POST, Api.userInfoUrl);
     userInfo.value = user;
     isLogin.value = (user.member != null);
-    // if (!isLogin.value) {
-    //   Get.offAllNamed(Routes.LOGIN);
-    // }
+    if (!isLogin.value) {
+      Get.offAllNamed(Routes.LOGIN);
+    }
   }
 
   //修改用户信息

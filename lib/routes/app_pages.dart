@@ -14,6 +14,7 @@ import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
+import 'package:ws_app_flutter/views/car/car_parts.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
@@ -671,6 +672,8 @@ abstract class AppPages {
     GetPage(name: Routes.AIRCONDITION, page: () => AirConditionPage()),
     //虚拟体验
     GetPage(name: Routes.VITUALCONTROL, page: () => VitualControlPage()),
+    //爱车配件
+    GetPage(name: Routes.CARPARTS, page: () => CarPartsPage()),
     //积分商城
     GetPage(
       name: Routes.GALLERYMALL,
