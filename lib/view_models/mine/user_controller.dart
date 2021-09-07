@@ -33,9 +33,6 @@ class UserController extends BaseController {
         await DioManager().request<UserInfo>(DioManager.POST, Api.userInfoUrl);
     userInfo.value = user;
     isLogin.value = (user.member != null);
-    if (!isLogin.value) {
-      Get.offAllNamed(Routes.LOGIN);
-    }
   }
 
   //修改用户信息
@@ -120,8 +117,8 @@ class UserController extends BaseController {
 
   //认证结果
   void certifyResult() async {
-    await Get.find<UserController>().getUserInfo();
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+    await getUserInfo();
+    if (userInfo.value.member!.isVehicle!) {
       //认证成功
       if (Get.currentRoute == Routes.SELECTINTREST) {
         //如果当前路由是选择兴趣爱好,则跳转首页
@@ -143,8 +140,8 @@ class UserController extends BaseController {
         await DioManager().request<CommonModel>(DioManager.POST, Api.logoutUrl);
     if (obj.success != null) {
       Get.offAllNamed(Routes.LOGIN);
-      // userInfo.value = UserInfo();
-      // isLogin.value = false;
+      userInfo.value = UserInfo();
+      isLogin.value = false;
     }
   }
 

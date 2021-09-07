@@ -26,7 +26,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? leftWidget; //左侧widget ，默认隐藏
   final Widget? rightWidget; //右侧widget ，默认隐藏
   final int? maxLines; //最大行数，默认显示一行，自动换行，最多展示_maxLines 行
-  final int maxLength; //最大长度，默认_maxLength
+  final int? maxLength; //最大长度，默认_maxLength
   final bool showMaxLength; //是否显示右侧最大长度文字，默认不显示
   final bool enabled; //是否可编辑，默认true
   final List<TextInputFormatter>? inputFormatters;

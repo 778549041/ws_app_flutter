@@ -21,10 +21,14 @@ class StoreListModel {
 class StoreModel {
   String? fAppID;
   String? fAdminShopName;
+  String? FShopAddr;//预约试驾参数
+  String? FShopName;//预约试驾参数
   StoreModel({this.fAppID, this.fAdminShopName});
 
   StoreModel.fromJson(Map<String, dynamic> json) {
     fAppID = asT<String>(json['FAppID']);
     fAdminShopName = asT<String>(json['FAdminShopName']);
+    FShopAddr = asT<String>(json['FShopAddr']);
+    FShopName = asT<String>(json['FShopName']);
   }
 }

@@ -561,9 +561,7 @@ class OwnCarWidget extends GetView<EletricController> {
     } else if (index == 1) {
       //违章查询
       if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
-        Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': Env.envConfig.serviceUrl + HtmlUrls.ViolationPage
-        });
+        Get.toNamed(Routes.VIOLATION);
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
       }

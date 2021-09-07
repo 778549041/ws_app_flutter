@@ -40,7 +40,7 @@ class RecommendPage extends GetView<RecommendController> {
                   SliverToBoxAdapter(
                     child: RecommendBanner(),
                   ),
-                  if (controller.userInfo.value.member!.isVehicle!)
+                  if (controller.userInfo.value.member != null && controller.userInfo.value.member!.isVehicle!)
                     SliverToBoxAdapter(
                       child: RecommendEle(),
                     ),

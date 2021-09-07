@@ -60,7 +60,8 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildHeader() {
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+    if (Get.find<UserController>().userInfo.value.member != null &&
+        Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -87,10 +88,10 @@ class CarPage extends GetView<CarController> {
                         right: 0,
                         child: Offstage(
                             offstage: !(Get.find<UserController>()
-                                    .userInfo
-                                    .value
-                                    .member!
-                                    .isVehicle!),
+                                .userInfo
+                                .value
+                                .member!
+                                .isVehicle!),
                             child: Image.asset(
                               'assets/images/mine/vip_tag.png',
                               width: 18,
@@ -222,7 +223,8 @@ class CarPage extends GetView<CarController> {
   }
 
   Widget _buildBody() {
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+    if (Get.find<UserController>().userInfo.value.member != null &&
+        Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       return OwnCarWidget();
     } else {
       return UnOwnCarWidget();

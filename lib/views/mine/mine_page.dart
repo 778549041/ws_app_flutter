@@ -174,11 +174,15 @@ class MinePage extends GetView<MineController> {
                   bottom: 5.0,
                   right: 5.0,
                   child: Offstage(
-                      offstage: !(Get.find<UserController>()
-                          .userInfo
-                          .value
-                          .member!
-                          .isVehicle!),
+                      offstage:
+                          !(Get.find<UserController>().userInfo.value.member ==
+                                  null
+                              ? true
+                              : Get.find<UserController>()
+                                  .userInfo
+                                  .value
+                                  .member!
+                                  .isVehicle!),
                       child: Image.asset(
                         'assets/images/mine/vip_tag.png',
                         width: 18,
@@ -194,33 +198,37 @@ class MinePage extends GetView<MineController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Obx(() => Text(
-                        (Get.find<UserController>()
+                        Get.find<UserController>().userInfo.value.member == null
+                            ? ''
+                            : (Get.find<UserController>()
+                                        .userInfo
+                                        .value
+                                        .member!
+                                        .showName!
+                                        .length >
+                                    11)
+                                ? Get.find<UserController>()
                                     .userInfo
                                     .value
                                     .member!
                                     .showName!
-                                    .length >
-                                11)
-                            ? Get.find<UserController>()
-                                .userInfo
-                                .value
-                                .member!
-                                .showName!
-                                .substring(0, 11)
-                            : Get.find<UserController>()
-                                .userInfo
-                                .value
-                                .member!
-                                .showName!,
+                                    .substring(0, 11)
+                                : Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .member!
+                                    .showName!,
                         style: TextStyle(fontSize: 15),
                       )),
                   // 销售员或者勋章标签
-                  if (Get.find<UserController>()
-                      .userInfo
-                      .value
-                      .member!
-                      .memberInfo!
-                      .showTag!)
+                  if (Get.find<UserController>().userInfo.value.member !=
+                          null &&
+                      Get.find<UserController>()
+                          .userInfo
+                          .value
+                          .member!
+                          .memberInfo!
+                          .showTag!)
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
                       child: MedalWidget(
@@ -246,20 +254,26 @@ class MinePage extends GetView<MineController> {
                       ),
                     ),
                   Obx(() => Offstage(
-                        offstage: Get.find<UserController>()
-                                .userInfo
-                                .value
-                                .member!
-                                .sex!
-                                .length ==
-                            0,
+                        offstage:
+                            Get.find<UserController>().userInfo.value.member ==
+                                    null
+                                ? true
+                                : Get.find<UserController>()
+                                        .userInfo
+                                        .value
+                                        .member!
+                                        .sex!
+                                        .length ==
+                                    0,
                         child: Image.asset(
-                          Get.find<UserController>()
-                                      .userInfo
-                                      .value
-                                      .member!
-                                      .sex ==
-                                  '0'
+                          Get.find<UserController>().userInfo.value.member ==
+                                      null ||
+                                  Get.find<UserController>()
+                                          .userInfo
+                                          .value
+                                          .member!
+                                          .sex ==
+                                      '0'
                               ? 'assets/images/mine/woman.png'
                               : 'assets/images/mine/man.png',
                           width: 15,
@@ -296,10 +310,16 @@ class MinePage extends GetView<MineController> {
                       1007,
                       Obx(() => Text(
                             Get.find<UserController>()
-                                .userInfo
-                                .value
-                                .huodongData
-                                .toString(),
+                                        .userInfo
+                                        .value
+                                        .huodongData ==
+                                    null
+                                ? '0'
+                                : Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .huodongData
+                                    .toString(),
                             style: TextStyle(fontSize: 12),
                           )),
                       title: '活动',
@@ -307,11 +327,15 @@ class MinePage extends GetView<MineController> {
                   _buildFourBtn(
                       1008,
                       Obx(() => Text(
-                            TextUtil.formatComma3(Get.find<UserController>()
-                                .userInfo
-                                .value
-                                .member!
-                                .integral!),
+                            Get.find<UserController>().userInfo.value.member ==
+                                    null
+                                ? '0'
+                                : TextUtil.formatComma3(
+                                    Get.find<UserController>()
+                                        .userInfo
+                                        .value
+                                        .member!
+                                        .integral!),
                             style: TextStyle(fontSize: 12),
                           )),
                       title: '积分',

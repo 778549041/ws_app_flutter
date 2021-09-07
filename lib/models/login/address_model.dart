@@ -22,6 +22,10 @@ class AddressModel {
   String? fItemId;
   String? fParentId;
   String? fName;
+  String? provinceCode;//预约试驾参数
+  String? provinceName;//预约试驾参数
+  String? cityCode;//预约试驾参数
+  String? cityName;//预约试驾参数
 
   AddressModel({this.fItemId, this.fParentId, this.fName});
 
@@ -29,5 +33,9 @@ class AddressModel {
     fItemId = asT<String>(json['FItemId']);
     fParentId = asT<String>(json['FParentId']);
     fName = asT<String>(json['FName']);
+    provinceCode = asT<String>(json['provinceCode']);
+    provinceName = asT<String>(json['provinceName']);
+    cityCode = asT<String>(json['cityCode']);
+    cityName = asT<String>(json['cityName']);
   }
 }

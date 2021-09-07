@@ -72,7 +72,8 @@ class MineController extends BaseController {
       });
     } else if (actionTag == 4) {
       //认证信息
-      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+      if (Get.find<UserController>().userInfo.value.member != null &&
+          Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         Get.toNamed(Routes.CERTIFYINFOPAGE)?.then((value) {
           requestFavorData();
           Get.find<UserController>().requestNewMessage();

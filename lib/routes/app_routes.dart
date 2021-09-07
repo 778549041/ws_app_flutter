@@ -80,6 +80,9 @@ abstract class Routes {
   static const AIRCONDITION = '/air-condition-page'; //空调详情
   static const VITUALCONTROL = '/vitual-control-page'; //虚拟体验
   static const CARPARTS = '/car-parts';//爱车配件
+  static const VIOLATION = '/violation';//违章查询
+  static const VIOLATIONLIST = '/violation-list';//违章查询结果列表
+  static const TESTDRIVE = '/test-drive';//预约试驾
   //优享
   static const GALLERYMALL = '/gallery-mall';//积分商城
   static const PRODUCTDETAIL = '/product-detail';//商品详情

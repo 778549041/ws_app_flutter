@@ -300,10 +300,9 @@ class LoginPage extends GetView<LoginController> {
                           title: '预约试驾',
                           titleColor: Colors.white.withOpacity(0.6),
                           fontSize: 14,
-                          onPressed: () => controller.pushH5Page(args: {
-                            'url': Env.envConfig.serviceUrl +
-                                HtmlUrls.TestDrivePage,
-                          }),
+                          onPressed: () {
+                            Get.toNamed(Routes.TESTDRIVE);
+                          },
                         ),
                       ],
                     ),

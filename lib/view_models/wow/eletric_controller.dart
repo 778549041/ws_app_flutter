@@ -31,10 +31,17 @@ class EletricController extends BaseController {
 
   @override
   void onInit() {
-    _vin =
-        Get.find<UserController>().userInfo.value.member!.memberInfo!.FVINStr;
-    _mobile =
-        Get.find<UserController>().userInfo.value.member!.memberInfo!.mobileStr;
+    _vin = Get.find<UserController>().userInfo.value.member == null
+        ? null
+        : Get.find<UserController>().userInfo.value.member!.memberInfo!.FVINStr;
+    _mobile = Get.find<UserController>().userInfo.value.member == null
+        ? null
+        : Get.find<UserController>()
+            .userInfo
+            .value
+            .member!
+            .memberInfo!
+            .mobileStr;
     super.onInit();
   }
 
@@ -46,18 +53,20 @@ class EletricController extends BaseController {
 
   //添加（重置）所有定时器
   void addAllTimer() {
-    if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+    if (Get.find<UserController>().userInfo.value.member != null &&
+        Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       //如果是车主才请求电量信息数据和车辆状态数据
       addStatusTimer();
     }
 
-    if (Get.find<UserController>()
-            .userInfo
-            .value
-            .member!
-            .memberInfo!
-            .vehicleControlBind! ==
-        1) {
+    if (Get.find<UserController>().userInfo.value.member != null &&
+        Get.find<UserController>()
+                .userInfo
+                .value
+                .member!
+                .memberInfo!
+                .vehicleControlBind! ==
+            1) {
       //如果已经绑定车控车辆（绑定必有车控功能），才查询车控指令状态
       addCmdResultTimer();
     }
@@ -125,8 +134,8 @@ class EletricController extends BaseController {
     } else {
       charging.value = false;
       progressValue.value = carDataModel.value.datas?.rspBody?.soc != null
-        ? (carDataModel.value.datas!.rspBody!.soc! / 100)
-        : 1.0;
+          ? (carDataModel.value.datas!.rspBody!.soc! / 100)
+          : 1.0;
     }
   }
 
@@ -331,7 +340,8 @@ class EletricController extends BaseController {
       addAllTimer();
     } else if (index == 2) {
       //电池诊断
-      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+      if (Get.find<UserController>().userInfo.value.member != null &&
+          Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         Get.toNamed(Routes.WEBVIEW, arguments: {
           'url': Env.envConfig.serviceUrl + HtmlUrls.BatteryDiagonisPage
         });

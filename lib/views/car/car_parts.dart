@@ -55,6 +55,7 @@ class CarPartsPageState extends State<CarPartsPage>
               unselectedLabelColor: Color(0xFF1c7ef4).withOpacity(0.5),
               labelStyle: TextStyle(fontSize: 16),
               unselectedLabelStyle: TextStyle(fontSize: 14),
+              labelPadding: EdgeInsets.zero,
               indicatorColor: Color(0xFF1c7ef4),
             ),
           ),

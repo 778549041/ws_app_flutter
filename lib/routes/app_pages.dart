@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
+import 'package:ws_app_flutter/view_models/car/test_drive_controller.dart';
+import 'package:ws_app_flutter/view_models/car/violation_controller.dart';
+import 'package:ws_app_flutter/view_models/car/violation_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/add_friend_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_msg_controller.dart';
@@ -15,6 +18,9 @@ import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dar
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';
+import 'package:ws_app_flutter/views/car/test_drive_page.dart';
+import 'package:ws_app_flutter/views/car/violation_list_page.dart';
+import 'package:ws_app_flutter/views/car/violation_query_page.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
@@ -674,6 +680,30 @@ abstract class AppPages {
     GetPage(name: Routes.VITUALCONTROL, page: () => VitualControlPage()),
     //爱车配件
     GetPage(name: Routes.CARPARTS, page: () => CarPartsPage()),
+    //违章查询
+    GetPage(
+      name: Routes.VIOLATION,
+      page: () => ViolationQueryPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ViolationController>(() => ViolationController()),
+      ),
+    ),
+    //违章查询结果列表
+    GetPage(
+      name: Routes.VIOLATIONLIST,
+      page: () => ViolationListPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ViolationListController>(() => ViolationListController()),
+      ),
+    ),
+    //预约试驾
+    GetPage(
+      name: Routes.TESTDRIVE,
+      page: () => TestDrivePage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<TestDriveController>(() => TestDriveController()),
+      ),
+    ),
     //积分商城
     GetPage(
       name: Routes.GALLERYMALL,

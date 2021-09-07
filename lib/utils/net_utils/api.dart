@@ -161,6 +161,16 @@ class Api {
   static final carNearByStoreUrl = 'index.php/m/charging-nearby.html';
 //爱车车辆配置信息
   static final carConfigUrl = 'm/packageimg-car.html';
+  //违章查询
+  static final violationQueryUrl = 'm/violations-query.html';
+  //预约试驾省份、城市
+  static final orderTestDriveProvinceUrl = 'm/drive-region.html';
+  //预约试驾特约店
+  static final orderTestDriveShopUrl = 'm/drive-shops.html';
+  //预约试驾检查当前选择特约店是否可以试驾
+  static final orderTestDriveCanPerformUrl = 'm/drive-check_dealer.html';
+  //预约试驾提交申请
+  static final orderTestDriveSubmitUrl = 'm/drive-add_drive.html';
 
   /// 我的
 //用户信息

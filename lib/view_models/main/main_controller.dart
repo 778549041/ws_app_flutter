@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_controller.dart';
@@ -39,7 +40,11 @@ class MainController extends BaseController {
   //tabbaritem点击
   void onItemTap(int index) async {
     tabController?.animateTo(index);
-    Get.find<UserController>().getUserInfo();
+    Get.find<UserController>().getUserInfo().then((value) {
+      if (!Get.find<UserController>().isLogin.value) {
+        Get.offAllNamed(Routes.LOGIN);
+      }
+    });
     if (index == 4) {
       Get.find<MineController>().requestFavorData();
       Get.find<UserController>().requestNewMessage();

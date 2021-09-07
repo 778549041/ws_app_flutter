@@ -31,7 +31,7 @@ class CarController extends BaseController {
   late SwiperController swiperController;
   late SwiperController colorSwiperController;
   LocationManager locationManager = LocationManager();
-  bool reloadLocation = false;//默认false，为true则弹出提示框
+  bool reloadLocation = false; //默认false，为true则弹出提示框
 
   @override
   void onInit() {
@@ -43,18 +43,19 @@ class CarController extends BaseController {
   @override
   void onReady() {
     //非车主
-    if (!Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+    if (Get.find<UserController>().userInfo.value.member != null &&
+        !Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       refreshLocation(false);
       requestCarConfigData();
     }
     locationManager.locationPlugin
-          .onLocationChanged()
-          .listen((Map<String, Object> result) async {
-            LogUtil.d(result);
-        await _requestNearStoreData(
-            result['longitude'], result['latitude'], result['city'].toString(),
-            reloadLocation: reloadLocation);
-      });
+        .onLocationChanged()
+        .listen((Map<String, Object> result) async {
+      LogUtil.d(result);
+      await _requestNearStoreData(
+          result['longitude'], result['latitude'], result['city'].toString(),
+          reloadLocation: reloadLocation);
+    });
     super.onReady();
   }
 
@@ -62,10 +63,12 @@ class CarController extends BaseController {
   void refreshLocation(bool reload) async {
     reloadLocation = reload;
     var hasPermission = false;
-    if (!reloadLocation) {//首次进页面，请求定位权限
+    if (!reloadLocation) {
+      //首次进页面，请求定位权限
       hasPermission =
           await PermissionManager().requestPermission(Permission.location);
-    } else {//直接获取定位权限
+    } else {
+      //直接获取定位权限
       hasPermission = (await Permission.location.status).isGranted;
     }
 
@@ -327,9 +330,7 @@ class CarController extends BaseController {
       });
     } else if (index == 1002) {
       //预约试驾
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl + HtmlUrls.TestDrivePage + '?source=2',
-      });
+      Get.toNamed(Routes.TESTDRIVE);
     } else if (index == 1003) {
       //商城下订
       CommonModel _model = await DioManager()
