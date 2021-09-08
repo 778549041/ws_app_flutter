@@ -12,10 +12,10 @@ class HtmlUrls {
 //了解VE-1
   static const String UnderstandVEPage =
       'htmlrouter/dist/pages/member/ownerCertify/VE';
-
-
-
-
+//许心愿
+  static const String WishPage = 'htmlrouter/dist/pages/enjoy/wish/index';
+//抽大奖
+  static const String LuckyDrawPage = 'htmlrouter/dist/pages/digitalmarketing';
 
 //资讯搜索
   static const String NewsSearchPage =
@@ -24,21 +24,10 @@ class HtmlUrls {
 //活动搜索
   static const String ActivitySearchPage =
       'htmlrouter/dist/pages/activity/search/search?searchkey=';
-//许心愿
-  static const String WishPage = 'htmlrouter/dist/pages/enjoy/wish/index';
-//抽大奖
-  static const String LuckyDrawPage = 'htmlrouter/dist/pages/digitalmarketing';
 
-//预约试驾
-  static const String TestDrivePage = 'htmlrouter/dist/pages/enjoy/testdrive';
-//360看车
-  static const String LookCarPage = 'htmlrouter/dist/pages/car/lookcar/index';
+// //360看车
+//   static const String LookCarPage = 'htmlrouter/dist/pages/car/lookcar/index';
 // 配置详情路由
   static const String CarConfigDetailPage =
       'htmlrouter/dist/pages/h5/202012/configuration/configuration';
-//里程信息
-  static const String MilesInfoPage = 'htmlrouter/dist/pages/car/mileage/index';
-//电池诊断
-  static const String BatteryDiagonisPage =
-      'htmlrouter/dist/pages/battery/battery';
 }

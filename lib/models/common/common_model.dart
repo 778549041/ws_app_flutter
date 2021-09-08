@@ -13,20 +13,25 @@ class CommonModel {
   bool? res;
   String? list;
   String? id;
+  int? score;
+  CommonData? data;
 
-  CommonModel(
-      {this.success,
-      this.error,
-      this.redirect,
-      this.result = false,
-      this.code,
-      this.message,
-      this.imageId,
-      this.status,
-      this.datas,
-      this.res,
-      this.list,
-      this.id});
+  CommonModel({
+    this.success,
+    this.error,
+    this.redirect,
+    this.result = false,
+    this.code,
+    this.message,
+    this.imageId,
+    this.status,
+    this.datas,
+    this.res,
+    this.list,
+    this.id,
+    this.score,
+    this.data,
+  });
 
   CommonModel.fromJson(Map<String, dynamic> json) {
     success = asT<String>(json['success']);
@@ -41,5 +46,19 @@ class CommonModel {
     res = asT<bool>(json['res']);
     list = asT<String>(json['list']);
     id = asT<String>(json['id']);
+    score = asT<int?>(json['score']);
+    data = json['data'] == null
+        ? null
+        : CommonData.fromJson(asT<Map<String, dynamic>>(json['data'])!);
+  }
+}
+
+class CommonData {
+  bool? has_vehicle;
+
+  CommonData({this.has_vehicle});
+
+  CommonData.fromJson(Map<String, dynamic> json) {
+    has_vehicle = asT<bool?>(json['has_vehicle']);
   }
 }

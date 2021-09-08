@@ -171,6 +171,12 @@ class Api {
   static final orderTestDriveCanPerformUrl = 'm/drive-check_dealer.html';
   //预约试驾提交申请
   static final orderTestDriveSubmitUrl = 'm/drive-add_drive.html';
+  //里程信息
+  static final mileageListUrl = 'm/mileage.html';
+  //领取积分
+  static final acceptPointsUrl = 'm/circle-mileage_score.html';
+  //电池诊断
+  static final batteryCheckUrl = 'wsapp/ownerReport/getReport';
 
   /// 我的
 //用户信息

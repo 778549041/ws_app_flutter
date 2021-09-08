@@ -1,6 +1,8 @@
+import 'package:ws_app_flutter/models/car/battery_model.dart';
 import 'package:ws_app_flutter/models/car/car_config.dart';
 import 'package:ws_app_flutter/models/car/car_status_model.dart';
 import 'package:ws_app_flutter/models/car/control_cmd_model.dart';
+import 'package:ws_app_flutter/models/car/mileage_model.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/circle/friend_circle_img_model.dart';
@@ -173,6 +175,10 @@ class EntityFactory {
      return ExchangePackageDetailModel.fromJson(json) as T;
    } else if (T.toString() == 'ProductDetailModel') {
      return ProductDetailModel.fromJson(json) as T;
+   } else if (T.toString() == 'MileageListModel') {
+     return MileageListModel.fromJson(json) as T;
+   } else if (T.toString() == 'BatteryModel') {
+     return BatteryModel.fromJson(json) as T;
    }
    else {
       return json as T;

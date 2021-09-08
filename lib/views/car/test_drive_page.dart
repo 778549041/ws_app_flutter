@@ -6,7 +6,6 @@ import 'package:ws_app_flutter/view_models/car/test_drive_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
-import 'package:ws_app_flutter/widgets/global/form_select_cell.dart';
 
 class TestDrivePage extends GetView<TestDriveController> {
   @override
@@ -40,16 +39,21 @@ class TestDrivePage extends GetView<TestDriveController> {
               height: 10,
             ),
             _buildRichText('购车情况', 15),
-            _buildRadiuRow(0, ['首购', '增购'], 0),
-            Offstage(
-              offstage: false,
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildRichText('是否为广汽Honda车主', 15),
-                    _buildRadiuRow(1, ['是', '否'], 0),
-                  ],
+            Obx(
+              () => _buildRadiuRow(
+                  0, ['首购', '增购'], controller.buy_type.value - 1),
+            ),
+            Obx(
+              () => Offstage(
+                offstage: controller.buy_type.value == 1,
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildRichText('是否为广汽Honda车主', 15),
+                      _buildRadiuRow(1, ['是', '否'], controller.is_honda.value),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -57,16 +61,26 @@ class TestDrivePage extends GetView<TestDriveController> {
               '希望试驾时间',
               style: TextStyle(color: Colors.black, fontSize: 15),
             ),
-            _buildRadiuRow(2, ['平时', '周末'], 0),
+            Obx(
+              () => _buildRadiuRow(2, ['平时', '周末'], controller.drive.value - 1),
+            ),
             _buildRichText('附近的特约店', 15),
-            _buildSelectRow(0, '', '请选择省份'),
-            _buildSelectRow(1, '', '请选择城市'),
-            _buildSelectRow(2, '', '请选择特约店'),
-            Offstage(
-              offstage: false,
-              child: Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: Text('特约店地址：XXXXXXXX'),
+            Obx(
+              () => _buildSelectRow(0, controller.province.value, '请选择省份'),
+            ),
+            Obx(
+              () => _buildSelectRow(1, controller.city.value, '请选择城市'),
+            ),
+            Obx(
+              () => _buildSelectRow(2, controller.dealer.value, '请选择特约店'),
+            ),
+            Obx(
+              () => Offstage(
+                offstage: controller.area_addr.value.length == 0,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Text('特约店地址：${controller.area_addr.value}'),
+                ),
               ),
             ),
             SizedBox(
@@ -76,14 +90,23 @@ class TestDrivePage extends GetView<TestDriveController> {
               '计划购车时间',
               style: TextStyle(color: Colors.black, fontSize: 15),
             ),
-            _buildRadiuRow(3, ['7天', '1个月内', '3个月内'], 0),
+            Obx(
+              () => _buildRadiuRow(
+                  3, ['7天', '1个月内', '3个月内'], controller.planbuy.value),
+            ),
             _buildRichText('首选联络时间', 15),
-            _buildSelectRow(3, '', '请选择你的联络时间'),
+            Obx(
+              () =>
+                  _buildSelectRow(3, controller.concattime.value, '请选择你的联络时间'),
+            ),
             Row(
               children: <Widget>[
-                Checkbox(
-                    value: false,
-                    onChanged: (value) => controller.checkboxChanged(value)),
+                Obx(
+                  () => Checkbox(
+                    value: controller.aggree.value,
+                    onChanged: (value) => controller.checkboxChanged(value),
+                  ),
+                ),
                 Expanded(
                   child: RichText(
                     text: TextSpan(
@@ -160,21 +183,21 @@ class TestDrivePage extends GetView<TestDriveController> {
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Color(0xFFD6D6D6), width: 0.5),
       ),
-      submitCallBack: (value) {},
+      submitCallBack: (value) => controller.inputAction(index, value),
     );
   }
 
   Widget _buildRadiuRow(int index, List<String> titles, int groupValue) {
     return Row(
-      children: List.generate(titles.length, (index) {
+      children: List.generate(titles.length, (idx) {
         return Row(
           children: <Widget>[
             Radio(
-              value: index,
+              value: idx,
               onChanged: (int? value) => controller.selectRadio(index, value),
               groupValue: groupValue,
             ),
-            Text(titles[index]),
+            Text(titles[idx]),
           ],
         );
       }),
@@ -182,24 +205,32 @@ class TestDrivePage extends GetView<TestDriveController> {
   }
 
   Widget _buildSelectRow(int index, String text, String placeholder) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-        border: Border.all(color: MainAppColor.seperatorLineColor, width: 0.5),
-      ),
-      child: FormSelectCell(
-        text: text,
-        hintText: placeholder,
-        hintTextStyle: TextStyle(fontSize: 15),
-        hiddenArrow: true,
-        bgColor: Colors.transparent,
-        hiddenLine: true,
-        rightWidget: Image.asset(
-          'assets/images/mine/icon_down_arrow.png',
-          width: 10.5,
-          height: 19.5,
+    return GestureDetector(
+      onTap: () => controller.selectData(index),
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
+        height: 40,
+        decoration: BoxDecoration(
+          border:
+              Border.all(color: MainAppColor.seperatorLineColor, width: 0.5),
         ),
-        clickCallBack: () {},
+        child: Row(
+          children: <Widget>[
+            Expanded(
+                child: Text(
+              text.length > 0 ? text : placeholder,
+              style: text.length > 0
+                  ? TextStyle(color: Colors.black, fontSize: 15)
+                  : TextStyle(color: Colors.grey[400], fontSize: 15),
+            )),
+            Image.asset(
+              'assets/images/mine/icon_down_arrow.png',
+              width: 10.5,
+              height: 19.5,
+            )
+          ],
+        ),
       ),
     );
   }

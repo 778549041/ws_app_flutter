@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/view_models/car/battery_controller.dart';
+import 'package:ws_app_flutter/view_models/car/mileage_controller.dart';
 import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
 import 'package:ws_app_flutter/view_models/car/test_drive_controller.dart';
 import 'package:ws_app_flutter/view_models/car/violation_controller.dart';
@@ -17,7 +19,9 @@ import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
+import 'package:ws_app_flutter/views/car/battery_check_page.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';
+import 'package:ws_app_flutter/views/car/mileage_page.dart';
 import 'package:ws_app_flutter/views/car/test_drive_page.dart';
 import 'package:ws_app_flutter/views/car/violation_list_page.dart';
 import 'package:ws_app_flutter/views/car/violation_query_page.dart';
@@ -702,6 +706,22 @@ abstract class AppPages {
       page: () => TestDrivePage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<TestDriveController>(() => TestDriveController()),
+      ),
+    ),
+    //里程信息
+    GetPage(
+      name: Routes.MIELAGELISTPAGE,
+      page: () => MileagePage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<MileageController>(() => MileageController()),
+      ),
+    ),
+    //里程信息
+    GetPage(
+      name: Routes.BATTERYCHECK,
+      page: () => BatteryCheckPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<BatteryController>(() => BatteryController()),
       ),
     ),
     //积分商城

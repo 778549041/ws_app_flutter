@@ -465,9 +465,7 @@ class RecommendEle extends GetView<EletricController> {
     if (index == 0) {
       //里程信息
       if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
-        Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': Env.envConfig.serviceUrl + HtmlUrls.MilesInfoPage
-        });
+        Get.toNamed(Routes.MIELAGELISTPAGE);
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
       }

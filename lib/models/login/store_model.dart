@@ -23,7 +23,7 @@ class StoreModel {
   String? fAdminShopName;
   String? FShopAddr;//预约试驾参数
   String? FShopName;//预约试驾参数
-  StoreModel({this.fAppID, this.fAdminShopName});
+  StoreModel({this.fAppID, this.fAdminShopName,this.FShopAddr,this.FShopName});
 
   StoreModel.fromJson(Map<String, dynamic> json) {
     fAppID = asT<String>(json['FAppID']);

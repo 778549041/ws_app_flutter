@@ -10,7 +10,8 @@ class AddressListModel {
       (json['list'] as List).forEach((element) {
         if (element != null) {
           tryCatch(() {
-            list?.add(AddressModel.fromJson(asT<Map<String, dynamic>>(element)!));
+            list?.add(
+                AddressModel.fromJson(asT<Map<String, dynamic>>(element)!));
           });
         }
       });
@@ -22,12 +23,19 @@ class AddressModel {
   String? fItemId;
   String? fParentId;
   String? fName;
-  String? provinceCode;//预约试驾参数
-  String? provinceName;//预约试驾参数
-  String? cityCode;//预约试驾参数
-  String? cityName;//预约试驾参数
+  String? provinceCode; //预约试驾参数
+  String? provinceName; //预约试驾参数
+  String? cityCode; //预约试驾参数
+  String? cityName; //预约试驾参数
 
-  AddressModel({this.fItemId, this.fParentId, this.fName});
+  AddressModel(
+      {this.fItemId,
+      this.fParentId,
+      this.fName,
+      this.cityCode,
+      this.cityName,
+      this.provinceCode,
+      this.provinceName});
 
   AddressModel.fromJson(Map<String, dynamic> json) {
     fItemId = asT<String>(json['FItemId']);

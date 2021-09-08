@@ -83,6 +83,8 @@ abstract class Routes {
   static const VIOLATION = '/violation';//违章查询
   static const VIOLATIONLIST = '/violation-list';//违章查询结果列表
   static const TESTDRIVE = '/test-drive';//预约试驾
+  static const MIELAGELISTPAGE = '/mielage-list';//里程信息
+  static const BATTERYCHECK = '/battery-check';//电池诊断
   //优享
   static const GALLERYMALL = '/gallery-mall';//积分商城
   static const PRODUCTDETAIL = '/product-detail';//商品详情

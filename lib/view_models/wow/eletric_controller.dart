@@ -342,9 +342,7 @@ class EletricController extends BaseController {
       //电池诊断
       if (Get.find<UserController>().userInfo.value.member != null &&
           Get.find<UserController>().userInfo.value.member!.isVehicle!) {
-        Get.toNamed(Routes.WEBVIEW, arguments: {
-          'url': Env.envConfig.serviceUrl + HtmlUrls.BatteryDiagonisPage
-        });
+        Get.toNamed(Routes.BATTERYCHECK);
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');
       }
