@@ -94,35 +94,33 @@ class ElwyExchangeListPage extends GetView<ElwyExchangeListController> {
             SizedBox(
               height: 15,
             ),
-            Container(
-              height: 90,
-              child: GridView.builder(
-                  padding: const EdgeInsets.only(top: 0),
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: model.card_type!.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 4,
-                  ),
-                  itemBuilder: (context, index) {
-                    CardType _item = model.card_type![index];
-                    return Row(
-                      children: <Widget>[
-                        NetImageWidget(
-                          imageUrl: _item.logo,
-                          height: 25,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          _item.titile!,
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ],
-                    );
-                  }),
-            ),
+            GridView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 0),
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: model.card_type!.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 4,
+                ),
+                itemBuilder: (context, index) {
+                  CardType _item = model.card_type![index];
+                  return Row(
+                    children: <Widget>[
+                      NetImageWidget(
+                        imageUrl: _item.logo,
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        _item.titile!,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  );
+                }),
             SizedBox(
               height: 10,
             ),

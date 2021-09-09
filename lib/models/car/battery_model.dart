@@ -21,11 +21,11 @@ class BatteryDatas {
   double? chargeSlow; //慢充占比
   String? chargeTimeMonth; //月均充电次数
   String? comments; //行驶建议
-  String? healthValue; //电池健康度
+  int? healthValue; //电池健康度
   String? milesDay; //日均行驶里程
   String? rapidAcc; //急加速次数
   String? rapidSlow; //急减速次数
-  String? socCharge; //起始充电量
+  double? socCharge; //起始充电量
   String? speedAvg; //平均速度
   String? timeDay; //日均行驶时长
 
@@ -48,11 +48,11 @@ class BatteryDatas {
     chargeSlow = asT<double?>(json['chargeSlow']);
     chargeTimeMonth = asT<String?>(json['chargeTimeMonth']);
     comments = asT<String?>(json['comments']);
-    healthValue = asT<String?>(json['healthValue']);
+    healthValue = asT<int?>(json['healthValue']);
     milesDay = asT<String?>(json['milesDay']);
     rapidAcc = asT<String?>(json['rapidAcc']);
     rapidSlow = asT<String?>(json['rapidSlow']);
-    socCharge = asT<String?>(json['socCharge']);
+    socCharge = asT<double?>(json['socCharge']);
     speedAvg = asT<String?>(json['speedAvg']);
     timeDay = asT<String?>(json['timeDay']);
   }

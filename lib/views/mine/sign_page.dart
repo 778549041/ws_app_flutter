@@ -139,6 +139,7 @@ class SignPage extends GetView<SignController> {
                         borderRadius: BorderRadius.circular(5)),
                     margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
                     child: TableCalendar(
+                      availableGestures: AvailableGestures.horizontalSwipe,
                       locale: 'zh_CN',
                       firstDay: controller.firstDay,
                       lastDay: controller.lastDay,

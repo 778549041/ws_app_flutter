@@ -88,64 +88,62 @@ class ELWYPage extends GetView<ELWYController> {
                 SizedBox(
                   height: 15,
                 ),
-                Container(
-                  height: 90,
-                  child: GridView.builder(
-                      padding: const EdgeInsets.only(top: 0),
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: model.cardname!.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 4,
-                      ),
-                      itemBuilder: (context, index) {
-                        CardName _item = model.cardname![index];
-                        late String imagePath;
-                        if (model.status! == 0) {
-                          //失效
-                          if (_item.FTitle! == '充电服务') {
-                            imagePath =
-                                'assets/images/mine/elwy_expired_charge.png';
-                          } else if (_item.FTitle! == '全车检查') {
-                            imagePath =
-                                'assets/images/mine/elwy_expired_allcheck.png';
-                          } else if (_item.FTitle! == '电池诊断') {
-                            imagePath =
-                                'assets/images/mine/elwy_expired_battery.png';
-                          } else if (_item.FTitle! == '基础保养') {
-                            imagePath =
-                                'assets/images/mine/elwy_expired_jichu.png';
-                          }
-                        } else {
-                          if (_item.FTitle! == '充电服务') {
-                            imagePath = 'assets/images/mine/elwy_charge.png';
-                          } else if (_item.FTitle! == '全车检查') {
-                            imagePath = 'assets/images/mine/elwy_allcheck.png';
-                          } else if (_item.FTitle! == '电池诊断') {
-                            imagePath = 'assets/images/mine/elwy_battery.png';
-                          } else if (_item.FTitle! == '基础保养') {
-                            imagePath = 'assets/images/mine/elwy_jichu.png';
-                          }
+                GridView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(top: 0),
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: model.cardname!.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 4,
+                    ),
+                    itemBuilder: (context, index) {
+                      CardName _item = model.cardname![index];
+                      late String imagePath;
+                      if (model.status! == 0) {
+                        //失效
+                        if (_item.FTitle! == '充电服务') {
+                          imagePath =
+                              'assets/images/mine/elwy_expired_charge.png';
+                        } else if (_item.FTitle! == '全车检查') {
+                          imagePath =
+                              'assets/images/mine/elwy_expired_allcheck.png';
+                        } else if (_item.FTitle! == '电池诊断') {
+                          imagePath =
+                              'assets/images/mine/elwy_expired_battery.png';
+                        } else if (_item.FTitle! == '基础保养') {
+                          imagePath =
+                              'assets/images/mine/elwy_expired_jichu.png';
                         }
+                      } else {
+                        if (_item.FTitle! == '充电服务') {
+                          imagePath = 'assets/images/mine/elwy_charge.png';
+                        } else if (_item.FTitle! == '全车检查') {
+                          imagePath = 'assets/images/mine/elwy_allcheck.png';
+                        } else if (_item.FTitle! == '电池诊断') {
+                          imagePath = 'assets/images/mine/elwy_battery.png';
+                        } else if (_item.FTitle! == '基础保养') {
+                          imagePath = 'assets/images/mine/elwy_jichu.png';
+                        }
+                      }
 
-                        return Row(
-                          children: <Widget>[
-                            Image.asset(
-                              imagePath,
-                              width: 25,
-                              height: 25,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              _item.FTitle!,
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ],
-                        );
-                      }),
-                ),
+                      return Row(
+                        children: <Widget>[
+                          Image.asset(
+                            imagePath,
+                            width: 25,
+                            height: 25,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            _item.FTitle!,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      );
+                    }),
                 SizedBox(
                   height: 15,
                 ),
@@ -167,7 +165,7 @@ class ELWYPage extends GetView<ELWYController> {
             ),
           ),
           Positioned(
-            left: (Get.width - 53)/2,
+            left: (Get.width - 53) / 2,
             bottom: 20,
             child: Offstage(
               offstage: model.status != 0,
