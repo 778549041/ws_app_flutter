@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
@@ -13,15 +14,18 @@ class MineInfoPage extends GetView<MineInfoController> {
     return BasePage(
       title: '个人信息',
       bgColor: Colors.transparent,
-      child: CustomScrollView(
-        shrinkWrap: true,
-        slivers: [
-          Obx(() => SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
+      child: Column(
+        children: <Widget>[
+          _buildHeadRow(),
+          Expanded(
+            child: Container(
+              color: MainAppColor.mainSilverColor,
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: ListView.builder(
+                padding: const EdgeInsets.only(top: 0),
+                itemCount: controller.data.length,
+                itemBuilder: (context, index) {
                   Map _item = controller.data[index];
-                  if (index == 0) {
-                    return _buildHeadRow();
-                  }
                   return Container(
                       padding:
                           const EdgeInsets.only(left: 25, right: 25, bottom: 7),
@@ -60,8 +64,10 @@ class MineInfoPage extends GetView<MineInfoController> {
                               ],
                             ),
                           )));
-                }, childCount: controller.data.length),
-              ))
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -224,7 +230,7 @@ class MineInfoPage extends GetView<MineInfoController> {
               color: Color(0xFF1B7DF4),
             ),
             SizedBox(
-              height: 60,
+              height: 30,
             ),
           ],
         ),

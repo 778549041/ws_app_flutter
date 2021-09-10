@@ -47,6 +47,11 @@ class BatteryCheckPage extends GetView<BatteryController> {
           fit: BoxFit.cover,
         ),
         Positioned(
+          //彩色进度条宽度为18
+          top:
+              ((Get.width - 60) * 497 / 570 - 18 * (Get.width - 60) / 570) / 2 -
+                  (Get.width - 60) * 390 / 570 / 2 +
+                  18 * (Get.width - 60) / 570,
           child: Transform.rotate(
             angle: (math.pi /
                 2 *
@@ -266,11 +271,17 @@ class BatteryCheckPage extends GetView<BatteryController> {
     } else if (index == 6) {
       var v1 = controller.model.value.datas!.socCharge! * 100;
       var v2 = v1.toInt();
-      return (controller.model.value.datas!.socCharge! * 100).toInt().toString();
+      return (controller.model.value.datas!.socCharge! * 100)
+          .toInt()
+          .toString();
     } else if (index == 7) {
-      return (controller.model.value.datas!.chargeSlow! * 100).toInt().toString();
+      return (controller.model.value.datas!.chargeSlow! * 100)
+          .toInt()
+          .toString();
     } else {
-      return (controller.model.value.datas!.chargeFast! * 100).toInt().toString();
+      return (controller.model.value.datas!.chargeFast! * 100)
+          .toInt()
+          .toString();
     }
   }
 

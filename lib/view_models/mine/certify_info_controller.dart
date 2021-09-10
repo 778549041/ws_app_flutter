@@ -15,7 +15,7 @@ class CertifyInfoController extends GetxController {
   void initData() {
     UserInfo _userInfo = Get.find<UserController>().userInfo.value;
     data.assignAll([
-      {"title": "", "content": ''},
+      // {"title": "", "content": ''},
       {
         "title": "车架号码",
         "content": _userInfo.member?.fVIN == null

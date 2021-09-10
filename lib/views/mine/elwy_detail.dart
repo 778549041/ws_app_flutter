@@ -16,23 +16,25 @@ class ElwyDetail extends GetView<ElwyDetailController> {
       title: '套餐详情',
       bgColor: MainAppColor.mainSilverColor,
       child: Obx(
-        () => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: _buildHeader(),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return _buildItem(index);
-                },
-                childCount: controller.model.value.list?.card_list == null
-                    ? 0
-                    : controller.model.value.list!.card_list!.length,
+        () => controller.model.value.list == null
+            ? Container()
+            : CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: _buildHeader(),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return _buildItem(index);
+                      },
+                      childCount: controller.model.value.list?.card_list == null
+                          ? 0
+                          : controller.model.value.list!.card_list!.length,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -165,7 +167,9 @@ class ElwyDetail extends GetView<ElwyDetailController> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 40,),
+                SizedBox(
+                  height: 40,
+                ),
                 QrImage(
                   data: qrStr,
                   version: QrVersions.auto,
@@ -184,7 +188,9 @@ class ElwyDetail extends GetView<ElwyDetailController> {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
               ],
             )
           ],

@@ -14,68 +14,73 @@ class ElwyExchangeDetailPage extends GetView<ElwyExchangeDetailController> {
     return BasePage(
       title: '服务套餐大礼包',
       bgColor: MainAppColor.mainSilverColor,
-      child: Obx(() => Column(
-            children: <Widget>[
-              Expanded(
-                child: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: _buildHeader(),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return _buildItem(index);
-                        },
-                        childCount: controller.model.value.list?.card_list ==
-                                null
-                            ? 0
-                            : controller.model.value.list!.card_list!.length,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 0),
-                height: 40,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        text: '消耗积分：',
-                        style: TextStyle(color: Colors.black, fontSize: 12),
-                        children: [
-                          TextSpan(
-                            text: controller.model.value.list?.score == null
-                                ? ''
-                                : TextUtil.formatComma3(
-                                        controller.model.value.list!.score!) +
-                                    '积分',
-                            style: TextStyle(
-                                color: Color(0xFFAB2A52), fontSize: 12),
+      child: Obx(
+        () => controller.model.value.list == null
+            ? Container()
+            : Column(
+                children: <Widget>[
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: _buildHeader(),
+                        ),
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return _buildItem(index);
+                            },
+                            childCount:
+                                controller.model.value.list?.card_list == null
+                                    ? 0
+                                    : controller
+                                        .model.value.list!.card_list!.length,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 10,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 0),
+                    height: 40,
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            text: '消耗积分：',
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            children: [
+                              TextSpan(
+                                text: controller.model.value.list?.score == null
+                                    ? ''
+                                    : TextUtil.formatComma3(controller
+                                            .model.value.list!.score!) +
+                                        '积分',
+                                style: TextStyle(
+                                    color: Color(0xFFAB2A52), fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CustomButton(
+                          title: '立即兑换',
+                          titleColor: Colors.white,
+                          backgroundColor: Color(0xFF4245E5),
+                          width: 150,
+                          height: 40,
+                          onPressed: () => controller.exchangePackage(),
+                        ),
+                      ],
                     ),
-                    CustomButton(
-                      title: '立即兑换',
-                      titleColor: Colors.white,
-                      backgroundColor: Color(0xFF4245E5),
-                      width: 150,
-                      height: 40,
-                      onPressed: () => controller.exchangePackage(),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          )),
+      ),
     );
   }
 

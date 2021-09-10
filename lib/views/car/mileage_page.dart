@@ -25,99 +25,100 @@ class MileagePage extends GetView<MileageController> {
           onPressed: () => controller.buttonAction(0),
         ),
       ],
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-            padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '我的总里程',
-                  style: TextStyle(color: Color(0xFF999999), fontSize: 15),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Obx(
-                        () => RichText(
-                          text: TextSpan(
-                            text: controller.totalMileage.value,
-                            style: TextStyle(color: Colors.black, fontSize: 45),
-                            children: [
-                              TextSpan(
-                                text: 'km',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 15),
+      child: Obx(
+        () => controller.model.value.totalMileage == null
+            ? Container()
+            : Column(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '我的总里程',
+                          style:
+                              TextStyle(color: Color(0xFF999999), fontSize: 15),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: controller.totalMileage.value,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 45),
+                                  children: [
+                                    TextSpan(
+                                      text: 'km',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Obx(
-                      () => CustomButton(
-                        width: 90,
-                        height: 30,
-                        radius: 15,
-                        borderColor: controller.hasAccept.value
-                            ? Colors.black
-                            : Colors.transparent,
-                        backgroundColor: controller.hasAccept.value
-                            ? Colors.transparent
-                            : Color(0xFF4245E5),
-                        title: controller.hasAccept.value ? '已领取' : '领取积分>>',
-                        titleColor: controller.hasAccept.value
-                            ? Colors.black
-                            : Colors.white,
-                        onPressed: () => controller.hasAccept.value
-                            ? null
-                            : controller.buttonAction(1),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Expanded(
-              child: SmartRefresher(
-            controller: controller.refreshController,
-            enablePullUp: true,
-            onRefresh: () => controller.refresh(),
-            onLoading: () => controller.loadMore(),
-            child: CustomScrollView(
-              slivers: [
-                Obx(
-                  () => controller.isEmpty()
-                      ? SliverToBoxAdapter(
-                          child: ViewStateEmptyWidget(
-                            image: 'assets/images/common/empty.png',
-                            message: '空空如也',
-                            buttonText: '重新加载',
-                            onPressed: () => controller.refresh(),
-                          ),
+                            ),
+                            CustomButton(
+                              width: 90,
+                              height: 30,
+                              radius: 15,
+                              borderColor: controller.hasAccept.value
+                                  ? Colors.black
+                                  : Colors.transparent,
+                              backgroundColor: controller.hasAccept.value
+                                  ? Colors.transparent
+                                  : Color(0xFF4245E5),
+                              title:
+                                  controller.hasAccept.value ? '已领取' : '领取积分>>',
+                              titleColor: controller.hasAccept.value
+                                  ? Colors.black
+                                  : Colors.white,
+                              onPressed: () => controller.hasAccept.value
+                                  ? null
+                                  : controller.buttonAction(1),
+                            ),
+                          ],
                         )
-                      : SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            return _buildItem(index);
-                          }, childCount: controller.list.length),
-                        ),
-                ),
-              ],
-            ),
-          ))
-        ],
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                      child: SmartRefresher(
+                    controller: controller.refreshController,
+                    enablePullUp: true,
+                    onRefresh: () => controller.refresh(),
+                    onLoading: () => controller.loadMore(),
+                    child: CustomScrollView(
+                      slivers: [
+                        controller.isEmpty()
+                            ? SliverToBoxAdapter(
+                                child: ViewStateEmptyWidget(
+                                  image: 'assets/images/common/empty.png',
+                                  message: '空空如也',
+                                  buttonText: '重新加载',
+                                  onPressed: () => controller.refresh(),
+                                ),
+                              )
+                            : SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                  return _buildItem(index);
+                                }, childCount: controller.list.length),
+                              ),
+                      ],
+                    ),
+                  ))
+                ],
+              ),
       ),
     );
   }

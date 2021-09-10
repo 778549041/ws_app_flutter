@@ -16,7 +16,9 @@ class CommonQuestionPage extends GetView<CommonQuController> {
       child: Obx(
         () => ListView.builder(
             padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-            itemCount: controller.list.length + 2,
+            itemCount: controller.list.length > 0
+                ? controller.list.length + 2
+                : controller.list.length,
             itemBuilder: (context, index) {
               if (index == 0) {
                 return Container(

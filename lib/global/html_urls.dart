@@ -26,7 +26,7 @@ class HtmlUrls {
       'htmlrouter/dist/pages/activity/search/search?searchkey=';
 
 // //360看车
-//   static const String LookCarPage = 'htmlrouter/dist/pages/car/lookcar/index';
+  static const String LookCarPage = 'htmlrouter/dist/pages/car/lookcar/index';
 // 配置详情路由
   static const String CarConfigDetailPage =
       'htmlrouter/dist/pages/h5/202012/configuration/configuration';

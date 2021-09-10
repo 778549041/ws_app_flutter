@@ -13,5 +13,6 @@ class CheckReportDetailController extends GetxController {
     model.value = await DioManager().request<ReportDetailModel>(
         DioManager.GET, Api.reportDetailUrl,
         queryParamters: {'id': id});
+    print('1111');
   }
 }

@@ -33,7 +33,6 @@ class MineInfoController extends GetxController {
       _address = '';
     }
     data.assignAll([
-      {"title": "", "content": ''},
       {"title": "昵    称", "content": _userInfo.member!.showName},
       {
         "title": "手 机 号",

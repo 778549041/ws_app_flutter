@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -114,9 +115,13 @@ class ElwyExchangeListPage extends GetView<ElwyExchangeListController> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        _item.titile!,
-                        style: TextStyle(fontSize: 15),
+                      Expanded(
+                        child: AutoSizeText(
+                          _item.titile!,
+                          minFontSize: 6,
+                          maxLines: 1,
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
                       ),
                     ],
                   );

@@ -13,45 +13,47 @@ class ExchangeProductPage extends GetView<ExchangeProductController> {
     return BasePage(
       title: '确认积分兑换',
       child: Obx(
-        () => Column(
-          children: <Widget>[
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    _buildAddress(),
-                    _buildProduct(),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 0),
-              height: 40,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+        () => controller.model.value.goods == null
+            ? Container()
+            : Column(
                 children: <Widget>[
-                  Text(
-                    '消耗积分：${controller.model.value.relgoods?.deduction == null ? '' : TextUtil.formatComma3(controller.model.value.relgoods!.deduction! * controller.count.value) + '积分'}',
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          _buildAddress(),
+                          _buildProduct(),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  CustomButton(
-                    title: '立即兑换',
-                    titleColor: Colors.white,
-                    backgroundColor: Color(0xFF4245E5),
-                    width: 150,
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 0),
                     height: 40,
-                    onPressed: () => controller.exchangeProduct(),
-                  ),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          '消耗积分：${controller.model.value.relgoods?.deduction == null ? '' : TextUtil.formatComma3(controller.model.value.relgoods!.deduction! * controller.count.value) + '积分'}',
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CustomButton(
+                          title: '立即兑换',
+                          titleColor: Colors.white,
+                          backgroundColor: Color(0xFF4245E5),
+                          width: 150,
+                          height: 40,
+                          onPressed: () => controller.exchangeProduct(),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
       ),
     );
   }

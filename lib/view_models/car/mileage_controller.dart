@@ -10,6 +10,7 @@ import 'package:ws_app_flutter/widgets/car/mileage_alert.dart';
 class MileageController extends RefreshListController<MileageModel> {
   var totalMileage = ''.obs;
   var hasAccept = false.obs;
+  var model = MileageListModel().obs;
 
   @override
   void onInit() {
@@ -19,12 +20,12 @@ class MileageController extends RefreshListController<MileageModel> {
 
   @override
   Future<List<MileageModel>?> loadData({int pageNum = 1}) async {
-    MileageListModel model = await DioManager().request<MileageListModel>(
+    model.value = await DioManager().request<MileageListModel>(
         DioManager.GET, Api.mileageListUrl,
         queryParamters: {'page': pageNum});
-    totalMileage.value = model.totalMileage!;
-    hasAccept.value = (model.receive == null ? true : false);
-    return model.list;
+    totalMileage.value = model.value.totalMileage!;
+    hasAccept.value = (model.value.receive == null ? true : false);
+    return model.value.list;
   }
 
   void buttonAction(int index) async {
