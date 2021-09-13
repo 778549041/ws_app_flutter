@@ -311,23 +311,19 @@ class CarController extends BaseController {
       Get.toNamed(Routes.DZINTRODUCE);
     } else if (index == 1001) {
       //车辆配置
-      late String _typeStr;
+      late int _type;
       if (currentConfig.value.conf == "出行版") {
-        _typeStr = "0";
+        _type = 0;
       } else if (currentConfig.value.conf == "舒适版") {
-        _typeStr = "1";
+        _type = 1;
       } else if (currentConfig.value.conf == "豪华版") {
-        _typeStr = "2";
+        _type = 2;
       } else if (currentConfig.value.conf == "湃锐版") {
-        _typeStr = "3";
+        _type = 3;
       } else if (currentConfig.value.conf == "湃锐豪华版") {
-        _typeStr = "4";
+        _type = 4;
       }
-      pushH5Page(args: {
-        'url': Env.envConfig.serviceUrl +
-            HtmlUrls.CarConfigDetailPage +
-            '?type=$_typeStr',
-      });
+      Get.toNamed(Routes.CONFIGDETAIL,arguments: {'type':_type});
     } else if (index == 1002) {
       //预约试驾
       Get.toNamed(Routes.TESTDRIVE);

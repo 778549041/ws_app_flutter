@@ -313,18 +313,6 @@ class EnjoyPage extends GetView<EnjoyController> {
                 itemCount: controller.list.length,
               ),
             ),
-            // Obx(() => SliverGrid(
-            //       delegate: SliverChildBuilderDelegate((context, index) {
-            //         ShopModel _model = controller.list[index];
-            //         return _buildGridItem(_model);
-            //       }, childCount: controller.list.length),
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 3,
-            //         crossAxisSpacing: 10,
-            //         mainAxisSpacing: 10,
-            //         childAspectRatio: 1 / 2,
-            //       ),
-            //     )),
           ],
         ),
       ),

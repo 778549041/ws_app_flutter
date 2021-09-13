@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/view_models/car/battery_controller.dart';
+import 'package:ws_app_flutter/view_models/car/config_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/car/mileage_controller.dart';
 import 'package:ws_app_flutter/view_models/car/nav_map_controller.dart';
 import 'package:ws_app_flutter/view_models/car/test_drive_controller.dart';
@@ -21,6 +22,7 @@ import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
 import 'package:ws_app_flutter/views/car/battery_check_page.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';
+import 'package:ws_app_flutter/views/car/config_detail.dart';
 import 'package:ws_app_flutter/views/car/mileage_page.dart';
 import 'package:ws_app_flutter/views/car/test_drive_page.dart';
 import 'package:ws_app_flutter/views/car/violation_list_page.dart';
@@ -697,7 +699,8 @@ abstract class AppPages {
       name: Routes.VIOLATIONLIST,
       page: () => ViolationListPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<ViolationListController>(() => ViolationListController()),
+        () => Get.lazyPut<ViolationListController>(
+            () => ViolationListController()),
       ),
     ),
     //预约试驾
@@ -716,12 +719,21 @@ abstract class AppPages {
         () => Get.lazyPut<MileageController>(() => MileageController()),
       ),
     ),
-    //里程信息
+    //电池诊断
     GetPage(
       name: Routes.BATTERYCHECK,
       page: () => BatteryCheckPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<BatteryController>(() => BatteryController()),
+      ),
+    ),
+    //配置详情
+    GetPage(
+      name: Routes.CONFIGDETAIL,
+      page: () => ConfigDetailPage(),
+      binding: BindingsBuilder(
+        () =>
+            Get.lazyPut<ConfigDetailController>(() => ConfigDetailController()),
       ),
     ),
     //积分商城
@@ -737,7 +749,8 @@ abstract class AppPages {
       name: Routes.PRODUCTDETAIL,
       page: () => ProductDetailPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<ProductDetailController>(() => ProductDetailController()),
+        () => Get.lazyPut<ProductDetailController>(
+            () => ProductDetailController()),
       ),
     ),
     //商品兑换
@@ -745,7 +758,8 @@ abstract class AppPages {
       name: Routes.EXCHANGEPRODUCT,
       page: () => ExchangeProductPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<ExchangeProductController>(() => ExchangeProductController()),
+        () => Get.lazyPut<ExchangeProductController>(
+            () => ExchangeProductController()),
       ),
     ),
   ];

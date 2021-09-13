@@ -85,6 +85,7 @@ abstract class Routes {
   static const TESTDRIVE = '/test-drive';//预约试驾
   static const MIELAGELISTPAGE = '/mielage-list';//里程信息
   static const BATTERYCHECK = '/battery-check';//电池诊断
+  static const CONFIGDETAIL = '/config-detail';//配置详情
   //优享
   static const GALLERYMALL = '/gallery-mall';//积分商城
   static const PRODUCTDETAIL = '/product-detail';//商品详情
