@@ -43,7 +43,7 @@ class CarController extends BaseController {
   @override
   void onReady() {
     //非车主
-    if (Get.find<UserController>().userInfo.value.member != null &&
+    if (Get.find<UserController>().userInfo.value.isLogin! &&
         !Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       refreshLocation(false);
       requestCarConfigData();

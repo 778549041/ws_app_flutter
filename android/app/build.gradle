@@ -58,14 +58,14 @@ android {
         ]
     }
 
-    // signingConfigs {
-    //     release {
-    //         keyAlias keystoreProperties['keyAlias']
-    //         keyPassword keystoreProperties['keyPassword']
-    //         storeFile file(keystoreProperties['storeFile'])
-    //         storePassword keystoreProperties['storePassword']
-    //     }
-    // }
+    signingConfigs {
+        config {
+            keyAlias 'shanghai'
+            keyPassword KEY_PASSWORD
+            storeFile file('../keyStoreHao.jks')
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
 
     buildTypes {
         release {

@@ -1,7 +1,5 @@
 import 'package:flustars/flustars.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/env_config.dart';
-import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/car/car_status_model.dart';
 import 'package:ws_app_flutter/models/car/control_cmd_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
@@ -31,17 +29,17 @@ class EletricController extends BaseController {
 
   @override
   void onInit() {
-    _vin = Get.find<UserController>().userInfo.value.member == null
-        ? null
-        : Get.find<UserController>().userInfo.value.member!.memberInfo!.FVINStr;
-    _mobile = Get.find<UserController>().userInfo.value.member == null
-        ? null
-        : Get.find<UserController>()
+    _vin = Get.find<UserController>().userInfo.value.isLogin!
+        ? Get.find<UserController>().userInfo.value.member!.memberInfo!.FVINStr
+        : null;
+    _mobile = Get.find<UserController>().userInfo.value.isLogin!
+        ? Get.find<UserController>()
             .userInfo
             .value
             .member!
             .memberInfo!
-            .mobileStr;
+            .mobileStr
+        : null;
     super.onInit();
   }
 
@@ -53,13 +51,13 @@ class EletricController extends BaseController {
 
   //添加（重置）所有定时器
   void addAllTimer() {
-    if (Get.find<UserController>().userInfo.value.member != null &&
+    if (Get.find<UserController>().userInfo.value.isLogin! &&
         Get.find<UserController>().userInfo.value.member!.isVehicle!) {
       //如果是车主才请求电量信息数据和车辆状态数据
       addStatusTimer();
     }
 
-    if (Get.find<UserController>().userInfo.value.member != null &&
+    if (Get.find<UserController>().userInfo.value.isLogin! &&
         Get.find<UserController>()
                 .userInfo
                 .value
@@ -340,8 +338,7 @@ class EletricController extends BaseController {
       addAllTimer();
     } else if (index == 2) {
       //电池诊断
-      if (Get.find<UserController>().userInfo.value.member != null &&
-          Get.find<UserController>().userInfo.value.member!.isVehicle!) {
+      if (Get.find<UserController>().userInfo.value.member!.isVehicle!) {
         Get.toNamed(Routes.BATTERYCHECK);
       } else {
         CommonUtil.userNotVechileToast('认证车主才可以使用此功能哦，先去认证成为车主吧！');

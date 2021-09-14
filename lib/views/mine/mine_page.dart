@@ -174,15 +174,15 @@ class MinePage extends GetView<MineController> {
                   bottom: 5.0,
                   right: 5.0,
                   child: Offstage(
-                      offstage:
-                          !(Get.find<UserController>().userInfo.value.member ==
-                                  null
-                              ? true
-                              : Get.find<UserController>()
-                                  .userInfo
-                                  .value
-                                  .member!
-                                  .isVehicle!),
+                      offstage: !(Get.find<UserController>()
+                              .userInfo
+                              .value
+                              .isLogin! &&
+                          Get.find<UserController>()
+                              .userInfo
+                              .value
+                              .member!
+                              .isVehicle!),
                       child: Image.asset(
                         'assets/images/mine/vip_tag.png',
                         width: 18,
@@ -198,9 +198,8 @@ class MinePage extends GetView<MineController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Obx(() => Text(
-                        Get.find<UserController>().userInfo.value.member == null
-                            ? ''
-                            : (Get.find<UserController>()
+                        Get.find<UserController>().userInfo.value.isLogin!
+                            ? (Get.find<UserController>()
                                         .userInfo
                                         .value
                                         .member!
@@ -217,12 +216,12 @@ class MinePage extends GetView<MineController> {
                                     .userInfo
                                     .value
                                     .member!
-                                    .showName!,
+                                    .showName!
+                            : '',
                         style: TextStyle(fontSize: 15),
                       )),
                   // 销售员或者勋章标签
-                  if (Get.find<UserController>().userInfo.value.member !=
-                          null &&
+                  if (Get.find<UserController>().userInfo.value.isLogin! &&
                       Get.find<UserController>()
                           .userInfo
                           .value
@@ -254,20 +253,19 @@ class MinePage extends GetView<MineController> {
                       ),
                     ),
                   Obx(() => Offstage(
-                        offstage:
-                            Get.find<UserController>().userInfo.value.member ==
-                                    null
-                                ? true
-                                : Get.find<UserController>()
-                                        .userInfo
-                                        .value
-                                        .member!
-                                        .sex!
-                                        .length ==
-                                    0,
+                        offstage: !(Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .isLogin! &&
+                            Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .member!
+                                    .sex!
+                                    .length !=
+                                0),
                         child: Image.asset(
-                          Get.find<UserController>().userInfo.value.member ==
-                                      null ||
+                          !Get.find<UserController>().userInfo.value.isLogin! ||
                                   Get.find<UserController>()
                                           .userInfo
                                           .value
@@ -310,16 +308,10 @@ class MinePage extends GetView<MineController> {
                       1007,
                       Obx(() => Text(
                             Get.find<UserController>()
-                                        .userInfo
-                                        .value
-                                        .huodongData ==
-                                    null
-                                ? '0'
-                                : Get.find<UserController>()
-                                    .userInfo
-                                    .value
-                                    .huodongData
-                                    .toString(),
+                                .userInfo
+                                .value
+                                .huodongData
+                                .toString(),
                             style: TextStyle(fontSize: 12),
                           )),
                       title: '活动',
@@ -327,15 +319,14 @@ class MinePage extends GetView<MineController> {
                   _buildFourBtn(
                       1008,
                       Obx(() => Text(
-                            Get.find<UserController>().userInfo.value.member ==
-                                    null
-                                ? '0'
-                                : TextUtil.formatComma3(
+                            Get.find<UserController>().userInfo.value.isLogin!
+                                ? TextUtil.formatComma3(
                                     Get.find<UserController>()
                                         .userInfo
                                         .value
                                         .member!
-                                        .integral!),
+                                        .integral!)
+                                : '0',
                             style: TextStyle(fontSize: 12),
                           )),
                       title: '积分',

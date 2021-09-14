@@ -106,16 +106,14 @@ class SplashPage extends GetView<SplashController> {
                         margin: const EdgeInsets.only(top: 50),
                         child: Stack(
                           children: <Widget>[
-                            Obx(
-                              () => RoundAvatar(
-                                  height: 90,
-                                  borderWidth: 3,
-                                  imageUrl: Get.find<UserController>()
-                                      .userInfo
-                                      .value
-                                      .member
-                                      ?.headImg),
-                            ),
+                            RoundAvatar(
+                                height: 90,
+                                borderWidth: 3,
+                                imageUrl: Get.find<UserController>()
+                                    .userInfo
+                                    .value
+                                    .member
+                                    ?.headImg),
                             Positioned(
                               bottom: 5.0,
                               right: 5.0,
@@ -129,24 +127,21 @@ class SplashPage extends GetView<SplashController> {
                           ],
                         ),
                       ),
-                      Obx(
-                        () => Text(
-                          (Get.find<UserController>().userInfo.value.member ==
-                                      null ||
-                                  Get.find<UserController>()
-                                          .userInfo
-                                          .value
-                                          .member!
-                                          .name ==
-                                      null)
-                              ? ''
-                              : Get.find<UserController>()
-                                  .userInfo
-                                  .value
-                                  .member!
-                                  .name!,
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      Text(
+                        (Get.find<UserController>().userInfo.value.isLogin! &&
+                                Get.find<UserController>()
+                                        .userInfo
+                                        .value
+                                        .member!
+                                        .name !=
+                                    null)
+                            ? Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .member!
+                                .name!
+                            : '',
+                        style: TextStyle(color: Colors.white),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 30),

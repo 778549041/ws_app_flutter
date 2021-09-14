@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/global/env_config.dart';
-import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';

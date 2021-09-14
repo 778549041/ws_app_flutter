@@ -1,5 +1,3 @@
-import 'package:ws_app_flutter/global/env_config.dart';
-import 'package:ws_app_flutter/global/html_urls.dart';
 import 'package:ws_app_flutter/models/login/msg_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';

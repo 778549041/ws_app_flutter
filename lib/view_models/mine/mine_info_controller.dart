@@ -121,21 +121,21 @@ class MineInfoController extends GetxController {
   }
 
   void listItemClick(int index) {
-    if (index == 1) {
+    if (index == 0) {
       Get.toNamed(Routes.MINECHANGENAME, arguments: {'isName': true});
-    } else if (index == 2) {
+    } else if (index == 1) {
       Get.toNamed(Routes.MINEPHONE);
-    } else if (index == 3) {
+    } else if (index == 2) {
       selectSex();
-    } else if (index == 4) {
+    } else if (index == 3) {
       selectBirth();
-    } else if (index == 5) {
+    } else if (index == 4) {
       Get.toNamed(Routes.MINECHANGENAME,arguments: {'isName': false});
-    } else if (index == 6) {
+    } else if (index == 5) {
       Get.toNamed(Routes.MINECHANGEAREA);
-    } else if (index == 7) {
+    } else if (index == 6) {
       Get.toNamed(Routes.SELECTINTREST, arguments: {'fromComplete': false});
-    } else if (index == 8) {
+    } else if (index == 7) {
       Get.toNamed(Routes.MINESHOPADDRLIST);
     }
   }

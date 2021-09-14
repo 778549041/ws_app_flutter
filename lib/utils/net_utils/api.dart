@@ -180,7 +180,7 @@ class Api {
 
   /// 我的
 //用户信息
-  static final userInfoUrl = 'index.php/m/my.html';
+  static final userInfoUrl = 'm/aesmy.html';
 //修改用户信息
   static final changeUserInfoUrl = 'm/my-save_setting.html';
 //退出登录

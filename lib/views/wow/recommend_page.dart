@@ -2,6 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/recommend_controller.dart';
 import 'package:ws_app_flutter/widgets/car/control_loading_view.dart';
 import 'package:ws_app_flutter/widgets/circle/circle_list_item.dart';
@@ -40,7 +41,12 @@ class RecommendPage extends GetView<RecommendController> {
                   SliverToBoxAdapter(
                     child: RecommendBanner(),
                   ),
-                  if (controller.userInfo.value.member != null && controller.userInfo.value.member!.isVehicle!)
+                  if (Get.find<UserController>().userInfo.value.isLogin! &&
+                      Get.find<UserController>()
+                          .userInfo
+                          .value
+                          .member!
+                          .isVehicle!)
                     SliverToBoxAdapter(
                       child: RecommendEle(),
                     ),
@@ -50,16 +56,17 @@ class RecommendPage extends GetView<RecommendController> {
                         return Container(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: CircleListItem(
-                            model: controller.momentListModel.value.list![index],
+                            model:
+                                controller.momentListModel.value.list![index],
                             pageName: 'recommendCircle',
                           ),
                         );
                       },
-                          childCount:
-                              (controller.momentListModel.value.list!.length > 3)
-                                  ? 3
-                                  : controller
-                                      .momentListModel.value.list!.length),
+                          childCount: (controller
+                                      .momentListModel.value.list!.length >
+                                  3)
+                              ? 3
+                              : controller.momentListModel.value.list!.length),
                     ),
                   ),
                   Obx(() => SliverToBoxAdapter(
@@ -86,7 +93,8 @@ class RecommendPage extends GetView<RecommendController> {
                     () => SliverToBoxAdapter(
                       child: Offstage(
                         offstage:
-                            controller.activityListModel.value.data!.length == 0,
+                            controller.activityListModel.value.data!.length ==
+                                0,
                         child: Container(
                           padding: const EdgeInsets.only(
                               top: 10, left: 15, right: 15),
@@ -107,7 +115,8 @@ class RecommendPage extends GetView<RecommendController> {
                     () => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         return RecommendActItem(
-                          model: controller.activityListModel.value.data![index],
+                          model:
+                              controller.activityListModel.value.data![index],
                         );
                       },
                           childCount:

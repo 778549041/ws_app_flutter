@@ -1,4 +1,5 @@
 import 'package:flustars/flustars.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_pickers/pickers.dart';
 import 'package:flutter_pickers/style/default_style.dart';
@@ -10,6 +11,7 @@ import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/base_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
+import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 
 class TestDriveController extends BaseController {
   List<AddressModel> provincedata = [];
@@ -38,6 +40,27 @@ class TestDriveController extends BaseController {
   void onInit() {
     super.onInit();
     getProvinceData();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    if (!Get.find<UserController>().userInfo.value.isLogin!) {
+      Get.dialog(
+        BaseDialog(
+          title: '提示',
+          hiddenCancel: true,
+          content: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text('请先登录', style: TextStyle(fontSize: 16.0)),
+          ),
+          onConfirm: () {
+            Get.close(1);
+          },
+        ),
+        barrierDismissible: false,
+      );
+    }
   }
 
   //获取省份数据

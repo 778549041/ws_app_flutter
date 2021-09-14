@@ -41,7 +41,7 @@ class MainController extends BaseController {
   void onItemTap(int index) async {
     tabController?.animateTo(index);
     Get.find<UserController>().getUserInfo().then((value) {
-      if (!Get.find<UserController>().isLogin.value) {
+      if (!Get.find<UserController>().userInfo.value.isLogin!) {
         Get.offAllNamed(Routes.LOGIN);
       }
     });

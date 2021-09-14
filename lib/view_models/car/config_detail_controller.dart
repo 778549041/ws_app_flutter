@@ -98,8 +98,8 @@ class ConfigDetailController extends GetxController {
     return content;
   }
 
-  //高灵敏泊车雷达（后4探头）
-  String convertTypeToVersionLD(int index) {
+  //高灵敏泊车雷达（后4探头）、侧安全气帘
+  String convertTypeToVersionLDAndQL(int index) {
     String content = '';
     if (index == 0 || index == 1 || index == 3) {
       content = '—';
@@ -120,13 +120,202 @@ class ConfigDetailController extends GetxController {
     return content;
   }
 
-  //侧安全气帘
-  String convertTypeToVersionCAQQL(int index) {
+
+  /////外观
+  //羽翼式全LED前大灯（高度可调）、湃锐专属运动内饰（红色缝线+饰件）
+  String convertTypeToVersionWG1NS2(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '—';
+    } else {
+      content = '●';
+    }
+    return content;
+  }
+
+  //晶钻式LED前大灯（高度可调）
+  String convertTypeToVersionWG2(int index) {
+    String content = '';
+    if (index == 0 || index == 3 || index == 4) {
+      content = '—';
+    } else {
+      content = '●';
+    }
+    return content;
+  }
+
+  //反射式前大灯（高度可调）、高级织物座椅
+  String convertTypeToVersionWG3NS13(int index) {
+    String content = '';
+    if (index == 0) {
+      content = '●';
+    } else {
+      content = '—';
+    }
+    return content;
+  }
+
+  //LED日间行车灯、自动前大灯
+  String convertTypeToVersionWG4WG5(int index) {
+    String content = '';
+    if (index == 0 || index == 1) {
+      content = '—';
+    } else {
+      content = '●';
+    }
+    return content;
+  }
+
+  //前大灯自动延时熄灭（锁车后）
+  String convertTypeToVersionCommonYuan(int index) {
+    return '●';
+  }
+
+  //电动折叠外后视镜、外后视镜带转向灯、外后视镜加热功能
+  String convertTypeToVersionWG8910(int index) {
+    String content = '';
+    if (index == 0) {
+      content = '—';
+    } else {
+      content = '●';
+    }
+    return content;
+  }
+
+  //豪华全景电动天窗、前排座椅地图袋
+  String convertTypeToVersionWG11NS16(int index) {
     String content = '';
     if (index == 0 || index == 1 || index == 3) {
       content = '—';
-    }else if (index == 2 || index == 4) {
+    } else {
       content = '●';
+    }
+    return content;
+  }
+
+  //多级式前挡风玻璃雨刮器
+  String convertTypeToVersionWG15(int index) {
+    String content = '';
+    if (index == 0 || index == 1) {
+      content = '●';
+    } else {
+      content = '●（可调速）';
+    } 
+    return content;
+  }
+
+  //后雾灯
+  String convertTypeToVersionWG17(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '●';
+    } else if (index == 3 || index == 4) {
+      content = '●（LED）';
+    }
+    return content;
+  }
+
+  //行车示廓灯
+  String convertTypeToVersionWG18(int index) {
+    String content = '';
+    if (index == 0) {
+      content = '●';
+    } else {
+      content = '●（LED）';
+    }
+    return content;
+  }
+
+  //湃锐专属运动包围、蜂巢式动感前格栅、SPORT运动徽标（尾门）
+  String convertTypeToVersionWG212223(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '—';
+    } else if (index == 3 || index == 4) {
+      content = '●';
+    }
+    return content;
+  }
+
+  //////内饰
+  //澄净蓝色氛围内饰（蓝色缝线+饰件）
+  String convertTypeToVersionNS1(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '●';
+    } else {
+      content = '—';
+    }
+    return content;
+  }
+
+  //多功能方向盘（带音响控制及4向调节）
+  String convertTypeToVersionNS7(int index) {
+    String content = '';
+    if (index == 0) {
+      content = '●';
+    } else {
+      content = '●（真皮）';
+    }
+    return content;
+  }
+
+  //前排遮阳板（带化妆镜）
+  String convertTypeToVersionNS9(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 3) {
+      content = '●';
+    } else {
+      content = '●（带照明）';
+    }
+    return content;
+  }
+
+  //车内照明系统
+  String convertTypeToVersionNS10(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 3) {
+      content = '●';
+    } else {
+      content = '●（LED）';
+    }
+    return content;
+  }
+
+  //高级皮质座椅
+  String convertTypeToVersionNS12(int index) {
+    String content = '';
+    if (index == 0) {
+      content = '—';
+    } else if (index == 1 || index == 2) {
+      content = '●';
+    } else {
+      content = '●（黑红双拼）';
+    }
+    return content;
+  }
+
+  //前排阅读灯
+  String convertTypeToVersionNS17(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 3) {
+      content = '●';
+    } else if (index == 2) {
+      content = '●（阅读灯）';
+    } else if (index == 4) {
+      content = '●（LED）';
+    }
+    return content;
+  }
+  //高保真扬声器系统
+  String convertTypeToVersionSSBL10(int index) {
+    String content = '';
+    if (index == 0) {
+      content = '●（2扬声器）';
+    } else if (index == 1 || index == 3) {
+      content = '●（4扬声器）';
+    } else {
+      content = '●（6扬声器）';
     }
     return content;
   }

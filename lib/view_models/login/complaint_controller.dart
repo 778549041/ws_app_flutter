@@ -25,7 +25,9 @@ class ComplaintController extends GetxController {
       {'title': '车架号', 'content': vincode},
       {
         'title': '手机号',
-        'content': Get.find<UserController>().userInfo.value.member == null ? '' : Get.find<UserController>().userInfo.value.member!.mobile
+        'content': Get.find<UserController>().userInfo.value.isLogin!
+            ? Get.find<UserController>().userInfo.value.member!.mobile
+            : ''
       },
       {'title': '', 'content': ''},
       {'title': '', 'content': ''},
@@ -46,7 +48,9 @@ class ComplaintController extends GetxController {
       'store': store,
       'name': name,
       'vin': vincode,
-      'mobile': Get.find<UserController>().userInfo.value.member == null ? '' : Get.find<UserController>().userInfo.value.member!.mobile,
+      'mobile': Get.find<UserController>().userInfo.value.member == null
+          ? ''
+          : Get.find<UserController>().userInfo.value.member!.mobile,
       'content': inputStr,
     });
     if (_model.success != null) {

@@ -18,7 +18,6 @@ import 'package:ws_app_flutter/view_models/main/main_controller.dart';
 
 class UserController extends BaseController {
   var userInfo = UserInfo().obs; //用户信息
-  var isLogin = false.obs; //是否登录
   var msgModel = MsgModel().obs; //消息数据
 
   @override
@@ -32,7 +31,6 @@ class UserController extends BaseController {
     UserInfo user =
         await DioManager().request<UserInfo>(DioManager.POST, Api.userInfoUrl);
     userInfo.value = user;
-    isLogin.value = (user.member != null);
   }
 
   //修改用户信息
@@ -141,7 +139,6 @@ class UserController extends BaseController {
     if (obj.success != null) {
       Get.offAllNamed(Routes.LOGIN);
       userInfo.value = UserInfo();
-      isLogin.value = false;
     }
   }
 

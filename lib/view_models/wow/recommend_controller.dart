@@ -1,4 +1,3 @@
-import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/wow/activity_model.dart';
 import 'package:ws_app_flutter/models/wow/banner_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
@@ -8,11 +7,9 @@ import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/wow/eletric_controller.dart';
 
 class RecommendController extends RefreshListController {
-  var userInfo = UserInfo().obs;
   var bannerModel = BannerModel().obs;
   var textBannerModel = TextBannerListModel().obs;
   var momentListModel = MomentListModel().obs;
@@ -32,7 +29,6 @@ class RecommendController extends RefreshListController {
   @override
   void onInit() {
     Get.lazyPut<EletricController>(() => EletricController());
-    userInfo.value = Get.find<UserController>().userInfo.value;
     super.onInit();
   }
 

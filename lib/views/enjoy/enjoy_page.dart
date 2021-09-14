@@ -82,10 +82,14 @@ class EnjoyPage extends GetView<EnjoyController> {
                       right: 0,
                       child: Offstage(
                           offstage: !(Get.find<UserController>()
-                              .userInfo
-                              .value
-                              .member!
-                              .isVehicle!),
+                                  .userInfo
+                                  .value
+                                  .isLogin! &&
+                              Get.find<UserController>()
+                                  .userInfo
+                                  .value
+                                  .member!
+                                  .isVehicle!),
                           child: Image.asset(
                             'assets/images/mine/vip_tag.png',
                             width: 18,
@@ -100,35 +104,38 @@ class EnjoyPage extends GetView<EnjoyController> {
                   child: Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Obx(() => Text(
-                      (Get.find<UserController>()
+                      Get.find<UserController>().userInfo.value.isLogin!
+                          ? (Get.find<UserController>()
+                                      .userInfo
+                                      .value
+                                      .member!
+                                      .showName!
+                                      .length >
+                                  11)
+                              ? Get.find<UserController>()
                                   .userInfo
                                   .value
                                   .member!
                                   .showName!
-                                  .length >
-                              11)
-                          ? Get.find<UserController>()
-                              .userInfo
-                              .value
-                              .member!
-                              .showName!
-                              .substring(0, 11)
-                          : Get.find<UserController>()
-                              .userInfo
-                              .value
-                              .member!
-                              .showName!,
+                                  .substring(0, 11)
+                              : Get.find<UserController>()
+                                  .userInfo
+                                  .value
+                                  .member!
+                                  .showName!
+                          : '',
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     )),
               )),
               // 销售员或者勋章标签
-              if (Get.find<UserController>()
-                  .userInfo
-                  .value
-                  .member!
-                  .memberInfo!
-                  .showTag!)
+              if (Get.find<UserController>().userInfo.value.isLogin! &&
+                  Get.find<UserController>()
+                      .userInfo
+                      .value
+                      .member!
+                      .memberInfo!
+                      .showTag!)
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: MedalWidget(
@@ -165,11 +172,14 @@ class EnjoyPage extends GetView<EnjoyController> {
                     image: 'assets/images/circle/enjoy_point.png',
                     imageH: 18,
                     imageW: 18,
-                    title: TextUtil.formatComma3(Get.find<UserController>()
-                        .userInfo
-                        .value
-                        .member!
-                        .integral!),
+                    title: TextUtil.formatComma3(
+                        Get.find<UserController>().userInfo.value.isLogin!
+                            ? Get.find<UserController>()
+                                .userInfo
+                                .value
+                                .member!
+                                .integral!
+                            : '0'),
                     titleColor: Colors.white,
                     fontSize: 12,
                     onPressed: () => controller.buttonAction(1002),
