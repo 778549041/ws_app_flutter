@@ -52,9 +52,6 @@ class NewsSearchPage extends GetView<NewsSearchController> {
                   SizedBox(
                     height: 5,
                   ),
-                  // Obx(() => Offstage(
-                  //       offstage: controller.list.length > 0,
-                  //       child:
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 15, bottom: 5, right: 15),
@@ -84,10 +81,10 @@ class NewsSearchPage extends GetView<NewsSearchController> {
                                 child: Text(
                                   controller.searchTagList[index].tagName!,
                                   style: TextStyle(
-                                    color:
-                                        controller.searchTagList[index].selected!
-                                            ? Colors.white
-                                            : MainAppColor.mainBlueBgColor,
+                                    color: controller
+                                            .searchTagList[index].selected!
+                                        ? Colors.white
+                                        : MainAppColor.mainBlueBgColor,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -96,7 +93,6 @@ class NewsSearchPage extends GetView<NewsSearchController> {
                           }),
                         )),
                   ),
-                  // )),
                   Divider(
                     color: Colors.black,
                     height: 0.5,

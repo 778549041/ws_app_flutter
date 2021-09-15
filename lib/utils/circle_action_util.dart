@@ -46,13 +46,13 @@ class CircleActionUtil {
               .remove(momentModel);
         }
       }
-      //圈子列表
-      for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
-        MomentModel momentModel = Get.find<CircleController>().list[i];
-        if (momentModel.circleId == model.circleId) {
-          Get.find<CircleController>().list.remove(momentModel);
-        }
-      }
+      // //圈子列表
+      // for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+      //   MomentModel momentModel = Get.find<CircleController>().list[i];
+      //   if (momentModel.circleId == model.circleId) {
+      //     Get.find<CircleController>().list.remove(momentModel);
+      //   }
+      // }
       //话题圈子列表
       if (Get.isRegistered<CircleTopicListController>()) {
         for (var i = 0;
@@ -118,16 +118,16 @@ class CircleActionUtil {
                 .insert(i, momentModel);
           }
         }
-        //圈子列表
-        for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
-          MomentModel momentModel = Get.find<CircleController>().list[i];
-          if (momentModel.circleId == model.circleId) {
-            Get.find<CircleController>().list.remove(momentModel);
-            momentModel.praiseStatus = false;
-            momentModel.praise = (int.parse(momentModel.praise!) - 1).toString();
-            Get.find<CircleController>().list.insert(i, momentModel);
-          }
-        }
+        // //圈子列表
+        // for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+        //   MomentModel momentModel = Get.find<CircleController>().list[i];
+        //   if (momentModel.circleId == model.circleId) {
+        //     Get.find<CircleController>().list.remove(momentModel);
+        //     momentModel.praiseStatus = false;
+        //     momentModel.praise = (int.parse(momentModel.praise!) - 1).toString();
+        //     Get.find<CircleController>().list.insert(i, momentModel);
+        //   }
+        // }
         //话题圈子列表
         if (Get.isRegistered<CircleTopicListController>()) {
           for (var i = 0;
@@ -201,16 +201,16 @@ class CircleActionUtil {
                 .insert(i, momentModel);
           }
         }
-        //圈子列表
-        for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
-          MomentModel momentModel = Get.find<CircleController>().list[i];
-          if (momentModel.circleId == model.circleId) {
-            Get.find<CircleController>().list.remove(momentModel);
-            momentModel.praiseStatus = true;
-            momentModel.praise = (int.parse(momentModel.praise!) + 1).toString();
-            Get.find<CircleController>().list.insert(i, momentModel);
-          }
-        }
+        // //圈子列表
+        // for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+        //   MomentModel momentModel = Get.find<CircleController>().list[i];
+        //   if (momentModel.circleId == model.circleId) {
+        //     Get.find<CircleController>().list.remove(momentModel);
+        //     momentModel.praiseStatus = true;
+        //     momentModel.praise = (int.parse(momentModel.praise!) + 1).toString();
+        //     Get.find<CircleController>().list.insert(i, momentModel);
+        //   }
+        // }
         //话题圈子列表
         if (Get.isRegistered<CircleTopicListController>()) {
           for (var i = 0;

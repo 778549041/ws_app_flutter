@@ -85,16 +85,16 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
             .insert(i, momentModel);
       }
     }
-    //圈子列表
-    for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
-      MomentModel momentModel = Get.find<CircleController>().list[i];
-      if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
-        Get.find<CircleController>().list.remove(momentModel);
-        momentModel.visitsNum =
-            (int.parse(momentModel.visitsNum!) + 1).toString();
-        Get.find<CircleController>().list.insert(i, momentModel);
-      }
-    }
+    // //圈子列表
+    // for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+    //   MomentModel momentModel = Get.find<CircleController>().list[i];
+    //   if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
+    //     Get.find<CircleController>().list.remove(momentModel);
+    //     momentModel.visitsNum =
+    //         (int.parse(momentModel.visitsNum!) + 1).toString();
+    //     Get.find<CircleController>().list.insert(i, momentModel);
+    //   }
+    // }
     //话题圈子列表
     if (Get.isRegistered<CircleTopicListController>()) {
       for (var i = 0;
@@ -178,15 +178,15 @@ class CircleDetailController extends RefreshListController<MomentCommentModel> {
               .insert(i, momentModel);
         }
       }
-      //圈子列表
-      for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
-        MomentModel momentModel = Get.find<CircleController>().list[i];
-        if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
-          Get.find<CircleController>().list.remove(momentModel);
-          momentModel.comment = (int.parse(momentModel.comment!) - 1).toString();
-          Get.find<CircleController>().list.insert(i, momentModel);
-        }
-      }
+      // //圈子列表
+      // for (var i = 0; i < Get.find<CircleController>().list.length; i++) {
+      //   MomentModel momentModel = Get.find<CircleController>().list[i];
+      //   if (momentModel.circleId == momentDetailModel.value.list?.circleId) {
+      //     Get.find<CircleController>().list.remove(momentModel);
+      //     momentModel.comment = (int.parse(momentModel.comment!) - 1).toString();
+      //     Get.find<CircleController>().list.insert(i, momentModel);
+      //   }
+      // }
       //话题圈子列表
       if (Get.isRegistered<CircleTopicListController>()) {
         for (var i = 0;

@@ -93,15 +93,30 @@ class DraggableButton extends StatefulWidget {
   State<StatefulWidget> createState() => _DraggableButtonState();
 }
 
-class _DraggableButtonState extends State<DraggableButton> {
-  Offset? dynamicOffset;
+class _DraggableButtonState extends State<DraggableButton>
+    with TickerProviderStateMixin {
+  //帧布局顶部距离
+  double _top = 0;
+  //帧布局左侧距离
+  double _left = 0;
+  //动画控制器
+  late AnimationController _controller;
+  //动画
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _top = widget.offset.dy;
+    _left = widget.offset.dx;
+    //这里初始化动画类
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 0), vsync: this);
+    _animation = Tween(begin: _left, end: _left).animate(_controller);
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (dynamicOffset == null) {
-      dynamicOffset = widget.offset;
-    }
-
     FloatingActionButton _floatingActionButton = new FloatingActionButton(
         key: widget.key,
         child: widget.child,
@@ -119,48 +134,64 @@ class _DraggableButtonState extends State<DraggableButton> {
         mini: widget.mini);
 
     return Positioned(
-        left: dynamicOffset!.dx,
-        top: dynamicOffset!.dy,
-        child: Draggable(
-          data: widget.data,
-          child: _floatingActionButton,
-          feedback: _floatingActionButton,
-          childWhenDragging: Container(),
-          onDraggableCanceled: (Velocity velocity, Offset offset) {
-            setState(() {
-              var dy = offset.dy -
-                  widget.appBarHeight -
-                  MediaQuery.of(widget.appContext).padding.top;
-              var dx = offset.dx;
+      left: _left,
+      top: _top,
+      child: Draggable(
+        data: widget.data,
+        child: _floatingActionButton,
+        feedback: _floatingActionButton,
+        childWhenDragging: Container(),
+        onDragUpdate: (DragUpdateDetails? details) {
+          setState(() {
+            _left += details!.delta.dx;
+            _top += details.delta.dy;
+          });
+        },
+        onDraggableCanceled: (Velocity velocity, Offset offset) {
+          setState(() {
+            var dy = offset.dy -
+                widget.appBarHeight -
+                MediaQuery.of(widget.appContext).padding.top;
+            var dx = offset.dx;
 
-              var maxDy = MediaQuery.of(widget.appContext).size.height -
-                  MediaQuery.of(widget.appContext).padding.bottom -
-                  widget.appBarHeight -
-                  widget.bottomBarHeight -
-                  MediaQuery.of(widget.appContext).padding.top -
-                  widget._sizeConstraints.maxHeight;
+            var maxDy = MediaQuery.of(widget.appContext).size.height -
+                MediaQuery.of(widget.appContext).padding.bottom -
+                widget.appBarHeight -
+                widget.bottomBarHeight -
+                MediaQuery.of(widget.appContext).padding.top -
+                widget._sizeConstraints.maxHeight;
 
-              if (dy < 0) {
-                dy = 0;
-              } else if (dy > maxDy) {
-                dy = maxDy;
-              }
-              if (dx < 0 ||
-                  (dx + widget._sizeConstraints.maxWidth / 2) <
-                      MediaQuery.of(widget.appContext).size.width / 2) {
-                dx = 0;
-              } else if ((dx + widget._sizeConstraints.maxWidth) >
-                      MediaQuery.of(widget.appContext).size.width ||
-                  (dx + widget._sizeConstraints.maxWidth / 2) >
-                      MediaQuery.of(widget.appContext).size.width / 2) {
-                dx = MediaQuery.of(widget.appContext).size.width -
-                    widget._sizeConstraints.maxWidth;
-              }
-
-              Offset newOffset = new Offset(dx, dy);
-              dynamicOffset = newOffset;
+            if (dy < 0) {
+              dy = 0;
+            } else if (dy > maxDy) {
+              dy = maxDy;
+            }
+            if (dx < 0 ||
+                (dx + widget._sizeConstraints.maxWidth / 2) <
+                    MediaQuery.of(widget.appContext).size.width / 2) {
+              dx = 0;
+            } else if ((dx + widget._sizeConstraints.maxWidth) >
+                    MediaQuery.of(widget.appContext).size.width ||
+                (dx + widget._sizeConstraints.maxWidth / 2) >
+                    MediaQuery.of(widget.appContext).size.width / 2) {
+              dx = MediaQuery.of(widget.appContext).size.width -
+                  widget._sizeConstraints.maxWidth;
+            }
+            _top = dy;
+            //这里由于根据需要偏移的距离需要重新设置动画执行时长，那么之前的动画控制器就先销毁再创建。
+            _controller.dispose();
+            _controller = AnimationController(
+                duration: Duration(milliseconds: 250), vsync: this);
+            //这里对监听 animation 执行过程进行监听，重新绘制悬浮组件位置
+            _animation = Tween(begin: _left, end: dx).animate(_controller);
+            _animation.addListener(() {
+              _left = _animation.value.toDouble();
+              setState(() {});
             });
-          },
-        ));
+            _controller.forward();
+          });
+        },
+      ),
+    );
   }
 }

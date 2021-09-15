@@ -18,6 +18,7 @@ class GalleryMallPage extends StatefulWidget {
 class GalleryMallPageState extends State<GalleryMallPage>
     with TickerProviderStateMixin {
   final GalleryMallController controller = Get.find<GalleryMallController>();
+  TabController? _tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -117,18 +118,20 @@ class GalleryMallPageState extends State<GalleryMallPage>
   }
 
   Widget _buildSegment() {
+    _tabController?.dispose();
+    _tabController = TabController(
+        length: controller.tabsData.length,
+        vsync: this,
+        initialIndex: controller.tabsData.contains(controller.cat_id)
+            ? controller.tabsData.indexOf(controller.cat_id)
+            : 0);
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 0, 15, 20),
       height: 40,
       child: Obx(
         () => TabBar(
           isScrollable: true,
-          controller: TabController(
-              length: controller.tabsData.length,
-              vsync: this,
-              initialIndex: controller.tabsData.contains(controller.cat_id)
-                  ? controller.tabsData.indexOf(controller.cat_id)
-                  : 0),
+          controller: _tabController,
           tabs: controller.tabsData.map((e) {
             return Tab(
               text: e.cat_name,
@@ -243,11 +246,13 @@ class GalleryMallPageState extends State<GalleryMallPage>
 
   @override
   void initState() {
+    _tabController = TabController(length: 0, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
+    _tabController?.dispose();
     super.dispose();
   }
 

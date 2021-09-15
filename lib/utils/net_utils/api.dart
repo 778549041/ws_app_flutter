@@ -138,11 +138,19 @@ class Api {
 //圈子发布动态图片和视频id转url
   static final convertIDToUrl = 'index.php/m/circle-upload.html';
 //话题列表
-  static final circleTopicListUrl = 'index.php/m/topic.html';
+  static final circleTopicListUrl = 'index.php/m/topicV1-lists.html';
 //话题详情
   static final circleTopicDetailUrl = 'index.php/m/topic-item.html';
 //好友详情圈子数据
   static final circleFriendsMomentUrl = 'index.php/m/circle-pic_list.html';
+
+  //圈子二期
+  //圈子首页热门推荐
+  static final circleHotRecommendUrl = 'index.php/m/hotsV2-hots_recommend.html';
+  //圈子首页官方动态
+  static final circleOfficialMomenttUrl = 'index.php/m/topicV1-official.html';
+  //用户圈子标签
+  static final userCircleTagUrl = 'index.php/m/circleTagV1v1-user.html';
 
   /// 优享
 //优享抽大奖地址

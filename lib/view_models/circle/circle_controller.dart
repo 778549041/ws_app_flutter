@@ -1,29 +1,20 @@
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
-import 'package:ws_app_flutter/utils/net_utils/api.dart';
-import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
-import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
-import 'package:ws_app_flutter/view_models/circle/circle_topic_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_tab_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/faq_tab_controller.dart';
 
-class CircleController extends RefreshListController<MomentModel> {
+class CircleController extends GetxController {
+  int tabIndex = 0; //当前tab，默认圈子tab
+
   @override
   void onInit() {
-    Get.lazyPut<CircleTopicController>(() => CircleTopicController());
-    pageSize = 10;
     super.onInit();
+    Get.lazyPut<CircleTabController>(() => CircleTabController());
+    Get.lazyPut<FAQTabController>(() => FAQTabController());
   }
 
-  @override
-  Future<List<MomentModel>?> loadData({int pageNum = 1}) async {
-    return await requestCircleListData(pageNum);
-  }
-
-  Future requestCircleListData(int pageNum) async {
-    MomentListModel _model = await DioManager().request<MomentListModel>(
-        DioManager.POST, Api.circleMomentListUrl,
-        params: {"page": pageNum});
-    return _model.list;
+  void tabIndexChanged(int index) {
+    tabIndex = index;
   }
 
   //按钮事件
@@ -35,7 +26,14 @@ class CircleController extends RefreshListController<MomentModel> {
       //添加好友
       Get.toNamed(Routes.ADDFRIEND);
     } else if (index == 1002) {
-      Get.toNamed(Routes.CIRCLPUBLISH);
+      //发布
+      if (tabIndex == 0) {
+        //发布动态
+        Get.toNamed(Routes.CIRCLPUBLISH);
+      } else if (tabIndex == 1) {
+        //发布问题
+        print('发布问题，待完成');
+      }
     }
   }
 }
