@@ -151,6 +151,8 @@ class Api {
   static final circleOfficialMomenttUrl = 'index.php/m/topicV1-official.html';
   //用户圈子标签
   static final userCircleTagUrl = 'index.php/m/circleTagV1v1-user.html';
+  //新版圈子列表
+  static final newVersionMomentListUrl = 'index.php/m/circleIndexV1v1.html';
 
   /// 优享
 //优享抽大奖地址

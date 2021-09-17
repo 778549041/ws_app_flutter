@@ -554,7 +554,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                 children: <Widget>[
                   //时间
                   Text(
-                    model.pubdate!,
+                    model.pubdate == null ? '' : model.pubdate!,
                     style: TextStyle(fontSize: 12, color: Colors.grey[400]),
                   ),
                   //删除按钮

@@ -422,8 +422,9 @@ class CircleTabPageState extends State<CircleTabPage>
       );
       return Column(
         children: <Widget>[
-          _buildCircleTabBar(),
-          Expanded(
+          Flexible(child: _buildCircleTabBar()),
+          Flexible(
+            flex: 10,
             child: _buildTabbarView(),
           ),
         ],
@@ -435,10 +436,12 @@ class CircleTabPageState extends State<CircleTabPage>
   Widget _buildCircleTabBar() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      width: Get.width,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -469,7 +472,10 @@ class CircleTabPageState extends State<CircleTabPage>
             image: 'assets/images/circle/manage_tag_plus.png',
             imageH: 12.5,
             imageW: 12.5,
-            onPressed: () {},
+            onPressed: () {
+              //TODO
+              print('点击了编辑标签');
+            },
           ),
         ],
       ),
@@ -480,7 +486,9 @@ class CircleTabPageState extends State<CircleTabPage>
   Widget _buildTabbarView() {
     return TabBarView(
       children: controller.tabsData.map((e) {
-        return MomentListPage();
+        return MomentListPage(
+          tagId: e.tag_id!,
+        );
       }).toList(),
       controller: _tabController,
       physics: NeverScrollableScrollPhysics(),

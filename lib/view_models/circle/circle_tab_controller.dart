@@ -12,6 +12,7 @@ class CircleTabController extends GetxController {
   var topicData = TopicListModel().obs;
   var officialData = MomentListModel().obs;
   var tabsData = <CircleTagModel>[].obs; //tab数据
+  
 
   @override
   void onInit() {
@@ -44,7 +45,9 @@ class CircleTabController extends GetxController {
 
   //用户圈子标签分类数据
   Future _getCircleTagListData() async {
-    CircleTagListModel tagListModel = await DioManager().request<CircleTagListModel>(DioManager.GET, Api.userCircleTagUrl);
+    CircleTagListModel tagListModel = await DioManager()
+        .request<CircleTagListModel>(DioManager.GET, Api.userCircleTagUrl);
+    tabsData.clear();
     for (var item in tagListModel.data!) {
       item.canLongPress = true;
       if (item.tag_id! == 1) {
