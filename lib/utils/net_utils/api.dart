@@ -140,9 +140,11 @@ class Api {
 //话题列表
   static final circleTopicListUrl = 'index.php/m/topicV1-lists.html';
 //话题详情
-  static final circleTopicDetailUrl = 'index.php/m/topic-item.html';
+  static final circleTopicDetailUrl = 'index.php/m/circleTopicV1v1-info.html';
 //好友详情圈子数据
   static final circleFriendsMomentUrl = 'index.php/m/circle-pic_list.html';
+  //更多热门榜列表
+  static final circleHotListUrl = 'index.php/m/hotsV1-hots_list.html';
 
   //圈子二期
   //圈子首页热门推荐

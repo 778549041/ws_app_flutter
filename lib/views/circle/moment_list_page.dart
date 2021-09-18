@@ -14,14 +14,19 @@ class MomentListPage extends StatefulWidget {
   MomentListPageState createState() => MomentListPageState();
 }
 
-class MomentListPageState extends State<MomentListPage> {
+class MomentListPageState extends State<MomentListPage>
+    with AutomaticKeepAliveClientMixin {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   int pageNum = 1;
   List<MomentModel> data = <MomentModel>[];
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SmartRefresher(
       controller: _refreshController,
       enablePullDown: false,
@@ -68,8 +73,8 @@ class MomentListPageState extends State<MomentListPage> {
 
   @override
   void initState() {
-    loadData();
     super.initState();
+    loadData();
   }
 
   @override

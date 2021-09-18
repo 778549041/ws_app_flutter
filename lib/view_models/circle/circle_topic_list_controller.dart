@@ -12,32 +12,29 @@ class CircleTopicListController extends RefreshListController<MomentModel> {
 
   @override
   void onInit() {
-    pageSize = 10;
     super.onInit();
-  }
-
-  @override
-  void onReady() async {
-    await getTopicDetailData();
-    super.onReady();
+    pageSize = 10;
   }
 
   @override
   Future<List<MomentModel>?> loadData({int pageNum = 1}) async {
+    if (pageNum == 1) {
+      getTopicDetailData();
+    }
     return await requestCircleListData(pageNum);
   }
 
   Future requestCircleListData(int pageNum) async {
     MomentListModel _model = await DioManager().request<MomentListModel>(
-        DioManager.POST, Api.circleMomentListUrl,
-        params: {"page": pageNum, 'topic_id': topcId});
+        DioManager.POST, Api.newVersionMomentListUrl,
+        params: {"page": pageNum, 'topic_id': topcId, 'tag_id': '1'});
     return _model.list;
   }
 
   Future getTopicDetailData() async {
     topicDetailModel.value = await DioManager().request<SingleTopicodel>(
         DioManager.GET, Api.circleTopicDetailUrl,
-        queryParamters: {'cid': topcId});
+        queryParamters: {'t_id': topcId});
   }
 
   void pushToPublish() {

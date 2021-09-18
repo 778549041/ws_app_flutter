@@ -12,7 +12,8 @@ class CircleTabController extends GetxController {
   var topicData = TopicListModel().obs;
   var officialData = MomentListModel().obs;
   var tabsData = <CircleTagModel>[].obs; //tab数据
-  
+  CircleTagModel? currentTagModel; //当前tag
+  int? currentIndex; //当前tab index
 
   @override
   void onInit() {
@@ -62,5 +63,18 @@ class CircleTabController extends GetxController {
       }
       tabsData.add(item);
     }
+    if (currentTagModel == null) {
+      currentIndex = 0;
+    } else {
+      for (var item in tabsData) {
+        if (item.tag_id! == currentTagModel!.tag_id) {
+          currentIndex = tabsData.indexOf(item);
+        }
+      }
+    }
+  }
+
+  void indexChanged(index) {
+    currentTagModel = tabsData[index];
   }
 }

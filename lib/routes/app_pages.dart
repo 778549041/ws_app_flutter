@@ -8,10 +8,12 @@ import 'package:ws_app_flutter/view_models/car/violation_controller.dart';
 import 'package:ws_app_flutter/view_models/car/violation_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/add_friend_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_detail_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_hot_more_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_msg_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_publish_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_search_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_topic_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_topic_more_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/friends_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/report_controller.dart';
@@ -27,6 +29,8 @@ import 'package:ws_app_flutter/views/car/mileage_page.dart';
 import 'package:ws_app_flutter/views/car/test_drive_page.dart';
 import 'package:ws_app_flutter/views/car/violation_list_page.dart';
 import 'package:ws_app_flutter/views/car/violation_query_page.dart';
+import 'package:ws_app_flutter/views/circle/circle_hot_more_list.dart';
+import 'package:ws_app_flutter/views/circle/circle_topic_more_list.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
@@ -657,6 +661,24 @@ abstract class AppPages {
       binding: BindingsBuilder(
         () => Get.lazyPut<SingleUserCircleController>(
             () => SingleUserCircleController()),
+      ),
+    ),
+    //更多热门
+    GetPage(
+      name: Routes.CIRCLEHOTORE,
+      page: () => CircleHotMoreList(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CircleHotMoreListController>(
+            () => CircleHotMoreListController()),
+      ),
+    ),
+    //更多话题
+    GetPage(
+      name: Routes.CIRCLETOPICMORE,
+      page: () => CircleTopicMoreList(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CircleTopicMoreListController>(
+            () => CircleTopicMoreListController()),
       ),
     ),
     //举报须知

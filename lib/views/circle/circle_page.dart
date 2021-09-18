@@ -14,7 +14,7 @@ class CirclePage extends StatefulWidget {
 }
 
 class CirclePageState extends State<CirclePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final CircleController controller = Get.find<CircleController>();
   final List<Tab> _tabs = <Tab>[
     Tab(
@@ -31,7 +31,11 @@ class CirclePageState extends State<CirclePage>
   TabController? _tabController;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Stack(
       children: [
         Image.asset(

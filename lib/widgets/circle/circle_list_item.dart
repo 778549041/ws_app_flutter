@@ -219,9 +219,10 @@ class CircleListItem extends StatelessWidget {
                   ],
                 ),
                 //圈子文本内容
-                if (model.topicTitle != null ||
-                    model.content != null ||
-                    model.params?.name != null)
+                if (model.topicTitle!.length +
+                      model.content!.length +
+                      model.params!.name!.length >
+                  0)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: RichText(

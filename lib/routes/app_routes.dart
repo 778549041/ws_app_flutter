@@ -75,6 +75,8 @@ abstract class Routes {
   static const REPORTKNOW = '/report-know'; //举报须知
   static const REPORT = '/report'; //举报
   static const TOPICLIST = '/topic-list'; //话题列表
+  static const CIRCLEHOTORE = '/more-hot';//更多热门
+  static const CIRCLETOPICMORE = '/more-topic';//更多话题
   //爱车、车控
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情

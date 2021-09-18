@@ -94,7 +94,7 @@ class TopicModel {
     adminUrl = asT<String?>(json['admin_url']);
     totalNum = asT<int?>(json['num']);
     join = asT<String?>(json['join']);
-    self = asT<bool?>(json['self'], false);
+    self = json['self'] == null ? false : asT<bool?>(json['self'], false);
     status = asT<int?>(json['status']);
     follow_num = asT<String?>(json['follow_num']);
     access = asT<int?>(json['access']);
@@ -107,8 +107,10 @@ class TopicModel {
     can_edit = asT<bool?>(json['can_edit']);
     examine = asT<int?>(json['examine']);
     refuse_reason = asT<String?>(json['refuse_reason']);
-    member_info = CommonMemberModel.fromJson(asT<Map<String, dynamic>>(
-        json['member_info'], Map<String, dynamic>())!);
+    member_info = json['member_info'] == null
+        ? null
+        : CommonMemberModel.fromJson(
+            asT<Map<String, dynamic>?>(json['member_info'])!);
     showAll = false;
     if (self!) {
       tagImg = 'assets/images/circle/topic_mine.png';
