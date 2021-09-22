@@ -125,7 +125,6 @@ class IntegralPageState extends State<IntegralPage>
           ),
           Expanded(
             child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
               controller: _tabController,
               children: _pages,
             ),

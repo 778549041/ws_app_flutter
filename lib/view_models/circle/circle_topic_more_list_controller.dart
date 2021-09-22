@@ -4,6 +4,7 @@ import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 
 class CircleTopicMoreListController extends RefreshListController<TopicModel> {
   @override
@@ -21,7 +22,22 @@ class CircleTopicMoreListController extends RefreshListController<TopicModel> {
   }
 
   //选择话题
-  void selectTopic(TopicModel model) {
-    Get.toNamed(Routes.CIRCLTOPICLIST, arguments: {'topcid': model.topicId!});
+  void pushAction(int index) {
+    if (index == 0) {
+      //跳转我的话题
+      if (Get.find<UserController>()
+          .userInfo
+          .value
+          .member!
+          .memberInfo!
+          .isLeader!) {
+        Get.toNamed(Routes.LEADERTOPICLIST);
+      } else {
+        Get.toNamed(Routes.NOTLEADERTOPICLIST);
+      }
+    } else if (index == 1) {
+      //跳转创建话题
+      Get.toNamed(Routes.CREATETOPIC);
+    }
   }
 }

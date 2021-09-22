@@ -46,6 +46,7 @@ abstract class Routes {
   static const WINLISTRECORD = '/winlist-page'; //中奖纪录
   static const ORDERLISTROUTE = '/orderlist-page'; //兑换订单
   static const ORDERDETAILPAGE = '/order-detail-page'; //订单详情
+  static const MINECIRCLE = '/mine-circle';//我的圈子
   static const MYFAVORPAGE = '/my-favor-page';//我的收藏
   static const MYACTIVITYPAGE = '/my-activity-page';//我的活动
   static const INTEGRALPAGE = '/integral-page';//积分页面
@@ -77,6 +78,9 @@ abstract class Routes {
   static const TOPICLIST = '/topic-list'; //话题列表
   static const CIRCLEHOTORE = '/more-hot';//更多热门
   static const CIRCLETOPICMORE = '/more-topic';//更多话题
+  static const LEADERTOPICLIST = '/leader-topic';//用户自己是主理人话题列表
+  static const NOTLEADERTOPICLIST = '/notleader-topic';//用户自己不是主理人话题列表
+  static const CREATETOPIC = '/create-topic';//创建话题
   //爱车、车控
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情

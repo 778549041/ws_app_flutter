@@ -29,7 +29,8 @@ class CirclePublishController extends GetxController {
   @override
   void onInit() {
     publishText = '';
-    final TopicModel? topic = Get.arguments == null ? null : Get.arguments['model'];//修改地址传过来的参数
+    final TopicModel? topic =
+        Get.arguments == null ? null : Get.arguments['model']; //修改地址传过来的参数
     if (topic != null) {
       topicModel.value = topic;
     }
@@ -142,9 +143,7 @@ class CirclePublishController extends GetxController {
 
       var result = await Storage().putFile(
           compressedFile,
-          Auth(
-                  accessKey: QINIU_ACCESS_KEY,
-                  secretKey: QINIU_SECRET_KEY)
+          Auth(accessKey: QINIU_ACCESS_KEY, secretKey: QINIU_SECRET_KEY)
               .generateUploadToken(
                   putPolicy: PutPolicy(
                       scope: Env.envConfig.qiniuSpaceName,
@@ -293,7 +292,11 @@ class CirclePublishController extends GetxController {
   //选择话题
   void clickSelectTopic() {
     Get.toNamed(Routes.TOPICLIST)?.then((value) {
-      topicModel.value = value;
+      if (value == null) {
+        topicModel.value = TopicModel();
+      } else {
+        topicModel.value = value;
+      }
     });
   }
 }

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/view_models/base/view_state_widget.dart';
-import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/notleader_topic_list_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
-import 'package:ws_app_flutter/widgets/circle/circle_list_item.dart';
+import 'package:ws_app_flutter/widgets/circle/circle_topic_item.dart';
 
-class SingleUserCircleListPage extends GetView<SingleUserCircleController> {
+class NotLeaderTopicListPage extends GetView<NotleaderTopicListController> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: '圈子列表',
+      title: '我的话题',
       child: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () => controller.refresh(),
@@ -30,14 +31,8 @@ class SingleUserCircleListPage extends GetView<SingleUserCircleController> {
                     )
                   : SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        return Container(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: CircleListItem(
-                            model: controller.list[index],
-                            pageName:
-                                'singleUserCircleList${controller.memberId}',
-                          ),
-                        );
+                        TopicModel item = controller.list[index];
+                        return CircleTopicItem(item, 2);
                       }, childCount: controller.list.length),
                     ),
             ),

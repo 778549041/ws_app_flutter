@@ -14,7 +14,10 @@ import 'package:ws_app_flutter/view_models/circle/circle_publish_controller.dart
 import 'package:ws_app_flutter/view_models/circle/circle_search_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_topic_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_topic_more_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/create_topic_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/friends_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/leader_topic_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/notleader_topic_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/report_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/single_user_circle_list_controller.dart';
@@ -22,6 +25,7 @@ import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/mine_circle_tab_controller.dart';
 import 'package:ws_app_flutter/views/car/battery_check_page.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';
 import 'package:ws_app_flutter/views/car/config_detail.dart';
@@ -31,6 +35,9 @@ import 'package:ws_app_flutter/views/car/violation_list_page.dart';
 import 'package:ws_app_flutter/views/car/violation_query_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_hot_more_list.dart';
 import 'package:ws_app_flutter/views/circle/circle_topic_more_list.dart';
+import 'package:ws_app_flutter/views/circle/create_topic_page.dart';
+import 'package:ws_app_flutter/views/circle/leader_topic_list_page.dart';
+import 'package:ws_app_flutter/views/circle/notleader_topic_list_page.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
 import 'package:ws_app_flutter/view_models/login/certify_controller.dart';
@@ -123,6 +130,7 @@ import 'package:ws_app_flutter/views/mine/integral_page.dart';
 import 'package:ws_app_flutter/views/mine/integral_rule_page.dart';
 import 'package:ws_app_flutter/views/mine/integral_strategy_page.dart';
 import 'package:ws_app_flutter/views/mine/intera_msg_page.dart';
+import 'package:ws_app_flutter/views/mine/mine_circle_tab_page.dart';
 import 'package:ws_app_flutter/views/mine/mine_friends_page.dart';
 import 'package:ws_app_flutter/views/mine/msg_center_page.dart';
 import 'package:ws_app_flutter/views/mine/my_activity_page.dart';
@@ -385,6 +393,14 @@ abstract class AppPages {
         () => Get.lazyPut<CommonQuController>(() => CommonQuController()),
       ),
     ),
+    //我的圈子
+    GetPage(
+      name: Routes.MINECIRCLE,
+      page: () => MineCircleTabPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<MineCircleTabController>(() => MineCircleTabController()),
+      ),
+    ),
     //我的收藏
     GetPage(
       name: Routes.MYFAVORPAGE,
@@ -639,7 +655,6 @@ abstract class AppPages {
     GetPage(
       name: Routes.CIRCLPUBLISH,
       page: () => CirclePublishPage(),
-      transition: Transition.downToUp,
       binding: BindingsBuilder(
         () => Get.lazyPut<CirclePublishController>(
             () => CirclePublishController()),
@@ -681,6 +696,33 @@ abstract class AppPages {
             () => CircleTopicMoreListController()),
       ),
     ),
+    //用户自己是主理人话题列表
+    GetPage(
+      name: Routes.LEADERTOPICLIST,
+      page: () => LeaderTopicListPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<LeaderTopicListController>(
+            () => LeaderTopicListController()),
+      ),
+    ),
+    //用户自己不是主理人话题列表
+    GetPage(
+      name: Routes.NOTLEADERTOPICLIST,
+      page: () => NotLeaderTopicListPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<NotleaderTopicListController>(
+            () => NotleaderTopicListController()),
+      ),
+    ),
+    //创建话题
+    GetPage(
+      name: Routes.CREATETOPIC,
+      page: () => CreateTopicPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CreateTopicController>(
+            () => CreateTopicController()),
+      ),
+    ),
     //举报须知
     GetPage(name: Routes.REPORTKNOW, page: () => ReportKnowPage()),
     //举报
@@ -695,7 +737,6 @@ abstract class AppPages {
     GetPage(
       name: Routes.TOPICLIST,
       page: () => TopicListPage(),
-      transition: Transition.downToUp,
       binding: BindingsBuilder(
         () => Get.lazyPut<TopicController>(() => TopicController()),
       ),

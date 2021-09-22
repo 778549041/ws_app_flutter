@@ -34,6 +34,7 @@ class CustomTextField extends StatefulWidget {
   final _InputCallBack? submitCallBack;
   final TextStyle textStyle;
   final TextStyle hintTextStyle;
+  final TextStyle? counterStyle;
   final TextAlign textAlign; //对齐方式，默认左对齐
   final InputBorder border; //边框样式，默认无边框
 
@@ -55,6 +56,7 @@ class CustomTextField extends StatefulWidget {
     this.submitCallBack,
     this.textStyle = _textStyle,
     this.hintTextStyle = _hintTextStyle,
+    this.counterStyle,
     this.textAlign = TextAlign.left,
     this.border = InputBorder.none, //去掉下划线
   }) : super(key: key);
@@ -102,6 +104,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           suffixIcon: widget.rightWidget,
           hintText: widget.hintText,
           hintStyle: widget.hintTextStyle,
+          counterStyle: widget.counterStyle,
           isDense: true,
           contentPadding: widget.border != InputBorder.none
               ? EdgeInsets.symmetric(horizontal: 5, vertical: 8)

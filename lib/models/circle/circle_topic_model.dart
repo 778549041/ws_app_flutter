@@ -53,12 +53,14 @@ class TopicModel {
   bool? hot; //是否最热
   bool? isNew; //是否最新 new
   String? pubtime; //发布时间
+  String? create_time;//创建时间
   bool? can_edit; //是否可编辑
   int? examine; //话题状态,//0待审核 1审核通过 2审核不通过
   String? refuse_reason; //审核不通过理由
   CommonMemberModel? member_info; //创建者用户信息
 
   String? tagImg;
+  bool? selected;//是否选中
 
   TopicModel({
     this.topicId,
@@ -78,12 +80,14 @@ class TopicModel {
     this.hot = false,
     this.isNew = false,
     this.pubtime,
+    this.create_time,
     this.can_edit,
     this.examine,
     this.refuse_reason,
     this.member_info,
     this.showAll = false,
     this.tagImg = 'assets/images/circle/topic_mine.png',
+    this.selected = false,
   });
 
   TopicModel.fromJson(Map<String, dynamic> json) {
@@ -101,9 +105,10 @@ class TopicModel {
     isJoin = asT<int?>(json['isJoin']);
     is_follow = asT<bool?>(json['is_follow']);
     member_id = asT<String?>(json['member_id']);
-    hot = asT<bool?>(json['hot'], false);
-    isNew = asT<bool?>(json['new'], false);
+    hot = json['hot'] == null ? false : asT<bool?>(json['hot'], false);
+    isNew = json['new'] == null ? false : asT<bool?>(json['new'], false);
     pubtime = asT<String?>(json['pubtime']);
+    create_time = asT<String?>(json['create_time']);
     can_edit = asT<bool?>(json['can_edit']);
     examine = asT<int?>(json['examine']);
     refuse_reason = asT<String?>(json['refuse_reason']);
@@ -112,6 +117,7 @@ class TopicModel {
         : CommonMemberModel.fromJson(
             asT<Map<String, dynamic>?>(json['member_info'])!);
     showAll = false;
+    selected = false;
     if (self!) {
       tagImg = 'assets/images/circle/topic_mine.png';
     } else if (hot!) {

@@ -139,6 +139,19 @@ class Api {
   static final convertIDToUrl = 'index.php/m/circle-upload.html';
 //话题列表
   static final circleTopicListUrl = 'index.php/m/topicV1-lists.html';
+  //话题列表（发布动态时选择话题）
+  static final publishSelectTopicListUrl =
+      'index.php/m/circleTopicV1v1-tagTopic.html';
+  //我的话题列表(我自己是主理人)
+  static final circleMyTopicListUrl = 'index.php/m/circleTopicV1v1-mine.html';
+  //我的话题，申请列表
+  static final myTopicApplyListUrl = 'index.php/m/circleTopicV1v1-apply.html';
+  //我关注的话题列表
+  static final mineFollowTopicListUrl =
+      'index.php/m/circleTopicV1v1-myFollow.html';
+  //取消关注话题
+  static final cancelFocusOnTopicUrl =
+      'index.php/m/circleTopicV1v1-cancelFollow.html';
 //话题详情
   static final circleTopicDetailUrl = 'index.php/m/circleTopicV1v1-info.html';
 //好友详情圈子数据
@@ -153,6 +166,8 @@ class Api {
   static final circleOfficialMomenttUrl = 'index.php/m/topicV1-official.html';
   //用户圈子标签
   static final userCircleTagUrl = 'index.php/m/circleTagV1v1-user.html';
+  //圈子所有标签
+  static final allCircleTagListUrl = 'index.php/m/circleTagV1v1.html';
   //新版圈子列表
   static final newVersionMomentListUrl = 'index.php/m/circleIndexV1v1.html';
 
@@ -264,7 +279,6 @@ class Api {
   static final myFavorUrl = 'm/info-collection_list.html';
   //取消收藏
   static final cancelFavorUrl = 'm/info-delete_art_collect.html';
-
 
   /// 活动相关
 //扫描活动二维码

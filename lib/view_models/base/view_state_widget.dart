@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/view_models/base/view_state.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
@@ -45,7 +46,7 @@ class ViewStateEmptyWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             child: Text(message ?? '',
-                style: TextStyle(color: Color(0xFF4245E5), fontSize: 18)),
+                style: TextStyle(color: MainAppColor.mainBlueBgColor, fontSize: 18)),
           ),
           if (buttonText != null)
             CustomButton(
@@ -53,7 +54,7 @@ class ViewStateEmptyWidget extends StatelessWidget {
               height: 40,
               radius: 20,
               title: buttonText,
-              backgroundColor: Color(0xFF4245E5),
+              backgroundColor: MainAppColor.mainBlueBgColor,
               titleColor: Colors.white,
               onPressed: onPressed,
             ),

@@ -137,9 +137,7 @@ class MineController extends BaseController {
       });
     } else if (actionTag == 1005) {
       //圈子
-      Get.toNamed(Routes.SINGLECIRCLELIST, arguments: {
-        'memberId': Get.find<UserController>().userInfo.value.member?.memberId
-      })?.then((value) {
+      Get.toNamed(Routes.MINECIRCLE)?.then((value) {
         requestFavorData();
         Get.find<UserController>().requestNewMessage();
       });

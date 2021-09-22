@@ -120,7 +120,6 @@ class CircleTabPageState extends State<CircleTabPage>
         );
       }).toList(),
       controller: _tabController,
-      physics: NeverScrollableScrollPhysics(),
     );
   }
 

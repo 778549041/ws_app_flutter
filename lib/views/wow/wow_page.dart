@@ -61,7 +61,6 @@ class WowPageState extends State<WowPage> with SingleTickerProviderStateMixin, A
           Container(
             margin: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight + 40),
             child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
               controller: _tabController,
               children: _pages,
             ),
