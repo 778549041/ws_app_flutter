@@ -152,6 +152,8 @@ class Api {
   //取消关注话题
   static final cancelFocusOnTopicUrl =
       'index.php/m/circleTopicV1v1-cancelFollow.html';
+  //创建话题
+  static final createTopicUrl = 'm/circleTopicV1v1-add.html';
 //话题详情
   static final circleTopicDetailUrl = 'index.php/m/circleTopicV1v1-info.html';
 //好友详情圈子数据

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/circle/circle_tag_model.dart';
 import 'package:ws_app_flutter/view_models/circle/create_topic_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
+import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_textfield.dart';
 
 class CreateTopicPage extends GetView<CreateTopicController> {
@@ -46,14 +49,16 @@ class CreateTopicPage extends GetView<CreateTopicController> {
                         ),
                         border: InputBorder.none,
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) => controller.inputChanged(0, value),
                     ),
                   ),
-                  Text(
-                    '0/15',
-                    style: TextStyle(
-                      color: MainAppColor.secondaryTextColor,
-                      fontSize: 12,
+                  Obx(
+                    () => Text(
+                      '${controller.topicTitle.value.length}/15',
+                      style: TextStyle(
+                        color: MainAppColor.secondaryTextColor,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
@@ -86,7 +91,7 @@ class CreateTopicPage extends GetView<CreateTopicController> {
                   color: MainAppColor.secondaryTextColor,
                   fontSize: 12,
                 ),
-                inputCallBack: (value) {},
+                inputCallBack: (value) => controller.inputChanged(1, value),
               ),
             ),
             SizedBox(
@@ -138,6 +143,106 @@ class CreateTopicPage extends GetView<CreateTopicController> {
                     }),
                   );
                 },
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              '话题权限',
+              style: TextStyle(fontSize: 15),
+            ),
+            Container(
+              height: 35,
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 15),
+              child: DropdownButtonHideUnderline(
+                child: Obx(
+                  () => GFDropdown(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    borderRadius: BorderRadius.circular(0),
+                    border: BorderSide(
+                        color: MainAppColor.seperatorLineColor, width: 0.5),
+                    dropdownButtonColor: Colors.white,
+                    value: controller.permission.value,
+                    style: TextStyle(
+                        color: MainAppColor.secondaryTextColor, fontSize: 12),
+                    onChanged: (newValue) =>
+                        controller.selectPermission(newValue),
+                    items: [
+                      '不开放',
+                      '半开放',
+                      '全开放',
+                    ]
+                        .map((value) => DropdownMenuItem(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                    color: MainAppColor.secondaryTextColor,
+                                    fontSize: 12),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              '话题封面',
+              style: TextStyle(fontSize: 15),
+            ),
+            GetBuilder<CreateTopicController>(
+                id: 'selectimg',
+                builder: (ctl) {
+                  return Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      width: 105,
+                      height: 105,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: MainAppColor.seperatorLineColor, width: 0.5),
+                      ),
+                      child: ctl.selectedImage == null
+                          ? CustomButton(
+                              width: 105,
+                              height: 105,
+                              image:
+                                  'assets/images/circle/create_topic_plus.png',
+                              imageW: 22,
+                              imageH: 22,
+                              imagePosition: XJImagePosition.XJImagePositionTop,
+                              title: '请上传封面',
+                              titleColor: MainAppColor.secondaryTextColor,
+                              fontSize: 12,
+                              onPressed: () => ctl.clickPickAsset())
+                          : GestureDetector(
+                              onTap: () => ctl.clickPickAsset(),
+                              child: Image(
+                                image: AssetEntityImageProvider(
+                                    ctl.selectedImage!,
+                                    isOriginal: false),
+                                width: 105,
+                                height: 105,
+                                fit: BoxFit.cover,
+                              ),
+                            ));
+                }),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              child: Center(
+                child: CustomButton(
+                  title: '提交',
+                  titleColor: Colors.white,
+                  backgroundColor: Color(0xFF1B7DF4),
+                  width: 140,
+                  height: 40,
+                  radius: 20,
+                  onPressed: () => controller.confirmAction(),
+                ),
               ),
             ),
           ],

@@ -107,17 +107,36 @@ class CircleTopicItem extends StatelessWidget {
             );
     } else if (type == 1) {
       String examine = '';
+      Color color = Color(0xFFFFA258);
       if (model.examine == 0) {
         examine = '待审核';
       } else if (model.examine == 1) {
         examine = '审核通过';
+        color = Color(0xFF3EAE20);
       } else if (model.examine == 2) {
         examine = '被驳回';
+        color = Color(0xFFE50808);
+      }
+      return Text(
+        examine,
+        style: TextStyle(fontSize: 13, color: color),
+      );
+    } else if (type == 2) {
+      String examine = '';
+      Color color = Color(0xFFFFA258);
+      if (model.examine == 0) {
+        examine = '待审核加入';
+      } else if (model.examine == 1) {
+        examine = '已加入';
+        color = Color(0xFF3EAE20);
+      } else if (model.examine == 2) {
+        examine = '被拒绝';
+        color = Color(0xFFE50808);
       }
       return Row(
         children: <Widget>[
           Offstage(
-            offstage: model.examine != 2,
+            offstage: model.status != 2,
             child: Container(
               margin: const EdgeInsets.only(right: 5),
               child: Image.asset(
@@ -129,22 +148,9 @@ class CircleTopicItem extends StatelessWidget {
           ),
           Text(
             examine,
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 13, color: color),
           ),
         ],
-      );
-    } else if (type == 2) {
-      String examine = '';
-      if (model.examine == 0) {
-        examine = '待审核加入';
-      } else if (model.examine == 1) {
-        examine = '已加入';
-      } else if (model.examine == 2) {
-        examine = '被拒绝';
-      }
-      return Text(
-        examine,
-        style: TextStyle(fontSize: 13),
       );
     } else if (type == 3) {
       return CustomButton(

@@ -81,6 +81,7 @@ abstract class Routes {
   static const LEADERTOPICLIST = '/leader-topic';//用户自己是主理人话题列表
   static const NOTLEADERTOPICLIST = '/notleader-topic';//用户自己不是主理人话题列表
   static const CREATETOPIC = '/create-topic';//创建话题
+  static const CREATETOPICSUCCESS = '/create-topic-success';//创建话题成功
   //爱车、车控
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情

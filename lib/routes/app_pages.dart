@@ -36,6 +36,7 @@ import 'package:ws_app_flutter/views/car/violation_query_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_hot_more_list.dart';
 import 'package:ws_app_flutter/views/circle/circle_topic_more_list.dart';
 import 'package:ws_app_flutter/views/circle/create_topic_page.dart';
+import 'package:ws_app_flutter/views/circle/create_topic_success.dart';
 import 'package:ws_app_flutter/views/circle/leader_topic_list_page.dart';
 import 'package:ws_app_flutter/views/circle/notleader_topic_list_page.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
@@ -398,7 +399,8 @@ abstract class AppPages {
       name: Routes.MINECIRCLE,
       page: () => MineCircleTabPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<MineCircleTabController>(() => MineCircleTabController()),
+        () => Get.lazyPut<MineCircleTabController>(
+            () => MineCircleTabController()),
       ),
     ),
     //我的收藏
@@ -719,9 +721,13 @@ abstract class AppPages {
       name: Routes.CREATETOPIC,
       page: () => CreateTopicPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<CreateTopicController>(
-            () => CreateTopicController()),
+        () => Get.lazyPut<CreateTopicController>(() => CreateTopicController()),
       ),
+    ),
+    //创建话题成功
+    GetPage(
+      name: Routes.CREATETOPICSUCCESS,
+      page: () => CreateTopicSuccessPage(),
     ),
     //举报须知
     GetPage(name: Routes.REPORTKNOW, page: () => ReportKnowPage()),

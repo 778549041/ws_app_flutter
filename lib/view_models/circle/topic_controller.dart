@@ -27,7 +27,8 @@ class TopicController extends RefreshListController<TopicModel> {
 
   Future _getAllTagList() async {
     CircleTagListModel tagListModel = await DioManager()
-        .request<CircleTagListModel>(DioManager.GET, Api.allCircleTagListUrl);
+        .request<CircleTagListModel>(DioManager.GET, Api.allCircleTagListUrl,
+            queryParamters: {'type': '1'});
     for (var item in tagListModel.data!) {
       if (item.tag_id! == selectedTagId) {
         item.selected = true;
