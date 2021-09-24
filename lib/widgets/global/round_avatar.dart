@@ -37,7 +37,7 @@ class RoundAvatar extends StatelessWidget {
           border: Border.all(width: borderWidth, color: borderColor),
         ),
         child: ClipOval(
-          child: imageUrl != null
+          child: (imageUrl != null && imageUrl?.length != 0 && imageUrl!.contains('http'))
               ? CachedNetworkImage(
                   imageUrl: imageUrl!,
                   fit: BoxFit.cover,

@@ -25,7 +25,7 @@ class TopicListModel {
 class SingleTopicodel {
   TopicModel? list;
 
-  SingleTopicodel() : list = TopicModel();
+  SingleTopicodel({this.list});
 
   SingleTopicodel.fromJson(Map<String, dynamic> json) {
     list = json['list'] == null
@@ -118,12 +118,12 @@ class TopicModel {
             asT<Map<String, dynamic>?>(json['member_info'])!);
     showAll = false;
     selected = false;
-    if (self!) {
-      tagImg = 'assets/images/circle/topic_mine.png';
-    } else if (hot!) {
+    if (hot!) {
       tagImg = 'assets/images/circle/topic_hot.png';
     } else if (isNew!) {
       tagImg = 'assets/images/circle/topic_new.png';
+    } else {
+      tagImg = 'assets/images/circle/topic_mine.png';
     }
   }
 }
