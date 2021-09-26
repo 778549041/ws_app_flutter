@@ -8,6 +8,7 @@ class CommonMemberModel {
   String? memberLv; //用户等级
   String? memberId; //用户id
   String? nickname; //用户昵称
+  String? name;
   int? medal; //勋章
   int? userType; //用户账号类型,官方账号1，认证车主2，普通用户3
   String? hrefUrl; //老友记地址
@@ -36,6 +37,7 @@ class CommonMemberModel {
     this.memberLv = '',
     this.memberId = '',
     this.nickname = '',
+    this.name = '',
     this.medal = 0,
     this.userType = 0,
     this.hrefUrl = '',
@@ -63,6 +65,7 @@ class CommonMemberModel {
     memberLv = asT<String?>(json['member_lv']);
     memberId = asT<String?>(json['member_id']);
     nickname = asT<String?>(json['nickname']);
+    name = asT<String?>(json['name']);
     medal = asT<int?>(json['medal'],0);
     userType = asT<int?>(json['user_type']);
     hrefUrl = asT<String?>(json['href_url']);

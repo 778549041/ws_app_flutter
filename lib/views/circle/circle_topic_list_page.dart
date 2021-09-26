@@ -28,257 +28,170 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
             child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
-                  child: Obx(
-                    () => controller.topicDetailModel.value.list == null
-                        ? Container()
-                        : Container(
-                            margin: const EdgeInsets.only(bottom: 15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Stack(
-                                children: <Widget>[
-                                  NetImageWidget(
-                                    width: Get.width,
-                                    height: Get.width * 204 / 375,
-                                    imageUrl: controller
-                                        .topicDetailModel.value.list?.imageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  Positioned(
-                                    top: Get.width * 204 / 375 - 50,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      color: Colors.white,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                  child: Obx(() => controller.topicDetailModel.value.list ==
+                          null
+                      ? Container()
+                      : Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              children: <Widget>[
+                                NetImageWidget(
+                                  width: Get.width,
+                                  height: Get.width * 204 / 375,
+                                  imageUrl: controller
+                                      .topicDetailModel.value.list?.imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      top: Get.width * 204 / 375 - 75),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Column(
                                         children: <Widget>[
                                           Container(
-                                            margin:
-                                                const EdgeInsets.only(left: 60),
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            margin: const EdgeInsets.fromLTRB(
+                                                75, 0, 15, 5),
                                             child: Row(
                                               children: <Widget>[
-                                                Expanded(
-                                                  child: Text('创建者：大橘子',style: TextStyle(color: Color(0xFF1B7DF4),fontSize: 13),),
+                                                Text(
+                                                  controller
+                                                              .topicDetailModel
+                                                              .value
+                                                              .list
+                                                              ?.title ==
+                                                          null
+                                                      ? ''
+                                                      : controller
+                                                          .topicDetailModel
+                                                          .value
+                                                          .list!
+                                                          .title!,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15),
                                                 ),
-                                                Text('aaaa'),
+                                                Offstage(
+                                                  offstage: !(controller
+                                                          .topicDetailModel
+                                                          .value
+                                                          .list!
+                                                          .hot! ||
+                                                      controller
+                                                          .topicDetailModel
+                                                          .value
+                                                          .list!
+                                                          .isNew!),
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 5),
+                                                    child: Image.asset(
+                                                      controller
+                                                          .topicDetailModel
+                                                          .value
+                                                          .list!
+                                                          .tagImg!,
+                                                      width: 28,
+                                                      height: 16,
+                                                    ),
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ),
-                                          Text(
-                                            controller.topicDetailModel.value
-                                                        .list?.content ==
-                                                    null
-                                                ? ''
-                                                : controller.topicDetailModel
-                                                    .value.list!.content!,
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10),
+                                              ),
+                                              color: Colors.white,
+                                            ),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          75, 0, 15, 0),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                        child: Text(
+                                                          controller
+                                                                      .topicDetailModel
+                                                                      .value
+                                                                      .list!
+                                                                      .member_id ==
+                                                                  '0'
+                                                              ? '官方话题'
+                                                              : '创建者：${controller.topicDetailModel.value.list?.member_info?.name == null ? '' : controller.topicDetailModel.value.list!.member_info!.name!}',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF1B7DF4),
+                                                              fontSize: 13),
+                                                        ),
+                                                      ),
+                                                      _buildBtn(),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          15, 5, 15, 0),
+                                                  child: Text(
+                                                    controller
+                                                                .topicDetailModel
+                                                                .value
+                                                                .list
+                                                                ?.content ==
+                                                            null
+                                                        ? ''
+                                                        : controller
+                                                            .topicDetailModel
+                                                            .value
+                                                            .list!
+                                                            .content!,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: Get.width * 204 / 375 - 75,
-                                    left: 15,
-                                    child: RoundAvatar(
-                                      imageUrl: controller.topicDetailModel
-                                          .value.list?.adminUrl,
-                                      height: 50,
-                                      borderWidth: 0,
-                                      borderColor: Colors.transparent,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: Get.width * 204 / 375 - 75,
-                                    left: 75,
-                                    right: 15,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Text(
-                                            controller.topicDetailModel.value
-                                                        .list?.title ==
-                                                    null
-                                                ? ''
-                                                : controller.topicDetailModel
-                                                    .value.list!.title!,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15),
-                                          ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 15),
+                                        child: RoundAvatar(
+                                          imageUrl: controller.topicDetailModel
+                                              .value.list?.adminUrl,
+                                          height: 50,
+                                          borderWidth: 0,
+                                          borderColor: Colors.transparent,
+                                          placeHolder:
+                                              'assets/images/circle/icon_news_offical.png',
                                         ),
-                                        Offstage(
-                                          offstage: !(controller
-                                                  .topicDetailModel
-                                                  .value
-                                                  .list!
-                                                  .self! ||
-                                              controller.topicDetailModel.value
-                                                  .list!.hot! ||
-                                              controller.topicDetailModel.value
-                                                  .list!.isNew!),
-                                          child: Container(
-                                            margin:
-                                                const EdgeInsets.only(right: 5),
-                                            child: Image.asset(
-                                              controller.topicDetailModel.value
-                                                  .list!.tagImg!,
-                                              width: 28,
-                                              height: 16,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          // Container(
-                          //   margin: const EdgeInsets.only(bottom: 15),
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(10),
-                          //     color: Colors.white,
-                          //   ),
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(10),
-                          //     child: Stack(
-                          //       children: <Widget>[
-                          //         NetImageWidget(
-                          //           width: Get.width,
-                          //           height: Get.width * 204 / 375,
-                          //           imageUrl: controller
-                          //               .topicDetailModel.value.list?.imageUrl,
-                          //           fit: BoxFit.cover,
-                          //         ),
-                          //         Positioned(
-                          //           top: Get.width * 204 / 375 - 50,
-                          //           left: 0,
-                          //           right: 0,
-                          //           bottom: 0,
-                          //           child: Container(
-                          //             height: 100,
-                          //             padding: const EdgeInsets.fromLTRB(
-                          //                 15, 30, 15, 10),
-                          //             color: Colors.white,
-                          //             child: Text(
-                          //               controller.topicDetailModel.value.list
-                          //                           ?.content ==
-                          //                       null
-                          //                   ? ''
-                          //                   : controller.topicDetailModel.value
-                          //                       .list!.content!,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         Positioned(
-                          //           top: Get.width * 204 / 375 - 75,
-                          //           left: 15,
-                          //           right: 15,
-                          //           child: Row(
-                          //             children: <Widget>[
-                          //               RoundAvatar(
-                          //                 imageUrl: controller.topicDetailModel
-                          //                     .value.list?.adminUrl,
-                          //                 height: 50,
-                          //                 borderWidth: 0,
-                          //                 borderColor: Colors.transparent,
-                          //               ),
-                          //               SizedBox(
-                          //                 width: 10,
-                          //               ),
-                          //               Column(
-                          //                 children: <Widget>[
-                          //                   Row(
-                          //                     children: <Widget>[
-                          //                       Text(
-                          //                         controller
-                          //                                     .topicDetailModel
-                          //                                     .value
-                          //                                     .list
-                          //                                     ?.title ==
-                          //                                 null
-                          //                             ? ''
-                          //                             : controller
-                          //                                 .topicDetailModel
-                          //                                 .value
-                          //                                 .list!
-                          //                                 .title!,
-                          //                         maxLines: 1,
-                          //                         overflow:
-                          //                             TextOverflow.ellipsis,
-                          //                         style: TextStyle(
-                          //                             color: Colors.white,
-                          //                             fontSize: 15),
-                          //                       ),
-                          //                       Offstage(
-                          //                         offstage: !(controller
-                          //                                 .topicDetailModel
-                          //                                 .value
-                          //                                 .list!
-                          //                                 .self! ||
-                          //                             controller
-                          //                                 .topicDetailModel
-                          //                                 .value
-                          //                                 .list!
-                          //                                 .hot! ||
-                          //                             controller
-                          //                                 .topicDetailModel
-                          //                                 .value
-                          //                                 .list!
-                          //                                 .isNew!),
-                          //                         child: Container(
-                          //                           margin:
-                          //                               const EdgeInsets.only(
-                          //                                   right: 5),
-                          //                           child: Image.asset(
-                          //                             controller
-                          //                                 .topicDetailModel
-                          //                                 .value
-                          //                                 .list!
-                          //                                 .tagImg!,
-                          //                             width: 28,
-                          //                             height: 16,
-                          //                           ),
-                          //                         ),
-                          //                       ),
-                          //                     ],
-                          //                   ),
-                          //                   Row(
-                          //                     children: <Widget>[
-                          //                       Expanded(
-                          //                         child: Text(
-                          //                           '创建者：大橘子',
-                          //                           style: TextStyle(
-                          //                               color:
-                          //                                   Color(0xFF1B7DF4),
-                          //                               fontSize: 13),
-                          //                         ),
-                          //                       ),
-                          //                       Text('aaaa'),
-                          //                     ],
-                          //                   ),
-                          //                 ],
-                          //               )
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // )
-                  ),
+                        )),
                 ),
                 Obx(
                   () => SliverList(
@@ -310,6 +223,55 @@ class CircleTopicListPage extends GetView<CircleTopicListController> {
               appBarHeight: ScreenUtil.getInstance().appBarHeight,
               appContext: context),
         ],
+      ),
+    );
+  }
+
+  Widget _buildBtn() {
+    if (controller.topicDetailModel.value.list!.can_edit! &&
+        controller.topicDetailModel.value.list!.examine != 2) {
+      return _buildButton(() {}, '权限设置', Color(0xFF1B7DF4));
+    } else {
+      return Row(
+        children: <Widget>[
+          Offstage(
+            offstage: controller.topicDetailModel.value.list!.isJoin! == 2,
+            child: Container(
+              margin: const EdgeInsets.only(right: 5),
+              child: _buildButton(
+                controller.topicDetailModel.value.list!.isJoin! == 1
+                    ? null
+                    : () {},
+                controller.topicDetailModel.value.list!.isJoin! == 1
+                    ? '审核中'
+                    : '加入',
+                Colors.cyan,
+              ),
+            ),
+          ),
+          _buildButton(
+            () {},
+            controller.topicDetailModel.value.list!.is_follow! ? '取消关注' : '关注',
+            Color(0xFF1B7DF4),
+          ),
+        ],
+      );
+    }
+  }
+
+  Widget _buildButton(Function()? onpressed, String title, Color color) {
+    return GestureDetector(
+      onTap: onpressed,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: color,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.white, fontSize: 13),
+        ),
       ),
     );
   }
