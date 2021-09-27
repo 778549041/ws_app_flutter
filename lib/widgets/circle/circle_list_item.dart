@@ -104,7 +104,7 @@ class CircleListItem extends StatelessWidget {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      Flexible(
+                                      Expanded(
                                           child: Text(
                                         _nickName,
                                         overflow: TextOverflow.ellipsis,
@@ -126,6 +126,102 @@ class CircleListItem extends StatelessWidget {
                                                 model.memberInfo!.isSales == 1,
                                           ),
                                         ),
+                                      //顶部按钮行
+                                      if (model.classify != '1')
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            //加好友按钮
+                                            Offstage(
+                                              offstage:
+                                                  model.friendsRelation == 2 ||
+                                                      model.isSelf!,
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(right: 5),
+                                                child: CustomButton(
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  width: 73,
+                                                  height: 23,
+                                                  borderColor:
+                                                      Color(0xFF999999),
+                                                  title: '加好友',
+                                                  titleColor: Color(0xFF999999),
+                                                  fontSize: 11,
+                                                  borderWidth: 0.5,
+                                                  radius: 11.5,
+                                                  onPressed: () =>
+                                                      CircleActionUtil()
+                                                          .addFriend(model),
+                                                ),
+                                              ),
+                                            ),
+                                            //删除按钮
+                                            Offstage(
+                                              offstage: !model.isSelf!,
+                                              child: CustomButton(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                width: 50,
+                                                height: 23,
+                                                title: '删除',
+                                                titleColor: Color(0xFF999999),
+                                                image:
+                                                    'assets/images/wow/news_detail_delete_comment.png',
+                                                imageH: 15,
+                                                imageW: 20,
+                                                fontSize: 11,
+                                                onPressed: () {
+                                                  Get.dialog(
+                                                      BaseDialog(
+                                                        content: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      16.0,
+                                                                  vertical:
+                                                                      8.0),
+                                                          child: Text(
+                                                              '是否确认删除动态',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      16.0)),
+                                                        ),
+                                                        onConfirm: () =>
+                                                            CircleActionUtil()
+                                                                .deleteMoment(
+                                                                    model),
+                                                      ),
+                                                      barrierDismissible:
+                                                          false);
+                                                },
+                                              ),
+                                            ),
+                                            if (GetPlatform.isIOS)
+                                              //举报按钮
+                                              Offstage(
+                                                offstage: model.isSelf!,
+                                                child: CustomButton(
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  width: 73,
+                                                  height: 23,
+                                                  borderColor:
+                                                      Color(0xFF999999),
+                                                  title: '举报/屏蔽',
+                                                  titleColor: Color(0xFF999999),
+                                                  fontSize: 11,
+                                                  borderWidth: 0.5,
+                                                  radius: 11.5,
+                                                  onPressed: () {
+                                                    Get.toNamed(Routes.REPORT);
+                                                  },
+                                                ),
+                                              ),
+                                          ],
+                                        ),
                                     ],
                                   ),
                                   Text(
@@ -140,95 +236,20 @@ class CircleListItem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    //顶部按钮行
-                    if (model.classify != '1')
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          //加好友按钮
-                          Offstage(
-                            offstage:
-                                model.friendsRelation == 2 || model.isSelf!,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 5),
-                              child: CustomButton(
-                                backgroundColor: Colors.transparent,
-                                width: 73,
-                                height: 23,
-                                borderColor: Color(0xFF999999),
-                                title: '加好友',
-                                titleColor: Color(0xFF999999),
-                                fontSize: 11,
-                                borderWidth: 0.5,
-                                radius: 11.5,
-                                onPressed: () =>
-                                    CircleActionUtil().addFriend(model),
-                              ),
-                            ),
-                          ),
-                          //删除按钮
-                          Offstage(
-                            offstage: !model.isSelf!,
-                            child: CustomButton(
-                              backgroundColor: Colors.transparent,
-                              width: 50,
-                              height: 23,
-                              title: '删除',
-                              titleColor: Color(0xFF999999),
-                              image:
-                                  'assets/images/wow/news_detail_delete_comment.png',
-                              imageH: 15,
-                              imageW: 20,
-                              fontSize: 11,
-                              onPressed: () {
-                                Get.dialog(
-                                    BaseDialog(
-                                      content: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 16.0, vertical: 8.0),
-                                        child: Text('是否确认删除动态',
-                                            style: TextStyle(fontSize: 16.0)),
-                                      ),
-                                      onConfirm: () => CircleActionUtil()
-                                          .deleteMoment(model),
-                                    ),
-                                    barrierDismissible: false);
-                              },
-                            ),
-                          ),
-                          //举报按钮
-                          Offstage(
-                            offstage: model.isSelf!,
-                            child: CustomButton(
-                              backgroundColor: Colors.transparent,
-                              width: 73,
-                              height: 23,
-                              borderColor: Color(0xFF999999),
-                              title: '举报/屏蔽',
-                              titleColor: Color(0xFF999999),
-                              fontSize: 11,
-                              borderWidth: 0.5,
-                              radius: 11.5,
-                              onPressed: () {
-                                Get.toNamed(Routes.REPORT);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
                   ],
                 ),
                 //圈子文本内容
                 if (model.topicTitle!.length +
-                      model.content!.length +
-                      model.params!.name!.length >
-                  0)
+                        model.content!.length +
+                        model.params!.name!.length >
+                    0)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: RichText(
                       maxLines: 5,
                       text: TextSpan(
-                          text: model.topicTitle != null ? model.topicTitle! : '',
+                          text:
+                              model.topicTitle != null ? model.topicTitle! : '',
                           style: TextStyle(
                             color: Color(0xFF2673FB),
                             fontSize: 15,
@@ -248,7 +269,9 @@ class CircleListItem extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                                text: model.params?.name != null ? model.params!.name : '',
+                                text: model.params?.name != null
+                                    ? model.params!.name
+                                    : '',
                                 style: TextStyle(
                                   color: Color(0xFF2673FB),
                                   fontSize: 15,

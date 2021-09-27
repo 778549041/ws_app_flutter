@@ -235,7 +235,7 @@ class CircleDetailPageState extends State<CircleDetailPage>
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
-                                    Flexible(
+                                    Expanded(
                                         child: Text(
                                       _nickName,
                                       overflow: TextOverflow.ellipsis,
@@ -248,13 +248,66 @@ class CircleDetailPageState extends State<CircleDetailPage>
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: MedalWidget(
-                                          medalBtnImage: model
-                                              .memberInfo!.medalOrSaleImageName!,
+                                          medalBtnImage: model.memberInfo!
+                                              .medalOrSaleImageName!,
                                           medalToastImage: model.memberInfo!
                                               .medalOrSaleDescImageName!,
                                           isSales:
                                               model.memberInfo?.isSales == 1,
                                         ),
+                                      ),
+                                    //顶部按钮行
+                                    if (model.classify != '1')
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          //加好友按钮
+                                          Offstage(
+                                            offstage:
+                                                model.friendsRelation == 2 ||
+                                                    model.isSelf!,
+                                            child: Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 5),
+                                              child: CustomButton(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                width: 73,
+                                                height: 23,
+                                                borderColor: Color(0xFF999999),
+                                                title: '加好友',
+                                                titleColor: Color(0xFF999999),
+                                                fontSize: 11,
+                                                borderWidth: 0.5,
+                                                radius: 11.5,
+                                                onPressed: () =>
+                                                    CircleActionUtil()
+                                                        .addFriend(model),
+                                              ),
+                                            ),
+                                          ),
+                                          if (GetPlatform.isIOS)
+                                            //举报按钮
+                                            Offstage(
+                                              offstage: model.isSelf!,
+                                              child: CustomButton(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                width: 73,
+                                                height: 23,
+                                                borderColor: Color(0xFF999999),
+                                                title: '举报/屏蔽',
+                                                titleColor: Color(0xFF999999),
+                                                fontSize: 11,
+                                                borderWidth: 0.5,
+                                                radius: 11.5,
+                                                onPressed: () {
+                                                  Get.toNamed(Routes.REPORT);
+                                                },
+                                              ),
+                                            ),
+                                        ],
                                       ),
                                   ],
                                 ),
@@ -270,51 +323,6 @@ class CircleDetailPageState extends State<CircleDetailPage>
                       ],
                     ),
                   ),
-                  //顶部按钮行
-                  if (model.classify != '1')
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        //加好友按钮
-                        Offstage(
-                          offstage: model.friendsRelation == 2 || model.isSelf!,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 5),
-                            child: CustomButton(
-                              backgroundColor: Colors.transparent,
-                              width: 73,
-                              height: 23,
-                              borderColor: Color(0xFF999999),
-                              title: '加好友',
-                              titleColor: Color(0xFF999999),
-                              fontSize: 11,
-                              borderWidth: 0.5,
-                              radius: 11.5,
-                              onPressed: () =>
-                                  CircleActionUtil().addFriend(model),
-                            ),
-                          ),
-                        ),
-                        //举报按钮
-                        Offstage(
-                          offstage: model.isSelf!,
-                          child: CustomButton(
-                            backgroundColor: Colors.transparent,
-                            width: 73,
-                            height: 23,
-                            borderColor: Color(0xFF999999),
-                            title: '举报/屏蔽',
-                            titleColor: Color(0xFF999999),
-                            fontSize: 11,
-                            borderWidth: 0.5,
-                            radius: 11.5,
-                            onPressed: () {
-                              Get.toNamed(Routes.REPORT);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
                 ],
               ),
               //圈子文本内容
@@ -369,7 +377,10 @@ class CircleDetailPageState extends State<CircleDetailPage>
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: model.fileList?.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: (model.fileList != null && model.fileList!.length > 1) ? 2 : 1,
+                      crossAxisCount:
+                          (model.fileList != null && model.fileList!.length > 1)
+                              ? 2
+                              : 1,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 8,
                     ),
@@ -378,8 +389,9 @@ class CircleDetailPageState extends State<CircleDetailPage>
                         onTap: () {
                           Get.to(
                               () => GalleryPhotoPage(
-                                    heroName: (model.fileList![index].savepath! +
-                                        'circleDetailPage'),
+                                    heroName:
+                                        (model.fileList![index].savepath! +
+                                            'circleDetailPage'),
                                     galleryItems: model.fileList!,
                                     initialIndex: index,
                                     backgroundDecoration: const BoxDecoration(
@@ -527,10 +539,10 @@ class CircleDetailPageState extends State<CircleDetailPage>
                                   Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: MedalWidget(
-                                      medalBtnImage:
-                                          model.memberInfo!.medalOrSaleImageName!,
-                                      medalToastImage: model
-                                          .memberInfo!.medalOrSaleDescImageName!,
+                                      medalBtnImage: model
+                                          .memberInfo!.medalOrSaleImageName!,
+                                      medalToastImage: model.memberInfo!
+                                          .medalOrSaleDescImageName!,
                                       isSales: model.memberInfo!.isSales == 1,
                                     ),
                                   ),

@@ -60,6 +60,8 @@ dependencies:
   dropdown_search: ^0.6.3
   # 蒙版指引
   showcaseview: ^1.1.0
+  # 弹出菜单
+  custom_pop_up_menu: ^1.2.2
   # 牛批的tabbar(凸起)
   convex_bottom_bar: ^3.0.0
   # 带背景色和圆角的tabbar

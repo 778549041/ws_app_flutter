@@ -98,7 +98,7 @@ class CircleTopicItem extends StatelessWidget {
 
   Widget _buildRightItem() {
     if (type == 0) {
-      return model.tagImg == null
+      return !(model.hot! || model.isNew!)
           ? Container()
           : Image.asset(
               model.tagImg!,
