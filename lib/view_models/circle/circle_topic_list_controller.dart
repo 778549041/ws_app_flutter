@@ -1,3 +1,4 @@
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
@@ -8,9 +9,21 @@ import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/refresh_list_controller.dart';
 import 'package:get/get.dart';
 
+class MenuModel {
+  String title;
+  int permission;
+  MenuModel(this.title, this.permission);
+}
+
 class CircleTopicListController extends RefreshListController<MomentModel> {
   final String topcId = Get.arguments['topcid'];
   SingleTopicodel? topicDetailModel;
+  CustomPopupMenuController popupMenuController = CustomPopupMenuController();
+  List<MenuModel> menuItems = [
+    MenuModel('不开放', 1),
+    MenuModel('半开放', 2),
+    MenuModel('全开放', 3),
+  ];
 
   @override
   void onInit() {
@@ -40,9 +53,20 @@ class CircleTopicListController extends RefreshListController<MomentModel> {
     update(['topicHeader']);
   }
 
-  void pushToPublish() {
-    Get.toNamed(Routes.CIRCLPUBLISH,
-        arguments: {'model': topicDetailModel!.list});
+  void pushAction(int index) {
+    if (index == 0) {
+      //发布动态
+      Get.toNamed(Routes.CIRCLPUBLISH,
+          arguments: {'model': topicDetailModel!.list});
+    } else if (index == 1) {
+      //成员审核
+      Get.toNamed(Routes.MEMBERMANAGE,
+          arguments: {'topicid': topicDetailModel!.list!.topicId});
+    } else if (index == 2) {
+      //内容审核
+      Get.toNamed(Routes.CONTENTREVIEW,
+          arguments: {'topicid': topicDetailModel!.list!.topicId});
+    }
   }
 
   //申请加入话题
@@ -62,7 +86,17 @@ class CircleTopicListController extends RefreshListController<MomentModel> {
   }
 
   //权限设置
-  void changePermission(int index) {}
+  void changePermission(MenuModel item) async {
+    popupMenuController.hideMenu();
+    CommonModel model = await DioManager().request<CommonModel>(
+        DioManager.GET, Api.settingTopicPermissionUrl, queryParamters: {
+      'topic_id': topicDetailModel!.list!.topicId!,
+      'access': item.permission
+    });
+    if (model.result!) {
+      getTopicDetailData();
+    }
+  }
 
   //关注、取消关注
   void followAction() async {

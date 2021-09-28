@@ -1,67 +1,18 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ws_app_flutter/widgets/global/bubble_widget.dart';
 
 class MedalToastWidget extends StatelessWidget {
   final String? imageName;
   final bool? isSales;
-  final Rect? rect; //widget宽高
-  final Offset? offset; //widget在屏幕上的坐标
+  final VoidCallback? onpressed;
 
-  MedalToastWidget({this.imageName, this.isSales, this.rect, this.offset});
+  MedalToastWidget({this.imageName, this.isSales, this.onpressed});
 
   @override
   Widget build(BuildContext context) {
-    double leftP, topP, arrowPadding,width,height;
-    BubbleArrowDirection direction = BubbleArrowDirection.top;
-    if (isSales!) {
-      leftP = (Get.width - 280) / 2;
-      width = 280.0;
-      height = 130.0;
-    } else {
-      leftP = (Get.width - ScreenUtil.getInstance().getWidth(295)) / 2;
-      width = ScreenUtil.getInstance().getWidth(295);
-      height = ScreenUtil.getInstance().getWidth(135);
-    }
-    arrowPadding = offset!.dx + rect!.size.width / 2 - leftP - 15;
-    topP = offset!.dy + rect!.size.height / 2;
-    if (offset!.dy + rect!.size.height / 2 > Get.height / 2) {
-      direction = BubbleArrowDirection.bottom;
-      arrowPadding = width + leftP - offset!.dx + rect!.size.width / 2 - leftP - 10;
-      if (isSales!) {
-        topP = offset!.dy - 120 - 20;
-      } else {
-        topP = offset!.dy - ScreenUtil.getInstance().getWidth(135) - 20;
-      }
-    }
     return GestureDetector(
-      onTap: () {
-        Get.back();
-      },
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: Get.width,
-            height: Get.height,
-            color: Colors.transparent,
-          ),
-          Positioned(
-            left: leftP,
-            top: topP,
-            child: BubbleWidget(
-              width,
-              height,
-              Colors.red,
-              direction,
-              length: arrowPadding,
-              innerPadding: 0.0,
-              strokeWidth: 0.0,
-              child: _buildChild(),
-            ),
-          ),
-        ],
-      ),
+      onTap: onpressed,
+      child: _buildChild(),
     );
   }
 

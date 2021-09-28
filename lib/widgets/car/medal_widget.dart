@@ -1,10 +1,10 @@
-import 'package:flustars/flustars.dart';
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/car/medal_toast_widget.dart';
-import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
 class MedalWidget extends StatelessWidget {
   final String? tag;
@@ -12,50 +12,57 @@ class MedalWidget extends StatelessWidget {
   final String? medalToastImage;
   final bool? isSales;
 
-  MedalWidget(
-      {this.tag, this.medalBtnImage, this.medalToastImage, this.isSales});
+  MedalWidget({
+    this.tag,
+    this.medalBtnImage,
+    this.medalToastImage,
+    this.isSales,
+  });
+
+  final CustomPopupMenuController _controller = CustomPopupMenuController();
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      backgroundColor: Colors.transparent,
-      width: 30,
-      height: 30,
-      image: medalBtnImage,
-      onPressed: () {
-        /// widget宽高。
-        Rect rect = WidgetUtil.getWidgetBounds(context);
-        LogUtil.d(rect);
-
-        /// widget在屏幕上的坐标。
-        Offset offset = WidgetUtil.getWidgetLocalToGlobal(context);
-        LogUtil.d(offset);
-        if (Get.find<UserController>()
-                    .userInfo
-                    .value
-                    .member!
-                    .memberInfo!
-                    .isSales! &&
-            Get.find<UserController>().userInfo.value.member!.memberInfo!.isEnd!) {
-          Get.toNamed(Routes.WEBVIEW, arguments: {
-            'url': Get.find<UserController>()
-                .userInfo
-                .value
-                .member!
-                .memberInfo!
-                .hrefUrl
-          });
-        } else {
-          Get.dialog(
-              MedalToastWidget(
-                imageName: medalToastImage,
-                isSales: isSales,
-                rect: rect,
-                offset: offset,
-              ),
-              barrierColor: Colors.transparent);
-        }
-      },
+    return CustomPopupMenu(
+      child: Image.asset(
+        medalBtnImage!,
+        width: 30,
+        height: 30,
+        fit: BoxFit.contain,
+      ),
+      arrowSize: 15,
+      arrowColor: MainAppColor.secondaryTextColor,
+      verticalMargin: 0,
+      menuBuilder: () => MedalToastWidget(
+        imageName: medalToastImage,
+        isSales: isSales,
+        onpressed: () {
+          _controller.hideMenu();
+          if (Get.find<UserController>()
+                  .userInfo
+                  .value
+                  .member!
+                  .memberInfo!
+                  .isSales! &&
+              Get.find<UserController>()
+                  .userInfo
+                  .value
+                  .member!
+                  .memberInfo!
+                  .isEnd!) {
+            Get.toNamed(Routes.WEBVIEW, arguments: {
+              'url': Get.find<UserController>()
+                  .userInfo
+                  .value
+                  .member!
+                  .memberInfo!
+                  .hrefUrl
+            });
+          }
+        },
+      ),
+      pressType: PressType.singleClick,
+      controller: _controller,
     );
   }
 }

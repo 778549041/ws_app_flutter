@@ -158,6 +158,12 @@ class Api {
   static final focusOnTopicUrl = 'index.php/m/circleTopicV1v1-follow.html';
   //创建话题
   static final createTopicUrl = 'm/circleTopicV1v1-add.html';
+  //设置话题权限
+  static final settingTopicPermissionUrl =
+      'index.php/m/circleTopicV1v1-setAccess.html';
+  //申请加入话题纪录
+  static final applyJoinTopicListUrl =
+      'index.php/m/circleTopicV1v1-joinUser.html';
 //话题详情
   static final circleTopicDetailUrl = 'index.php/m/circleTopicV1v1-info.html';
 //好友详情圈子数据

@@ -64,8 +64,6 @@ class BasePage extends StatelessWidget {
                   backgroundColor: navBgColor,
                   //设置状态栏颜色
                   systemOverlayStyle: overlayStyle,
-                  //必须设置该值为false，否则设置状态栏颜色不生效
-                  backwardsCompatibility: false,
                   //z轴高度，设置导航栏背景透明时需要设置此值为0
                   elevation: 0,
                   //返回按钮宽度

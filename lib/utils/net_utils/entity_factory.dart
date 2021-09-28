@@ -10,6 +10,7 @@ import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/circle/friend_circle_img_model.dart';
 import 'package:ws_app_flutter/models/circle/friend_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_comment_model.dart';
+import 'package:ws_app_flutter/models/circle/topic_apply_join_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/common/img_model.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
@@ -185,6 +186,8 @@ class EntityFactory {
      return CircleHotModel.fromJson(json) as T;
    } else if (T.toString() == 'CircleTagListModel') {
      return CircleTagListModel.fromJson(json) as T;
+   } else if (T.toString() == 'TopicApplyJoinListModel') {
+     return TopicApplyJoinListModel.fromJson(json) as T;
    }
    else {
       return json as T;

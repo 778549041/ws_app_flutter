@@ -1,37 +1,37 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ws_app_flutter/view_models/mine/mine_circle_tab_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/member_review_controller.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
-import 'package:ws_app_flutter/views/mine/mine_circle_page.dart';
-import 'package:ws_app_flutter/views/mine/mine_topic_follow_page.dart';
+import 'package:ws_app_flutter/views/circle/my_member_review_page.dart';
+import 'package:ws_app_flutter/views/circle/my_members_page.dart';
 
-class MineCircleTabPage extends StatefulWidget {
+class MemberReviewPage extends StatefulWidget {
   @override
-  MineCircleTabPageState createState() => MineCircleTabPageState();
+  MemberReviewPageState createState() => MemberReviewPageState();
 }
 
-class MineCircleTabPageState extends State<MineCircleTabPage> with SingleTickerProviderStateMixin {
-  final MineCircleTabController controller =
-      Get.find<MineCircleTabController>();
-  final List<Tab> tabs = <Tab>[
+class MemberReviewPageState extends State<MemberReviewPage>
+    with SingleTickerProviderStateMixin {
+  final MemberReviewController controller = Get.find<MemberReviewController>();
+  final List<Tab> _tabs = <Tab>[
     Tab(
-      text: '我的圈子',
+      text: '我的审核',
     ),
     Tab(
-      text: '话题关注',
+      text: '我的成员',
     ),
   ];
   final List<Widget> _pages = <Widget>[
-    MineCirclePage(),
-    MineTopicFollowPage(),
+    MyMemberReviewPage(),
+    MyMembersPage(),
   ];
   TabController? _tabController;
 
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: '我的话题',
+      title: '成员审核',
       child: Column(
         children: <Widget>[
           Container(
@@ -47,7 +47,7 @@ class MineCircleTabPageState extends State<MineCircleTabPage> with SingleTickerP
             height: 40,
             child: TabBar(
               controller: _tabController,
-              tabs: tabs,
+              tabs: _tabs,
               labelColor: Color(0xFF1B7DF4),
               unselectedLabelColor: Colors.white,
               indicatorSize: TabBarIndicatorSize.tab,
@@ -72,7 +72,7 @@ class MineCircleTabPageState extends State<MineCircleTabPage> with SingleTickerP
 
   @override
   void initState() {
-    _tabController = TabController(length: tabs.length, vsync: this);
+    _tabController = TabController(length: _tabs.length, vsync: this);
     super.initState();
   }
 
@@ -83,7 +83,7 @@ class MineCircleTabPageState extends State<MineCircleTabPage> with SingleTickerP
   }
 
   @override
-  void didUpdateWidget(MineCircleTabPage oldWidget) {
+  void didUpdateWidget(MemberReviewPage oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
 

@@ -14,9 +14,11 @@ import 'package:ws_app_flutter/view_models/circle/circle_publish_controller.dart
 import 'package:ws_app_flutter/view_models/circle/circle_search_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_topic_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_topic_more_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/content_review_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/create_topic_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/friends_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/leader_topic_list_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/member_review_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/notleader_topic_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/profile_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/report_controller.dart';
@@ -35,9 +37,11 @@ import 'package:ws_app_flutter/views/car/violation_list_page.dart';
 import 'package:ws_app_flutter/views/car/violation_query_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_hot_more_list.dart';
 import 'package:ws_app_flutter/views/circle/circle_topic_more_list.dart';
+import 'package:ws_app_flutter/views/circle/content_review_page.dart';
 import 'package:ws_app_flutter/views/circle/create_topic_page.dart';
 import 'package:ws_app_flutter/views/circle/create_topic_success.dart';
 import 'package:ws_app_flutter/views/circle/leader_topic_list_page.dart';
+import 'package:ws_app_flutter/views/circle/member_review_page.dart';
 import 'package:ws_app_flutter/views/circle/notleader_topic_list_page.dart';
 import 'package:ws_app_flutter/views/enjoy/elwy_introduction.dart';
 import 'package:ws_app_flutter/view_models/login/bind_controller.dart';
@@ -728,6 +732,22 @@ abstract class AppPages {
     GetPage(
       name: Routes.CREATETOPICSUCCESS,
       page: () => CreateTopicSuccessPage(),
+    ),
+    //成员审核
+    GetPage(
+      name: Routes.MEMBERMANAGE,
+      page: () => MemberReviewPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<MemberReviewController>(() => MemberReviewController()),
+      ),
+    ),
+    //内容审核
+    GetPage(
+      name: Routes.CONTENTREVIEW,
+      page: () => ContentReviewPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ContentReviewController>(() => ContentReviewController()),
+      ),
     ),
     //举报须知
     GetPage(name: Routes.REPORTKNOW, page: () => ReportKnowPage()),
