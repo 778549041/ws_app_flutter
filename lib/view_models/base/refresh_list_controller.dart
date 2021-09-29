@@ -82,7 +82,7 @@ abstract class RefreshListController<T> extends ListController<T> {
   }
 
   // 加载数据
-  Future<List<T>?> loadData({int pageNum});
+  Future<List<T>?> loadData({int pageNum = 1});
 
   @override
   void onClose() {

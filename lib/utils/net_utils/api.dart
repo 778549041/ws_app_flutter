@@ -164,12 +164,30 @@ class Api {
   //申请加入话题纪录
   static final applyJoinTopicListUrl =
       'index.php/m/circleTopicV1v1-joinUser.html';
-//话题详情
+  //话题详情
   static final circleTopicDetailUrl = 'index.php/m/circleTopicV1v1-info.html';
-//好友详情圈子数据
+  //好友详情圈子数据
   static final circleFriendsMomentUrl = 'index.php/m/circle-pic_list.html';
   //更多热门榜列表
   static final circleHotListUrl = 'index.php/m/hotsV1-hots_list.html';
+  //圈子动态审核列表
+  static final momentReviewListUrl =
+      'index.php/m/circleTopicV1v1-indexExamine.html';
+  //评论审核列表
+  static final commentReviewListUrl =
+      'index.php/m/circleTopicV1v1-commentExamine.html';
+  //动态内容审核
+  static final reviewMomentUrl = 'index.php/m/circleExamineV1v1-indexs.html';
+  //评论内容审核
+  static final reviewCommentUrl = 'index.php/m/circleExamineV1v1-comment.html';
+  //圈子加优质
+  static final setMomentGood = 'index.php/m/circleIndexV1v1-setGood.html';
+  //圈子取消加优质
+  static final cancelMomentGood = 'index.php/m/circleIndexV1v1-cancelGood.html';
+  //圈子置顶
+  static final setMomentTop = 'index.php/m/circleIndexV1v1-setTop.html';
+  //圈子取消置顶
+  static final cancelMomentTop = 'index.php/m/circleIndexV1v1-cancelTop.html';
 
   //圈子二期
   //圈子首页热门推荐
