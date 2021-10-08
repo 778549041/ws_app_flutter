@@ -78,6 +78,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   #轮播图
   flutter_swiper_null_safety: ^1.0.2
+  carousel_slider: ^4.0.0
   # 类iOS侧滑菜单
   flutter_slidable: ^0.6.0
   # 谁用谁闪亮
@@ -134,6 +135,7 @@ dependencies:
   expandable_text: ^2.0.0
   # 折叠展开视图
   expandable: ^5.0.1
+  # 自适应大小文本
   auto_size_text: ^3.0.0-nullsafety.0
   # 列表动画
   flutter_staggered_animations: ^1.0.0
@@ -155,7 +157,7 @@ dependencies:
   #高德定位插件
   amap_flutter_location: ^2.0.0
   #腾讯云IM
-  tencent_im_sdk_plugin: ^3.3.0
+  tencent_im_sdk_plugin: ^3.4.4
   #bugly
   flutter_bugly: ^0.3.3
   # #易观方舟flutter插件

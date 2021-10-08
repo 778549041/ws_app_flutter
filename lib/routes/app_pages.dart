@@ -27,6 +27,7 @@ import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/circle_tag_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_circle_tab_controller.dart';
 import 'package:ws_app_flutter/views/car/battery_check_page.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';
@@ -36,6 +37,7 @@ import 'package:ws_app_flutter/views/car/test_drive_page.dart';
 import 'package:ws_app_flutter/views/car/violation_list_page.dart';
 import 'package:ws_app_flutter/views/car/violation_query_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_hot_more_list.dart';
+import 'package:ws_app_flutter/views/circle/circle_tag_manage_page.dart';
 import 'package:ws_app_flutter/views/circle/circle_topic_more_list.dart';
 import 'package:ws_app_flutter/views/circle/content_review_page.dart';
 import 'package:ws_app_flutter/views/circle/create_topic_page.dart';
@@ -738,7 +740,8 @@ abstract class AppPages {
       name: Routes.MEMBERMANAGE,
       page: () => MemberReviewPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<MemberReviewController>(() => MemberReviewController()),
+        () =>
+            Get.lazyPut<MemberReviewController>(() => MemberReviewController()),
       ),
     ),
     //内容审核
@@ -746,7 +749,8 @@ abstract class AppPages {
       name: Routes.CONTENTREVIEW,
       page: () => ContentReviewPage(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<ContentReviewController>(() => ContentReviewController()),
+        () => Get.lazyPut<ContentReviewController>(
+            () => ContentReviewController()),
       ),
     ),
     //举报须知
@@ -765,6 +769,15 @@ abstract class AppPages {
       page: () => TopicListPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<TopicController>(() => TopicController()),
+      ),
+    ),
+    //圈子标签管理
+    GetPage(
+      name: Routes.CIRCLETAGMANAGE,
+      page: () => CircleTagManagePage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CircleTagManageController>(
+            () => CircleTagManageController()),
       ),
     ),
     //门锁详情

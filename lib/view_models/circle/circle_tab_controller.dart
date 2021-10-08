@@ -3,6 +3,7 @@ import 'package:ws_app_flutter/models/circle/circle_hot_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_tag_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
+import 'package:ws_app_flutter/routes/app_pages.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
@@ -59,7 +60,7 @@ class CircleTabController extends GetxController {
       if (item.tag_id! < 5) {
         item.canDelete = false;
       } else {
-        item.canPan = true;
+        item.canDelete = true;
       }
       tabsData.add(item);
     }
@@ -74,7 +75,13 @@ class CircleTabController extends GetxController {
     }
   }
 
+  //选择标签
   void indexChanged(index) {
     currentTagModel = tabsData[index];
+  }
+
+  //标签管理
+  void pushTagManage() {
+    Get.toNamed(Routes.CIRCLETAGMANAGE);
   }
 }

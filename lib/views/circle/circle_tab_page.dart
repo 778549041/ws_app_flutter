@@ -101,10 +101,7 @@ class CircleTabPageState extends State<CircleTabPage>
             image: 'assets/images/circle/manage_tag_plus.png',
             imageH: 12.5,
             imageW: 12.5,
-            onPressed: () {
-              //TODO
-              print('点击了编辑标签');
-            },
+            onPressed: () => controller.pushTagManage(),
           ),
         ],
       ),

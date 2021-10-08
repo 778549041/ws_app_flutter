@@ -24,6 +24,7 @@ class MomentReviewController extends RefreshListController<MomentModel> {
     return model.list;
   }
 
+  //动态审核
   void reviewAction(int examine, MomentModel model) async {
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.GET, Api.reviewMomentUrl, queryParamters: {

@@ -26,6 +26,7 @@ class CommentReviewController
     return model.data;
   }
 
+  //评论审核
   void reviewAction(int examine, ReviewCommentModel model) async {
     CommonModel result = await DioManager().request<CommonModel>(
         DioManager.GET, Api.reviewCommentUrl, queryParamters: {

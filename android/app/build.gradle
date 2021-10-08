@@ -84,6 +84,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //引入高德地图定位SDK
     implementation('com.amap.api:location:5.2.0')
-    // //引入高德地图SDK
-    // implementation('com.amap.api:3dmap:7.7.0')
+    //引入高德地图SDK
+    implementation('com.amap.api:3dmap:7.7.0')
 }

@@ -164,6 +164,9 @@ class Api {
   //申请加入话题纪录
   static final applyJoinTopicListUrl =
       'index.php/m/circleTopicV1v1-joinUser.html';
+  //话题加入申请审核
+  static final applyJoinTopicReviewUrl =
+      'index.php/m/circleExamineV1v1-join.html';
   //话题详情
   static final circleTopicDetailUrl = 'index.php/m/circleTopicV1v1-info.html';
   //好友详情圈子数据
@@ -196,6 +199,8 @@ class Api {
   static final circleOfficialMomenttUrl = 'index.php/m/topicV1-official.html';
   //用户圈子标签
   static final userCircleTagUrl = 'index.php/m/circleTagV1v1-user.html';
+  //圈子所有标签
+  static final circleTagListUrl = 'index.php/m/circleTagV1v1.html';
   //圈子所有标签
   static final allCircleTagListUrl = 'index.php/m/circleTagV1v1.html';
   //新版圈子列表

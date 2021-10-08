@@ -84,6 +84,7 @@ abstract class Routes {
   static const CREATETOPICSUCCESS = '/create-topic-success';//创建话题成功
   static const MEMBERMANAGE = '/member-manage';//成员审核
   static const CONTENTREVIEW = '/content-review';//内容审核
+  static const CIRCLETAGMANAGE = '/circle-tag-manage';//圈子标签管理
   //爱车、车控
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ws_app_flutter/models/circle/topic_apply_join_model.dart';
+import 'package:ws_app_flutter/view_models/circle/my_member_review_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
@@ -99,7 +101,8 @@ class MemberReviewItem extends StatelessWidget {
             fontSize: 12,
             radius: 11.5,
             backgroundColor: Color(0xFF1B7DF4),
-            onPressed: () {},
+            onPressed: () =>
+                Get.find<MyMemberReviewController>().reviewAction(1, model),
           ),
           SizedBox(
             height: 10,
@@ -112,7 +115,8 @@ class MemberReviewItem extends StatelessWidget {
             titleColor: Colors.white,
             radius: 11.5,
             backgroundColor: Color(0xFFD03126),
-            onPressed: () {},
+            onPressed: () =>
+                Get.find<MyMemberReviewController>().reviewAction(2, model),
           ),
         ],
       );
