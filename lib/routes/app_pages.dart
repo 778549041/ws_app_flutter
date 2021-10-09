@@ -27,7 +27,7 @@ import 'package:ws_app_flutter/view_models/circle/topic_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
-import 'package:ws_app_flutter/view_models/mine/circle_tag_manage_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_tag_manage_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_circle_tab_controller.dart';
 import 'package:ws_app_flutter/views/car/battery_check_page.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';

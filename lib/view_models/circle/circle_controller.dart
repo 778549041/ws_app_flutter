@@ -32,6 +32,7 @@ class CircleController extends GetxController {
         Get.toNamed(Routes.CIRCLPUBLISH);
       } else if (tabIndex == 1) {
         //发布问题
+        //TODO
         print('发布问题，待完成');
       }
     }

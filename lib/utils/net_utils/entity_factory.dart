@@ -7,6 +7,7 @@ import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_hot_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_tag_model.dart';
 import 'package:ws_app_flutter/models/circle/circle_topic_model.dart';
+import 'package:ws_app_flutter/models/circle/faq_list_model.dart';
 import 'package:ws_app_flutter/models/circle/friend_circle_img_model.dart';
 import 'package:ws_app_flutter/models/circle/friend_model.dart';
 import 'package:ws_app_flutter/models/circle/moment_comment_model.dart';
@@ -191,6 +192,12 @@ class EntityFactory {
      return TopicApplyJoinListModel.fromJson(json) as T;
    } else if (T.toString() == 'ReviewCommentListModel') {
      return ReviewCommentListModel.fromJson(json) as T;
+   } else if (T.toString() == 'FAQListModel') {
+     return FAQListModel.fromJson(json) as T;
+   } else if (T.toString() == 'SingleFAQModel') {
+     return SingleFAQModel.fromJson(json) as T;
+   } else if (T.toString() == 'AnswerListModel') {
+     return AnswerListModel.fromJson(json) as T;
    }
    else {
       return json as T;

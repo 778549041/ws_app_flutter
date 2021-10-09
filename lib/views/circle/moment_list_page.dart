@@ -3,6 +3,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ws_app_flutter/models/circle/moment_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
+import 'package:ws_app_flutter/view_models/base/view_state_widget.dart';
 import 'package:ws_app_flutter/widgets/circle/circle_list_item.dart';
 
 class MomentListPage extends StatefulWidget {
@@ -37,17 +38,25 @@ class MomentListPageState extends State<MomentListPage>
       },
       child: CustomScrollView(
         slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return Container(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: CircleListItem(
-                  model: data[index],
-                  pageName: '${widget.tagId}标签circleList',
-                ),
-              );
-            }, childCount: data.length),
-          ),
+          if (data.isEmpty)
+            SliverToBoxAdapter(
+              child: ViewStateEmptyWidget(
+                image: 'assets/images/common/empty.png',
+                message: '空空如也',
+              ),
+            )
+          else
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Container(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: CircleListItem(
+                    model: data[index],
+                    pageName: '${widget.tagId}标签circleList',
+                  ),
+                );
+              }, childCount: data.length),
+            ),
         ],
       ),
     );
@@ -62,6 +71,8 @@ class MomentListPageState extends State<MomentListPage>
       setState(() {
         data.clear();
       });
+    } else {
+      _refreshController.loadComplete();
     }
     setState(() {
       data.addAll(model.list!);

@@ -203,8 +203,18 @@ class Api {
   static final circleTagListUrl = 'index.php/m/circleTagV1v1.html';
   //圈子所有标签
   static final allCircleTagListUrl = 'index.php/m/circleTagV1v1.html';
+  //保存用户圈子标签
+  static final saveUsersTagUrl = 'index.php/m/circleTagV1v1-sort.html';
   //新版圈子列表
   static final newVersionMomentListUrl = 'index.php/m/circleIndexV1v1.html';
+  //所有问答标签
+  static final allFAQTagsListUrl = 'index.php/m/questionV2-get_type.html';
+  //热门回答
+  static final hotFAQListUrl = 'index.php/m/questionV2-hots_question.html';
+  //随便看看
+  static final casuallyFAQListUrl = 'index.php/m/questionV2-casual_look.html';
+  //往期热点
+  static final pastHotFAQListUrl = 'index.php/m/questionV2-past_hots.html';
 
   /// 优享
 //优享抽大奖地址

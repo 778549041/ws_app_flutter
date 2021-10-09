@@ -23,7 +23,7 @@ class CircleTabController extends GetxController {
     Get.find<UserController>().requestNewMessage();
     _getTopicData();
     _getOfficialData();
-    _getCircleTagListData();
+    getCircleTagListData();
   }
 
   //热门榜数据
@@ -46,7 +46,7 @@ class CircleTabController extends GetxController {
   }
 
   //用户圈子标签分类数据
-  Future _getCircleTagListData() async {
+  Future getCircleTagListData() async {
     CircleTagListModel tagListModel = await DioManager()
         .request<CircleTagListModel>(DioManager.GET, Api.userCircleTagUrl);
     tabsData.clear();
