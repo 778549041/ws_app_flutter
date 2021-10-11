@@ -16,6 +16,7 @@ import 'package:ws_app_flutter/view_models/circle/circle_topic_list_controller.d
 import 'package:ws_app_flutter/view_models/circle/circle_topic_more_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/content_review_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/create_topic_controller.dart';
+import 'package:ws_app_flutter/view_models/circle/faq_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/friends_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/leader_topic_list_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/member_review_controller.dart';
@@ -42,6 +43,7 @@ import 'package:ws_app_flutter/views/circle/circle_topic_more_list.dart';
 import 'package:ws_app_flutter/views/circle/content_review_page.dart';
 import 'package:ws_app_flutter/views/circle/create_topic_page.dart';
 import 'package:ws_app_flutter/views/circle/create_topic_success.dart';
+import 'package:ws_app_flutter/views/circle/faq_detail_page.dart';
 import 'package:ws_app_flutter/views/circle/leader_topic_list_page.dart';
 import 'package:ws_app_flutter/views/circle/member_review_page.dart';
 import 'package:ws_app_flutter/views/circle/notleader_topic_list_page.dart';
@@ -778,6 +780,14 @@ abstract class AppPages {
       binding: BindingsBuilder(
         () => Get.lazyPut<CircleTagManageController>(
             () => CircleTagManageController()),
+      ),
+    ),
+    //问答详情
+    GetPage(
+      name: Routes.FAQDETAILPAGE,
+      page: () => FAQDetailPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<FAQDetailController>(() => FAQDetailController()),
       ),
     ),
     //门锁详情

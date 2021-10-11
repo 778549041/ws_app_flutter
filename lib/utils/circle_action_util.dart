@@ -166,7 +166,7 @@ class CircleActionUtil {
       } else {
         EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
-        return true;
+        return isLiked;
       }
     } else {
       //未点赞，点击点赞
@@ -249,7 +249,7 @@ class CircleActionUtil {
       } else {
         EasyLoading.showToast(result.error!,
             toastPosition: EasyLoadingToastPosition.bottom);
-        return false;
+        return isLiked;
       }
     }
   }

@@ -215,6 +215,24 @@ class Api {
   static final casuallyFAQListUrl = 'index.php/m/questionV2-casual_look.html';
   //往期热点
   static final pastHotFAQListUrl = 'index.php/m/questionV2-past_hots.html';
+  //删除提问
+  static final deleteQuestionUrl =
+      'index.php/m/questionV2-question_delete.html';
+//提问点赞、取消点赞
+  static final questionPraiseUrl =
+      'index.php/m/questionV2-question_praise.html';
+//回答点赞、取消点赞
+  static final answerPraiseUrl = 'index.php/m/questionV2-answers_praise.html';
+  //问答详情-问题
+  static final faqDetailQuestionUrl =
+      'index.php/m/questionV2-detail_question.html';
+//问答详情-回答
+  static final faqDetailAnswerListUrl =
+      'index.php/m/questionV2-detail_answers.html';
+//删除回答
+  static final deleteAnswerUrl = 'index.php/m/questionV2-answers_delete.html';
+//采纳回答
+  static final acceptAnswerUrl = 'index.php/m/questionV2-answers_accept.html';
 
   /// 优享
 //优享抽大奖地址

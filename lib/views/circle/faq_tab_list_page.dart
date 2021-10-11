@@ -48,6 +48,8 @@ class FaqTabListPageState extends State<FaqTabListPage>
                 text: e.title,
               );
             }).toList(),
+            labelStyle: TextStyle(fontSize: 18),
+            unselectedLabelStyle: TextStyle(fontSize: 15),
             labelColor: Colors.white,
             unselectedLabelColor: MainAppColor.secondaryTextColor,
             indicatorSize: TabBarIndicatorSize.tab,
@@ -115,7 +117,7 @@ class FaqTabListPageState extends State<FaqTabListPage>
     Pickers.showDatePicker(
       context,
       mode: DateMode.YM,
-      selectDate: PDuration(year: year,month: month),
+      selectDate: PDuration(year: year, month: month),
       minDate: PDuration(year: 2021, month: 5),
       maxDate: PDuration(year: maxYear, month: maxMonth),
       onConfirm: (res) {

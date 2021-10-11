@@ -4,6 +4,7 @@ import 'package:ws_app_flutter/models/circle/faq_list_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
 import 'package:ws_app_flutter/view_models/base/view_state_widget.dart';
+import 'package:ws_app_flutter/widgets/circle/faq_list_item.dart';
 
 class FaqTabTagListPage extends StatefulWidget {
   final int type; //列表类型，0热门问答，1随便看看，2往期热点
@@ -23,6 +24,7 @@ class FaqTabTagListPageState extends State<FaqTabTagListPage> {
       RefreshController(initialRefresh: false);
   int pageNum = 1;
   List<FAQModel> data = <FAQModel>[];
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class FaqTabTagListPageState extends State<FaqTabTagListPage> {
       },
       child: CustomScrollView(
         slivers: <Widget>[
-          if (data.isEmpty)
+          if (!isLoading && data.isEmpty)
             SliverToBoxAdapter(
               child: ViewStateEmptyWidget(
                 image: 'assets/images/common/empty.png',
@@ -49,14 +51,8 @@ class FaqTabTagListPageState extends State<FaqTabTagListPage> {
           else
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return Container(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Container(
-                    margin: EdgeInsets.only(top: 10),
-                    height: 100,
-                    color: Colors.red,
-                  ),
-                );
+                FAQModel model = data[index];
+                return FAQListItem(model: model,);
               }, childCount: data.length),
             ),
         ],
@@ -101,6 +97,7 @@ class FaqTabTagListPageState extends State<FaqTabTagListPage> {
       }
     }
     setState(() {
+      isLoading = false;
       data.addAll(model.data!);
     });
   }

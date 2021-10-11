@@ -83,6 +83,8 @@ class CircleTabPageState extends State<CircleTabPage>
                   text: e.title,
                 );
               }).toList(),
+              labelStyle: TextStyle(fontSize: 18),
+              unselectedLabelStyle: TextStyle(fontSize: 15),
               labelColor: Colors.white,
               unselectedLabelColor: MainAppColor.secondaryTextColor,
               indicatorSize: TabBarIndicatorSize.tab,

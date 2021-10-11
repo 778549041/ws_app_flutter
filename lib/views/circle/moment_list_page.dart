@@ -21,6 +21,7 @@ class MomentListPageState extends State<MomentListPage>
       RefreshController(initialRefresh: false);
   int pageNum = 1;
   List<MomentModel> data = <MomentModel>[];
+  bool isLoading = true;
 
   @override
   bool get wantKeepAlive => true;
@@ -38,7 +39,7 @@ class MomentListPageState extends State<MomentListPage>
       },
       child: CustomScrollView(
         slivers: <Widget>[
-          if (data.isEmpty)
+          if (!isLoading && data.isEmpty)
             SliverToBoxAdapter(
               child: ViewStateEmptyWidget(
                 image: 'assets/images/common/empty.png',
@@ -75,6 +76,7 @@ class MomentListPageState extends State<MomentListPage>
       _refreshController.loadComplete();
     }
     setState(() {
+      isLoading = false;
       data.addAll(model.list!);
     });
     if (model.totalPage! == pageNum) {
