@@ -5,6 +5,7 @@ import 'package:ws_app_flutter/view_models/circle/faq_tab_controller.dart';
 
 class CircleController extends GetxController {
   int tabIndex = 0; //当前tab，默认圈子tab
+  int? currentQuestionTagId; //当前问题标签id
 
   @override
   void onInit() {
@@ -32,8 +33,8 @@ class CircleController extends GetxController {
         Get.toNamed(Routes.CIRCLPUBLISH);
       } else if (tabIndex == 1) {
         //发布问题
-        //TODO
-        print('发布问题，待完成');
+        Get.toNamed(Routes.FAQPUBLISH,
+            arguments: {'type_id': currentQuestionTagId!});
       }
     }
   }

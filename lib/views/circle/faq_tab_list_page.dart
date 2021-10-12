@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pickers/pickers.dart';
 import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 import 'package:flutter_pickers/time_picker/model/pduration.dart';
+import 'package:get/get.dart';
 import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/circle/circle_tag_model.dart';
 import 'package:ws_app_flutter/utils/net_utils/api.dart';
 import 'package:ws_app_flutter/utils/net_utils/dio_manager.dart';
+import 'package:ws_app_flutter/view_models/circle/circle_controller.dart';
 import 'package:ws_app_flutter/views/circle/faq_tab_tag_list_page.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 
@@ -59,6 +61,9 @@ class FaqTabListPageState extends State<FaqTabListPage>
               indicatorColor: Color(0xFF1B7DF4),
               tabBarIndicatorSize: TabBarIndicatorSize.tab,
             ),
+            onTap: (index) {
+              Get.find<CircleController>().currentQuestionTagId = tabsData[index].tag_id!;
+            },
           ),
         ),
         if (widget.type == 2)
@@ -134,6 +139,7 @@ class FaqTabListPageState extends State<FaqTabListPage>
     CircleTagListModel tagListModel = await DioManager()
         .request<CircleTagListModel>(DioManager.GET, Api.allFAQTagsListUrl);
     tabsData.clear();
+    Get.find<CircleController>().currentQuestionTagId = tagListModel.data!.first.tag_id!;
     setState(() {
       tabsData.addAll(tagListModel.data!);
       _tabController = TabController(

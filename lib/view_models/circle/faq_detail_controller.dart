@@ -11,9 +11,9 @@ class FAQDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Get.lazyPut<FAQAnswerListController>(() => FAQAnswerListController(0),
+    Get.lazyPut<FAQAnswerListController>(() => FAQAnswerListController(type: 0,questionId: questionId),
         tag: '0');
-    Get.lazyPut<FAQAnswerListController>(() => FAQAnswerListController(1),
+    Get.lazyPut<FAQAnswerListController>(() => FAQAnswerListController(type: 1,questionId: questionId),
         tag: '1');
     _getQuestionDetailData();
   }

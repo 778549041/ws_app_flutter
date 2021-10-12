@@ -34,6 +34,8 @@ class CirclePublishController extends GetxController {
     if (topic != null) {
       topicModel.value = topic;
     }
+    focusNode = FocusNode();
+    textEditingController = TextEditingController();
     super.onInit();
   }
 
@@ -58,20 +60,20 @@ class CirclePublishController extends GetxController {
       return;
     }
     if (publishText != null && publishText!.length > 0) {
-      publishContentIsLegal();
+      _publishContentIsLegal();
     } else {
       if (isVideo.value) {
         //发布视频
-        publishVideo();
+        _publishVideo();
       } else {
         //发布图片
-        publishImage();
+        _publishImage();
       }
     }
   }
 
   //检查发布文本内容是否合法
-  Future publishContentIsLegal() async {
+  Future _publishContentIsLegal() async {
     if (CommonUtil.containsLink(publishText)) {
       EasyLoading.showToast('发布内容中不能包含URL链接或网址',
           toastPosition: EasyLoadingToastPosition.bottom);
@@ -83,13 +85,13 @@ class CirclePublishController extends GetxController {
     if (model.result!) {
       if (selectedAssets.length == 0) {
         //发布纯文本
-        publishOnlyText();
+        _publishOnlyText();
       } else if (isVideo.value) {
         //发布视频
-        publishVideo();
+        _publishVideo();
       } else {
         //发布图片
-        publishImage();
+        _publishImage();
       }
     } else {
       EasyLoading.showToast(model.message!,
@@ -98,19 +100,19 @@ class CirclePublishController extends GetxController {
   }
 
   //发布纯文本
-  Future publishOnlyText() async {
+  Future _publishOnlyText() async {
     Map<String, dynamic> params = Map<String, dynamic>();
     params['type'] = '0';
     params['content'] = publishText;
     if (topicModel.value.topicId != null) {
       params['topic_id'] = topicModel.value.topicId;
     }
-    await publishNetWork(params);
+    await _publishNetWork(params);
   }
 
   //发布图片
-  Future publishImage() async {
-    var imgUrlList = await uploadAssets();
+  Future _publishImage() async {
+    var imgUrlList = await _uploadAssets();
     String imgIDStr = await CommonUtil.getCoveridsString(imgUrlList, '0');
 
     Map<String, dynamic> params = Map<String, dynamic>();
@@ -121,11 +123,11 @@ class CirclePublishController extends GetxController {
       params['topic_id'] = topicModel.value.topicId;
     }
 
-    await publishNetWork(params);
+    await _publishNetWork(params);
   }
 
   //上传资源文件
-  Future uploadAssets() async {
+  Future _uploadAssets() async {
     EasyLoading.show(status: '文件上传中...');
     List<String> imgUrlList = [];
     for (var item in selectedAssets) {
@@ -157,8 +159,8 @@ class CirclePublishController extends GetxController {
   }
 
   //发布视频
-  Future publishVideo() async {
-    var imgUrlList = await uploadAssets();
+  Future _publishVideo() async {
+    var imgUrlList = await _uploadAssets();
     String imgIDStr = await CommonUtil.getCoveridsString(imgUrlList, '1');
 
     Map<String, dynamic> params = Map<String, dynamic>();
@@ -169,11 +171,11 @@ class CirclePublishController extends GetxController {
       params['topic_id'] = topicModel.value.topicId;
     }
 
-    await publishNetWork(params);
+    await _publishNetWork(params);
   }
 
   //发布操作网络请求
-  Future publishNetWork(Map<String, dynamic> params) async {
+  Future _publishNetWork(Map<String, dynamic> params) async {
     CommonModel receive = await DioManager().request<CommonModel>(
         DioManager.POST, Api.circlePublishMomentUrl,
         params: params);

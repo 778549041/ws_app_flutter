@@ -46,7 +46,7 @@ class MainController extends BaseController {
       }
     });
     if (index == 4) {
-      Get.find<MineController>().requestFavorData();
+      Get.find<MineController>().initData();
       Get.find<UserController>().requestNewMessage();
     } else if (index == 1) {
       Get.find<UserController>().requestNewMessage();

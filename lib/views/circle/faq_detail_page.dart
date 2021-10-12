@@ -24,8 +24,12 @@ class FAQDetailPageState extends State<FAQDetailPage>
     ),
   ];
   final List<Widget> _pages = <Widget>[
-    FAQAnswerListPage(0),
-    FAQAnswerListPage(1),
+    FAQAnswerListPage(
+      type: 0,
+    ),
+    FAQAnswerListPage(
+      type: 1,
+    ),
   ];
   TabController? _tabController;
 
@@ -97,9 +101,28 @@ class FAQDetailPageState extends State<FAQDetailPage>
               ),
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: _pages,
+              child: Obx(
+                () => controller.model.value.data == null
+                    ? Container()
+                    : TabBarView(
+                        controller: _tabController,
+                        children: <Widget>[
+                          FAQAnswerListPage(
+                            type: 0,
+                            hasAccept:
+                                controller.model.value.data!.answers_accept!,
+                            questionIsSelf:
+                                controller.model.value.data!.is_oneself!,
+                          ),
+                          FAQAnswerListPage(
+                            type: 1,
+                            hasAccept:
+                                controller.model.value.data!.answers_accept!,
+                            questionIsSelf:
+                                controller.model.value.data!.is_oneself!,
+                          ),
+                        ],
+                      ),
               ),
             ),
           ],

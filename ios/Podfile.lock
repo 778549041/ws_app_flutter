@@ -1,5 +1,5 @@
 PODS:
-  - AMap3DMap (8.0.0):
+  - AMap3DMap (8.0.1):
     - AMapFoundation (~> 1.6.8)
   - amap_flutter_location (0.0.1):
     - AMapLocation (~> 2.6.7)
@@ -83,129 +83,129 @@ PODS:
     - Flutter
     - JCore (= 2.7.1)
     - JPush (= 3.7.0)
-  - libwebp (1.2.0):
-    - libwebp/demux (= 1.2.0)
-    - libwebp/mux (= 1.2.0)
-    - libwebp/webp (= 1.2.0)
-  - libwebp/demux (1.2.0):
+  - libwebp (1.2.1):
+    - libwebp/demux (= 1.2.1)
+    - libwebp/mux (= 1.2.1)
+    - libwebp/webp (= 1.2.1)
+  - libwebp/demux (1.2.1):
     - libwebp/webp
-  - libwebp/mux (1.2.0):
+  - libwebp/mux (1.2.1):
     - libwebp/demux
-  - libwebp/webp (1.2.0)
+  - libwebp/webp (1.2.1)
   - Mantle (2.1.6):
     - Mantle/extobjc (= 2.1.6)
   - Mantle/extobjc (2.1.6)
-  - mob_sharesdk (4.4.1):
-    - mob_sharesdk/ShareSDK (= 4.4.1)
+  - mob_sharesdk (4.4.2):
+    - mob_sharesdk/ShareSDK (= 4.4.2)
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDK (4.4.1):
+  - mob_sharesdk/ShareSDK (4.4.2):
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKExtension (4.4.1):
+  - mob_sharesdk/ShareSDKExtension (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/DingTalk (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/DingTalk (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Douyin (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Douyin (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Dropbox (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Dropbox (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Evernote (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Evernote (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Facebook (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Facebook (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Flickr (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Flickr (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/GooglePlus (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/GooglePlus (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Instagram (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Instagram (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Instapaper (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Instapaper (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Kakao (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Kakao (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/KuaiShou (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/KuaiShou (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Line (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Line (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/LinkedIn (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/LinkedIn (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Messenger (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Messenger (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/MingDao (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/MingDao (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Oasis (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Oasis (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Pinterest (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Pinterest (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Pocket (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Pocket (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/QQ (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/QQ (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Reddit (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Reddit (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/SinaWeibo (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/SinaWeibo (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/SMS (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/SMS (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/SnapChat (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/SnapChat (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Telegram (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Telegram (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/TikTok (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/TikTok (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Twitter (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Twitter (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/VKontakte (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/VKontakte (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/WatermelonVideo (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/WatermelonVideo (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/WeChat (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/WhatsApp (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/WhatsApp (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/Yixin (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/Yixin (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKPlatforms/YouDaoNote (4.4.1):
+  - mob_sharesdk/ShareSDKPlatforms/YouDaoNote (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKRestoreScene (4.4.1):
+  - mob_sharesdk/ShareSDKRestoreScene (4.4.2):
     - mob_sharesdk/ShareSDKExtension
     - MOBFoundation (>= 3.2.9)
-  - mob_sharesdk/ShareSDKUI (4.4.1):
+  - mob_sharesdk/ShareSDKUI (4.4.2):
     - mob_sharesdk/ShareSDK
     - MOBFoundation (>= 3.2.9)
-  - MOBFoundation (3.2.26)
+  - MOBFoundation (3.2.27)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -216,9 +216,9 @@ PODS:
     - Flutter
     - FlutterMacOS
   - Reachability (3.2)
-  - SDWebImage (5.11.1):
-    - SDWebImage/Core (= 5.11.1)
-  - SDWebImage/Core (5.11.1)
+  - SDWebImage (5.12.0):
+    - SDWebImage/Core (= 5.12.0)
+  - SDWebImage/Core (5.12.0)
   - SDWebImageWebPCoder (0.8.4):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
@@ -269,8 +269,8 @@ PODS:
   - tencent_im_sdk_plugin (1.0.5):
     - Flutter
     - HydraAsync
-    - TXIMSDK_Plus_iOS (= 5.5.892)
-  - TXIMSDK_Plus_iOS (5.5.892)
+    - TXIMSDK_Plus_iOS (= 5.7.1435)
+  - TXIMSDK_Plus_iOS (5.7.1435)
   - url_launcher (0.0.1):
     - Flutter
   - vibration (1.7.4-nullsafety.0):
@@ -400,13 +400,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
-  AMap3DMap: 89b82eaad00f9246f59d2a6103eff18be5b9dd4f
+  AMap3DMap: d903e03e7bf1c51bb6448b66cdebb4a18608a29f
   amap_flutter_location: 3e33b57f1aad80b0dfb4b399de857a1a9f071e62
   amap_flutter_map: 979e54d227cedac6c7504a2151bfbf3bcf96760a
   AMapFoundation: 32e9a0264ee62f5aa2aaf82bdafdda7985ce09c7
   AMapLocation: 3ec0e9bf53800b40cceb313cbd047743f75e2483
   Bugly: 88bc32c0acc6fef7b74d610f0319ee7560d6b9fe
-  camera: 3164201dc344383e62282964016528c4f5a9ad50
+  camera: b9eb73c055259c6f808a9da4a0d43780f6645281
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
@@ -422,31 +422,31 @@ SPEC CHECKSUMS:
   GGWkCookie: 78386a4f50e44f43ab7a084b1aeb872e91c2fa14
   HydraAsync: 8d589bd725b0224f899afafc9a396327405f8063
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
-  image_picker: e06f7a68f000bd36f552c1847e33cda96ed31f1f
+  image_picker: 9aa50e1d8cdacdbed739e925b7eea16d014367e6
   JCore: 9d5bda3a172c65bbe14f2806ab0f6246f8a06065
   JPush: 1fd7a326e7e6588eba517659ce1b79a144e54938
   jpush_flutter: d5fd523a73277ed66d453fc7ac1c981d1fa525e2
-  libwebp: 6bac0a99ba5a6bb7449a951ff22c484201985f68
+  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   Mantle: 4c0ed6ce47c96eccc4dc3bb071deb3def0e2c3be
-  mob_sharesdk: ae760218307b6b40b0b261c2e7684e62dc0525f2
-  MOBFoundation: 2abd23c80c33d1337d30dc4b0018ed914cef8f8e
+  mob_sharesdk: a60006891a079486ff3269ed326adfa05a967c01
+  MOBFoundation: efdc3ce6b843fbc10ae8c1c6122a02b0d845b39b
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   photo_manager: 84fa94fbeb82e607333ea9a13c43b58e0903a463
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImage: 4ea20cca2986adc5aacde07aa686742fd4c67a37
   SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
-  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  shared_preferences: 5033afbb22d372e15aff8ff766df9021b845f273
   sharesdk_plugin: eb1060eb8c5ded0a5eec5e09e83eee986b139cfe
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
-  tencent_im_sdk_plugin: de881f67e4b104de8d92a1ed77522e69ef3afbf3
-  TXIMSDK_Plus_iOS: 4ab1358f0b3f25d23020477cb930a69e56914b29
-  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  tencent_im_sdk_plugin: b1079fdfb57e3cb4292d6f79f299e860f0f28c0e
+  TXIMSDK_Plus_iOS: 4b7c1097ea9899f7bf95fa90e2cb4471389f93dd
+  url_launcher: b6e016d912f04be9f5bf6e8e82dc599b7ba59649
   vibration: 1ec279c4a1a7a646627b54039d812334b3f1114a
   video_compress: fce97e4fb1dfd88175aa07d2ffc8a2f297f87fbe
-  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  video_player: ecd305f42e9044793efd34846e1ce64c31ea6fcb
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter: d4754e5525d470a834cd48433acdeec73a5cb313
 

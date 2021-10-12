@@ -233,6 +233,12 @@ class Api {
   static final deleteAnswerUrl = 'index.php/m/questionV2-answers_delete.html';
 //采纳回答
   static final acceptAnswerUrl = 'index.php/m/questionV2-answers_accept.html';
+  //发布提问
+  static final publishQuestionUrl = 'index.php/m/questionV2-question_add.html';
+  //我的提问
+  static final mineQuestionListUrl = 'index.php/m/questionV2-my_question.html';
+//我的回答
+  static final mineAnswerListUrl = 'index.php/m/questionV2-my_answers.html';
 
   /// 优享
 //优享抽大奖地址

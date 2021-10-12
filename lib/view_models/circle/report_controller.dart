@@ -23,6 +23,8 @@ class ReportController extends GetxController {
   @override
   void onInit() {
     publishText = '';
+    focusNode = FocusNode();
+    textEditingController = TextEditingController();
     super.onInit();
   }
 

@@ -32,6 +32,7 @@ abstract class Routes {
   static const SCAN = '/mine-scan'; //扫码页面
   static const CHAT = '/chat'; //聊天页面
   static const MINEFRIENDS = '/mine-friends'; //个人中心我的好友（聊天会话列表）
+  static const MINEFAQ = '/mine-faq';//我的问答
   static const SIGNPAGE = '/sign-page'; //签到
   static const NORMALQUESTIONPAGE = '/normal-question-page'; //常见问题
   static const INTERAMSGPAGE = '/intera-msg-page'; //互动消息
@@ -86,6 +87,7 @@ abstract class Routes {
   static const CONTENTREVIEW = '/content-review';//内容审核
   static const CIRCLETAGMANAGE = '/circle-tag-manage';//圈子标签管理
   static const FAQDETAILPAGE = '/faq-detail';//问答详情
+  static const FAQPUBLISH = '/faq-publish';//发布问题
   //爱车、车控
   static const DOORLOCK = '/door-lock-page'; //门锁详情
   static const AIRCONDITION = '/air-condition-page'; //空调详情

@@ -15,6 +15,7 @@ import 'package:ws_app_flutter/models/circle/review_comment_list_model.dart';
 import 'package:ws_app_flutter/models/circle/topic_apply_join_model.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
 import 'package:ws_app_flutter/models/common/img_model.dart';
+import 'package:ws_app_flutter/models/common/test_drive_receive.dart';
 import 'package:ws_app_flutter/models/enjoy/cj_url_model.dart';
 import 'package:ws_app_flutter/models/enjoy/futc.dart';
 import 'package:ws_app_flutter/models/enjoy/gallery_mall_model.dart';
@@ -198,6 +199,8 @@ class EntityFactory {
      return SingleFAQModel.fromJson(json) as T;
    } else if (T.toString() == 'AnswerListModel') {
      return AnswerListModel.fromJson(json) as T;
+   } else if (T.toString() == 'TestDriveReceive') {
+     return TestDriveReceive.fromJson(json) as T;
    }
    else {
       return json as T;

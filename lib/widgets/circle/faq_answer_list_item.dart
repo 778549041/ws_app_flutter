@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/circle/faq_list_model.dart';
 import 'package:ws_app_flutter/models/common/common_member.dart';
 import 'package:ws_app_flutter/models/common/common_model.dart';
@@ -13,11 +14,10 @@ import 'package:ws_app_flutter/widgets/global/custom_button.dart';
 import 'package:ws_app_flutter/widgets/global/custom_dialog.dart';
 import 'package:ws_app_flutter/widgets/global/round_avatar.dart';
 
-class FAQListItem extends StatelessWidget {
-  final FAQModel model;
-  final bool isDetail;
+class FAQAnswerListItem extends StatelessWidget {
+  final AnswerModel model;
 
-  FAQListItem({required this.model, this.isDetail = false});
+  FAQAnswerListItem(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +26,22 @@ class FAQListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildHeadRow(model.member_info!, false),
+          _buildHeadRow(model.member_info!),
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.only(left: 50, top: 10, bottom: 10),
             child: Text(
               model.content!,
               style: TextStyle(fontSize: 15),
             ),
           ),
           _buildBottomRow(),
-          if (!isDetail) _buildAnswerItem(),
         ],
       ),
     );
   }
 
   //头像、昵称部分
-  Widget _buildHeadRow(CommonMemberModel memberModel, bool isAnswer) {
+  Widget _buildHeadRow(CommonMemberModel memberModel) {
     String _nickName = memberModel.nickname!;
     if (_nickName.length > 11) {
       _nickName = _nickName.substring(0, 11);
@@ -137,19 +136,17 @@ class FAQListItem extends StatelessWidget {
                                   color: Color(0xFF999999), fontSize: 12),
                             ),
                           ),
-                          if (isAnswer && model.answers_accept!)
+                          if (model.is_accept!)
                             Image.asset(
-                                'assets/images/circle/faq_answer_accept.png')
-                          else if (model.is_hots != null && model.is_hots!)
-                            Image.asset('assets/images/circle/faq_hot.png'),
+                                'assets/images/circle/faq_answer_accept.png'),
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
-              //删除按钮,如果不是回答的头部且问题是自己提的并且没有采纳过任何回答
-              if (!isAnswer && model.is_oneself! && !model.answers_accept!)
+              //删除按钮,如果是自己的回答并且当前回答未被采纳
+              if (model.is_oneself! && !model.is_accept!)
                 CustomButton(
                   backgroundColor: Colors.transparent,
                   width: 50,
@@ -166,13 +163,26 @@ class FAQListItem extends StatelessWidget {
                         content: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 8.0),
-                          child: Text('是否确认删除提问',
+                          child: Text('是否确认删除回答',
                               style: TextStyle(fontSize: 16.0)),
                         ),
-                        onConfirm: () => deleteQuestion(),
+                        onConfirm: () => deleteAnswer(),
                       ),
                       barrierDismissible: false,
                     );
+                  },
+                ),
+              //如果当前提问是自己的提问并且该提问还未采纳任何回答，则采纳按钮显示
+              if (model.questionIsSelf! && !model.questionHasAccept!)
+                CustomButton(
+                  backgroundColor: Colors.transparent,
+                  width: 63,
+                  height: 23,
+                  image: 'assets/images/circle/faq_accept.png',
+                  imageH: 23,
+                  imageW: 63,
+                  onPressed: () {
+                    //TODO
                   },
                 ),
             ],
@@ -182,154 +192,61 @@ class FAQListItem extends StatelessWidget {
     );
   }
 
-  //发布时间、点赞量部分
+  //点赞部分
   Widget _buildBottomRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          model.pubtime!.substring(0, 10),
-          style: TextStyle(
-            color: Color(0xFF666666),
-            fontSize: 12,
-          ),
-        ),
-        LikeButton(
-          isLiked: model.is_praise!,
-          size: 15,
-          circleColor:
-              CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
-          bubblesColor: BubblesColor(
-            dotPrimaryColor: Color(0xff33b5e5),
-            dotSecondaryColor: Color(0xff0099cc),
-          ),
-          likeBuilder: (bool isLiked) {
-            return Image.asset(
-              isLiked
-                  ? 'assets/images/wow/news_detail_praise_yes.png'
-                  : 'assets/images/wow/new_list_praise.png',
-            );
-          },
-          likeCount: int.parse(model.praise!),
-          countBuilder: (int? count, bool isLiked, String text) {
-            return Text(
-              text,
-              style: TextStyle(color: Color(0xFF666666), fontSize: 12),
-            );
-          },
-          onTap: (isLiked) => praiseForQuestion(isLiked),
-        ),
-      ],
-    );
-  }
-
-  //回答部分
-  Widget _buildAnswerItem() {
     return Container(
-      margin: const EdgeInsets.only(top: 8),
+      margin: const EdgeInsets.only(left: 50),
       child: Column(
         children: <Widget>[
-          if (model.answers_info != null)
-            Container(
-              color: Color(0xFFECECEC),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _buildHeadRow(model.answers_info!.member_info!, true),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 50, top: 10, right: 15),
-                    child: Text(
-                      model.answers_info!.content!,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(),
-                        ),
-                        LikeButton(
-                          isLiked: model.is_praise!,
-                          size: 15,
-                          circleColor: CircleColor(
-                              start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                          bubblesColor: BubblesColor(
-                            dotPrimaryColor: Color(0xff33b5e5),
-                            dotSecondaryColor: Color(0xff0099cc),
-                          ),
-                          likeBuilder: (bool isLiked) {
-                            return Image.asset(
-                              isLiked
-                                  ? 'assets/images/wow/news_detail_praise_yes.png'
-                                  : 'assets/images/wow/new_list_praise.png',
-                            );
-                          },
-                          likeCount: int.parse(model.praise!),
-                          countBuilder:
-                              (int? count, bool isLiked, String text) {
-                            return Text(
-                              text,
-                              style: TextStyle(
-                                  color: Color(0xFF666666), fontSize: 12),
-                            );
-                          },
-                          onTap: (isLiked) => praiseForAnswer(isLiked),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(),
               ),
-            ),
+              LikeButton(
+                isLiked: model.is_praise!,
+                size: 15,
+                circleColor: CircleColor(
+                    start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                bubblesColor: BubblesColor(
+                  dotPrimaryColor: Color(0xff33b5e5),
+                  dotSecondaryColor: Color(0xff0099cc),
+                ),
+                likeBuilder: (bool isLiked) {
+                  return Image.asset(
+                    isLiked
+                        ? 'assets/images/wow/news_detail_praise_yes.png'
+                        : 'assets/images/wow/new_list_praise.png',
+                  );
+                },
+                likeCount: int.parse(model.praise!),
+                countBuilder: (int? count, bool isLiked, String text) {
+                  return Text(
+                    text,
+                    style: TextStyle(color: Color(0xFF666666), fontSize: 12),
+                  );
+                },
+                onTap: (isLiked) => praiseForAnswer(isLiked),
+              ),
+            ],
+          ),
           SizedBox(
-            height: 1,
+            height: 5,
           ),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.FAQDETAILPAGE,
-                  arguments: {'question_id': model.id!});
-            },
-            child: Container(
-              height: 30,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3),
-                color: Color(0xFFECECEC),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      '当前有${model.answers == null ? 0 : model.answers!}个回答',
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ),
-                  Image.asset(
-                    'assets/images/enjoy/enjoy_right_arrow.png',
-                    width: 9,
-                    height: 15,
-                    color: Color(0xFF1B7DF4),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          Divider(
+            color: MainAppColor.seperatorLineColor,
+            height: 0.5,
+          )
         ],
       ),
     );
   }
 
-  //删除提问
-  void deleteQuestion() async {
+  //删除回答
+  void deleteAnswer() async {
     CommonModel res = await DioManager().request<CommonModel>(
-        DioManager.POST, Api.deleteQuestionUrl,
-        params: {'question_id': model.id!});
+        DioManager.POST, Api.deleteAnswerUrl,
+        params: {'answers_id': model.id!});
     if (res.result! && res.code! == '200') {
       //TODO
     } else {
@@ -338,17 +255,16 @@ class FAQListItem extends StatelessWidget {
     }
   }
 
-  //问题点赞
-  Future<bool> praiseForQuestion(bool isLiked) async {
+  //采纳回答
+  void acceptAnswer() async {
     CommonModel res = await DioManager().request<CommonModel>(
-        DioManager.POST, Api.questionPraiseUrl,
-        params: {'question_id': model.id!});
+        DioManager.POST, Api.acceptAnswerUrl,
+        params: {'answers_id': model.id!});
     if (res.result! && res.code! == '200') {
-      return !isLiked;
+      //TODO
     } else {
       EasyLoading.showToast(res.message!,
           toastPosition: EasyLoadingToastPosition.bottom);
-      return isLiked;
     }
   }
 
@@ -356,7 +272,7 @@ class FAQListItem extends StatelessWidget {
   Future<bool> praiseForAnswer(bool isLiked) async {
     CommonModel res = await DioManager().request<CommonModel>(
         DioManager.POST, Api.answerPraiseUrl,
-        params: {'answers_id': model.answers_info!.id!});
+        params: {'answers_id': model.id!});
     if (res.result! && res.code! == '200') {
       return !isLiked;
     } else {
