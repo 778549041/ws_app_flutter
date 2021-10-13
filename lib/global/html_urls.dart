@@ -10,12 +10,12 @@ class HtmlUrls {
 //活动详情
   static const String ActivityDetailsPage =
       'htmlrouter/dist/pages/activity/detail/detail';
-
+  //我的用户试驾
+  static const MineTestDrivePage = 'drivers/#/driveList';
 
 //了解VE-1
   static const String UnderstandVEPage =
       'htmlrouter/dist/pages/member/ownerCertify/VE';
-
 
 ////暂未开放，暂不处理
 //许心愿

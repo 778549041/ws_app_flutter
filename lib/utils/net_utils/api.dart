@@ -348,6 +348,14 @@ class Api {
   static final myFavorUrl = 'm/info-collection_list.html';
   //取消收藏
   static final cancelFavorUrl = 'm/info-delete_art_collect.html';
+  //绑定车控车辆
+  static final bindCarUrl = '/m/vehiclecontrol-bind.html';
+  //绑定车控车辆信息
+  static final carInfoUrl = '/m/vehiclecontrol-bind_info.html';
+  //解绑车辆发送验证码
+  static final unbindCarSendCodeUrl = '/m/vehiclecontrol-send_sms_code.html';
+  //解绑车辆
+  static final unbindCarUrl = '/m/vehiclecontrol-unbind.html';
 
   /// 活动相关
 //扫描活动二维码

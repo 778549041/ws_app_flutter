@@ -25,7 +25,7 @@ class CircleHotMoreListController extends ListController<CircleHotData> {
             HtmlUrls.ActivityDetailsPage +
             '?is_online=${data.is_online!}&is_vote=${data.is_vote!}&activity_id=${data.huodong_id!}';
       }
-      Get.toNamed(Routes.WEBVIEW, arguments: {'url': _url, 'hasNav': 1});
+      Get.toNamed(Routes.WEBVIEW, arguments: {'url': _url, 'hasNav': true});
     } else if (data.type == 2) {
       Get.toNamed(Routes.NEWSDETAIL,
           arguments: {'article_id': data.article_id!});

@@ -23,10 +23,10 @@ class CertifyInfoController extends GetxController {
       },
       {
         "title": "车牌号码",
-        "content": _userInfo.member?.fLicPlate == null
+        "content": (_userInfo.member?.fLicPlate == null ||
+                _userInfo.member!.fLicPlate! == '')
             ? ''
-            : _userInfo.member!.fLicPlate!
-                .replaceRange(2, 6, '****'),
+            : _userInfo.member!.fLicPlate!.replaceRange(2, 6, '****'),
       },
       {
         "title": "车身颜色",
@@ -37,11 +37,14 @@ class CertifyInfoController extends GetxController {
       {
         "title": "车主姓名",
         "content":
-            _userInfo.member?.fName == null ? '' : _userInfo.member!.fName!,
+            (_userInfo.member?.fName == null || _userInfo.member!.fName! == '')
+                ? ''
+                : _userInfo.member!.fName!,
       },
       {
         "title": "认证手机",
-        "content": _userInfo.member?.fPhoneNum == null
+        "content": (_userInfo.member?.fPhoneNum == null ||
+                _userInfo.member!.fPhoneNum! == '')
             ? ''
             : _userInfo.member!.fPhoneNum!.replaceRange(3, 7, '****')
       },

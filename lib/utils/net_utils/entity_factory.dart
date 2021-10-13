@@ -31,6 +31,7 @@ import 'package:ws_app_flutter/models/login/store_model.dart';
 import 'package:ws_app_flutter/models/login/third_login_model.dart';
 import 'package:ws_app_flutter/models/login/user_info.dart';
 import 'package:ws_app_flutter/models/mine/common_question_model.dart';
+import 'package:ws_app_flutter/models/mine/control_bind_info_model.dart';
 import 'package:ws_app_flutter/models/mine/exchange_package_detail_model.dart';
 import 'package:ws_app_flutter/models/mine/exchange_package_list_model.dart';
 import 'package:ws_app_flutter/models/mine/favor.dart';
@@ -201,6 +202,8 @@ class EntityFactory {
      return AnswerListModel.fromJson(json) as T;
    } else if (T.toString() == 'TestDriveReceive') {
      return TestDriveReceive.fromJson(json) as T;
+   } else if (T.toString() == 'ControlBindInfoModel') {
+     return ControlBindInfoModel.fromJson(json) as T;
    }
    else {
       return json as T;

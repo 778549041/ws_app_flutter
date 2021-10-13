@@ -79,7 +79,7 @@ class CircleHeaderHot extends StatelessWidget {
                 HtmlUrls.ActivityDetailsPage +
                 '?is_online=${item.is_online!}&is_vote=${item.is_vote!}&activity_id=${item.huodong_id!}';
           }
-          Get.toNamed(Routes.WEBVIEW, arguments: {'url': _url, 'hasNav': 1});
+          Get.toNamed(Routes.WEBVIEW, arguments: {'url': _url, 'hasNav': true});
         } else if (item.type == 2) {
           Get.toNamed(Routes.NEWSDETAIL,
               arguments: {'article_id': item.article_id!});

@@ -30,8 +30,11 @@ import 'package:ws_app_flutter/view_models/enjoy/exchange_product_controller.dar
 import 'package:ws_app_flutter/view_models/enjoy/gallery_mall_controller.dart';
 import 'package:ws_app_flutter/view_models/enjoy/product_detail_controller.dart';
 import 'package:ws_app_flutter/view_models/circle/circle_tag_manage_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/bind_car_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/car_info_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_circle_tab_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_faq_tab_controller.dart';
+import 'package:ws_app_flutter/view_models/mine/unbind_car_controller.dart';
 import 'package:ws_app_flutter/views/car/battery_check_page.dart';
 import 'package:ws_app_flutter/views/car/car_parts.dart';
 import 'package:ws_app_flutter/views/car/config_detail.dart';
@@ -126,7 +129,9 @@ import 'package:ws_app_flutter/views/login/login_page.dart';
 import 'package:ws_app_flutter/views/login/select_intrest_page.dart';
 import 'package:ws_app_flutter/views/main/tabbar_page.dart';
 import 'package:ws_app_flutter/views/mine/add_shop_page.dart';
+import 'package:ws_app_flutter/views/mine/bind_car_page.dart';
 import 'package:ws_app_flutter/views/mine/bind_new_phone_page.dart';
+import 'package:ws_app_flutter/views/mine/car_info_page.dart';
 import 'package:ws_app_flutter/views/mine/certify_info_page.dart';
 import 'package:ws_app_flutter/views/mine/change_area_page.dart';
 import 'package:ws_app_flutter/views/mine/change_name_page.dart';
@@ -164,6 +169,7 @@ import 'package:ws_app_flutter/views/mine/phone_page.dart';
 import 'package:ws_app_flutter/views/mine/pwd_manage_page.dart';
 import 'package:ws_app_flutter/views/mine/setting_page.dart';
 import 'package:ws_app_flutter/views/mine/shop_address_list_page.dart';
+import 'package:ws_app_flutter/views/mine/uunbind_car_page.dart';
 import 'package:ws_app_flutter/views/mine/win_list_page.dart';
 import 'package:ws_app_flutter/views/scan_page.dart';
 import 'package:ws_app_flutter/views/webview_page.dart';
@@ -479,6 +485,30 @@ abstract class AppPages {
       page: () => CertifyInfoPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut<CertifyInfoController>(() => CertifyInfoController()),
+      ),
+    ),
+    //绑定车辆
+    GetPage(
+      name: Routes.BINDCAR,
+      page: () => BindCarPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<BindCarController>(() => BindCarController()),
+      ),
+    ),
+    //车辆信息
+    GetPage(
+      name: Routes.CARINFO,
+      page: () => CarInfoPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<CarInfoController>(() => CarInfoController()),
+      ),
+    ),
+    //解绑车辆
+    GetPage(
+      name: Routes.UNBINDCAR,
+      page: () => UnBindCarPage(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<UnBindCarController>(() => UnBindCarController()),
       ),
     ),
     //检查报告

@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/view_models/mine/mine_controller.dart';
 import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/widgets/car/medal_widget.dart';
@@ -109,27 +110,38 @@ class MinePage extends GetView<MineController> {
             topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                Map _item = controller.data[index];
-                if (index == 0) {
-                  return _buildHeadRow();
-                }
-                return Container(
-                  padding:
-                      const EdgeInsets.only(left: 25, right: 25, bottom: 7),
-                  color: Color(0xFFF3F3F3),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CustomCell(
-                      leftImgPath: _item['imageName'],
-                      title: _item['title'],
-                      hiddenLine: true,
-                      clickCallBack: () => controller.pushAction(index),
+            Obx(
+              () => SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  Map _item = controller.data[index];
+                  if (index == 0) {
+                    return _buildHeadRow();
+                  }
+                  return Container(
+                    padding:
+                        const EdgeInsets.only(left: 25, right: 25, bottom: 7),
+                    color: Color(0xFFF3F3F3),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CustomCell(
+                        leftImgPath: _item['imageName'],
+                        title: _item['title'],
+                        hiddenLine: true,
+                        rightWidget: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text(
+                            _item['content'] == null ? '' : _item['content'],
+                            style: TextStyle(
+                                color: MainAppColor.secondaryTextColor,
+                                fontSize: 12),
+                          ),
+                        ),
+                        clickCallBack: () => controller.pushAction(index),
+                      ),
                     ),
-                  ),
-                );
-              }, childCount: controller.data.length),
+                  );
+                }, childCount: controller.data.length),
+              ),
             ),
           ],
         ),

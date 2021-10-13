@@ -38,6 +38,9 @@ abstract class Routes {
   static const INTERAMSGPAGE = '/intera-msg-page'; //互动消息
   static const SYSTEMMSGPAGE = '/system-msg-page'; //系统消息
   static const CERTIFYINFOPAGE = '/certify-info-page'; //认证信息页面
+  static const BINDCAR = '/bind-car';//绑定车辆
+  static const CARINFO = '/car-info';//车辆信息
+  static const UNBINDCAR = '/unbind-car';//解绑车辆
   static const CHECKREPORTPAGE = '/check-report-page'; //检查报告
   static const ELWYPAGE = '/elwy-page'; //e路无忧
   static const ELWYDETAIL = '/elwy-detail';//e路无忧详情
