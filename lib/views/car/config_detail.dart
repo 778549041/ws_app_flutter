@@ -15,16 +15,25 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
       child: Obx(
         () => Column(
           children: <Widget>[
-            SizedBox(
-              height: 15,
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              child: Text(
+                '配置详情',
+                style: TextStyle(color: Color(0xFF318af5), fontSize: 21),
+              ),
             ),
-            Image.asset(
-              'assets/images/car/config_detail_title.png',
-              width: 113,
-              height: 47,
-            ),
-            _buildVE1ConfigContainer(),
-            _buildVE1SConfigContainer(),
+            _buildConfigContainer(
+                row: 0,
+                imageName: 'assets/images/car/config_detail_VE.png',
+                datas: ['出行版']),
+            _buildConfigContainer(
+                row: 1,
+                imageName: 'assets/images/car/config_detail_VE-1S.png',
+                datas: ['湃锐版', '湃锐豪华版']),
+            _buildConfigContainer(
+                row: 3,
+                imageName: 'assets/images/car/config_detail_VE-TA.png',
+                datas: ['领锐版', '领锐豪华版']),
             _buildVersionHeader(),
             Expanded(
               child: Container(
@@ -42,6 +51,7 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
                       _buildExpandableWidget('智能互联', _znhlExpandedWidget()),
                       _buildExpandableWidget(
                           '车身颜色及内饰规格', _csysExpandedWidget()),
+                      _buildBottom(),
                     ],
                   ),
                 ),
@@ -54,7 +64,8 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
   }
 
   //VE-1选择框
-  Widget _buildVE1ConfigContainer() {
+  Widget _buildConfigContainer(
+      {int? row, String? imageName, List<String>? datas}) {
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
       child: Row(
@@ -62,10 +73,13 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
           Container(
             width: 75,
             height: 40,
-            color: MainAppColor.mainBlueBgColor,
+            decoration: BoxDecoration(
+              border:
+                  Border.all(color: MainAppColor.mainBlueBgColor, width: 0.5),
+            ),
             child: Center(
               child: Image.asset(
-                'assets/images/car/config_detail_VE-1.png',
+                imageName!,
                 width: 43,
                 height: 12,
               ),
@@ -82,50 +96,9 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildCheckboxRow(0, '出行版'),
-                _buildCheckboxRow(1, '舒适版'),
-                _buildCheckboxRow(2, '豪华版'),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  //VE-1S选择框
-  Widget _buildVE1SConfigContainer() {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 75,
-            height: 40,
-            color: MainAppColor.mainBlueBgColor,
-            child: Center(
-              child: Image.asset(
-                'assets/images/car/config_detail_VE-1S.png',
-                width: 43,
-                height: 12,
-              ),
-            ),
-          ),
-          Container(
-            width: Get.width - 105,
-            margin: const EdgeInsets.only(left: 10),
-            height: 40,
-            decoration: BoxDecoration(
-              border:
-                  Border.all(color: MainAppColor.mainBlueBgColor, width: 1.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildCheckboxRow(3, '湃锐版'),
-                _buildCheckboxRow(4, '湃锐豪华版'),
-              ],
+              children: List.generate(datas!.length,
+                      (index) => _buildCheckboxRow(index + row!, datas[index]))
+                  .toList(),
             ),
           ),
         ],
@@ -292,7 +265,7 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
           _buildTableCellContent(controller.convertTypeToVersionCKG(item)));
       cells2.add(_buildTableCellContent('2610'));
       cells3.add(_buildTableCellContent('1535/1540'));
-      cells4.add(_buildTableCellContent('215/55 R17 94V'));
+      cells4.add(_buildTableCellContent(controller.convertTypeToVersionLTGG(item)));
       cells5
           .add(_buildTableCellContent(controller.convertTypeToVersionLG(item)));
       cells6.add(_buildTableCellContent('5.6'));
@@ -361,19 +334,20 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
     cells12.add(_buildTableCellContent('0-50km/h加速时间（s）'));
     cells13.add(_buildTableCellContent('NEDC综合工况续航里程（km）'));
     for (var i = 0; i < controller.selectTypes.length; i++) {
+      int item = controller.selectTypes[i];
       cells1.add(_buildTableCellContent('永磁同步电机'));
       cells2.add(_buildTableCellContent('120'));
       cells3.add(_buildTableCellContent('280'));
       cells4.add(_buildTableCellContent('三元锂离子电池'));
       cells5.add(_buildTableCellContent('61.3'));
-      cells6.add(_buildTableCellContent('≤14'));
+      cells6.add(_buildTableCellContent(controller.convertTypeToVersionBGLHD(item)));
       cells7.add(_buildTableCellContent('液冷'));
       cells8.add(_buildTableCellContent('IP67'));
-      cells9.add(_buildTableCellContent('约30'));
+      cells9.add(_buildTableCellContent('约40'));
       cells10.add(_buildTableCellContent('约10.5'));
       cells11.add(_buildTableCellContent('140'));
       cells12.add(_buildTableCellContent('≤4'));
-      cells13.add(_buildTableCellContent('470'));
+      cells13.add(_buildTableCellContent(controller.convertTypeToVersionXHLC(item)));
     }
     return Table(
       border: TableBorder.all(color: MainAppColor.seperatorLineColor),
@@ -488,61 +462,61 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
     for (var i = 0; i < controller.selectTypes.length; i++) {
       int item = controller.selectTypes[i];
       cells1.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells2.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells3.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells4.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells5.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells6.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells7.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells8.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells9.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells10.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells11.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells12.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells13.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells14.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells15.add(
           _buildTableCellContent(controller.convertTypeToVersionLDAndQL(item)));
       cells16.add(
           _buildTableCellContent(controller.convertTypeToVersionHSSXT(item)));
       cells17.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells18.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells19.add(
           _buildTableCellContent(controller.convertTypeToVersionLDAndQL(item)));
       cells20.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells21.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells22.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells23.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells24.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells25.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells26.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells27.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells28.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
     }
     return Table(
       border: TableBorder.all(color: MainAppColor.seperatorLineColor),
@@ -678,9 +652,9 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
       cells5.add(
           _buildTableCellContent(controller.convertTypeToVersionWG4WG5(item)));
       cells6.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells7.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells8.add(
           _buildTableCellContent(controller.convertTypeToVersionWG8910(item)));
       cells9.add(
@@ -690,23 +664,23 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
       cells11.add(_buildTableCellContent(
           controller.convertTypeToVersionWG11NS16(item)));
       cells12.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells13.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells14.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells15.add(
           _buildTableCellContent(controller.convertTypeToVersionWG15(item)));
       cells16.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells17.add(
           _buildTableCellContent(controller.convertTypeToVersionWG17(item)));
       cells18.add(
           _buildTableCellContent(controller.convertTypeToVersionWG18(item)));
       cells19.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells20.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells21.add(_buildTableCellContent(
           controller.convertTypeToVersionWG212223(item)));
       cells22.add(_buildTableCellContent(
@@ -829,43 +803,43 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
       cells2.add(
           _buildTableCellContent(controller.convertTypeToVersionWG1NS2(item)));
       cells3.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells4.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells5.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells6.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells7.add(
           _buildTableCellContent(controller.convertTypeToVersionNS7(item)));
       cells8.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells9.add(
           _buildTableCellContent(controller.convertTypeToVersionNS9(item)));
       cells10.add(
           _buildTableCellContent(controller.convertTypeToVersionNS10(item)));
       cells11.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells12.add(
           _buildTableCellContent(controller.convertTypeToVersionNS12(item)));
       cells13.add(
           _buildTableCellContent(controller.convertTypeToVersionWG3NS13(item)));
       cells14.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells15.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells16.add(_buildTableCellContent(
           controller.convertTypeToVersionWG11NS16(item)));
       cells17.add(
           _buildTableCellContent(controller.convertTypeToVersionNS17(item)));
       cells18.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells19.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells20.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells21.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
     }
     return Table(
       border: TableBorder.all(color: MainAppColor.seperatorLineColor),
@@ -967,33 +941,33 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
     for (var i = 0; i < controller.selectTypes.length; i++) {
       int item = controller.selectTypes[i];
       cells1.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells2.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells3.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells4.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells5.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells6.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells7.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells8.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells9.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells10.add(
           _buildTableCellContent(controller.convertTypeToVersionSSBL10(item)));
       cells11.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells12.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells13.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells14.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
     }
     return Table(
       border: TableBorder.all(color: MainAppColor.seperatorLineColor),
@@ -1058,17 +1032,17 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
     for (var i = 0; i < controller.selectTypes.length; i++) {
       int item = controller.selectTypes[i];
       cells1.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells2.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells3.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells4.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells5.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
       cells6.add(_buildTableCellContent(
-          controller.convertTypeToVersionCommonYuan(item)));
+          controller.convertTypeToVersionCommonYuan()));
     }
     return Table(
       border: TableBorder.all(color: MainAppColor.seperatorLineColor),
@@ -1099,5 +1073,18 @@ class ConfigDetailPage extends GetView<ConfigDetailController> {
   //车身颜色及内饰规格
   Widget _csysExpandedWidget() {
     return Image.asset('assets/images/car/config_detail_color.jpg');
+  }
+
+  //底部注释
+  Widget _buildBottom() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      child: Text(
+        '备注：“●” 标准配置；“—” 无此配置；\n双色车身版本另付2,000元，格陵兰白车身版本另付2,000元。\n※ 因车辆使用环境、充电设施不同，充电时间可能有差异。\n※ VE-1 / VE-1 S系列 NEDC综合工况续航里程470km 、VE-1 TA系列 NEDC综合工况续航里程480km 数据来源于国家机动车产品质量监督检验中心(上海)\n声明：本产品样本的全部内容，请以实车为准。\n广汽本田汽车有限公司在法律范围内保留最终解释权和修改权。',
+        style: TextStyle(
+          fontSize: 13,
+        ),
+      ),
+    );
   }
 }

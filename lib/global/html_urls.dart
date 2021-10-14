@@ -25,11 +25,11 @@ class HtmlUrls {
 //360看车
   static const String LookCarPage = 'htmlrouter/dist/pages/car/lookcar/index';
 
-//资讯搜索
-  static const String NewsSearchPage =
-      'htmlrouter/dist/pages/information/search/search?searchkey=';
+// //资讯搜索
+//   static const String NewsSearchPage =
+//       'htmlrouter/dist/pages/information/search/search?searchkey=';
 
-//活动搜索
-  static const String ActivitySearchPage =
-      'htmlrouter/dist/pages/activity/search/search?searchkey=';
+// //活动搜索
+//   static const String ActivitySearchPage =
+//       'htmlrouter/dist/pages/activity/search/search?searchkey=';
 }

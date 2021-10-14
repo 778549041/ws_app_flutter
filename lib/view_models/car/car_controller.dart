@@ -1,7 +1,8 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_picker/flutter_picker.dart';
+import 'package:flutter_pickers/pickers.dart';
+import 'package:flutter_pickers/style/picker_style.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +28,7 @@ class CarController extends BaseController {
   var currentIndex = 0.obs;
   var carImageList = <String>[].obs;
   var carColorList = [].obs;
-  List<String> _carConfigImageList = <String>[];
+  List<String> _carConfigNameList = <String>[];
   late SwiperController swiperController;
   late SwiperController colorSwiperController;
   LocationManager locationManager = LocationManager();
@@ -99,73 +100,18 @@ class CarController extends BaseController {
     carConfigList.value = await DioManager()
         .request<CarConfigListModel>(DioManager.POST, Api.carConfigUrl);
     currentConfig.value = carConfigList.value.data![0];
-    _carConfigImageList.clear();
+    _carConfigNameList.clear();
     carConfigList.value.data!.forEach((element) {
-      _carConfigImageList.add(_selectConfigImage(element.conf!));
+      _carConfigNameList.add(element.version! + ' | ' + element.conf!);
     });
     _matchingCarImageAndColorData();
   }
 
-  String _selectConfigImage(String config) {
-    late String _imageName;
-    if (config == "出行版") {
-      _imageName = "assets/images/car/select_ve_plus_cx.png";
-    } else if (config == "舒适版") {
-      _imageName = "assets/images/car/select_ve_plus_ss.png";
-    } else if (config == "豪华版") {
-      _imageName = "assets/images/car/select_ve_plus_hh.png";
-    } else if (config == "湃锐版") {
-      _imageName = "assets/images/car/select_ves_plus_pr.png";
-    } else if (config == "湃锐豪华版") {
-      _imageName = "assets/images/car/select_ves_plus_prhh.png";
-    }
-    return _imageName;
-  }
-
   //根据车型匹配车辆图片和颜色数据
   void _matchingCarImageAndColorData() {
-    String _version = currentConfig.value.version!;
+    String _version =
+        currentConfig.value.version!.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
     if (_version == "VE-1") {
-      carImageList.assignAll([
-        "assets/images/car/car_ve_white_black.png",
-        "assets/images/car/car_ve_red.png",
-        "assets/images/car/car_ve_blue.png",
-        "assets/images/car/car_ve_white.png",
-        "assets/images/car/car_ve_black.png",
-        "assets/images/car/car_ve_red_black.png",
-        "assets/images/car/car_ve_blue_black.png"
-      ]);
-      carColorList.assignAll([
-        {
-          "name": "酷黑•塔夫绸白",
-          "colors": [Color(0xFF000000), Color(0xFFF3F3F3)]
-        },
-        {
-          "name": "瑞丽红",
-          "colors": [Color(0xFFC0161F), Color(0xFFC0161F)]
-        },
-        {
-          "name": "天空蓝",
-          "colors": [Color(0xFF8eb3cf), Color(0xFF8eb3cf)]
-        },
-        {
-          "name": "塔夫绸白",
-          "colors": [Color(0xFFF3F3F3), Color(0xFFF3F3F3)]
-        },
-        {
-          "name": "玫瑰黑",
-          "colors": [Color(0xFF000000), Color(0xFF000000)]
-        },
-        {
-          "name": "酷黑•瑞丽红",
-          "colors": [Color(0xFF000000), Color(0xFFC0161F)]
-        },
-        {
-          "name": "酷黑•天空蓝",
-          "colors": [Color(0xFF000000), Color(0xFF8eb3cf)]
-        }
-      ]);
-    } else if (_version == "VE-1+") {
       carImageList.assignAll([
         "assets/images/car/car_ve_plus_white_black.png",
         "assets/images/car/car_ve_plus_red.png",
@@ -205,7 +151,7 @@ class CarController extends BaseController {
           "colors": [Color(0xFF000000), Color(0xFF8eb3cf)]
         }
       ]);
-    } else if (_version == "VE-1S+") {
+    } else if (_version == "VE-1S") {
       carImageList.assignAll([
         "assets/images/car/car_ves_plus_white_black.png",
         "assets/images/car/car_ves_plus_red.png",
@@ -245,42 +191,89 @@ class CarController extends BaseController {
           "colors": [Color(0xFF000000), Color(0xFFE15B09)]
         }
       ]);
+    } else if (_version == "VE-1TA") {
+      carImageList.assignAll([
+        "assets/images/car/science_white.png",
+        "assets/images/car/science_black.png",
+        "assets/images/car/science_red.png",
+        "assets/images/car/science_green.png",
+        "assets/images/car/science_bluewhite.png",
+        "assets/images/car/science_blackbluewhite.png",
+        "assets/images/car/science_blackgreen.png",
+        "assets/images/car/science_blackwhite.png",
+        "assets/images/car/science_blackred.png",
+      ]);
+      carColorList.assignAll([
+        {
+          "name": "塔夫绸白",
+          "colors": [Color(0xFFF3F3F3), Color(0xFFF3F3F3)]
+        },
+        {
+          "name": "玫瑰黑",
+          "colors": [Color(0xFF000000), Color(0xFF000000)]
+        },
+        {
+          "name": "瑞丽红",
+          "colors": [Color(0xFFC0161F), Color(0xFFC0161F)]
+        },
+        {
+          "name": "碧光翠",
+          "colors": [Color(0xFFcadad0), Color(0xFFcadad0)]
+        },
+        {
+          "name": "格陵兰白",
+          "colors": [Color(0xFFb4cdd6), Color(0xFFb4cdd6)]
+        },
+        {
+          "name": "酷黑•格陵兰白",
+          "colors": [Color(0xFF000000), Color(0xFFb4cdd6)]
+        },
+        {
+          "name": "酷黑•碧光翠",
+          "colors": [Color(0xFF000000), Color(0xFFcadad0)]
+        },
+        {
+          "name": "酷黑•塔夫绸白",
+          "colors": [Color(0xFF000000), Color(0xFFF3F3F3)]
+        },
+        {
+          "name": "酷黑•瑞丽红",
+          "colors": [Color(0xFF000000), Color(0xFFC0161F)]
+        },
+      ]);
+    }
+    if (currentIndex.value > carImageList.length - 1) {
+      currentIndex.value = 0;
     }
   }
 
   //选择车辆配置
   void selectCarConfig() {
-    Picker(
-      adapter: PickerDataAdapter(
-          data: List.generate(
-        _carConfigImageList.length,
-        (index) => PickerItem(
-            text: Image.asset(
-          _carConfigImageList[index],
-          scale: 2.0,
-        )),
-      )),
-      selecteds: [carConfigList.value.data!.indexOf(currentConfig.value)],
-      itemExtent: 35,
-      cancelText: '取消',
-      cancelTextStyle: TextStyle(color: Colors.black, fontSize: 15),
-      confirmText: '确认',
-      confirmTextStyle: TextStyle(color: Colors.black, fontSize: 15),
-      title: Text(
-        '请选择车辆配置',
-        style: TextStyle(color: Color(0xFFADADAD), fontSize: 15),
+    Pickers.showSinglePicker(
+      Get.context!,
+      data: _carConfigNameList,
+      selectData:
+          currentConfig.value.version! + ' | ' + currentConfig.value.conf!,
+      pickerStyle: PickerStyle(
+        showTitleBar: true,
+        title: Center(
+          child: Text(
+            '请选择车辆配置',
+            style: TextStyle(color: Color(0xFFADADAD), fontSize: 15),
+          ),
+        ),
       ),
-      onConfirm: (picker, selecteds) {
-        currentConfig.value = carConfigList.value.data![selecteds[0]];
+      onConfirm: (data, position) {
+        currentConfig.value = carConfigList.value.data![position];
         _matchingCarImageAndColorData();
       },
-    ).showModal(Get.context!);
+    );
   }
 
   //切换车图
   void switchCarImageAction(bool isRight) {
     if (isRight) {
-      if (currentIndex.value == 6) {
+      if (currentIndex.value == carImageList.length - 1) {
         currentIndex.value = 0;
       } else {
         currentIndex.value++;
@@ -289,7 +282,7 @@ class CarController extends BaseController {
       colorSwiperController.next();
     } else {
       if (currentIndex.value == 0) {
-        currentIndex.value = 6;
+        currentIndex.value = carImageList.length - 1;
       } else {
         currentIndex.value--;
       }
@@ -314,16 +307,16 @@ class CarController extends BaseController {
       late int _type;
       if (currentConfig.value.conf == "出行版") {
         _type = 0;
-      } else if (currentConfig.value.conf == "舒适版") {
-        _type = 1;
-      } else if (currentConfig.value.conf == "豪华版") {
-        _type = 2;
       } else if (currentConfig.value.conf == "湃锐版") {
-        _type = 3;
+        _type = 1;
       } else if (currentConfig.value.conf == "湃锐豪华版") {
+        _type = 2;
+      } else if (currentConfig.value.conf == "领锐版") {
+        _type = 3;
+      } else if (currentConfig.value.conf == "领锐豪华版") {
         _type = 4;
       }
-      Get.toNamed(Routes.CONFIGDETAIL,arguments: {'type':_type});
+      Get.toNamed(Routes.CONFIGDETAIL, arguments: {'type': _type});
     } else if (index == 1002) {
       //预约试驾
       Get.toNamed(Routes.TESTDRIVE);

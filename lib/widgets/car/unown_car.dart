@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
+import 'package:ws_app_flutter/global/color_key.dart';
 import 'package:ws_app_flutter/models/car/near_store_model.dart';
 import 'package:ws_app_flutter/view_models/car/car_controller.dart';
 import 'package:ws_app_flutter/widgets/global/custom_button.dart';
@@ -127,9 +128,13 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                   margin: const EdgeInsets.only(right: 2),
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: _item['colors']),
-                      border: index == 3
-                          ? Border.all(color: Colors.black, width: 0.5)
-                          : null),
+                      border: controller.carColorList.length == 9
+                          ? index == 0
+                              ? Border.all(color: Colors.black, width: 0.5)
+                              : null
+                          : index == 3
+                              ? Border.all(color: Colors.black, width: 0.5)
+                              : null),
                 );
               })),
         ),
@@ -170,11 +175,21 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                 ),
                 Obx(() => Row(
                       children: <Widget>[
-                        if (controller.currentConfig.value.imageName != null)
-                          Image.asset(
-                            controller.currentConfig.value.imageName!,
-                            scale: 2,
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                '${controller.currentConfig.value.version} | ',
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: controller.currentConfig.value.conf,
+                                style: TextStyle(
+                                    color: MainAppColor.mainBlueBgColor,
+                                    fontSize: 13),
+                              ),
+                            ],
                           ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: Image.asset(
@@ -277,8 +292,7 @@ class UnOwnCarWidgetState extends State<UnOwnCarWidget>
                         : '定位失败，点击重新定位',
                     fontSize: 12,
                     titleColor: Color(0xFFA0A0A0),
-                    onPressed: () =>
-                        controller.refreshLocation(true),
+                    onPressed: () => controller.refreshLocation(true),
                   )),
             ],
           ),

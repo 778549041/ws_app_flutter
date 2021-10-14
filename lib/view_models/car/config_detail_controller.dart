@@ -31,13 +31,13 @@ class ConfigDetailController extends GetxController {
     if (index == 0) {
       content = '出行版';
     } else if (index == 1) {
-      content = '舒适版';
-    } else if (index == 2) {
-      content = '豪华版';
-    } else if (index == 3) {
       content = '湃锐版';
-    } else if (index == 4) {
+    } else if (index == 2) {
       content = '湃锐豪华版';
+    } else if (index == 3) {
+      content = '领锐版';
+    } else if (index == 4) {
+      content = '领锐豪华版';
     }
     return content;
   }
@@ -48,13 +48,13 @@ class ConfigDetailController extends GetxController {
     if (index == 0) {
       content = '15.98万元';
     } else if (index == 1) {
-      content = '16.98万元';
-    } else if (index == 2) {
-      content = '17.98万元';
-    } else if (index == 3) {
       content = '17.38万元';
-    } else if (index == 4) {
+    } else if (index == 2) {
       content = '18.38万元';
+    } else if (index == 3) {
+      content = '17.48万元';
+    } else if (index == 4) {
+      content = '18.48万元';
     }
     return content;
   }
@@ -62,10 +62,23 @@ class ConfigDetailController extends GetxController {
   //长宽高
   String convertTypeToVersionCKG(int index) {
     String content = '';
-    if (index == 0 || index == 1 || index == 2) {
+    if (index == 0) {
       content = '4308x1773x1625';
-    }else if (index == 3 || index == 4) {
+    } else if (index == 1 || index == 2) {
       content = '4306x1773x1625';
+    } else if (index == 3 || index == 4) {
+      content = '4317x1789x1625';
+    }
+    return content;
+  }
+
+  //轮胎规格
+  String convertTypeToVersionLTGG(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '215/55 R17 94V';
+    }else if (index == 3 || index == 4) {
+      content = '215/55 R18 99V';
     }
     return content;
   }
@@ -73,10 +86,12 @@ class ConfigDetailController extends GetxController {
   //轮辋尺寸
   String convertTypeToVersionLG(int index) {
     String content = '';
-    if (index == 0 || index == 1 || index == 2) {
-      content = '17×7.5J 熏灰铝合金轮毂';
-    }else if (index == 3 || index == 4) {
-      content = '17×7.5J 运动切削铝合金轮毂';
+    if (index == 0) {
+      content = '17英寸熏灰铝合金轮毂';
+    } else if (index == 1 || index == 2) {
+      content = '17英寸运动切削铝合金轮毂';
+    } else if (index == 3 || index == 4) {
+      content = '18英寸高性能铝合金轮毂';
     }
     return content;
   }
@@ -87,13 +102,35 @@ class ConfigDetailController extends GetxController {
     if (index == 0) {
       content = '1547';
     } else if (index == 1) {
-      content = '1557';
-    } else if (index == 2) {
-      content = '1593';
-    } else if (index == 3) {
       content = '1559';
-    } else if (index == 4) {
+    } else if (index == 2) {
       content = '1594';
+    } else if (index == 3) {
+      content = '1574';
+    } else if (index == 4) {
+      content = '1609';
+    }
+    return content;
+  }
+
+  //百公里耗电
+  String convertTypeToVersionBGLHD(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '≤14';
+    } else if (index == 3 || index == 4) {
+      content = '≤13.7';
+    }
+    return content;
+  }
+
+  //续航里程
+  String convertTypeToVersionXHLC(int index) {
+    String content = '';
+    if (index == 0 || index == 1 || index == 2) {
+      content = '470';
+    } else if (index == 3 || index == 4) {
+      content = '480';
     }
     return content;
   }
@@ -167,7 +204,7 @@ class ConfigDetailController extends GetxController {
   }
 
   //前大灯自动延时熄灭（锁车后）
-  String convertTypeToVersionCommonYuan(int index) {
+  String convertTypeToVersionCommonYuan() {
     return '●';
   }
 
