@@ -284,6 +284,8 @@ PODS:
   - webview_flutter (0.0.1):
     - Flutter
     - GGWkCookie
+    - WebViewJavascriptBridge
+  - WebViewJavascriptBridge (6.0.3)
 
 DEPENDENCIES:
   - amap_flutter_location (from `.symlinks/plugins/amap_flutter_location/ios`)
@@ -338,6 +340,7 @@ SPEC REPOS:
     - SDWebImageWebPCoder
     - SwiftyGif
     - TXIMSDK_Plus_iOS
+    - WebViewJavascriptBridge
 
 EXTERNAL SOURCES:
   amap_flutter_location:
@@ -448,7 +451,8 @@ SPEC CHECKSUMS:
   video_compress: fce97e4fb1dfd88175aa07d2ffc8a2f297f87fbe
   video_player: ecd305f42e9044793efd34846e1ce64c31ea6fcb
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
-  webview_flutter: d4754e5525d470a834cd48433acdeec73a5cb313
+  webview_flutter: ab0c0a5c070043d4860d6ddcb833864d7637f48d
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
 PODFILE CHECKSUM: 3dffd8c48b531d21ec0ec153c22dc8e3a6223bc9
 

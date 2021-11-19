@@ -86,6 +86,7 @@ abstract class RefreshListController<T> extends ListController<T> {
 
   @override
   void onClose() {
+    refreshController.dispose();
     super.onClose();
   }
 }

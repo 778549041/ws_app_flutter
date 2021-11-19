@@ -19,7 +19,9 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
+import io.flutter.Log;
 import io.flutter.plugin.common.BinaryMessenger;
+import io.flutter.plugin.common.JSONUtil;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -28,6 +30,15 @@ import io.flutter.plugin.platform.PlatformView;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+
+import com.github.lzyzsd.jsbridge.BridgeHandler;
+import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
+import com.github.lzyzsd.jsbridge.CallBackFunction;
+import com.github.lzyzsd.jsbridge.BridgeWebView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FlutterWebView implements PlatformView, MethodCallHandler {
   private static final String JS_CHANNEL_NAMES_FIELD = "javascriptChannelNames";
@@ -132,8 +143,8 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     }
     if (params.containsKey("initialUrl")) {
       String url = (String) params.get("initialUrl");
-      if (params.containsKey("sid")) {
-          String sid = (String) params.get("sid");
+      if (params.containsKey("cookies")) {
+          String sid = (String) params.get("cookies").get("sid");
           CookieManager cookieManager = CookieManager.getInstance();
           cookieManager.setAcceptCookie(true);
           cookieManager.removeSessionCookie();// 移除
@@ -255,6 +266,12 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
         break;
       case "getScrollY":
         getScrollY(result);
+        break;
+      case "registerHandler":
+        registerHandler(methodCall);
+        break;
+      case "callHandler":
+        callHandler(methodCall);
         break;
       default:
         result.notImplemented();
@@ -450,6 +467,65 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   private void updateUserAgent(String userAgent) {
     webView.getSettings().setUserAgentString(userAgent);
   }
+
+  private void registerHandler(MethodCall call) {
+        final Map<String, Object> map = (Map<String, Object>) call.arguments;
+        final String name = (String) map.get("name");
+        if (name != null) {
+            webView.registerHandler(name, new BridgeHandler() {
+                @Override
+                public void handler(String data, CallBackFunction function) {
+                    Object response = map.get("response");
+                    if (response != null) {
+                        if (response instanceof HashMap) {
+                            JSONObject jsonObject = new JSONObject((Map) response);
+                            function.onCallBack(jsonObject.toString());
+                        } else {
+                            function.onCallBack((String) response);
+                        }
+                    }
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("name", name);
+                        jsonObject.put("data", data);
+                        methodChannel.invokeMethod("bridgeCallBack", jsonObject.toString());
+                    } catch (JSONException e) {
+                        Log.e("JsBridge", "json error");
+                    }
+                }
+            });
+        }
+    }
+
+    private void callHandler(MethodCall call) {
+        final Map<String, Object> map = (Map<String, Object>) call.arguments;
+        final String name = (String) map.get("name");
+        if (name != null) {
+            Object data = map.get("data");
+            String dataStr = "";
+            if (data != null) {
+                if (data instanceof Map) {
+                    JSONObject jsonObject = new JSONObject((Map) data);
+                    dataStr = jsonObject.toString();
+                } else {
+                    dataStr = (String) data;
+                }
+            }
+            webView.callHandler(name, dataStr, new CallBackFunction() {
+                @Override
+                public void onCallBack(String data) {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("name", name);
+                        jsonObject.put("data", data);
+                        methodChannel.invokeMethod("bridgeCallBack", jsonObject.toString());
+                    } catch (JSONException e) {
+                        Log.e("JsBridge", "json error");
+                    }
+                }
+            });
+        }
+    }
 
   @Override
   public void dispose() {

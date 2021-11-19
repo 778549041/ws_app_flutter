@@ -16,6 +16,7 @@ class NetConnectController extends BaseController {
   var currentIndex = 0.obs;
   var isConnect = true.obs;
   var webTitle = ''.obs;
+  var overlayStyle = SystemUiOverlayStyle.light.obs;
   WebViewController? webViewController;
 
   //检查网络状态
@@ -43,13 +44,6 @@ class NetConnectController extends BaseController {
         .toString());
   }
 
-  //flutter调用js事件
-  Future<void> _evaluateJavascript() async {
-    webViewController?.evaluateJavascript('callJS(\'visible\');').then((value) {
-      LogUtil.d(value);
-    });
-  }
-
   //支付跳转
   Future<void> _openPay(String url) async {
     LogUtil.d("payurl:" + url);
@@ -72,6 +66,25 @@ class NetConnectController extends BaseController {
         });
     channels.add(toastChannel);
     return channels;
+  }
+
+  //js与flutter的交互(通过bridge的方式)
+  void loadAllInteraction() {
+    webViewController?.registerHandler('back', response: null,
+        onCallBack: (callBackData) {
+      goBack();
+    });
+    webViewController?.registerHandler('setStatusBarLight', response: null,
+        onCallBack: (callBackData) {
+      bool isLight = callBackData.data['isLight'];
+      overlayStyle.value =
+          isLight ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
+    });
+    webViewController?.registerHandler('getMemberId',
+        response: Get.find<UserController>().userInfo.value.member?.memberId,
+        onCallBack: (callBackData) {});
+    webViewController?.callHandler('uploadAudioSuccess',
+        data: {}, onCallBack: (callBackData) {});
   }
 
   //返回上一层

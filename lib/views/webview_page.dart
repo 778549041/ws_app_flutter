@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ws_app_flutter/utils/common/common_util.dart';
+import 'package:ws_app_flutter/view_models/mine/user_controller.dart';
 import 'package:ws_app_flutter/view_models/net/net_controller.dart';
 import 'package:get/get.dart';
 import 'package:ws_app_flutter/views/base_page.dart';
@@ -57,23 +58,24 @@ class WebViewPage extends GetView<NetConnectController> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      showAppBar: hasNav ?? false,
-      titleWidget: title != null
-          ? Text(
-              title!,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white, fontSize: 22),
-            )
-          : Obx(() => Text(
+    return Obx(
+      () => BasePage(
+        showAppBar: hasNav ?? false,
+        overlayStyle: controller.overlayStyle.value,
+        titleWidget: title != null
+            ? Text(
+                title!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white, fontSize: 22),
+              )
+            : Text(
                 controller.webTitle.value,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white, fontSize: 22),
-              )),
-      child: Obx(
-        () => IndexedStack(
+              ),
+        child: IndexedStack(
           index: controller.currentIndex.value,
           children: <Widget>[
             Image.asset(
@@ -83,7 +85,11 @@ class WebViewPage extends GetView<NetConnectController> {
               height: double.infinity,
             ),
             WebView(
-              sid: CommonUtil.sid(),
+              cookies: {
+                'sid': CommonUtil.sid(),
+                'member_id':
+                    Get.find<UserController>().userInfo.value.member?.memberId
+              },
               //是否允许js交互事件
               javascriptMode: JavascriptMode.unrestricted,
               initialUrl: url,
@@ -91,6 +97,7 @@ class WebViewPage extends GetView<NetConnectController> {
               onWebViewCreated: (WebViewController webViewController) {
                 controller.webViewController = webViewController;
                 // controller.loadWebPage(url: url, localHtml: localHtml);
+                controller.loadAllInteraction();
               },
               //交互事件集合
               javascriptChannels: controller.loadJavascriptChannel(),

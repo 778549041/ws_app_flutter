@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,8 @@ import '../platform_interface.dart';
 
 /// A [WebViewPlatformController] that uses a method channel to control the webview.
 class MethodChannelWebViewPlatform implements WebViewPlatformController {
+  Map<String, BridgeCallBack> _bridgeCallBackMap = Map();
+
   /// Constructs an instance that will listen for webviews broadcasting to the
   /// given [id], using the given [WebViewPlatformCallbacksHandler].
   MethodChannelWebViewPlatform(int id, this._platformCallbacksHandler)
@@ -64,6 +67,16 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
                   ),
           ),
         );
+        return null;
+      case 'bridgeCallBack':
+        Map<String, dynamic> map = jsonDecode(call.arguments);
+        String? name = map['name'];
+        if (name != null) {
+          BridgeCallBack? callBack = _bridgeCallBackMap[name];
+          if (callBack != null) {
+            callBack(BridgeData(name, map['data']));
+          }
+        }
         return null;
     }
 
@@ -205,7 +218,7 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
     bool usesHybridComposition = false,
   }) {
     return <String, dynamic>{
-      'sid': creationParams.sid,
+      'cookies': creationParams.cookies,
       'initialUrl': creationParams.initialUrl,
       'settings': _webSettingsToMap(creationParams.webSettings),
       'javascriptChannelNames': creationParams.javascriptChannelNames.toList(),
@@ -213,5 +226,24 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
       'autoMediaPlaybackPolicy': creationParams.autoMediaPlaybackPolicy.index,
       'usesHybridComposition': usesHybridComposition,
     };
+  }
+
+  @override
+  Future<void> callHandler(String name,
+      {dynamic data, BridgeCallBack? onCallBack}) {
+    if (onCallBack != null) {
+      _bridgeCallBackMap[name] = onCallBack;
+    }
+    return _channel.invokeMethod("callHandler", {"name": name, "data": data});
+  }
+
+  @override
+  Future<void> registerHandler(String name,
+      {dynamic response, BridgeCallBack? onCallBack}) {
+    if (onCallBack != null) {
+      _bridgeCallBackMap[name] = onCallBack;
+    }
+    return _channel
+        .invokeMethod("registerHandler", {"name": name, "response": response});
   }
 }

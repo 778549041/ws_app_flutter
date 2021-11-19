@@ -1,0 +1,43 @@
+PODS:
+  - Flutter (1.0.0)
+  - GGWkCookie (0.1.1)
+  - integration_test (0.0.1):
+    - Flutter
+  - OCMock (3.5)
+  - webview_flutter (0.0.1):
+    - Flutter
+    - GGWkCookie
+    - WebViewJavascriptBridge
+  - WebViewJavascriptBridge (6.0.3)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - OCMock (= 3.5)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - GGWkCookie
+    - OCMock
+    - WebViewJavascriptBridge
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  GGWkCookie: 78386a4f50e44f43ab7a084b1aeb872e91c2fa14
+  integration_test: 7db6d89f336f671dcbc7563ee27a5b08f6f8aee1
+  OCMock: 4ab4577fc941af31f4a0398f6e7e230cf21fc72a
+  webview_flutter: ab0c0a5c070043d4860d6ddcb833864d7637f48d
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
+
+PODFILE CHECKSUM: 3af2c82f89a7b08f08057a4e5cca134d9de4f74d
+
+COCOAPODS: 1.10.1

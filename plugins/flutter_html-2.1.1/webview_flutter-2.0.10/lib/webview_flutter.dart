@@ -216,7 +216,7 @@ class WebView extends StatefulWidget {
   const WebView({
     Key? key,
     this.onWebViewCreated,
-    this.sid,
+    this.cookies,
     this.initialUrl,
     this.javascriptMode = JavascriptMode.disabled,
     this.javascriptChannels,
@@ -284,7 +284,7 @@ class WebView extends StatefulWidget {
   /// were not claimed by any other gesture recognizer.
   final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
 
-  final String? sid;
+  final Map? cookies;
 
   /// The initial URL to load.
   final String? initialUrl;
@@ -477,7 +477,7 @@ class _WebViewState extends State<WebView> {
 
 CreationParams _creationParamsfromWidget(WebView widget) {
   return CreationParams(
-    sid: widget.sid,
+    cookies: widget.cookies,
     initialUrl: widget.initialUrl,
     webSettings: _webSettingsFromWidget(widget),
     javascriptChannelNames: _extractChannelNames(widget.javascriptChannels),
@@ -804,6 +804,20 @@ class WebViewController {
   /// Scroll position is measured from top.
   Future<int> getScrollY() {
     return _webViewPlatformController.getScrollY();
+  }
+
+  // ignore: public_member_api_docs
+  Future<void> registerHandler(String name,
+      {dynamic response, BridgeCallBack? onCallBack}) {
+    return _webViewPlatformController.registerHandler(name,
+        response: response, onCallBack: onCallBack);
+  }
+
+  // ignore: public_member_api_docs
+  Future<void> callHandler(String name,
+      {dynamic data, BridgeCallBack? onCallBack}) {
+    return _webViewPlatformController.callHandler(name,
+        data: data, onCallBack: onCallBack);
   }
 }
 

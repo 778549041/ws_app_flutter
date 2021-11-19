@@ -71,7 +71,7 @@ class Html extends StatelessWidget {
   Html.fromDom({
     Key? key,
     GlobalKey? anchorKey,
-    @required this.document,
+    required this.document,
     this.onLinkTap,
     this.onAnchorTap,
     this.customRender = const {},

@@ -7,6 +7,7 @@
 #import "FLTWKProgressionDelegate.h"
 #import "JavaScriptChannelHandler.h"
 #import "GGWkCookie.h"
+#import "WebViewJavascriptBridge.h"
 
 @implementation FLTWebViewFactory {
   NSObject<FlutterBinaryMessenger>* _messenger;
@@ -72,6 +73,7 @@
   FLTWKNavigationDelegate* _navigationDelegate;
   FLTWKProgressionDelegate* _progressionDelegate;
   NSMutableDictionary *_cookieDic;
+  WebViewJavascriptBridge *_bridge;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -86,6 +88,14 @@
     _javaScriptChannelNames = [[NSMutableSet alloc] init];
 
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+    NSMutableString *script = [NSMutableString string];
+    [script appendString:@"document.documentElement.style.webkitTouchCallout='none';"];
+    [script appendString:@"document.documentElement.style.webkitUserSelect='none';"];
+    WKUserScript * cookieScript = [[WKUserScript alloc] initWithSource:[script copy]
+                                                           injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                        forMainFrameOnly:NO];
+    [userContentController addUserScript:cookieScript];
+      
     if ([args[@"javascriptChannelNames"] isKindOfClass:[NSArray class]]) {
       NSArray* javaScriptChannelNames = args[@"javascriptChannelNames"];
       [_javaScriptChannelNames addObjectsFromArray:javaScriptChannelNames];
@@ -97,20 +107,31 @@
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     [self applyConfigurationSettings:settings toConfiguration:configuration];
     configuration.userContentController = userContentController;
+    WKPreferences *preferences = [WKPreferences new];
+    preferences.javaScriptCanOpenWindowsAutomatically = YES;
+    preferences.minimumFontSize = 0;
+    configuration.preferences = preferences;
     [self updateAutoMediaPlaybackPolicy:args[@"autoMediaPlaybackPolicy"]
                         inConfiguration:configuration];
 
     _webView = [[FLTWKWebView alloc] initWithFrame:frame configuration:configuration];
+    _webView.scrollView.showsVerticalScrollIndicator = NO;
+    _webView.scrollView.showsHorizontalScrollIndicator = NO;
+    _webView.scrollView.bounces = NO;
+    _webView.scrollView.backgroundColor = [UIColor whiteColor];
+    _webView.backgroundColor = [UIColor whiteColor];
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _navigationDelegate = [[FLTWKNavigationDelegate alloc] initWithChannel:_channel];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = _navigationDelegate;
     _cookieDic = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                   @"_SID":args[@"sid"],
+                                                                   @"_SID":args[@"cookies"][@"sid"],
+                                                                   @"member_id":args[@"cookies"][@"member_id"],
                                                                    }];
-      // 开启自定义cookie（在loadRequest前开启）
-      //1.设置cookie代理
-      _webView.cookieDelegate = self;  //设置cookie代理
-      [_webView startCustomCookie];
+    // 开启自定义cookie（在loadRequest前开启）
+    //1.设置cookie代理
+    _webView.cookieDelegate = self;  //设置cookie代理
+    [_webView startCustomCookie];
     __weak __typeof__(self) weakSelf = self;
     [_channel setMethodCallHandler:^(FlutterMethodCall* call, FlutterResult result) {
       [weakSelf onMethodCall:call result:result];
@@ -131,6 +152,8 @@
     if ([initialUrl isKindOfClass:[NSString class]]) {
       [self loadUrl:initialUrl];
     }
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+    [_bridge setWebViewDelegate:_navigationDelegate];
   }
   return self;
 }
@@ -186,6 +209,10 @@
     [self getScrollX:call result:result];
   } else if ([[call method] isEqualToString:@"getScrollY"]) {
     [self getScrollY:call result:result];
+  } else if ([[call method] isEqualToString:@"registerHandler"]) {
+    [self registerHandler:call];
+  } else if ([[call method] isEqualToString:@"callHandler"]) {
+    [self callHandler:call];
   } else {
     result(FlutterMethodNotImplemented);
   }
@@ -492,6 +519,57 @@
   } else {
     NSLog(@"Updating UserAgent is not supported for Flutter WebViews prior to iOS 9.");
   }
+}
+
+- (void)registerHandler:(FlutterMethodCall *)call {
+   NSString *name = [call arguments][@"name"];
+   id response = [call arguments][@"response"];
+   if (name) {
+        __weak typeof(self) weakSelf = self;
+        [_bridge registerHandler:name handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSDictionary *callback = @{
+                            @"name": name,
+                            @"data": data
+                        };
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf->_channel invokeMethod:@"bridgeCallBack" arguments:[self dictionaryToJsonString:callback]];
+            if (response) {
+                if ([response isKindOfClass:[NSDictionary class]]) {
+                    responseCallback([self dictionaryToJsonString:response]);
+                } else {
+                    responseCallback(response);
+                }
+            }
+        }];
+   }
+}
+
+- (void)callHandler:(FlutterMethodCall *)call {
+    NSString *name = [call arguments][@"name"];
+    id data = [call arguments][@"data"];
+    if (name) {
+        __weak typeof(self) weakSelf = self;
+        [_bridge callHandler:name data:data responseCallback:^(id responseData) {
+            NSDictionary *callback = @{
+                            @"name": name,
+                            @"data": responseData
+                        };
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf->_channel invokeMethod:@"bridgeCallBack" arguments:[self dictionaryToJsonString:callback]];
+        }];
+    }
+}
+
+- (NSString *)dictionaryToJsonString:(NSDictionary *)dictionary {
+    if ([NSJSONSerialization isValidJSONObject:dictionary]) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
+        if (!error) {
+            return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+    }
+    
+    return @"";
 }
 
 #pragma mark WKUIDelegate

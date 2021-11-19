@@ -18,6 +18,7 @@ Downloaded by pub (not CocoaPods).
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'GGWkCookie'
+  s.dependency 'WebViewJavascriptBridge'
 
   s.platform = :ios, '8.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

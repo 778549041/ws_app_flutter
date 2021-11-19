@@ -10,6 +10,20 @@ import 'package:flutter/widgets.dart';
 
 import 'webview_flutter.dart';
 
+typedef BridgeCallBack = void Function(BridgeData callBack);
+
+/// js bridge call back entity
+class BridgeData {
+  /// callback method name
+  String name;
+
+  /// callback data
+  dynamic data;
+
+  // ignore: public_member_api_docs
+  BridgeData(this.name, this.data);
+}
+
 /// Interface for callbacks made by [WebViewPlatformController].
 ///
 /// The webview plugin implements this class, and passes an instance to the [WebViewPlatformController].
@@ -322,6 +336,20 @@ abstract class WebViewPlatformController {
     throw UnimplementedError(
         "WebView getScrollY is not implemented on the current platform");
   }
+
+  // ignore: public_member_api_docs
+  Future<void> registerHandler(String name,
+      {dynamic response, BridgeCallBack? onCallBack}) {
+    throw UnimplementedError(
+        "WebView registerHandler is not implemented on the current platform");
+  }
+
+  // ignore: public_member_api_docs
+  Future<void> callHandler(String name,
+      {dynamic data, BridgeCallBack? onCallBack}) {
+    throw UnimplementedError(
+        "WebView callHandler is not implemented on the current platform");
+  }
 }
 
 /// A single setting for configuring a WebViewPlatform which may be absent.
@@ -449,7 +477,7 @@ class CreationParams {
   ///
   /// The `autoMediaPlaybackPolicy` parameter must not be null.
   CreationParams({
-    this.sid,
+    this.cookies,
     this.initialUrl,
     this.webSettings,
     this.javascriptChannelNames = const <String>{},
@@ -458,7 +486,8 @@ class CreationParams {
         AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
   }) : assert(autoMediaPlaybackPolicy != null);
 
-  final String? sid;
+  final Map? cookies;
+
   /// The initialUrl to load in the webview.
   ///
   /// When null the webview will be created without loading any page.
@@ -492,7 +521,7 @@ class CreationParams {
 
   @override
   String toString() {
-    return '$runtimeType(s_id: $sid,initialUrl: $initialUrl, settings: $webSettings, javascriptChannelNames: $javascriptChannelNames, UserAgent: $userAgent)';
+    return '$runtimeType(cookies: $cookies,initialUrl: $initialUrl, settings: $webSettings, javascriptChannelNames: $javascriptChannelNames, UserAgent: $userAgent)';
   }
 }
 
